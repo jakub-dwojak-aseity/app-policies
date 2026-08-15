@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SpoolCalc — Support</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    max-width: 42rem; margin: 0 auto; padding: 2rem 1.25rem 4rem;
+    font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #1c1c1e; background: #fff;
+  }
+  h1 { font-size: 1.75rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2.25rem; }
+  h3 { font-size: 1rem; margin-top: 1.75rem; margin-bottom: .3rem; }
+  .updated { color: #6b6b70; font-size: .9rem; margin-top: 0; }
+  ul, ol { padding-left: 1.25rem; }
+  li { margin: .4rem 0; }
+  a { color: #0a6e7c; }
+  code { font-size: .92em; }
+  .note { border-left: 3px solid #0a6e7c; padding: .1rem 0 .1rem 1rem; margin: 1.5rem 0; color: #45454a; }
+  .formula { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .95rem; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e3e3e6; font-size: .9rem; color: #6b6b70; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #ececef; background: #131315; }
+    .updated, footer { color: #9a9aa0; }
+    .note { color: #c8c8ce; }
+    footer { border-top-color: #2c2c30; }
+    a { color: #35d8d2; }
+  }
+</style>
+</head>
+<body>
+
+<h1>SpoolCalc Support</h1>
+<p class="updated"><strong>SpoolCalc</strong> · version 1.0 · last updated 15 August 2026</p>
+
+<p>
+  SpoolCalc answers one question: your reel is rated for one line diameter, but you want to
+  spool a different one — how much will fit? And underneath that, how much backing goes
+  under a braid top-shot?
+</p>
+
+<div class="note">
+  Fastest way to get help: open the app, go to <strong>Settings → Report a Bug</strong>.
+  It pre-fills your app version, iOS version and device model, which is usually everything
+  needed to reproduce a problem.
+</div>
+
+<h2>Getting started</h2>
+<ol>
+  <li>Find the rating printed on your reel or in its manual, for example <code>0.30 mm / 200 m</code>.</li>
+  <li>Type that into <strong>Reel rating</strong>.</li>
+  <li>Type the diameter of the line you actually want to spool into <strong>New line</strong>.</li>
+  <li>Read the estimate. It updates as you type — there is no calculate button.</li>
+</ol>
+
+<h2>Common questions</h2>
+
+<h3>Why does it ask for diameter instead of pound test?</h3>
+<p>
+  Because breaking strain tells you almost nothing about thickness. Two lines both sold as
+  30 lb can differ by half a millimetre, especially comparing braid with mono, and it is
+  thickness that fills a spool. Line diameter is printed on virtually every spool and box;
+  use that figure. Using pound test would give you a confident answer that happens to be
+  wrong.
+</p>
+
+<h3>Why is the answer only an estimate?</h3>
+<p>
+  The maths behind it is exact: line takes up space in proportion to its cross-section, and
+  cross-section grows with the square of the diameter, so
+</p>
+<p class="formula">L₂ = L₁ × (D₁² ÷ D₂²)</p>
+<p>
+  A real spool is messier than the model. Braid flattens and packs down under tension, so
+  it usually takes less room than predicted. Real diameters drift from stated ones.
+  Tapered and long-cast spools do not fill evenly. Line wound tight takes less space than
+  line wound loose by hand. Expect the estimate to be close, not exact, and leave a couple
+  of millimetres below the spool lip.
+</p>
+
+<h3>How does the backing calculator work?</h3>
+<p>
+  It takes the spool's total volume, subtracts the volume your braid top-shot will occupy,
+  and converts what is left into a length of backing:
+</p>
+<p class="formula">backing = (L₁·D₁² − L<sub>top</sub>·D<sub>top</sub>²) ÷ D<sub>backing</sub>²</p>
+<p>
+  Wind the backing on first, join your braid to it, then fill the rest.
+</p>
+
+<h3>It says my braid "won't fit on its own". What does that mean?</h3>
+<p>
+  The braid you asked for already needs more room than the whole spool has, so there is no
+  space left for backing. The app tells you roughly how much of that braid the reel will
+  actually hold. Either shorten the top-shot or choose a thinner braid.
+</p>
+
+<h3>Can I work in inches and yards?</h3>
+<p>
+  Yes. Switch between metric and imperial in <strong>Settings → Units</strong>, or from the
+  menu in the top right of either calculator. Everything you have saved is stored
+  independently of that setting, so switching never alters your reels — the same reel just
+  displays in different units.
+</p>
+
+<h3>Why does the app want a decimal comma or point?</h3>
+<p>
+  It accepts both, whichever your keyboard shows. <code>0,18</code> and <code>0.18</code>
+  are read the same way, so pasting a figure from a foreign tackle site works.
+</p>
+
+<h3>Does it work offline?</h3>
+<p>
+  Completely. There is no server and no account. The only thing that needs a connection is
+  buying or restoring SpoolCalc Pro, and once bought it keeps working with no signal.
+</p>
+
+<h2>SpoolCalc Pro</h2>
+
+<h3>What do I get?</h3>
+<ul>
+  <li>the backing calculator;</li>
+  <li>unlimited saved reels — the free version keeps two;</li>
+  <li>calculation history, so you can re-run anything you worked out before;</li>
+  <li>saved favourite setups, and future advanced calculators as they ship.</li>
+</ul>
+<p>
+  It is a <strong>one-time purchase, not a subscription</strong>. The line capacity
+  calculator, unit switching and the explanation of the result stay free.
+</p>
+
+<h3>I bought Pro but a new phone shows it locked</h3>
+<p>
+  Open <strong>Settings → Restore Purchases</strong> while signed in with the same Apple
+  Account you bought it on. It restores free of charge.
+</p>
+
+<h3>I want a refund</h3>
+<p>
+  Refunds are handled by Apple, not by the app. Use
+  <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>. If something is
+  broken, do also tell me — it may be fixable.
+</p>
+
+<h2>Reporting a bug</h2>
+<p>
+  Use <strong>Settings → Report a Bug</strong>. The most useful reports say what you typed,
+  what you expected, and what appeared instead. If a result looked wrong, include the exact
+  numbers from all the fields.
+</p>
+<p>
+  Nothing is sent automatically. The app opens a draft in your own mail app and you decide
+  whether to send it.
+</p>
+
+<h2>Contact</h2>
+<p>
+  <a href="mailto:jakub.dwojak+spoolcalc@hotmail.com">jakub.dwojak+spoolcalc@hotmail.com</a>
+</p>
+<p>
+  SpoolCalc is made by one person, so replies are not instant — but every message is read.
+</p>
+
+<footer>
+  SpoolCalc · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a>
+</footer>
+
+</body>
+</html>

@@ -13,6 +13,12 @@ i odseparowane od prywatnych repozytoriów z kodem.
 | Kaname | Polityka prywatności | https://jakub-dwojak-aseity.github.io/app-policies/kaname/privacy.html |
 | Kaname | Wsparcie | https://jakub-dwojak-aseity.github.io/app-policies/kaname/support.html |
 | Kaname | Warunki korzystania | https://jakub-dwojak-aseity.github.io/app-policies/kaname/terms.html |
+| Katsuyokei | Polityka prywatności | https://jakub-dwojak-aseity.github.io/app-policies/katsuyokei/privacy.html |
+| Katsuyokei | Wsparcie | https://jakub-dwojak-aseity.github.io/app-policies/katsuyokei/support.html |
+| Katsuyokei | Warunki korzystania | https://jakub-dwojak-aseity.github.io/app-policies/katsuyokei/terms.html |
+| Joshi | Polityka prywatności | https://jakub-dwojak-aseity.github.io/app-policies/joshi/privacy.html |
+| Joshi | Wsparcie | https://jakub-dwojak-aseity.github.io/app-policies/joshi/support.html |
+| Joshi | Warunki korzystania | https://jakub-dwojak-aseity.github.io/app-policies/joshi/terms.html |
 | SpoolCalc | Privacy Policy | https://jakub-dwojak-aseity.github.io/app-policies/spoolcalc/privacy.html |
 | SpoolCalc | Support | https://jakub-dwojak-aseity.github.io/app-policies/spoolcalc/support.html |
 | SpoolCalc | Terms of Use | https://jakub-dwojak-aseity.github.io/app-policies/spoolcalc/terms.html |
@@ -27,6 +33,14 @@ Publikacja zajmuje zwykle około minuty.
 ```
 index.html          spis dokumentów
 kaname/             Kaname — gramatyka japońska (JLPT N5–N3)
+  privacy.html
+  support.html
+  terms.html
+katsuyokei/         Katsuyokei — japońska odmiana czasowników i przymiotników
+  privacy.html
+  support.html
+  terms.html
+joshi/              Joshi — japońskie partykuły
   privacy.html
   support.html
   terms.html
@@ -49,7 +63,7 @@ nie ma skryptów i nie ma żadnego śledzenia.
 
 ## Język
 
-Strony Kaname są po polsku, bo aplikacja jest polska. Strony SpoolCalc są po angielsku,
+Strony Kaname, Katsuyokei i Joshi są po polsku, bo te aplikacje są polskie. Strony SpoolCalc są po angielsku,
 bo wersja 1.0 tej aplikacji jest anglojęzyczna — dokument prawny powinien być w tym
 języku, w którym recenzent Apple widzi aplikację. Gdy dojdzie lokalizacja polska,
 dołóż wersje `pl`.

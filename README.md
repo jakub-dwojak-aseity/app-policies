@@ -19,6 +19,9 @@ i odseparowane od prywatnych repozytoriów z kodem.
 | Joshi | Polityka prywatności | https://jakub-dwojak-aseity.github.io/app-policies/joshi/privacy.html |
 | Joshi | Wsparcie | https://jakub-dwojak-aseity.github.io/app-policies/joshi/support.html |
 | Joshi | Warunki korzystania | https://jakub-dwojak-aseity.github.io/app-policies/joshi/terms.html |
+| Bunmyaku | Privacy Policy | https://jakub-dwojak-aseity.github.io/app-policies/bunmyaku/privacy.html |
+| Bunmyaku | Support | https://jakub-dwojak-aseity.github.io/app-policies/bunmyaku/support.html |
+| Bunmyaku | Terms of Use | https://jakub-dwojak-aseity.github.io/app-policies/bunmyaku/terms.html |
 | SpoolCalc | Privacy Policy | https://jakub-dwojak-aseity.github.io/app-policies/spoolcalc/privacy.html |
 | SpoolCalc | Support | https://jakub-dwojak-aseity.github.io/app-policies/spoolcalc/support.html |
 | SpoolCalc | Terms of Use | https://jakub-dwojak-aseity.github.io/app-policies/spoolcalc/terms.html |

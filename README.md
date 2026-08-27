@@ -19,9 +19,15 @@ i odseparowane od prywatnych repozytoriów z kodem.
 | Joshi | Polityka prywatności | https://jakub-dwojak-aseity.github.io/app-policies/joshi/privacy.html |
 | Joshi | Wsparcie | https://jakub-dwojak-aseity.github.io/app-policies/joshi/support.html |
 | Joshi | Warunki korzystania | https://jakub-dwojak-aseity.github.io/app-policies/joshi/terms.html |
+| Kazoekata | Polityka prywatności | https://jakub-dwojak-aseity.github.io/app-policies/kazoekata/privacy.html |
+| Kazoekata | Wsparcie | https://jakub-dwojak-aseity.github.io/app-policies/kazoekata/support.html |
+| Kazoekata | Warunki korzystania | https://jakub-dwojak-aseity.github.io/app-policies/kazoekata/terms.html |
 | Bunmyaku | Privacy Policy | https://jakub-dwojak-aseity.github.io/app-policies/bunmyaku/privacy.html |
 | Bunmyaku | Support | https://jakub-dwojak-aseity.github.io/app-policies/bunmyaku/support.html |
 | Bunmyaku | Terms of Use | https://jakub-dwojak-aseity.github.io/app-policies/bunmyaku/terms.html |
+| Kuzushi | Privacy Policy | https://jakub-dwojak-aseity.github.io/app-policies/kuzushi/privacy.html |
+| Kuzushi | Support | https://jakub-dwojak-aseity.github.io/app-policies/kuzushi/support.html |
+| Kuzushi | Terms of Use | https://jakub-dwojak-aseity.github.io/app-policies/kuzushi/terms.html |
 | SpoolCalc | Privacy Policy | https://jakub-dwojak-aseity.github.io/app-policies/spoolcalc/privacy.html |
 | SpoolCalc | Support | https://jakub-dwojak-aseity.github.io/app-policies/spoolcalc/support.html |
 | SpoolCalc | Terms of Use | https://jakub-dwojak-aseity.github.io/app-policies/spoolcalc/terms.html |
@@ -47,6 +53,18 @@ joshi/              Joshi — japońskie partykuły
   privacy.html
   support.html
   terms.html
+kazoekata/          Kazoekata — japońskie liczniki
+  privacy.html
+  support.html
+  terms.html
+bunmyaku/           Bunmyaku — japoński w zdaniu (czytanie)
+  privacy.html
+  support.html
+  terms.html
+kuzushi/            Kuzushi — japońska mowa potoczna
+  privacy.html
+  support.html
+  terms.html
 spoolcalc/          SpoolCalc — kalkulator pojemności szpuli (wędkarstwo)
   privacy.html
   support.html
@@ -66,7 +84,14 @@ nie ma skryptów i nie ma żadnego śledzenia.
 
 ## Język
 
-Strony Kaname, Katsuyokei i Joshi są po polsku, bo te aplikacje są polskie. Strony SpoolCalc są po angielsku,
-bo wersja 1.0 tej aplikacji jest anglojęzyczna — dokument prawny powinien być w tym
-języku, w którym recenzent Apple widzi aplikację. Gdy dojdzie lokalizacja polska,
-dołóż wersje `pl`.
+Zasada jest jedna: **dokument prawny jest w tym języku, w którym recenzent Apple
+widzi aplikację** — czyli w jej `primaryLocale` w App Store Connect, a nie w tym,
+ile lokalizacji aplikacja wozi w środku.
+
+Strony Kaname, Katsuyokei, Joshi i Kazoekaty są po polsku, bo te aplikacje mają
+polski jako podstawowy. Strony Bunmyaku i Kuzushi są po angielsku, choć obie
+aplikacje są dwujęzyczne (`en` + `pl`): ich `primaryLocale` to `en-US`. Strony
+SpoolCalc są po angielsku, bo wersja 1.0 tej aplikacji jest anglojęzyczna.
+
+Gdy któraś z anglojęzycznych przełączy się na polski jako podstawowy, dołóż
+wersje `pl` — nie zamieniaj istniejących.

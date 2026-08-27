@@ -25,6 +25,7 @@ i odseparowane od prywatnych repozytoriów z kodem.
 | Bunmyaku | Privacy Policy | https://jakub-dwojak-aseity.github.io/app-policies/bunmyaku/privacy.html |
 | Bunmyaku | Support | https://jakub-dwojak-aseity.github.io/app-policies/bunmyaku/support.html |
 | Bunmyaku | Terms of Use | https://jakub-dwojak-aseity.github.io/app-policies/bunmyaku/terms.html |
+| Kuzushi | Strona aplikacji (adres marketingowy) | https://jakub-dwojak-aseity.github.io/app-policies/kuzushi/ |
 | Kuzushi | Privacy Policy | https://jakub-dwojak-aseity.github.io/app-policies/kuzushi/privacy.html |
 | Kuzushi | Support | https://jakub-dwojak-aseity.github.io/app-policies/kuzushi/support.html |
 | Kuzushi | Terms of Use | https://jakub-dwojak-aseity.github.io/app-policies/kuzushi/terms.html |
@@ -62,6 +63,7 @@ bunmyaku/           Bunmyaku — japoński w zdaniu (czytanie)
   support.html
   terms.html
 kuzushi/            Kuzushi — japońska mowa potoczna
+  index.html          strona aplikacji — jedyna taka, patrz niżej
   privacy.html
   support.html
   terms.html
@@ -72,6 +74,12 @@ spoolcalc/          SpoolCalc — kalkulator pojemności szpuli (wędkarstwo)
 ```
 
 Kolejne aplikacje dostają własny katalog obok `kaname/`.
+
+**Kuzushi ma w katalogu dodatkowe `index.html` i jest w tym jedyne.** Powód jest
+wąski: jako jedyna aplikacja ma wypełnione pole *Marketing URL* w App Store
+Connect, a wskazywało ono na sam katalog — czyli na 404, bo GitHub Pages nie
+wystawia spisu plików. Strona jest odpowiedzią na to pole. Pozostałe pięć trzyma
+Marketing URL pustym, tak jak Bunmyaku, i katalogu z `index.html` nie potrzebuje.
 
 ## Skąd pochodzi treść
 

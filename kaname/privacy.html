@@ -31,16 +31,19 @@
 <body>
 
 <h1>Polityka prywatności</h1>
-<p class="updated">Aplikacja <strong>Kaname</strong> · wersja 1.0 · ostatnia aktualizacja: 15 sierpnia 2026</p>
+<p class="updated">Aplikacja <strong>Kaname</strong> · wersja 1.2 · ostatnia aktualizacja: 1 września 2026</p>
 
 <p>
-  Kaname to aplikacja do nauki gramatyki japońskiej działająca w całości na Twoim urządzeniu.
-  Ta polityka opisuje faktyczne zachowanie aplikacji w wersji 1.0.
+  Kaname to aplikacja do nauki gramatyki japońskiej. Nauka — powtórki, wszystkie typy pytań,
+  plan i postęp — działa w całości na Twoim urządzeniu i bez internetu. Od wersji 1.2 dochodzi
+  jedna funkcja opcjonalna, <strong>analiza AI</strong>, która jako jedyna wysyła coś poza
+  telefon. Ta polityka opisuje faktyczne zachowanie aplikacji w wersji 1.2.
 </p>
 
 <div class="note">
-  Krótko: aplikacja nie zbiera żadnych danych, nie ma konta, nie ma serwera i nie łączy się
-  z internetem poza obsługą zakupu przez App Store.
+  Krótko: nie ma konta ani logowania, a bez analizy AI aplikacja nie łączy się z internetem
+  poza obsługą zakupu przez App Store. Analiza AI wysyła zdanie, które sam w nią wpiszesz —
+  i nic poza nim. Nie jest ono nigdzie zapisywane.
 </div>
 
 <h2>Konto użytkownika</h2>
@@ -74,10 +77,47 @@
 
 <h2>Połączenia sieciowe</h2>
 <p>
-  W wersji 1.0 aplikacja nie wykonuje żadnych połączeń sieciowych na własny rachunek. Jedyny
-  ruch sieciowy, jaki może wystąpić, obsługuje system iOS przy zakupie i przywracaniu zakupu
-  przez App Store. Cała nauka — powtórki, wszystkie typy pytań, plan nauki, śledzenie
-  postępu — działa bez dostępu do internetu.
+  Poza analizą AI aplikacja nie wykonuje żadnych połączeń sieciowych na własny rachunek.
+  Pozostały ruch obsługuje system iOS przy zakupie i przywracaniu zakupu przez App Store.
+  Cała nauka — powtórki, wszystkie typy pytań, plan nauki, śledzenie postępu — działa bez
+  dostępu do internetu.
+</p>
+
+<h2>Analiza AI — jedyna funkcja wysyłająca dane</h2>
+<p>
+  Analiza AI jest <strong>opcjonalna</strong>. Bez niej aplikacja liczy postęp i terminy
+  powtórek dokładnie tak samo. Uruchamia się wyłącznie wtedy, gdy sam naciśniesz „Sprawdź z AI"
+  albo „Rozpoznaj konstrukcje" — nigdy w tle i nigdy sama.
+</p>
+<p>
+  Wysyłamy wtedy <strong>zdanie, które wpisałeś albo wkleiłeś</strong>, do naszego serwera pod
+  adresem <code>api.jd-japanese.pl</code>, a stamtąd do modelu językowego, który je analizuje.
+  Odpowiedź wraca do aplikacji. <strong>Treści Twojego zdania nie zapisujemy</strong> — jest
+  przekazywana do analizy i nie trafia do żadnej bazy ani do dziennika zdarzeń. Pilnuje tego
+  automatyczny test po stronie serwera.
+</p>
+<p>
+  Trwale przechowujemy natomiast trzy rzeczy, bez których funkcja nie mogłaby działać:
+</p>
+<ul>
+  <li><strong>identyfikator transakcji subskrypcji</strong> z App Store — żeby wiedzieć, czy
+    to urządzenie ma wykupioną subskrypcję;</li>
+  <li><strong>identyfikator klucza App Attest</strong> — techniczny identyfikator urządzenia
+    z mechanizmu Apple, wyłącznie po to, żeby jedno urządzenie nie mogło w nieskończoność
+    odnawiać sobie darmowej puli;</li>
+  <li><strong>liczniki zużycia</strong> — ile analiz wykonano dziś i w tym miesiącu.</li>
+</ul>
+<p>
+  Żadna z tych rzeczy nie jest powiązana z Twoim imieniem, adresem e-mail ani kontem — bo
+  aplikacja ich nie zna. Nie używamy ich do śledzenia, profilowania ani reklam.
+</p>
+
+<h2>Skanowanie tekstu ze zdjęcia</h2>
+<p>
+  Rozpoznawanie japońskiego tekstu ze zdjęcia dzieje się <strong>w całości na Twoim
+  telefonie</strong>, mechanizmem systemu iOS. Zdjęcie nie jest nigdzie wysyłane ani
+  zapisywane przez aplikację. O dostęp do aparatu pytamy dopiero w chwili, w której sam
+  otworzysz skanowanie.
 </p>
 
 <h2>Zakupy</h2>
@@ -123,9 +163,11 @@
 
 <h2>Dzieci</h2>
 <p>
-  Aplikacja nie zbiera żadnych danych, więc nie zbiera ich również od dzieci. Nie ma w niej
-  treści dla dorosłych, komunikacji między użytkownikami ani odnośników zewnętrznych poza
-  linkami do tej strony, warunków korzystania i strony wsparcia.
+  Aplikacja nie zbiera danych pozwalających kogokolwiek zidentyfikować — także dziecka: nie ma
+  konta, nie pyta o imię, wiek ani adres. To, co przechowujemy przy analizie AI, opisuje sekcja
+  wyżej i są to wyłącznie identyfikatory techniczne oraz liczniki. Nie ma w aplikacji treści dla
+  dorosłych, komunikacji między użytkownikami ani odnośników zewnętrznych poza linkami do tej
+  strony, warunków korzystania i strony wsparcia.
 </p>
 
 <h2>Zmiany</h2>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bunmyaku — Privacy Policy</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    max-width: 42rem; margin: 0 auto; padding: 2rem 1.25rem 4rem;
+    font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #1c1c1e; background: #fff;
+  }
+  h1 { font-size: 1.75rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2.25rem; }
+  .updated { color: #6b6b70; font-size: .9rem; margin-top: 0; }
+  ul { padding-left: 1.25rem; }
+  li { margin: .4rem 0; }
+  a { color: #2a63a0; }
+  .note { border-left: 3px solid #3179C0; padding: .1rem 0 .1rem 1rem; margin: 1.5rem 0; color: #45454a; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e3e3e6; font-size: .9rem; color: #6b6b70; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #ececef; background: #131315; }
+    .updated, footer { color: #9a9aa0; }
+    .note { color: #c8c8ce; }
+    footer { border-top-color: #2c2c30; }
+    a { color: #6fa8e0; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Privacy Policy</h1>
+<p class="updated"><strong>Bunmyaku</strong> · version 1.2 · last updated: 2 September 2026</p>
+
+<p>
+  Bunmyaku is an app for learning Japanese vocabulary. The learning itself — reviews, every question
+  type, the study plan and your progress — runs entirely on your device and without an internet
+  connection. Version 1.2 adds optional <strong>AI</strong> features, and they are the only parts
+  that send anything off the phone. This policy describes what version 1.2 actually does.
+</p>
+
+<p class="note">
+  In short: there is no account and no sign-in, and the AI features are the only ones that reach the
+  internet at all, apart from App Store purchases. <strong>A photo is read on your phone and never
+  leaves it</strong> — only a sentence you confirm yourself is sent. That sentence is not stored
+  anywhere.
+</p>
+
+<h2>Your account</h2>
+<p>
+  There is none. The app never asks for an email address, a phone number, a name, or any other
+  detail that could identify you.
+</p>
+
+<h2>Where your study data goes</h2>
+<p>
+  Your progress — answer history, the measured strength of each word, upcoming review dates, session
+  history, favourites and your own notes, along with the words and sentences you add yourself — is
+  written only to your device, in the app's local database. It is not sent anywhere, it does not
+  sync to iCloud, and the developer has no access to it.
+</p>
+<p>
+  Deleting the app deletes that data with it. To keep a copy, use <em>Export progress</em> in
+  Settings; the file is saved wherever you choose. The app never uploads it.
+</p>
+
+<h2>Data shared with the developer's other apps</h2>
+<p>
+  If you also have Kaname, Katsuyokei, Joshi or Kazoekata installed, those apps and Bunmyaku share
+  a small file that lives <strong>on your device</strong>: a few hundred bytes with one progress
+  percentage, a streak count and one sentence about your weakest spot. It sits in a shared container
+  <em>on the phone</em>, it is not sent anywhere, it is not readable by other developers' apps, and
+  it exists only so the "More Japanese" section can show all of your Japanese study in one place.
+</p>
+
+<h2>Tracking and advertising</h2>
+<ul>
+  <li>The app shows no advertising.</li>
+  <li>The app does not track you — it uses no advertising identifier (IDFA) and no other identifier
+      for profiling.</li>
+  <li>The app contains no third-party analytics or advertising libraries. There is no Firebase,
+      no Google Analytics, no Facebook SDK, and nothing equivalent.</li>
+  <li>The app neither sells nor shares personal data.</li>
+</ul>
+
+<h2>Network connections</h2>
+<p>
+  The AI features are the only ones for which the app connects to the internet on its own account.
+  The remaining traffic is handled by iOS when you buy or restore a purchase through the App Store.
+  All of the learning —
+  reviews, every question type, the study plan, progress tracking — works without an internet
+  connection.
+</p>
+
+<h2>Scanning text from a photo</h2>
+<p>
+  Recognizing Japanese text in a photo happens <strong>entirely on your phone</strong>, using an iOS
+  system feature. <strong>The photo is never uploaded or saved by the app</strong> and does not
+  leave the device in any form — the server accepts text only and has no upload path an image could
+  travel. Camera access is requested only at the moment you open scanning yourself.
+</p>
+<p>
+  The recognized text lands first in a field you <strong>see and can correct</strong>. Only the
+  sentence in that field, confirmed by you by pressing <em>Analyze</em>, goes any further. The
+  screen says as much itself: <em>"The photo is read on your phone and never leaves it. Only the
+  sentence above is sent."</em>
+</p>
+
+<h2>The AI features — the only ones that send data</h2>
+<p>
+  The AI features are <strong>optional</strong>. Without them the app tracks progress and schedules
+  reviews exactly the same way. They run only when you press a button — never in the background and
+  never on their own. There are two:
+</p>
+<ul>
+  <li><strong>Analyze</strong> — sends <em>one sentence</em>, the one visible in the field on the
+      photo-reading screen, and returns the words that stand in it.</li>
+  <li><strong>Write a sentence with AI</strong> — sends <em>one entry from your vocabulary</em>: its
+      written form, reading, meaning and JLPT level, to get back a short example sentence with that
+      word in its dictionary form.</li>
+</ul>
+<p>
+  This goes to our server at <strong>api.jd-japanese.pl</strong> and from there to a language model.
+  The answer comes back to the app. <strong>Neither the content of your sentence nor the text read
+  from a photo is stored</strong>: it is passed through for analysis and does not reach any database
+  or event log. Neither the assembled prompt nor the model's response is stored either. There is no
+  column any of it could go in, and adding one fails an automated test on the server. The request to
+  the model provider asks it not to retain the response.
+</p>
+<p>
+  Three things are stored, because the feature cannot work without them:
+</p>
+<ul>
+  <li><strong>an identifier derived from your App Store transaction</strong> — a digest of the
+    subscription transaction identifier, to know whether this device has an active subscription;</li>
+  <li><strong>an App Attest key identifier</strong>, with its public key — a technical identifier
+    from Apple's mechanism, proving that a request comes from a genuine, unmodified copy of this
+    app. It is generated on the device, is unique to this one app, cannot be correlated with
+    anything Apple or another app can see, and is generated afresh after every reinstall. It is
+    used solely to stop one device from renewing its free allowance forever;</li>
+  <li><strong>usage counters</strong> — how many analyses were made today and this month.</li>
+</ul>
+<p>
+  On the first connection the app also passes a DeviceCheck token minted by iOS for that one call.
+  It is stored nowhere — there is no place it could go — and serves only to keep the free allowance
+  from renewing itself with every reinstall.
+</p>
+<p>
+  Kept for a shorter time are the technical records of billing and upkeep: Apple transaction
+  identifiers and request metrics (request id, feature name, model, status, token counts, latency)
+  for 90 days, and rate-limiting counters for 24 hours. We do not store IP addresses.
+</p>
+<p>
+  None of these is tied to your name, email address or account, because the app does not know them.
+  They are not used for tracking, profiling or advertising. There is no account to delete; if you
+  want those rows removed, write in — the transaction identifier from your App Store purchase
+  history is enough to find them.
+</p>
+
+<h2>Purchases</h2>
+<p>
+  JLPT level N5 is free in full. Levels N4, N3, N2 and N1 are unlocked by an in-app purchase, and
+  the AI features by a separate subscription. Payment is handled entirely by Apple through the App
+  Store: the developer receives and stores no payment details, card numbers or billing data.
+  Purchase status is read from iOS every time the app starts.
+</p>
+<p>
+  How Apple processes data is described in
+  <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>.
+</p>
+
+<h2>Contact and bug reports</h2>
+<p>
+  Settings contains <em>Suggest a feature</em> and <em>Report a problem</em>. Both prepare an email
+  in your device's mail app. <strong>Nothing is sent until you press Send.</strong>
+</p>
+<p>
+  A problem report is pre-filled with technical details: app version, build number, iOS version and
+  the device model identifier (for example <code>iPhone14,3</code>). A model identifier names a
+  series shared by millions of units — it identifies neither the device nor a person. We attach no
+  advertising identifier, no device identifier, no IP address, no location and none of your study
+  content. All of the text is visible and editable, so you can change or delete any part before
+  sending.
+</p>
+<p>
+  If you write, the developer will see your email address and your message, as with any ordinary
+  correspondence. Messages are used only to answer the report.
+</p>
+
+<h2>Crash reports</h2>
+<p>
+  The app sends no crash reports of its own and contains no crash-reporting tool. If you have
+  enabled sharing diagnostic data with developers in iOS settings, Apple may pass on an anonymized
+  crash report — that happens on the system side and you can turn it off in
+  Settings → Privacy &amp; Security → Analytics &amp; Improvements.
+</p>
+
+<h2>Children</h2>
+<p>
+  The app collects no data that could identify anyone, a child included: there is no account and it
+  asks for no name, age or address. What is stored for the AI features is described in the section
+  above and consists solely of technical identifiers and counters. The app contains no adult
+  content, no communication between users, and no external links other than to this page, the terms
+  of use and the support page.
+</p>
+
+<h2>Changes</h2>
+<p>
+  If a future version processes data differently, this page will be updated before that version is
+  released, along with the date of the update. The documents for earlier releases stay untouched at
+  their own addresses.
+</p>
+
+<h2>Contact</h2>
+<p>
+  Privacy questions: <a href="mailto:jakub.dwojak+bunmyaku@hotmail.com">jakub.dwojak+bunmyaku@hotmail.com</a>
+</p>
+
+<footer>
+  Bunmyaku · <a href="support.html">Support</a> · <a href="terms.html">Terms of Use</a>
+  · <a href="../privacy.html">Wersja polska</a>
+</footer>
+
+</body>
+</html>

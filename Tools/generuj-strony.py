@@ -502,6 +502,42 @@ def spis_dokumentow(apki, jezyk, manifest):
                               tresc=tresc, glebokosc=glebokosc, manifest=manifest)
 
 
+ZNACZNIK_OD = "<!-- ADRESY: sekcja poniżej jest generowana przez Tools/generuj-strony.py, nie edytować ręcznie -->"
+ZNACZNIK_DO = "<!-- /ADRESY -->"
+
+
+def readme(apki, manifest, poprzedni):
+    """Sekcja „Adresy" w README — wyliczona, a nie przepisana.
+
+    README tego repozytorium opisywał **siedem aplikacji przy dzisiejszych
+    dziesięciu**: nie dlatego, że ktoś się pomylił, tylko dlatego, że lista
+    aplikacji w prozie starzeje się przy każdym wydaniu, a nikt jej nie pilnuje.
+    Lista wyliczona z manifestu starzeje się razem z manifestem.
+    """
+    baza = manifest["bazaAdresu"]
+    wiersze = ["", "## Adresy", "",
+               "| Aplikacja | Strona produktowa | Dokumenty |", "|---|---|---|"]
+    for a in apki:
+        strony = (f'[pl]({baza}/{publiczny(sciezki(a["slug"], "pl")[0])}) · '
+                  f'[en]({baza}/{publiczny(sciezki(a["slug"], "en")[0])})')
+        dokumenty = " · ".join(f'[{j}]({baza}/{a["dokumenty"][j]}/privacy.html)' for j in JEZYKI)
+        stan = "" if a["wSklepie"] else " *(przed wydaniem)*"
+        wiersze.append(f'| {a["teksty"]["pl"]["nazwa"]} {a["japonska"]}{stan} '
+                       f"| {strony} | {dokumenty} |")
+    for inna in manifest.get("pozostale", []):
+        dokumenty = " · ".join(f'[{j}]({baza}/{k}/privacy.html)'
+                               for j, k in inna["dokumenty"].items())
+        wiersze.append(f'| {inna["nazwa"]["pl"]} | – | {dokumenty} |')
+    wiersze += ["",
+                f"Mapa rodziny: [pl]({baza}/) · [en]({baza}/en/). "
+                f"Spis dokumentów: [pl]({baza}/dokumenty.html) · "
+                f"[en]({baza}/en/documents.html).", ""]
+
+    przed, _, reszta = poprzedni.partition(ZNACZNIK_OD)
+    _, _, po = reszta.partition(ZNACZNIK_DO)
+    return przed + ZNACZNIK_OD + "\n".join(wiersze) + ZNACZNIK_DO + po
+
+
 def robots(manifest):
     return ("# Roboty wyszukiwarek i modeli językowych są tu mile widziane.\n"
             "User-agent: *\n"
@@ -704,6 +740,8 @@ def zbuduj(apki, manifest):
         pliki[adres] = tresc
 
     pliki["robots.txt"] = robots(manifest)
+    pliki["README.md"] = readme(apki, manifest,
+                                (KORZEN / "README.md").read_text(encoding="utf-8"))
     historyczne = {a["adresHistoryczny"] for a in apki if a.get("adresHistoryczny")}
     pliki["sitemap.xml"] = sitemap(
         sorted((a, daty[a]) for a in pliki if a.endswith(".html") and a not in historyczne),

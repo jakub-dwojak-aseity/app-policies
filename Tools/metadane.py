@@ -145,5 +145,12 @@ def pierwsze_zdanie(opis: str) -> str:
     return cieta[0].strip()
 
 
+def zdania(opis: str) -> list:
+    """Zdania pierwszego akapitu opisu, po kolei."""
+    akapit = opis.strip().split("\n\n", 1)[0].strip()
+    return [z.strip() for z in
+            re.split(r"(?<=[.!?])\s+(?=[A-ZĄĆĘŁŃÓŚŹŻ0-9「『])", akapit) if z.strip()]
+
+
 def akapity(opis: str) -> list:
     return [a.strip() for a in opis.strip().split("\n\n") if a.strip()]

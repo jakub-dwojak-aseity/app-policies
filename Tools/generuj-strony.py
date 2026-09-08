@@ -254,13 +254,21 @@ def meta_opis(teksty: dict) -> str:
     Oba pola są przejrzane i oba mówią o aplikacji zdaniem, a nie listą słów.
     Limit 155 znaków jest po to, żeby wyszukiwarka nie ucinała w połowie myśli.
     """
-    zdanie = metadane.pierwsze_zdanie(teksty["opis"])
-    pelne = f"{teksty['podtytul']}. {zdanie}"
-    if len(pelne) <= 155:
-        return pelne
-    if len(zdanie) <= 155:
-        return zdanie
-    return zdanie[:152].rstrip(" ,;–-") + "…"
+    zdania = metadane.zdania(teksty["opis"])
+    # Samo pierwsze zdanie bywa za krótkie na zajawkę w wynikach: „Shindan nie uczy."
+    # to prawda i zdanie ze sklepu, ale jako cała zajawka odstrasza. Dobieramy
+    # kolejne zdania tego samego akapitu, dopóki mieszczą się w limicie.
+    tresc = teksty["podtytul"].rstrip(".") + "."
+    for zdanie in zdania:
+        kandydat = f"{tresc} {zdanie}"
+        if len(kandydat) > 155:
+            break
+        tresc = kandydat
+    if tresc.rstrip(".") == teksty["podtytul"].rstrip("."):
+        pierwsze = zdania[0] if zdania else ""
+        return pierwsze[:152].rstrip(" ,;–-") + "…" if len(pierwsze) > 155 else \
+            (f"{tresc} {pierwsze}"[:152].rstrip(" ,;–-") + "…")
+    return tresc
 
 
 def publiczny(adres: str) -> str:

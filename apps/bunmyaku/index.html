@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bunmyaku — Japoński w zdaniu – Czytaj japoński w kontekście</title>
+<meta name="description" content="Czytaj japoński w kontekście. Sprawdzasz słowo, uczysz się go, odhaczasz.">
+<link rel="canonical" href="https://jakub-dwojak-aseity.github.io/app-policies/apps/bunmyaku/">
+<link rel="alternate" hreflang="pl" href="https://jakub-dwojak-aseity.github.io/app-policies/apps/bunmyaku/">
+<link rel="alternate" hreflang="en" href="https://jakub-dwojak-aseity.github.io/app-policies/en/apps/bunmyaku/">
+<link rel="alternate" hreflang="x-default" href="https://jakub-dwojak-aseity.github.io/app-policies/en/apps/bunmyaku/">
+<meta property="og:title" content="Bunmyaku — Japoński w zdaniu – Czytaj japoński w kontekście">
+<meta property="og:description" content="Czytaj japoński w kontekście. Sprawdzasz słowo, uczysz się go, odhaczasz.">
+<meta property="og:url" content="https://jakub-dwojak-aseity.github.io/app-policies/apps/bunmyaku/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://jakub-dwojak-aseity.github.io/app-policies/assets/ikony/bunmyaku.png">
+<style>
+:root { color-scheme: light dark; --tlo:#fff; --tekst:#1c1c1e; --cichy:#6b6b70;
+        --linia:#e3e3e6; --akcent:#a34f5a; --karta:#faf9f9; }
+@media (prefers-color-scheme: dark) {
+  :root { --tlo:#131315; --tekst:#ececef; --cichy:#9a9aa0; --linia:#2c2c30;
+          --akcent:#e08a94; --karta:#1b1b1e; }
+}
+* { box-sizing: border-box; }
+body { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
+       font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       color: var(--tekst); background: var(--tlo); }
+h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 .35rem; }
+h2 { font-size: 1.15rem; margin: 2.5rem 0 .75rem; }
+h3 { font-size: 1rem; margin: 1.75rem 0 .4rem; letter-spacing: .01em; }
+p { margin: .75rem 0; }
+a { color: var(--akcent); }
+.podtytul { color: var(--cichy); margin: 0 0 1rem; font-size: 1.05rem; }
+.lead { border-left: 3px solid var(--akcent); padding: .1rem 0 .1rem 1rem;
+        margin: 1.5rem 0; color: var(--tekst); }
+.gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
+        margin-bottom: 2rem; color: var(--cichy); }
+.gora a { text-decoration: none; }
+.szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
+.szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
+.jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0 2rem; font-size: .95rem; }
+th, td { text-align: left; vertical-align: top; padding: .7rem .8rem .7rem 0;
+         border-bottom: 1px solid var(--linia); }
+th { color: var(--cichy); font-weight: 600; font-size: .85rem; }
+td.app { white-space: nowrap; }
+td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: normal; }
+.karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
+.karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
+         border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
+.karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+.karta .nazwa { font-weight: 600; }
+.karta p { margin: .15rem 0 0; color: var(--cichy); font-size: .93rem; }
+.znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
+            border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
+            margin-left: .4rem; vertical-align: .1em; }
+.sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+ul.zwykla { padding-left: 1.15rem; }
+ul.zwykla li { margin: .3rem 0; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
+         font-size: .88rem; color: var(--cichy); }
+footer a { color: var(--akcent); }
+code { font-size: .9em; }
+@media (max-width: 34rem) {
+  table, tbody, tr, td, th { display: block; }
+  thead { display: none; }
+  tr { border-bottom: 1px solid var(--linia); padding: .6rem 0; }
+  td { border: 0; padding: .15rem 0; }
+  td.app { white-space: normal; font-weight: 600; }
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Bunmyaku — Japoński w zdaniu",
+  "alternateName": "文脈",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "iOS",
+  "url": "https://jakub-dwojak-aseity.github.io/app-policies/apps/bunmyaku/index.html",
+  "description": "Sprawdzasz słowo, uczysz się go, odhaczasz.",
+  "inLanguage": [
+    "pl",
+    "en"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Jakub Dwojak"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "PLN"
+  },
+  "sameAs": "https://apps.apple.com/app/id6804188062",
+  "installUrl": "https://apps.apple.com/app/id6804188062",
+  "image": "https://jakub-dwojak-aseity.github.io/app-policies/assets/ikony/bunmyaku.png"
+}
+</script>
+</head>
+<body>
+<div class="gora"><span><a href="../../index.html">← Wszystkie aplikacje</a></span><span><a href="https://jakub-dwojak-aseity.github.io/app-policies/en/apps/bunmyaku/index.html">English</a></span></div><div class="szyld"><img src="../../assets/ikony/bunmyaku.png" alt="" width="72" height="72"><div><h1>Bunmyaku — Japoński w zdaniu<span class="jp">文脈</span></h1><p class="podtytul">Czytaj japoński w kontekście</p></div></div><p class="sklep"><a href="https://apps.apple.com/app/id6804188062">App Store →</a><span class="znacznik">Aplikacja darmowa, z zakupem w środku</span></p><p class="lead">Znasz znak. Znasz słowo. Ale czy przeczytasz je, gdy wyskoczy w środku zdania? To osobna pamięć — i ta aplikacja ją ćwiczy.</p><h2>Opis ze sklepu</h2><p>Sprawdzasz słowo, uczysz się go, odhaczasz. Tydzień później stoi w zdaniu i zatrzymujesz się na nim.</p>
+<p>Tę lukę ćwiczy Bunmyaku. Nie kanji osobno i nie kolejna talia fiszek — słowa tam, gdzie naprawdę stoją. Cały materiał JLPT, od N5 do N1.</p>
+<h3>CZYTANIE I ZNACZENIE TO DWIE RÓŻNE PAMIĘCI</h3>
+<p>Możesz rozumieć 改善 w każdym zdaniu i dalej nie umieć powiedzieć かいぜん. Większość aplikacji uśrednia to do jednej liczby na słowo. Ta trzyma je osobno, bo dopiero wtedy z liczby coś wynika:</p>
+<p>改善   Znaczenie   91 %<br>Czytanie    54 %</p>
+<p>Po takim zdaniu wiadomo, co otworzyć. Po „改善 72 %" nie wiadomo nic.</p>
+<h3>CZTERY SPOSOBY ZAPYTANIA</h3>
+<p>Jak to słowo brzmi tutaj. Co tutaj znaczy. Wpisz czytanie z pamięci. Wskaż zapis wśród czterech, które wyglądają i brzmią podobnie. Każdy mierzy coś, czego nie zmierzą pozostałe — i nigdy nie wiesz z góry, który przyjdzie.</p>
+<h3>ZDANIE NIE JEST OZDOBĄ</h3>
+<p>Każde słowo stoi w oryginalnym zdaniu napisanym dla niego. Kontekst ma rozstrzygać czytanie i sens — a jeśli nie rozstrzyga, pytanie po prostu nie pada.</p>
+<h3>FURIGANA, KTÓRA NIE ZDRADZA ODPOWIEDZI</h3>
+<p>Czytania nad kanji sprawiają, że zdanie jest do przejścia, a nie ścianą. Ale czytanie, o które pytamy, jest zawsze zasłonięte — nawet przy furiganie włączonej na stałe. Dwa osobne mechanizmy: ustawienie mówi, co chcesz widzieć, a pytanie mówi, czego pokazać nie wolno.</p>
+<h3>WARIANTY BŁĘDNE, KTÓRE UCZĄ</h3>
+<p>Złe odpowiedzi nie są losową kaną. To pomyłki, które naprawdę się robi: czytanie bez zmiany brzmieniowej, zgubiona długa samogłoska, brakujące małe っ albo inne czytanie, które ten znak faktycznie ma.</p>
+<h3>UCZCIWIE O TYM, CO NIEPEWNE</h3>
+<p>Część słów ma naprawdę dwa czytania. 家 to いえ i うち; 明日 to あした i あす. Z takich słów nie robimy pytań z czterema przyciskami, bo przycisk z poprawną japońszczyzną oznaczoną jako błąd uczy nieprawdy niezależnie od tego, co wybierzesz. Pokazujemy oba obok siebie i mówimy, kiedy które.</p>
+<h3>POWTÓRKI, KTÓRE ZMIENIAJĄ ZDANIE</h3>
+<p>Wraca słowo razem z umiejętnością, a nie fiszka. Kiedy 経験 ma termin, zdanie dobiera się z puli. Inaczej po tygodniu rozpoznaje się kartę po pierwszych trzech znakach i przestaje czytać.</p>
+<h3>SŁOWA ODMIENIONE, NIE TYLKO FORMY SŁOWNIKOWE</h3>
+<p>読んでいた w zdaniu jest powiązane z 読む. Bunmyaku nie uczy odmiany — to inny problem — ale nie udaje, że słowa występują wyłącznie w postaci ze słownika.</p>
+<h3>POLSKI I ANGIELSKI</h3>
+<p>Język menu i język materiału przełączają się niezależnie.</p>
+<h3>WŁASNE SŁOWA Z TEGO, CO CZYTASZ</h3>
+<p>Zdanie z mangi albo z podręcznika zapisujesz w aplikacji — z ręki albo ze zdjęcia; tekst ze zdjęcia rozpoznaje sam telefon. Model wyciąga z niego słowa warte zapamiętania, dopisuje im czytania i wpuszcza je do Twoich powtórek.</p>
+<p>Warstwa dodatkowa i w pełni opcjonalna: bez niej reszta aplikacji liczy postęp i terminy tak samo, a każde wywołanie jest na Twoje wyraźne żądanie.</p>
+<h3>PRYWATNOŚĆ</h3>
+<p>Bez konta, bez analityki i bez reklam. Nauka, powtórki i skanowanie działają bez internetu, a postęp zostaje na telefonie.</p>
+<p>Sieci używa wyłącznie analiza AI i tylko wtedy, gdy sam ją wywołasz: na serwer jedzie złapane zdanie albo hasło z katalogu — nie historia nauki, nic o Tobie i nigdy zdjęcie.</p>
+<h3>DARMOWE I PŁATNE</h3>
+<p>N5 jest darmowe w całości — wszystkie słowa, cztery typy pytań, powtórki, postęp i kopia postępu, plus kilka wywołań analizy AI miesięcznie.</p>
+<p>Poziomy N4, N3, N2 i N1 kupujesz pojedynczo, w zestawach albo w całości — jednorazowo, bez konta, bez wygasania; z każdym z nich wchodzi ćwiczenie międzypoziomowe. Kto kupił Premium wcześniej, ma N2 i N1 bez dopłaty.</p>
+<p>Analiza AI jest osobną subskrypcją, bo jako jedyna kosztuje przy każdym użyciu: 14,99 zł miesięcznie albo 119,99 zł rocznie, odnawiana automatycznie, do wyłączenia w ustawieniach Apple ID. Poziomów JLPT nie dotyczy.</p>
+<p>Tego samego autora: Kaname — japońska gramatyka, Katsuyokei — odmiana, Joshi — partykuły, Kazoekata — liczniki.</p>
+<h3>WARUNKI</h3>
+<p>Warunki korzystania (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/<br>Polityka prywatności: https://jakub-dwojak-aseity.github.io/app-policies/bunmyaku/1.2/privacy.html</p><p class="podtytul">Powyższy opis jest tym samym tekstem, który stoi na karcie aplikacji w App Store – pochodzi z tego samego pliku.</p><h2>Dokumenty</h2><ul class="zwykla"><li><a href="../../bunmyaku/1.2/privacy.html">Polityka prywatności</a></li><li><a href="../../bunmyaku/1.2/terms.html">Warunki korzystania</a></li><li><a href="../../bunmyaku/1.2/support.html">Wsparcie</a></li></ul><h2>Pozostałe aplikacje</h2><ul class="zwykla"><li><a href="../../apps/kaname/index.html">Kaname: Gramatyka japońska</a> — Powtórki JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/katsuyokei/index.html">Katsuyokei: Odmiana japońska</a> — Japońska odmiana w praktyce</li><li><a href="../../apps/joshi/index.html">Joshi: Partykuły japońskie</a> — Ćwiczenia z は, が, に, で</li><li><a href="../../apps/kazoekata/index.html">Kazoekata: Liczniki japońskie</a> — Japońskie liczniki w praktyce</li><li><a href="../../apps/kuzushi/index.html">Kuzushi: Mowa potoczna</a> — Anime, dorama i skróty</li><li><a href="../../apps/shindan/index.html">Shindan: Poziom japońskiego</a> — Test JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/keigo/index.html">Keigo: Grzeczność japońska</a> — Japoński formalny do pracy</li><li><a href="../../apps/kifuku/index.html">Kifuku: Akcent japoński</a> — Wymowa, intonacja, słuchanie</li><li><a href="../../apps/onomatope/index.html">Onomatope: Japońskie dźwięki</a> — Słówka z mangi i anime</li></ul><footer>Jakub Dwojak · <a href="../../dokumenty.html">Spis dokumentów</a> · <a href="mailto:jakub.dwojak+bunmyaku@hotmail.com">jakub.dwojak+bunmyaku@hotmail.com</a><br>Strona wygenerowana z metadanych sklepowych (<code>Tools/generuj-strony.py</code>).</footer>
+</body>
+</html>

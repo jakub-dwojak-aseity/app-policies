@@ -1,0 +1,5 @@
+# Roboty wyszukiwarek i modeli językowych są tu mile widziane.
+User-agent: *
+Allow: /
+
+Sitemap: https://jakub-dwojak-aseity.github.io/app-policies/sitemap.xml

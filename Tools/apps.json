@@ -61,7 +61,7 @@
         "pl": "kaname/1.2",
         "en": "kaname/1.2/en"
       },
-      "kontakt": "jakub.dwojak+kaname@hotmail.com",
+      "kontakt": "kaname@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 1
@@ -76,7 +76,7 @@
         "pl": "bunmyaku/1.2",
         "en": "bunmyaku/1.2/en"
       },
-      "kontakt": "jakub.dwojak+bunmyaku@hotmail.com",
+      "kontakt": "bunmyaku@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 2
@@ -91,7 +91,7 @@
         "pl": "katsuyokei",
         "en": "katsuyokei/en"
       },
-      "kontakt": "jakub.dwojak+katsuyokei@hotmail.com",
+      "kontakt": "katsuyokei@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 3
@@ -106,7 +106,7 @@
         "pl": "joshi",
         "en": "joshi/en"
       },
-      "kontakt": "jakub.dwojak+joshi@hotmail.com",
+      "kontakt": "joshi@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 4
@@ -121,7 +121,7 @@
         "pl": "kazoekata",
         "en": "kazoekata/en"
       },
-      "kontakt": "jakub.dwojak+kazoekata@hotmail.com",
+      "kontakt": "kazoekata@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 5
@@ -136,7 +136,7 @@
         "pl": "kuzushi/pl",
         "en": "kuzushi"
       },
-      "kontakt": "jakub.dwojak+kuzushi@hotmail.com",
+      "kontakt": "kuzushi@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
       "wSklepie": true,
       "kolejnosc": 6,
@@ -152,7 +152,7 @@
         "pl": "shindan/1.0",
         "en": "shindan/1.0/en"
       },
-      "kontakt": "jakub.dwojak+shindan@hotmail.com",
+      "kontakt": "shindan@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 7
@@ -167,7 +167,7 @@
         "pl": "keigo/1.0",
         "en": "keigo/1.0/en"
       },
-      "kontakt": "jakub.dwojak+keigo@hotmail.com",
+      "kontakt": "keigo@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 8
@@ -182,7 +182,7 @@
         "pl": "kifuku/1.0",
         "en": "kifuku/1.0/en"
       },
-      "kontakt": "jakub.dwojak+kifuku@hotmail.com",
+      "kontakt": "kifuku@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 9
@@ -197,7 +197,7 @@
         "pl": "onomatope/1.0",
         "en": "onomatope/1.0/en"
       },
-      "kontakt": "jakub.dwojak+onomatope@hotmail.com",
+      "kontakt": "onomatope@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 10

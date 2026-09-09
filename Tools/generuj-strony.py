@@ -1073,27 +1073,69 @@ def karty_og(apki, zapisuj):
 
 # ---------------------------------------------------------------- bramki
 
+DOKUMENTY = ("privacy.html", "terms.html", "support.html")
+
+
+def landmark(tresc):
+    """Czy strona ma dokładnie jeden `<main>` i we właściwym miejscu.
+
+    Audyt dostępności („One main landmark helps screen reader users navigate a web
+    page") pyta o jeden landmark treści; czytnik ekranu daje wtedy skok do treści
+    z pominięciem nawigacji i stopki.
+
+    Liczy **oba** znaczniki osobno, bo samo `grep -c '<main'` przepuszcza landmark
+    niezamknięty — a niezamknięty jest gorszy niż żaden: obejmuje wtedy także stopkę.
+    Sprawdza też, że `<h1>` stoi w środku: nagłówek strony poza landmarkiem znaczy,
+    że skok do treści mija tytuł, czyli robi dokładnie to, czemu miał zapobiec.
+    """
+    skargi = []
+    otwarc, zamkniec = tresc.count("<main"), tresc.count("</main>")
+    if (otwarc, zamkniec) != (1, 1):
+        return [f"<main ×{otwarc}, </main> ×{zamkniec} zamiast po jednym"]
+    otwarcie, zamkniecie = tresc.index("<main"), tresc.index("</main>")
+    body = re.search(r"<body\b[^>]*>", tresc)
+    stopka = re.search(r"<footer\b[^>]*>", tresc)
+    if not body or otwarcie < body.end():
+        skargi.append("<main> nie stoi za <body>")
+    if stopka and zamkniecie > stopka.start():
+        skargi.append("</main> nie stoi przed <footer>")
+    if any(not otwarcie < h.start() < zamkniecie for h in re.finditer(r"<h1\b", tresc)):
+        skargi.append("<h1> poza <main>")
+    return skargi
+
+
 def bramki(apki, pliki, manifest):
     """Wszystko, co musi być prawdą, zanim strony pojadą na serwer.
 
     Bramka mierzy **wytwór**, a nie zamiar: patrzy w wygenerowany HTML i w pliki
     na dysku, a nie w to, co generator zamierzał zapisać.
+
     """
     bledy = []
 
-    # 1. Każdy dokument prawny, do którego strona linkuje, musi istnieć.
+    # 1. Każdy dokument prawny, do którego strona linkuje, musi istnieć,
+    # 9. i mieć landmark `<main>` — dokumenty prawne pisze się ręcznie, więc
+    #    znacznika nie pilnuje szablon. Doczepione do tej samej pętli, bo ona już
+    #    wylicza dokładnie te ścieżki.
     for a in apki:
         for jezyk in JEZYKI:
-            for plik in ("privacy.html", "terms.html", "support.html"):
+            for plik in DOKUMENTY:
                 sciezka = KORZEN / a["dokumenty"][jezyk] / plik
                 if not sciezka.exists():
                     bledy.append(f"{a['slug']} {jezyk}: brak dokumentu {sciezka.relative_to(KORZEN)}")
+                    continue
+                for skarga in landmark(sciezka.read_text(encoding="utf-8")):
+                    bledy.append(f"{a['slug']} {jezyk} {plik}: {skarga}")
 
     for inna in manifest.get("pozostale", []):
         for katalog in inna["dokumenty"].values():
-            for plik in ("privacy.html", "terms.html", "support.html"):
-                if not (KORZEN / katalog / plik).exists():
+            for plik in DOKUMENTY:
+                sciezka = KORZEN / katalog / plik
+                if not sciezka.exists():
                     bledy.append(f"{inna['slug']}: brak dokumentu {katalog}/{plik}")
+                    continue
+                for skarga in landmark(sciezka.read_text(encoding="utf-8")):
+                    bledy.append(f"{inna['slug']} {katalog}/{plik}: {skarga}")
 
     # 2. Każdy link wewnętrzny musi prowadzić do pliku, który powstanie albo już jest.
     powstana = set(pliki) | {p.relative_to(KORZEN).as_posix()
@@ -1184,6 +1226,30 @@ def bramki(apki, pliki, manifest):
         bledy.append(f"sitemap.xml rozjeżdża się ze stronami: "
                      f"nadmiar {sorted(w_mapie - html_pliki)}, "
                      f"brak {sorted(html_pliki - historyczne - w_mapie)}")
+
+    # 9 (lustro). Landmark na stronach generowanych. Dziś trzyma go **jedna linia
+    #    szablonu i żaden test** — nowy szablon bez `<main>` przeszedłby bez słowa,
+    #    a to jest dokładnie ta zmiana, której nikt nie zauważy przy przeglądzie.
+    for adres, tresc in pliki.items():
+        if adres.endswith(".html"):
+            for skarga in landmark(tresc):
+                bledy.append(f"{adres}: {skarga}")
+
+    # 9 (dosprzątanie). Strony, których generator nie tworzy i których nie wymienia
+    #    manifest — dziś sześć adresów nieuwersjonowanych (`kaname/privacy.html`,
+    #    `bunmyaku/…`) żyjących równolegle z wersjonowanymi. Manifest ich nie zna, bo
+    #    ASC wskazuje na wersjonowane; crawler i czytnik ekranu widzą je tak samo.
+    #    Bez tego przebiegu zostałyby jedynymi stronami bez bramki.
+    sprawdzone = set(pliki) | {(KORZEN / a["dokumenty"][j] / p).relative_to(KORZEN).as_posix()
+                               for a in apki for j in JEZYKI for p in DOKUMENTY}
+    sprawdzone |= {f"{k}/{p}" for inna in manifest.get("pozostale", [])
+                   for k in inna["dokumenty"].values() for p in DOKUMENTY}
+    for plik in sorted(KORZEN.rglob("*.html")):
+        adres = plik.relative_to(KORZEN).as_posix()
+        if ".git" in plik.parts or adres in sprawdzone:
+            continue
+        for skarga in landmark(plik.read_text(encoding="utf-8")):
+            bledy.append(f"{adres}: {skarga}")
 
     return bledy
 

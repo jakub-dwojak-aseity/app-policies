@@ -17,7 +17,19 @@ i odseparowane od prywatnych repozytoriów z kodem.
 | adresy | `/`, `/apps/<slug>/`, `/en/`, `/en/apps/<slug>/` | `<slug>/[<wersja>/][en/]<plik>.html` |
 
 **Dokumentów prawnych generator nie dotyka.** Tylko do nich linkuje — i sprawdza,
-że plik istnieje.
+że plik istnieje oraz że ma landmark `<main>` (bramka 9).
+
+Jedyne narzędzie, które w te pliki pisze, to `Tools/landmark-main.py`: wstawia sam
+znacznik `<main>`, bez jednego renderowanego znaku zmiany, i **odmawia** pracy na
+pliku o innym kształcie niż zakłada wstawka. Powstało, bo dokumentów prawnych nie da
+się wciągnąć pod generator — to pliki, na które wskazuje `privacyPolicyUrl` w App
+Store Connect i które widział App Review; ponowne wyrenderowanie zmieniłoby tekst,
+którego nikt nie zamawiał.
+
+```
+python3 Tools/landmark-main.py            # wstawia i zapisuje
+python3 Tools/landmark-main.py --sprawdz  # nic nie pisze, zgłasza braki, kod wyjścia 1
+```
 
 ## Generator stron produktowych
 
@@ -44,7 +56,9 @@ kopii tekstu**. Każde pole jest zmierzone, a źródło pomiaru stoi w komentarz
 
 ### Bramki
 
-Generator nie zapisuje niczego, dopóki nie przejdzie wszystkich:
+Generator nie zapisuje niczego, dopóki nie przejdzie wszystkich dziewięciu. Lista
+poniżej **miała wcześniej sześć pozycji przy ośmiu bramkach w kodzie** — dwie
+dopisane później nie trafiły do dokumentu; są tu jako 6 i 7.
 
 1. każdy dokument prawny, do którego strona linkuje, **istnieje na dysku**;
 2. każdy link wewnętrzny prowadzi do pliku, który istnieje albo powstanie;
@@ -52,7 +66,15 @@ Generator nie zapisuje niczego, dopóki nie przejdzie wszystkich:
    i adres kanoniczny;
 4. tekst własny generatora nie zawiera pauzy `—` (§21.Z: półpauza);
 5. nazwy aplikacji się nie dublują;
-6. `sitemap.xml` wymienia dokładnie te strony, które generator zapisuje.
+6. liczba pytań w sekcji „Częste pytania” zgadza się między `pl` a `en`;
+7. każdy kadr na stronie ma podpis w obu językach (`screenshots.json`);
+8. `sitemap.xml` wymienia dokładnie te strony, które generator zapisuje;
+9. **każda strona ma dokładnie jeden landmark `<main>`** — za `<body>`, przed
+   `<footer>`, z `<h1>` w środku. Liczone są oba znaczniki osobno, bo landmark
+   niezamknięty jest gorszy niż żaden: obejmuje wtedy także stopkę. Bramka mierzy
+   **i dokumenty prawne** (pisane ręcznie, więc bez szablonu, który by ich pilnował),
+   **i strony generowane** — te ostatnie trzymały landmark na jednej linii szablonu
+   i żadnym teście, więc nowy szablon bez `<main>` przeszedłby bez słowa.
 
 `--powtarzalnie` sprawdza dodatkowo, że dwa przebiegi dają ten sam wynik bit w bit.
 Ikony są przeskalowane z zasobów aplikacji i powstają **tylko przy zmianie skrótu

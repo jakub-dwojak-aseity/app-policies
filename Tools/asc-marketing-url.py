@@ -28,6 +28,13 @@ zasobu, który brzmi jak błąd w treści żądania. **Odczyty przechodziły, za
 najgorszy możliwy układ, bo skrypt czyta poprawnie i nie zapisuje nic. Zmierzone
 09.09.2026 na tym narzędziu, gdy pierwszy `PATCH` „przeszedł", a wartość została stara.
 
+**Okno zapisu jest wąskie i zamyka się samo.** Pole przyjmuje zapis tylko wtedy, gdy
+wersja stoi w `WAITING_FOR_REVIEW`. `IN_REVIEW` i `READY_FOR_SALE` odbijają je tym samym
+`409 STATE_ERROR — Attribute 'marketingUrl' cannot be edited at this time`. Rano 09.09.2026
+cztery aplikacje przyjęły adresy bez oporu, a dwie godziny później te same cztery odbiły
+przepisanie ich na nową domenę, bo Apple po nie sięgnęło. Stąd: **wpisywać w tym samym
+przebiegu, w którym składa się aplikację.** Pełna reguła: §21.AB.
+
 **Zmierzone 09.09.2026, zanim cokolwiek zostało wpisane:**
 
 - sonda tożsamościowa (`PATCH` tą samą wartością) na wersji `READY_FOR_SALE` przechodzi

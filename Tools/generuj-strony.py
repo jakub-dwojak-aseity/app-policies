@@ -546,12 +546,114 @@ def readme(apki, manifest, poprzedni):
     return przed + ZNACZNIK_OD + "\n".join(wiersze) + ZNACZNIK_DO + po
 
 
+# Roboty, które zbierają teksty dla modeli językowych. Wymienione z nazwy, a nie
+# zostawione pod `User-agent: *`, bo **`Google-Extended` i `Applebot-Extended` nie są
+# robotami indeksującymi** — to osobne tokeny zgody na użycie treści przez model.
+# Ogólne `Allow: /` nie mówi o nich nic; wpis z nazwą mówi wprost.
+ROBOTY_AI = ("GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-User",
+             "PerplexityBot", "Google-Extended", "Applebot-Extended", "CCBot",
+             "Bingbot", "Amazonbot", "meta-externalagent")
+
+
+def poza_mapa(apki):
+    """Strony, które powstają, ale do mapy witryny nie należą.
+
+    Dwa powody, oba inne. **Adres historyczny** (`kuzushi/index.html`) jest kopią
+    podstrony pod starym adresem i ma w mapie stać jego wersja kanoniczna, nie obie.
+    **`404.html`** ma ratować gościa, który trafił pod nieistniejący adres, a nie
+    wchodzić do indeksu — dlatego niesie też `noindex`.
+
+    Lista stoi w jednym miejscu, bo pierwsza wersja miała dwie i rozjechały się przy
+    pierwszym dopisanym pliku: mapa pomijała `404.html`, a bramka pilnująca zgodności
+    mapy ze stronami już nie.
+    """
+    return {a["adresHistoryczny"] for a in apki if a.get("adresHistoryczny")} | {"404.html"}
+
+
 def robots(manifest):
-    return ("# Roboty wyszukiwarek i modeli językowych są tu mile widziane.\n"
-            "User-agent: *\n"
-            "Allow: /\n"
-            "\n"
-            f"Sitemap: {manifest['bazaAdresu']}/sitemap.xml\n")
+    wiersze = ["# Roboty wyszukiwarek i modeli językowych są tu mile widziane.",
+               "",
+               "User-agent: *",
+               "Allow: /",
+               "",
+               "# Zbieranie treści na potrzeby modeli językowych: zgoda wyrażona wprost.",
+               "# Tokeny takie jak Google-Extended i Applebot-Extended nie sterują",
+               "# indeksowaniem, tylko użyciem treści — i milczenie znaczy tam co innego",
+               "# niż zgoda."]
+    for bot in ROBOTY_AI:
+        wiersze += ["", f"User-agent: {bot}", "Allow: /"]
+    wiersze += ["", f"Sitemap: {manifest['bazaAdresu']}/sitemap.xml", ""]
+    return "\n".join(wiersze)
+
+
+def llms_txt(apki, manifest):
+    """`llms.txt` — indeks strony w markdownie, pisany pod modele językowe.
+
+    Model, który dostaje HTML, musi z niego wyłuskać treść; `llms.txt` podaje mu to
+    samo bez parsowania. **Nie jest to inna treść, tylko ta sama krócej**: nazwa,
+    podtytuł i tekst promocyjny każdej aplikacji, czyli dokładnie to, co stoi w mapie
+    rodziny — a mapa rodziny jest tym fragmentem, który model cytuje w całości.
+
+    Konwencja jest młoda i nikt nie zmierzył, ile daje. Kosztuje jeden plik
+    wyliczany z manifestu, więc stoi tu na tej samej zasadzie co `sitemap.xml`:
+    tanio i zgodnie z tym, jak te systemy szukają treści.
+    """
+    n = NAPISY["pl"]
+    baza = manifest["bazaAdresu"]
+    wiersze = [f"# {n['tytul_mapy']}", "",
+               f"> {n['opis_mapy']}", "",
+               "Autor: " + manifest["autor"] + ". Aplikacje na iPhone'a, po polsku "
+               "i po angielsku. Każdy opis niżej jest tym samym tekstem, który stoi "
+               "na karcie aplikacji w App Store.", "",
+               "## Aplikacje", ""]
+    for a in apki:
+        t = a["teksty"]["pl"]
+        stan = "" if a["wSklepie"] else " (przed premierą)"
+        wiersze.append(f"- [{t['nazwa']}]({baza}/apps/{a['slug']}/){stan}: "
+                       f"{t['podtytul']}. {t['promo']}")
+    wiersze += ["", "## Wersja angielska", ""]
+    for a in apki:
+        t = a["teksty"]["en"]
+        wiersze.append(f"- [{t['nazwa']}]({baza}/en/apps/{a['slug']}/): "
+                       f"{t['podtytul']}. {t['promo']}")
+    wiersze += ["", "## Pozostałe strony", "",
+                f"- [Mapa rodziny: tabela problem → aplikacja]({baza}/)",
+                f"- [Family map, English]({baza}/en/)",
+                f"- [Dokumenty prawne wszystkich aplikacji]({baza}/dokumenty.html)",
+                f"- [Legal documents, English]({baza}/en/documents.html)", ""]
+    return "\n".join(wiersze)
+
+
+def strona_404(apki, manifest):
+    """Strona 404 — po przenosinach domeny jest realnie potrzebna.
+
+    W obiegu krąży dwadzieścia starych adresów z App Store Connect i nieznana liczba
+    linków do plików, które przez lata zmieniały ścieżki (dokumenty dostały wersję
+    w adresie, §6b). Domyślna strona GitHuba nie ma **ani jednego linku** do rodziny,
+    więc każdy taki gość i każdy crawler kończy w ślepym zaułku.
+
+    `noindex` jest tu celowo: strona ma ratować gościa, a nie wchodzić do indeksu.
+    """
+    n = NAPISY["pl"]
+    baza = manifest["bazaAdresu"]
+    pozycje = "".join(
+        f'<li><a href="{baza}/apps/{a["slug"]}/">{e(a["teksty"]["pl"]["nazwa"])}</a> — '
+        f'{e(a["teksty"]["pl"]["podtytul"])}</li>' for a in apki)
+    tresc = (f'<div class="gora"><span></span><span><a href="{baza}/en/">English</a></span></div>'
+             "<h1>Nie ma takiej strony</h1>"
+             '<p class="podtytul">Adres mógł się zmienić — dokumenty prawne dostały numer '
+             "wersji w adresie, a cała witryna przeniosła się na tę domenę. Poniżej "
+             "wszystko, co tu jest.</p>"
+             f'<h2>{e(n["naglowek_kart"])}</h2><ul class="zwykla">{pozycje}</ul>'
+             f'<h2>{e(n["dokumenty"])}</h2><ul class="zwykla">'
+             f'<li><a href="{baza}/dokumenty.html">{e(n["spis_tytul"])}</a></li>'
+             f'<li><a href="{baza}/">{e(n["tytul_mapy"])}</a></li></ul>'
+             + stopka("pl", 0, manifest))
+    return strona(jezyk="pl", tytul="Nie ma takiej strony",
+                  opis="Adres nie istnieje. Spis wszystkich aplikacji i dokumentów rodziny.",
+                  kanoniczny="404.html", alternatywny="en/index.html",
+                  tresc=tresc, glebokosc=0, manifest=manifest,
+                  dodatkowa_glowa='<meta name="robots" content="noindex">')
 
 
 def sitemap(strony, manifest):
@@ -687,9 +789,8 @@ def bramki(apki, pliki, manifest):
     mapa = pliki.get("sitemap.xml", "")
     baza = manifest["bazaAdresu"] + "/"
     w_mapie = {a[len(baza):] for a in re.findall(r"<loc>([^<]*)</loc>", mapa)}
-    historyczne = {a["adresHistoryczny"] for a in apki if a.get("adresHistoryczny")}
     html_pliki = {publiczny(a) for a in pliki if a.endswith(".html")}
-    historyczne = {publiczny(a) for a in historyczne}
+    historyczne = {publiczny(a) for a in poza_mapa(apki)}
     if w_mapie != html_pliki - historyczne:
         bledy.append(f"sitemap.xml rozjeżdża się ze stronami: "
                      f"nadmiar {sorted(w_mapie - html_pliki)}, "
@@ -748,11 +849,13 @@ def zbuduj(apki, manifest):
         pliki[adres] = tresc
 
     pliki["robots.txt"] = robots(manifest)
+    pliki["llms.txt"] = llms_txt(apki, manifest)
+    pliki["404.html"] = strona_404(apki, manifest)
     pliki["README.md"] = readme(apki, manifest,
                                 (KORZEN / "README.md").read_text(encoding="utf-8"))
-    historyczne = {a["adresHistoryczny"] for a in apki if a.get("adresHistoryczny")}
     pliki["sitemap.xml"] = sitemap(
-        sorted((a, daty[a]) for a in pliki if a.endswith(".html") and a not in historyczne),
+        sorted((a, daty[a]) for a in pliki
+               if a.endswith(".html") and a not in poza_mapa(apki)),
         manifest)
     return pliki
 

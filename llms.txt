@@ -32,12 +32,12 @@ have finished thinking about it.
 one blank, four particles – until the right one arrives on its own.
 - [Kazoekata: Japanese Counters](https://jd-japanese.pl/en/apps/kazoekata/): Counting, kanji and drills. Stop guessing how Japanese counters are read. 三本 is さんぼん, 六本 is ろっぽん – and there is a rule behind it.
 - [Kuzushi: Casual Japanese](https://jd-japanese.pl/en/apps/kuzushi/): Anime, drama and slang. Textbooks teach 〜ている. People say 〜てる. Kuzushi drills that gap: recognising a contraction and producing one are scored apart, because they are two different skills.
-- [Shindan: Japanese Level Test](https://jd-japanese.pl/en/apps/shindan/): JLPT placement: N5 N4 N3 N2 N1. Nine apps teach one thing each. None of them can tell you which one you actually need.
+- [Shindan: Japanese Level Test](https://jd-japanese.pl/en/apps/shindan/) (not yet released): JLPT placement: N5 N4 N3 N2 N1. Nine apps teach one thing each. None of them can tell you which one you actually need.
 One sheet under a clock, and the answer stops being a guess.
-- [Keigo: Polite Japanese](https://jd-japanese.pl/en/apps/keigo/): Formal Japanese for work. Knowing the form is not the same as knowing who to use it on. Too much keigo is a mistake
+- [Keigo: Polite Japanese](https://jd-japanese.pl/en/apps/keigo/) (not yet released): Formal Japanese for work. Knowing the form is not the same as knowing who to use it on. Too much keigo is a mistake
 exactly as much as too little – and that half is what nobody teaches.
-- [Kifuku: Japanese Pitch Accent](https://jd-japanese.pl/en/apps/kifuku/): Pronunciation and listening. Japanese hides a layer the kana does not write. 箸 and 橋 are spelled the same and are not the same word – and the difference is a rule you learn, not a list you memorize.
-- [Onomatope: Japanese Mimetics](https://jd-japanese.pl/en/apps/onomatope/): Manga and anime vocabulary. Japanese onomatopoeia are not arbitrary. 濁点 makes a thing bigger, heavier and less
+- [Kifuku: Japanese Pitch Accent](https://jd-japanese.pl/en/apps/kifuku/) (not yet released): Pronunciation and listening. Japanese hides a layer the kana does not write. 箸 and 橋 are spelled the same and are not the same word – and the difference is a rule you learn, not a list you memorize.
+- [Onomatope: Japanese Mimetics](https://jd-japanese.pl/en/apps/onomatope/) (not yet released): Manga and anime vocabulary. Japanese onomatopoeia are not arbitrary. 濁点 makes a thing bigger, heavier and less
 pleasant – understand that and you can guess a word you have never seen.
 
 ## Pozostałe strony

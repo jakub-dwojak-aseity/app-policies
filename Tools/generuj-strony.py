@@ -43,6 +43,7 @@ from pathlib import Path
 KORZEN = Path(__file__).resolve().parent.parent
 NARZEDZIA = KORZEN / "Tools"
 sys.path.insert(0, str(NARZEDZIA))
+import glowy_dokumentow  # noqa: E402
 import metadane  # noqa: E402
 
 ZRODLA = Path("/Users/jakub/aseity")
@@ -66,6 +67,7 @@ NAPISY = {
         "w_sklepie": "App Store",
         "wkrotce": "Wkrótce w App Store",
         "wkrotce_opis": "Aplikacja czeka na recenzję Apple. Strona opisuje wersję złożoną do sklepu.",
+        "przed_premiera": "przed premierą",
         "darmowa": "Aplikacja darmowa, z zakupem w środku",
         "wiecej": "Czytaj dalej",
         "naglowek_zrzutow": "Jak to wygląda",
@@ -104,6 +106,7 @@ NAPISY = {
         "w_sklepie": "App Store",
         "wkrotce": "Coming to the App Store",
         "wkrotce_opis": "Waiting for Apple review. This page describes the version submitted.",
+        "przed_premiera": "not yet released",
         "darmowa": "Free app with an in-app purchase",
         "wiecej": "Read on",
         "naglowek_zrzutow": "What it looks like",
@@ -434,12 +437,22 @@ def mapa_rodziny(apki, jezyk, manifest):
         "numberOfItems": len(apki),
         "itemListElement": [
             {"@type": "ListItem", "position": i + 1,
-             "url": f"{manifest['bazaAdresu']}/{sciezki(a['slug'], jezyk)[0]}",
+             "url": f"{manifest['bazaAdresu']}/{publiczny(sciezki(a['slug'], jezyk)[0])}",
              "name": a["teksty"][jezyk]["nazwa"]}
             for i, a in enumerate(apki)],
     }
+    # `WebSite` mówi wyszukiwarce, jak nazywa się witryna jako całość — bez niego
+    # nazwa w wynikach bierze się ze zgadywania z tytułu i domeny. Nazwa i opis są
+    # te same, co w `tytul_mapy` i `opis_mapy`, więc tekstu własnego nie przybywa.
+    witryna = {"@type": "WebSite",
+               "name": n["tytul_mapy"],
+               "description": n["opis_mapy"],
+               "url": f"{manifest['bazaAdresu']}/{publiczny(kanoniczny)}",
+               "inLanguage": jezyk,
+               "author": {"@type": "Person", "name": manifest["autor"]}}
     jsonld = {"@context": "https://schema.org",
-              "@graph": [{k: v for k, v in jsonld.items() if k != "@context"}, faq]}
+              "@graph": [witryna,
+                         {k: v for k, v in jsonld.items() if k != "@context"}, faq]}
     return kanoniczny, strona(jezyk=jezyk, tytul=n["tytul_mapy"], opis=n["opis_mapy"],
                               kanoniczny=kanoniczny, alternatywny=alternatywny,
                               tresc=tresc, glebokosc=glebokosc, manifest=manifest,
@@ -498,7 +511,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
         "alternateName": a["japonska"],
         "applicationCategory": "EducationalApplication",
         "operatingSystem": "iOS",
-        "url": f"{manifest['bazaAdresu']}/{kanoniczny}",
+        "url": f"{manifest['bazaAdresu']}/{publiczny(kanoniczny)}",
         "description": metadane.pierwsze_zdanie(t["opis"]),
         "inLanguage": ["pl", "en"],
         "author": {"@type": "Person", "name": manifest["autor"]},
@@ -508,14 +521,18 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
         jsonld["sameAs"] = link_sklepu(a["appId"])
         jsonld["installUrl"] = link_sklepu(a["appId"])
 
+    tytul = f'{t["nazwa"]} – {t["podtytul"]}'
+    obrazek = f'{manifest["bazaAdresu"]}/assets/karty/{a["slug"]}-{jezyk}.png'
+
+    # `image` opisuje aplikację, więc musi stać na węźle `SoftwareApplication`.
+    # Przypisanie po owinięciu w `@graph` sadzało je w korzeniu, obok `@context`,
+    # gdzie nie opisuje niczego — zmierzone 09.09.2026 na wygenerowanym HTML-u.
+    jsonld["image"] = obrazek
+
     if pary:
         jsonld = {"@context": "https://schema.org",
                   "@graph": [{k: v for k, v in jsonld.items() if k != "@context"},
                              faq_jsonld(pary)]}
-
-    tytul = f'{t["nazwa"]} – {t["podtytul"]}'
-    obrazek = f'{manifest["bazaAdresu"]}/assets/karty/{a["slug"]}-{jezyk}.png'
-    jsonld["image"] = obrazek
     return sciezka, strona(jezyk=jezyk, tytul=tytul, opis=meta_opis(t),
                            kanoniczny=kanoniczny, alternatywny=alternatywny,
                            tresc=tresc, glebokosc=glebokosc, manifest=manifest,
@@ -698,13 +715,17 @@ def llms_txt(apki, manifest):
                "## Aplikacje", ""]
     for a in apki:
         t = a["teksty"]["pl"]
-        stan = "" if a["wSklepie"] else " (przed premierą)"
+        stan = "" if a["wSklepie"] else f" ({NAPISY['pl']['przed_premiera']})"
         wiersze.append(f"- [{t['nazwa']}]({baza}/apps/{a['slug']}/){stan}: "
                        f"{t['podtytul']}. {t['promo']}")
     wiersze += ["", "## Wersja angielska", ""]
     for a in apki:
         t = a["teksty"]["en"]
-        wiersze.append(f"- [{t['nazwa']}]({baza}/en/apps/{a['slug']}/): "
+        # Sekcja angielska do 09.09.2026 gubiła ten dopisek: cztery aplikacje czekające
+        # na recenzję wyglądały po angielsku na dostępne w sklepie. Bramka 6 pilnuje
+        # symetrii pytań między językami, tego nie pilnowało nic.
+        stan = "" if a["wSklepie"] else f" ({NAPISY['en']['przed_premiera']})"
+        wiersze.append(f"- [{t['nazwa']}]({baza}/en/apps/{a['slug']}/){stan}: "
                        f"{t['podtytul']}. {t['promo']}")
     wiersze += ["", "## Pozostałe strony", "",
                 f"- [Mapa rodziny: tabela problem → aplikacja]({baza}/)",
@@ -1115,6 +1136,26 @@ def jezyk_pliku(sciezka: Path):
     return trafienie.group(1) if trafienie else None
 
 
+def bez_glowy_witryny(tresc: str) -> str:
+    """Treść dokumentu bez linii, które dokłada sama witryna.
+
+    Bramka 10 pyta, czy **tekst** dokumentu rozjechał się z kopią w repozytorium
+    aplikacji. `canonical` i `robots` nie są tekstem dokumentu — są adresem, pod
+    którym ta witryna go serwuje, i w repozytorium aplikacji nie mają czego szukać
+    (ten sam plik stoi tam pod żadnym adresem).
+
+    Bez tego przesiewu bramka po wstawieniu głów 09.09.2026 zgłosiła **60 rozjazdów
+    zamiast 5** — czyli utopiła własny sygnał w zmianie, która treści nie dotknęła.
+    """
+    return "\n".join(w for w in tresc.split("\n")
+                     if 'rel="canonical"' not in w and 'name="robots"' not in w)
+
+
+def skrot_dokumentu(sciezka: Path) -> str:
+    return hashlib.sha256(
+        bez_glowy_witryny(sciezka.read_text(encoding="utf-8")).encode("utf-8")).hexdigest()
+
+
 def kopie_zrodlowe(a):
     """Skróty i ścieżki dokumentów prawnych w repozytorium aplikacji.
 
@@ -1124,7 +1165,7 @@ def kopie_zrodlowe(a):
     katalog = ZRODLA / a["repo"] / "docs" / "app-store"
     if not katalog.is_dir():
         return {}, katalog
-    return ({hashlib.sha256(p.read_bytes()).hexdigest(): p
+    return ({skrot_dokumentu(p): p
              for p in sorted(katalog.rglob("*.html"))}, katalog)
 
 
@@ -1301,7 +1342,7 @@ def bramki(apki, pliki, manifest):
                 sciezka = KORZEN / a["dokumenty"][jezyk] / plik
                 if not sciezka.exists():
                     continue
-                if hashlib.sha256(sciezka.read_bytes()).hexdigest() in skroty:
+                if skrot_dokumentu(sciezka) in skroty:
                     continue
                 kandydaci = [p for p in skroty.values()
                              if p.name == plik and jezyk_pliku(p) == jezyk]
@@ -1311,6 +1352,28 @@ def bramki(apki, pliki, manifest):
                     + (f"rozjechała się ({gdzie})" if kandydaci
                        else f"nie istnieje — {katalog.relative_to(ZRODLA)} nie ma "
                             f"pliku {plik} w języku {jezyk}"))
+
+    # 11. Głowa dokumentu prawnego: `canonical` na własny adres, a przy dokumencie
+    #     przestarzałym dodatkowo `noindex`. Zmierzone 09.09.2026: siedemdziesiąt
+    #     dokumentów miało w `<head>` sam `<title>`, więc pierwszy obchód robota
+    #     szedł w nie zamiast w dwadzieścia stron produktowych. Bramka 3 tego nie
+    #     widziała, bo mierzy wyłącznie pliki, które generator wytwarza — a te są
+    #     pisane ręcznie i generator ich nie dotyka.
+    #
+    #     Wstawia je `Tools/glowy_dokumentow.py`; tutaj tylko pomiar wytworu.
+    aktualne = glowy_dokumentow.biezace(manifest)
+    baza = manifest["bazaAdresu"].rstrip("/")
+    for wzgledna in glowy_dokumentow.dokumenty_na_dysku():
+        tresc = (KORZEN / wzgledna).read_text(encoding="utf-8")
+        adres = f"{baza}/{wzgledna}"
+        if f'rel="canonical" href="{adres}"' not in tresc:
+            bledy.append(f"{wzgledna}: brak canonical na własny adres "
+                         f"(uruchom Tools/glowy_dokumentow.py)")
+        przestarzaly = wzgledna not in aktualne
+        if przestarzaly and "noindex" not in tresc:
+            bledy.append(f"{wzgledna}: dokument przestarzały bez noindex")
+        if not przestarzaly and "noindex" in tresc:
+            bledy.append(f"{wzgledna}: dokument bieżący ma noindex")
 
     return bledy, uwagi
 

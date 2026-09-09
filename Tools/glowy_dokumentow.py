@@ -59,11 +59,18 @@ Kod wyjścia: 0, gdy wszystko przeszło; 1, gdy któryś plik został odrzucony 
 """
 
 import argparse
+import html
 import json
+import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import metadane  # noqa: E402
+from napisy import NAPISY  # noqa: E402
+
 KORZEN = Path(__file__).resolve().parent.parent
+ZRODLA = Path("/Users/jakub/aseity")
 PLIKI_DOKUMENTU = ("privacy.html", "terms.html", "support.html")
 CANONICAL = '<link rel="canonical" href="{adres}">'
 NOINDEX = '<meta name="robots" content="noindex, follow">'
@@ -73,6 +80,17 @@ NOINDEX = '<meta name="robots" content="noindex, follow">'
 # generuje. `canonical` obok i tak jest bezwzględny.
 IKONY = ('<link rel="icon" type="image/png" sizes="48x48" href="{baza}/assets/znak-48.png">',
          '<link rel="apple-touch-icon" href="{baza}/assets/znak-180.png">')
+OPIS = '<meta name="description" content="{tresc}">'
+OG = ('<meta property="og:title" content="{tytul}">',
+      '<meta property="og:description" content="{tresc}">',
+      '<meta property="og:url" content="{adres}">',
+      '<meta property="og:type" content="article">',
+      '<meta property="og:image" content="{obrazek}">',
+      '<meta name="twitter:card" content="summary_large_image">')
+# Wyjście z dokumentu prawnego na witrynę. Etykietami są **nazwa aplikacji ze sklepu**
+# i nazwa witryny z `napisy.py` — obie już istnieją, więc ta stopka nie dokłada ani
+# jednego własnego zdania.
+WYJSCIE = ('<br><a href="{apka}">{nazwa}</a> · <a href="{mapa}">{witryna}</a>')
 
 
 def manifest() -> dict:
@@ -86,6 +104,102 @@ def biezace(m: dict) -> set[str]:
         for katalog in a["dokumenty"].values():
             wynik |= {f"{katalog}/{plik}" for plik in PLIKI_DOKUMENTU}
     return wynik
+
+
+def kontekst(m: dict) -> dict:
+    """Dla każdego dokumentu: do której aplikacji należy i w jakim jest języku.
+
+    Dokumenty **bieżące** rozpoznaje manifest — on wprost mówi, który katalog jest
+    czyj i w jakim języku. Dokumenty **przestarzałe** (nieuwersjonowane kopie Kaname
+    i Bunmyaku) w manifeście nie stoją, więc aplikację bierzemy z pierwszego członu
+    ścieżki, a język z `<html lang>` **samego pliku** — bo to jedyne miejsce, które
+    o nim nie kłamie. Zgadywanie języka ze ścieżki wywróciłoby się na Kuzushim, gdzie
+    angielski leży w korzeniu, a polski w podkatalogu `pl/`.
+
+    Aplikacje spoza rodziny (`pozostale`, dziś SpoolCalc) **nie dostają wyjścia na
+    witrynę** i to jest celowe: kalkulator pojemności szpuli nie ma czego szukać
+    w mapie aplikacji do japońskiego.
+    """
+    rodzina = {a["slug"] for a in m["aplikacje"]}
+    nazwy, wynik = {}, {}
+    for a in m["aplikacje"]:
+        repo = ZRODLA / a["repo"]
+        nazwy[a["slug"]] = {j: metadane.teksty(repo, a, j)["nazwa"] for j in ("pl", "en")}
+        for jezyk, katalog in a["dokumenty"].items():
+            for plik in PLIKI_DOKUMENTU:
+                wynik[f"{katalog}/{plik}"] = (a["slug"], jezyk)
+
+    for wzgledna in dokumenty_na_dysku():
+        if wzgledna in wynik:
+            continue
+        slug = wzgledna.split("/")[0]
+        if slug not in rodzina:
+            continue
+        tresc = (KORZEN / wzgledna).read_text(encoding="utf-8")
+        dopasowanie = re.search(r'<html lang="([a-z-]+)"', tresc)
+        jezyk = "en" if dopasowanie and dopasowanie.group(1).startswith("en") else "pl"
+        wynik[wzgledna] = (slug, jezyk)
+
+    return {"apka": wynik, "nazwy": nazwy}
+
+
+def opis_dokumentu(tresc: str) -> str:
+    """Zajawka dokumentu — jego **własne pierwsze zdanie**, nie zdanie napisane od nowa.
+
+    Bierze pierwszy akapit po `<h1>`, pomijając wiersz `class="updated"` z wersją
+    i datą: on jest metryczką, a nie treścią, i jako zajawka w wynikach wyszukiwania
+    nie mówi nic. Limit 155 znaków — tyle, ile pokazuje wyszukiwarka — a cięcie idzie
+    po granicy zdania, potem po granicy słowa, żeby nie urwać w połowie myśli.
+    """
+    # **Akapit spod sekcji bierzemy razem z jej nagłówkiem.** Polityka Kuzushiego
+    # nie ma wstępu i zaczyna się od „Nie ma go." — zdania prawdziwego i całkiem
+    # niezrozumiałego bez „Twoje konto" nad nim. Samo przycięcie do wstępu gubiło
+    # z kolei dobre zdania z warunków, które otwierają się nagłówkiem od razu
+    # („Joshi is an educational app for practicing Japanese particles."). Nagłówek
+    # jako przedrostek rozwiązuje oba przypadki i **nie dokłada ani jednego słowa
+    # spoza dokumentu**.
+    po_naglowku = tresc.split("</h1>", 1)[-1]
+    wstep = po_naglowku.split("<h2", 1)[0]
+    if (zajawka := _zajawka(wstep)):
+        return zajawka
+
+    sekcja = re.search(r"<h2[^>]*>(.*?)</h2>(.*?)(?=<h2|\Z)", po_naglowku, re.S)
+    if sekcja:
+        naglowek = " ".join(re.sub(r"<[^>]+>", "", sekcja.group(1)).split())
+        tresc_sekcji = _zajawka(sekcja.group(2), limit=155 - len(naglowek) - 2)
+        if tresc_sekcji:
+            return f"{naglowek}: {tresc_sekcji}"
+
+    ramka = re.search(r'<div class="note">.*?</div>', po_naglowku, re.S)
+    return _zajawka(ramka.group(0)) if ramka else ""
+
+
+def _zajawka(obszar: str, limit: int = 155) -> str:
+    """Pierwszy sensowny akapit obszaru, przycięty do limitu znaków."""
+    for dopasowanie in re.finditer(r"<p[^>]*>.*?</p>", obszar, re.S):
+        # Klasy szukamy w **całym znaczniku**, nie w jego zawartości: `class="updated"`
+        # stoi w otwarciu `<p>`, więc sprawdzanie samego wnętrza nie łapie nigdy
+        # i metryczka „wersja 1.0 · ostatnia aktualizacja…" wchodzi jako zajawka.
+        # Złapane na wytworze 09.09.2026, nie na zamiarze.
+        akapit = dopasowanie.group(0)
+        if 'class="updated"' in akapit:
+            continue
+        goly = re.sub(r"<[^>]+>", "", akapit)
+        goly = html.unescape(" ".join(goly.split()))
+        if not goly:
+            continue
+        if len(goly) <= limit:
+            return goly
+        zdania = re.split(r"(?<=[.!?])\s+", goly)
+        zebrane = ""
+        for zdanie in zdania:
+            if len(f"{zebrane} {zdanie}".strip()) > limit:
+                break
+            zebrane = f"{zebrane} {zdanie}".strip()
+        if zebrane:
+            return zebrane
+        return goly[:limit - 3].rsplit(" ", 1)[0].rstrip(" ,;–-") + "…"
+    return ""
 
 
 def dokumenty_na_dysku() -> list[str]:
@@ -123,6 +237,24 @@ def wstaw(tresc: str, wiersze_do_wstawienia: list[str]) -> str:
                      + linie[i + 1:])
 
 
+def dopisz_do_stopki(tresc: str, wyjscie: str) -> str:
+    """Dokłada wyjście na witrynę **wewnątrz istniejącej** stopki, na jej końcu.
+
+    Stopki tych dokumentów mają kilkanaście różnych kształtów — kontakt, rodzeństwo
+    w tym samym katalogu, wersja językowa, w różnych układach i kolejnościach.
+    Przepisanie ich na jeden wzór znaczyłoby **skasowanie cudzej treści w pliku
+    prawnym**, więc tego nie robimy: dopisujemy jedną linię przed `</footer>`
+    i zostawiamy resztę bajt w bajt.
+
+    Odmawia, gdy stopki nie ma albo jest więcej niż jedna — wtedy nie wiadomo,
+    która jest ta właściwa, a zgadywanie w dokumencie prawnym jest gorsze niż brak.
+    """
+    ile = tresc.count("</footer>")
+    if ile != 1:
+        raise ValueError(f"znaczników </footer>: {ile}, oczekiwano jednego")
+    return tresc.replace("</footer>", wyjscie + "</footer>", 1)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sprawdz", action="store_true",
@@ -132,6 +264,7 @@ def main() -> int:
     m = manifest()
     baza = m["bazaAdresu"].rstrip("/")
     aktualne = biezace(m)
+    ctx = kontekst(m)
     bledy, zmienione, pominiete = [], [], 0
 
     for wzgledna in sorted(aktualne):
@@ -147,6 +280,9 @@ def main() -> int:
         ma_canonical = 'rel="canonical"' in tresc
         ma_noindex = "noindex" in tresc
         ma_ikone = 'rel="icon"' in tresc
+        ma_opis = 'name="description"' in tresc
+        ma_og = 'property="og:' in tresc
+        ma_wyjscie = f"{baza}/apps/" in tresc or f"{baza}/en/apps/" in tresc
 
         if ma_canonical and adres not in tresc:
             bledy.append(f"{wzgledna}: ma canonical na inny adres niż własny")
@@ -162,7 +298,35 @@ def main() -> int:
             potrzebne.append(NOINDEX)
         if not ma_ikone:
             potrzebne.extend(wzor.format(baza=baza) for wzor in IKONY)
-        if not potrzebne:
+
+        wpis = ctx["apka"].get(wzgledna)
+        zajawka = opis_dokumentu(tresc) if not (ma_opis and ma_og) else ""
+        if not ma_opis and zajawka:
+            potrzebne.append(OPIS.format(tresc=html.escape(zajawka, quote=True)))
+        if not ma_og and zajawka and wpis:
+            slug, jezyk = wpis
+            tytul = re.search(r"<title>(.*?)</title>", tresc, re.S)
+            potrzebne.extend(wzor.format(
+                tytul=html.escape(tytul.group(1).strip() if tytul else "", quote=True),
+                tresc=html.escape(zajawka, quote=True),
+                adres=adres,
+                obrazek=f"{baza}/assets/karty/{slug}-{jezyk}.png") for wzor in OG)
+
+        # Wyjście na witrynę. Do 09.09.2026 dokument prawny był ślepym zaułkiem:
+        # zero nawigacji, zero linku do aplikacji, zero linku do mapy rodziny —
+        # a wchodzi tam człowiek z App Store, czyli ktoś, kto już kupił jedną apkę
+        # i nie ma jak zobaczyć pozostałych dziewięciu.
+        wyjscie = ""
+        if not ma_wyjscie and wpis:
+            slug, jezyk = wpis
+            przedrostek = "" if jezyk == "pl" else "en/"
+            wyjscie = WYJSCIE.format(
+                apka=f"{baza}/{przedrostek}apps/{slug}/",
+                nazwa=html.escape(ctx["nazwy"][slug][jezyk]),
+                mapa=f"{baza}/{przedrostek}",
+                witryna=html.escape(NAPISY[jezyk]["tytul_mapy"]))
+
+        if not potrzebne and not wyjscie:
             pominiete += 1
             continue
 
@@ -170,10 +334,13 @@ def main() -> int:
             zmienione.append(wzgledna)
             continue
         try:
-            plik.write_text(wstaw(tresc, potrzebne), encoding="utf-8")
+            nowa = wstaw(tresc, potrzebne) if potrzebne else tresc
+            if wyjscie:
+                nowa = dopisz_do_stopki(nowa, wyjscie)
         except ValueError as blad:
             bledy.append(f"{wzgledna}: {blad}")
             continue
+        plik.write_text(nowa, encoding="utf-8")
         zmienione.append(wzgledna)
 
     for blad in bledy:

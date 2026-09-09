@@ -49,85 +49,7 @@ import metadane  # noqa: E402
 ZRODLA = Path("/Users/jakub/aseity")
 JEZYKI = ("pl", "en")
 
-# Cały tekst własny generatora. Trzymany w jednym miejscu z rozmysłem: przy stronach
-# najłatwiej zsunąć się w pisanie zdań o aplikacjach obok ich opisów, a wtedy strona
-# zaczyna obiecywać rzeczy, których nikt nie przejrzał. Jak długa jest ta tablica,
-# tak dużo tekstu na stronach nie pochodzi ze sklepu.
-NAPISY = {
-    "pl": {
-        "html_lang": "pl",
-        "tytul_mapy": "Japoński w dziesięciu aplikacjach",
-        "opis_mapy": "Dziesięć aplikacji do nauki japońskiego, każda o jednej rzeczy: "
-                     "gramatyka, czytanie, odmiana, partykuły, liczniki, mowa potoczna, "
-                     "keigo, akcent i onomatopeje.",
-        "naglowek_tabeli": "Który problem, ta aplikacja",
-        "kolumna_problem": "Jeśli to jest twój problem",
-        "kolumna_aplikacja": "Aplikacja",
-        "naglowek_kart": "Wszystkie aplikacje",
-        "w_sklepie": "App Store",
-        "wkrotce": "Wkrótce w App Store",
-        "wkrotce_opis": "Aplikacja czeka na recenzję Apple. Strona opisuje wersję złożoną do sklepu.",
-        "przed_premiera": "przed premierą",
-        "darmowa": "Aplikacja darmowa, z zakupem w środku",
-        "wiecej": "Czytaj dalej",
-        "naglowek_zrzutow": "Jak to wygląda",
-        "naglowek_faq": "Częste pytania",
-        "pytanie_wyboru": "Którą z tych aplikacji do nauki japońskiego wybrać?",
-        "odpowiedz_wyboru": "Każda uczy jednej rzeczy i mierzy ją osobno:",
-        "zrzut": "zrzut ekranu",
-        "opis_naglowek": "Opis ze sklepu",
-        "opis_stopka": "Powyższy opis jest tym samym tekstem, który stoi na karcie aplikacji "
-                       "w App Store – pochodzi z tego samego pliku.",
-        "dokumenty": "Dokumenty",
-        "polityka": "Polityka prywatności",
-        "warunki": "Warunki korzystania",
-        "wsparcie": "Wsparcie",
-        "kontakt": "Kontakt",
-        "rodzina": "Pozostałe aplikacje",
-        "wroc": "Wszystkie aplikacje",
-        "inny_jezyk": "English",
-        "spis_tytul": "Dokumenty aplikacji",
-        "spis_opis": "Polityki prywatności, warunki korzystania i strony wsparcia "
-                     "wszystkich aplikacji.",
-        "spis_link": "Spis dokumentów",
-    },
-    "en": {
-        "html_lang": "en",
-        "tytul_mapy": "Japanese in ten apps",
-        "opis_mapy": "Ten apps for learning Japanese, each about one thing: grammar, "
-                     "reading, conjugation, particles, counters, casual speech, "
-                     "keigo, pitch accent and mimetics.",
-        "naglowek_tabeli": "Which problem, which app",
-        "kolumna_problem": "If this is your problem",
-        "kolumna_aplikacja": "App",
-        "naglowek_kart": "All apps",
-        "w_sklepie": "App Store",
-        "wkrotce": "Coming to the App Store",
-        "wkrotce_opis": "Waiting for Apple review. This page describes the version submitted.",
-        "przed_premiera": "not yet released",
-        "darmowa": "Free app with an in-app purchase",
-        "wiecej": "Read on",
-        "naglowek_zrzutow": "What it looks like",
-        "naglowek_faq": "Common questions",
-        "pytanie_wyboru": "Which of these Japanese learning apps should I use?",
-        "odpowiedz_wyboru": "Each one teaches a single thing and measures it separately:",
-        "zrzut": "screenshot",
-        "opis_naglowek": "Description from the store",
-        "opis_stopka": "The description above is the same text that stands on the App Store "
-                       "product page – it comes from the same file.",
-        "dokumenty": "Documents",
-        "polityka": "Privacy Policy",
-        "warunki": "Terms of Use",
-        "wsparcie": "Support",
-        "kontakt": "Contact",
-        "rodzina": "The other apps",
-        "wroc": "All apps",
-        "inny_jezyk": "Polski",
-        "spis_tytul": "App documents",
-        "spis_opis": "Privacy policies, terms of use and support pages for every app.",
-        "spis_link": "Document index",
-    },
-}
+from napisy import NAPISY  # noqa: E402
 
 STYL = """\
 :root { color-scheme: light dark; --tlo:#fff; --tekst:#1c1c1e; --cichy:#6b6b70;
@@ -230,12 +152,9 @@ def zbierz(manifest):
             raise SystemExit(f"{wpis['slug']}: brak drzewa {repo}")
         teksty = {}
         for jezyk in JEZYKI:
-            if wpis["zrodlo"] == "kaname":
-                teksty[jezyk] = metadane.z_json(repo, jezyk, wpis["wersja"])
-                plik = Path("docs/app-store/version-texts.json")
-            else:
-                teksty[jezyk] = metadane.z_markdown(repo, jezyk)
-                plik = Path(f"docs/app-store/APP_STORE_METADATA_{jezyk.upper()}.md")
+            teksty[jezyk] = metadane.teksty(repo, wpis, jezyk)
+            plik = (Path("docs/app-store/version-texts.json") if wpis["zrodlo"] == "kaname"
+                    else Path(f"docs/app-store/APP_STORE_METADATA_{jezyk.upper()}.md"))
         podpisy = {j: podpisy_kadrow(ZRODLA / wpis.get("repoZrzuty", wpis["repo"]), j)
                    for j in JEZYKI}
         apki.append({**wpis, "teksty": teksty, "repoSciezka": repo, "podpisy": podpisy,
@@ -1239,9 +1158,17 @@ def bez_glowy_witryny(tresc: str) -> str:
     Bez tego przesiewu bramka po wstawieniu głów 09.09.2026 zgłosiła **60 rozjazdów
     zamiast 5** — czyli utopiła własny sygnał w zmianie, która treści nie dotknęła.
     """
-    return "\n".join(w for w in tresc.split("\n")
-                     if 'rel="canonical"' not in w and 'name="robots"' not in w
-                     and 'rel="icon"' not in w and 'rel="apple-touch-icon"' not in w)
+    bez_linii = "\n".join(
+        w for w in tresc.split("\n")
+        if 'rel="canonical"' not in w and 'name="robots"' not in w
+        and 'rel="icon"' not in w and 'rel="apple-touch-icon"' not in w
+        and 'name="description"' not in w and 'property="og:' not in w
+        and 'name="twitter:card"' not in w)
+    # Wyjście na witrynę dopisujemy **wewnątrz** istniejącej stopki, więc przy stopce
+    # jednolinijkowej siedzi w tej samej linii co `</footer>` i wycinanie po liniach
+    # zabrałoby razem z nim koniec stopki. Stąd wzorzec, a nie filtr linii.
+    return re.sub(r'<br><a href="https://[^"]*/apps/[^"]*">.*?</a> · '
+                  r'<a href="https://[^"]*">.*?</a>', "", bez_linii)
 
 
 def skrot_dokumentu(sciezka: Path) -> str:
@@ -1456,6 +1383,7 @@ def bramki(apki, pliki, manifest):
     #
     #     Wstawia je `Tools/glowy_dokumentow.py`; tutaj tylko pomiar wytworu.
     aktualne = glowy_dokumentow.biezace(manifest)
+    ctx = glowy_dokumentow.kontekst(manifest)
     baza = manifest["bazaAdresu"].rstrip("/")
     for wzgledna in glowy_dokumentow.dokumenty_na_dysku():
         tresc = (KORZEN / wzgledna).read_text(encoding="utf-8")
@@ -1470,7 +1398,15 @@ def bramki(apki, pliki, manifest):
             bledy.append(f"{wzgledna}: dokument bieżący ma noindex")
         if 'rel="icon"' not in tresc:
             bledy.append(f"{wzgledna}: brak ikony witryny "
-                     f"(uruchom Tools/glowy_dokumentow.py)")
+                         f"(uruchom Tools/glowy_dokumentow.py)")
+        if 'name="description"' not in tresc:
+            bledy.append(f"{wzgledna}: brak opisu (uruchom Tools/glowy_dokumentow.py)")
+        # Wyjście na witrynę. Dokument prawny bez niego jest ślepym zaułkiem dla
+        # człowieka, który przyszedł tu z App Store — a to jest ruch od kogoś,
+        # kto już kupił jedną aplikację i nie widzi pozostałych dziewięciu.
+        if wzgledna in ctx["apka"] and f"{baza}/" not in tresc.split("<footer")[-1]:
+            bledy.append(f"{wzgledna}: stopka bez wyjścia na witrynę "
+                         f"(uruchom Tools/glowy_dokumentow.py)")
 
     return bledy, uwagi
 

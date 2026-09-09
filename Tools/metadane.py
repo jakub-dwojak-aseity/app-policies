@@ -88,6 +88,21 @@ def z_markdown(repo: Path, jezyk: str) -> dict:
     return dane
 
 
+def teksty(repo: Path, wpis: dict, jezyk: str) -> dict:
+    """Teksty sklepowe jednej aplikacji, niezależnie od tego, gdzie je trzyma.
+
+    Dziewięć sióstr trzyma je w `APP_STORE_METADATA_{PL,EN}.md`, Kaname
+    w `version-texts.json` per wersja. To rozgałęzienie **stoi tutaj jeden raz**,
+    a nie w każdym narzędziu, które chce znać nazwę aplikacji — bo drugie takie
+    rozgałęzienie rozjechałoby się z pierwszym w dniu, w którym któraś siostra
+    zmieni źródło, i **żadna bramka by tego nie zobaczyła**: oba wyglądałyby na
+    działające, tylko mówiłyby co innego.
+    """
+    if wpis["zrodlo"] == "kaname":
+        return z_json(repo, jezyk, wpis["wersja"])
+    return z_markdown(repo, jezyk)
+
+
 def wersje_kaname(repo: Path) -> list:
     """Numery wersji z `version-texts.json`, od najnowszej."""
     dane = json.loads((repo / "docs" / "app-store" / "version-texts.json").read_text(encoding="utf-8"))

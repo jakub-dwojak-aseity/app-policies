@@ -99,7 +99,7 @@ z metadanych w repo: te dwa źródła potrafią się rozjechać i już się rozj
 | Aplikacja | Strona produktowa | Dokumenty |
 |---|---|---|
 | Kaname: Gramatyka japońska 要 | [pl](https://jd-japanese.pl/apps/kaname/) · [en](https://jd-japanese.pl/en/apps/kaname/) | [pl](https://jd-japanese.pl/kaname/1.2/privacy.html) · [en](https://jd-japanese.pl/kaname/1.2/en/privacy.html) |
-| Bunmyaku — Japoński w zdaniu 文脈 | [pl](https://jd-japanese.pl/apps/bunmyaku/) · [en](https://jd-japanese.pl/en/apps/bunmyaku/) | [pl](https://jd-japanese.pl/bunmyaku/1.2/privacy.html) · [en](https://jd-japanese.pl/bunmyaku/1.2/en/privacy.html) |
+| Bunmyaku: Japoński w zdaniu 文脈 | [pl](https://jd-japanese.pl/apps/bunmyaku/) · [en](https://jd-japanese.pl/en/apps/bunmyaku/) | [pl](https://jd-japanese.pl/bunmyaku/1.2/privacy.html) · [en](https://jd-japanese.pl/bunmyaku/1.2/en/privacy.html) |
 | Katsuyokei: Odmiana japońska 活用形 | [pl](https://jd-japanese.pl/apps/katsuyokei/) · [en](https://jd-japanese.pl/en/apps/katsuyokei/) | [pl](https://jd-japanese.pl/katsuyokei/privacy.html) · [en](https://jd-japanese.pl/katsuyokei/en/privacy.html) |
 | Joshi: Partykuły japońskie 助詞 | [pl](https://jd-japanese.pl/apps/joshi/) · [en](https://jd-japanese.pl/en/apps/joshi/) | [pl](https://jd-japanese.pl/joshi/privacy.html) · [en](https://jd-japanese.pl/joshi/en/privacy.html) |
 | Kazoekata: Liczniki japońskie 数え方 | [pl](https://jd-japanese.pl/apps/kazoekata/) · [en](https://jd-japanese.pl/en/apps/kazoekata/) | [pl](https://jd-japanese.pl/kazoekata/privacy.html) · [en](https://jd-japanese.pl/kazoekata/en/privacy.html) |
@@ -107,7 +107,7 @@ z metadanych w repo: te dwa źródła potrafią się rozjechać i już się rozj
 | Shindan: Poziom japońskiego 診断 *(przed wydaniem)* | [pl](https://jd-japanese.pl/apps/shindan/) · [en](https://jd-japanese.pl/en/apps/shindan/) | [pl](https://jd-japanese.pl/shindan/1.0/privacy.html) · [en](https://jd-japanese.pl/shindan/1.0/en/privacy.html) |
 | Keigo: Grzeczność japońska 敬語 *(przed wydaniem)* | [pl](https://jd-japanese.pl/apps/keigo/) · [en](https://jd-japanese.pl/en/apps/keigo/) | [pl](https://jd-japanese.pl/keigo/1.0/privacy.html) · [en](https://jd-japanese.pl/keigo/1.0/en/privacy.html) |
 | Kifuku: Akcent japoński 起伏 *(przed wydaniem)* | [pl](https://jd-japanese.pl/apps/kifuku/) · [en](https://jd-japanese.pl/en/apps/kifuku/) | [pl](https://jd-japanese.pl/kifuku/1.0/privacy.html) · [en](https://jd-japanese.pl/kifuku/1.0/en/privacy.html) |
-| Onomatope: Japońskie dźwięki オノマトペ *(przed wydaniem)* | [pl](https://jd-japanese.pl/apps/onomatope/) · [en](https://jd-japanese.pl/en/apps/onomatope/) | [pl](https://jd-japanese.pl/onomatope/1.0/privacy.html) · [en](https://jd-japanese.pl/onomatope/1.0/en/privacy.html) |
+| Onomatope: Dźwięki i wyrażenia オノマトペ *(przed wydaniem)* | [pl](https://jd-japanese.pl/apps/onomatope/) · [en](https://jd-japanese.pl/en/apps/onomatope/) | [pl](https://jd-japanese.pl/onomatope/1.0/privacy.html) · [en](https://jd-japanese.pl/onomatope/1.0/en/privacy.html) |
 | SpoolCalc – kalkulator pojemności szpuli | – | [en](https://jd-japanese.pl/spoolcalc/privacy.html) |
 
 Mapa rodziny: [pl](https://jd-japanese.pl/) · [en](https://jd-japanese.pl/en/). Spis dokumentów: [pl](https://jd-japanese.pl/dokumenty.html) · [en](https://jd-japanese.pl/en/documents.html).

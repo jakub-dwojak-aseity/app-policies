@@ -7,30 +7,30 @@ Autor: Jakub Dwojak. Aplikacje na iPhone'a, po polsku i po angielsku. Każdy opi
 ## Aplikacje
 
 - [Kaname: Gramatyka japońska](https://jd-japanese.pl/apps/kaname/): Powtórki JLPT: N5 N4 N3 N2 N1. Mylisz podobne konstrukcje? Zobacz je obok siebie w prawdziwych zdaniach, nie w samym opisie. Do tego skan japońskiego ze zdjęcia i sprawdzenie własnego zdania przez AI.
-- [Bunmyaku — Japoński w zdaniu](https://jd-japanese.pl/apps/bunmyaku/): Czytaj japoński w kontekście. Znasz znak. Znasz słowo. Ale czy przeczytasz je, gdy wyskoczy w środku zdania? To osobna pamięć — i ta aplikacja ją ćwiczy.
-- [Katsuyokei: Odmiana japońska](https://jd-japanese.pl/apps/katsuyokei/): Japońska odmiana w praktyce. Formy biorą się z reguł, nie z pamięci. Ćwicz je, aż 書いて pojawi się, zanim zdążysz
+- [Bunmyaku: Japoński w zdaniu](https://jd-japanese.pl/apps/bunmyaku/): Słówka, kanji i furigana. Znasz znak. Znasz słowo. Ale czy przeczytasz je, gdy wyskoczy w środku zdania? To osobna pamięć – i ta aplikacja ją ćwiczy.
+- [Katsuyokei: Odmiana japońska](https://jd-japanese.pl/apps/katsuyokei/): Czasowniki, formy, fiszki. Formy biorą się z reguł, nie z pamięci. Ćwicz je, aż 書いて pojawi się, zanim zdążysz
 o nim pomyśleć.
-- [Joshi: Partykuły japońskie](https://jd-japanese.pl/apps/joshi/): Ćwiczenia z は, が, に, で. Wiedzieć, co znaczy に, to nie to samo co wiedzieć, kiedy jest で. Dziewięćset zdań, jedna
-luka, cztery partykuły — aż właściwa przychodzi sama.
-- [Kazoekata: Liczniki japońskie](https://jd-japanese.pl/apps/kazoekata/): Japońskie liczniki w praktyce. Przestań zgadywać, jak czyta się japońskie liczniki. 三本 to さんぼん, 六本 to ろっぽん — i stoi za tym reguła.
+- [Joshi: Partykuły japońskie](https://jd-japanese.pl/apps/joshi/): Gramatyka i ćwiczenia JLPT. Wiedzieć, co znaczy に, to nie to samo co wiedzieć, kiedy jest で. Dziewięćset zdań, jedna
+luka, cztery partykuły – aż właściwa przychodzi sama.
+- [Kazoekata: Liczniki japońskie](https://jd-japanese.pl/apps/kazoekata/): Liczenie, kanji, ćwiczenia. Przestań zgadywać, jak czyta się japońskie liczniki. 三本 to さんぼん, 六本 to ろっぽん – i stoi za tym reguła.
 - [Kuzushi: Mowa potoczna](https://jd-japanese.pl/apps/kuzushi/): Anime, dorama i skróty. Podręcznik uczy 〜ている. Ludzie mówią 〜てる. Kuzushi ćwiczy tę lukę: rozpoznawanie skrótu i wytwarzanie go są liczone osobno, bo to dwie różne umiejętności.
 - [Shindan: Poziom japońskiego](https://jd-japanese.pl/apps/shindan/) (przed premierą): Test JLPT: N5 N4 N3 N2 N1. Dziewięć aplikacji uczy po jednej rzeczy. Żadna nie powie ci, której naprawdę
 potrzebujesz. Jeden arkusz pod zegarem i odpowiedź przestaje być zgadywaniem.
 - [Keigo: Grzeczność japońska](https://jd-japanese.pl/apps/keigo/) (przed premierą): Japoński formalny do pracy. Znać formę to nie to samo co wiedzieć, wobec kogo jej użyć. Za dużo keigo jest błędem
 dokładnie tak samo jak za mało – i to jest ta połowa, której nie uczy nikt.
 - [Kifuku: Akcent japoński](https://jd-japanese.pl/apps/kifuku/) (przed premierą): Wymowa, intonacja, słuchanie. Japoński ma warstwę, której kana nie zapisuje. 箸 i 橋 pisze się tak samo i nie są tym samym słowem – a różnica to reguła do nauczenia, nie lista do wykucia.
-- [Onomatope: Japońskie dźwięki](https://jd-japanese.pl/apps/onomatope/) (przed premierą): Słówka z mangi i anime. Onomatopeje nie są losowe. 濁点 robi rzecz większą, cięższą i mniej przyjemną – kto to
+- [Onomatope: Dźwięki i wyrażenia](https://jd-japanese.pl/apps/onomatope/) (przed premierą): Słówka z mangi i anime. Onomatopeje nie są losowe. 濁点 robi rzecz większą, cięższą i mniej przyjemną – kto to
 rozumie, zgadnie słowo, którego nigdy nie widział. Reszta uczy się trzystu słówek.
 
 ## Wersja angielska
 
 - [Kaname: Japanese Grammar](https://jd-japanese.pl/en/apps/kaname/): JLPT practice: N5 N4 N3 N2 N1. Mixing up similar patterns? See them side by side in real sentences, not just in prose. Plus scanning Japanese from a photo and an AI check on sentences you write.
-- [Bunmyaku — Japanese Reading](https://jd-japanese.pl/en/apps/bunmyaku/): Read Japanese in Context. You know the kanji. You know the word. But can you read it when it turns up inside a sentence? That is a different memory — and this trains it.
-- [Katsuyokei: Conjugation](https://jd-japanese.pl/en/apps/katsuyokei/): Japanese Forms & Drills. Verb forms come from rules, not from memory. Drill them until 書いて arrives before you
+- [Bunmyaku: Japanese Reading](https://jd-japanese.pl/en/apps/bunmyaku/): Vocabulary, kanji, furigana. You know the kanji. You know the word. But can you read it when it turns up inside a sentence? That is a different memory – and this trains it.
+- [Katsuyokei: Conjugation](https://jd-japanese.pl/en/apps/katsuyokei/): Verbs, adjectives and drills. Verb forms come from rules, not from memory. Drill them until 書いて arrives before you
 have finished thinking about it.
-- [Joshi: Japanese Particles](https://jd-japanese.pl/en/apps/joshi/): Drills for は, が, に, で. Knowing what に means is not the same as knowing when it is で. Nine hundred sentences,
-one blank, four particles — until the right one arrives on its own.
-- [Kazoekata: Japanese Counters](https://jd-japanese.pl/en/apps/kazoekata/): Master Japanese Counters. Stop guessing how Japanese counters are read. 三本 is さんぼん, 六本 is ろっぽん — and there is a rule behind it.
+- [Joshi: Japanese Particles](https://jd-japanese.pl/en/apps/joshi/): Grammar drills for the JLPT. Knowing what に means is not the same as knowing when it is で. Nine hundred sentences,
+one blank, four particles – until the right one arrives on its own.
+- [Kazoekata: Japanese Counters](https://jd-japanese.pl/en/apps/kazoekata/): Counting, kanji and drills. Stop guessing how Japanese counters are read. 三本 is さんぼん, 六本 is ろっぽん – and there is a rule behind it.
 - [Kuzushi: Casual Japanese](https://jd-japanese.pl/en/apps/kuzushi/): Anime, drama and slang. Textbooks teach 〜ている. People say 〜てる. Kuzushi drills that gap: recognising a contraction and producing one are scored apart, because they are two different skills.
 - [Shindan: Japanese Level Test](https://jd-japanese.pl/en/apps/shindan/): JLPT placement: N5 N4 N3 N2 N1. Nine apps teach one thing each. None of them can tell you which one you actually need.
 One sheet under a clock, and the answer stops being a guess.

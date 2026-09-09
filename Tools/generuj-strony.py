@@ -538,13 +538,17 @@ def galeria(a, jezyk, glebokosc):
     n = NAPISY[jezyk]
     podpisy = a["podpisy"][jezyk]
     kadry = []
-    for numer, plik in enumerate(pliki):
-        opis = podpisy[numer] if numer < len(podpisy) else \
-            f'{a["teksty"][jezyk]["nazwa"]} – {n["zrzut"]}'
+    for plik in pliki:
+        naglowek, podtytul = podpisy.get(Path(plik).stem,
+                                         (f'{a["teksty"][jezyk]["nazwa"]} – {n["zrzut"]}', ""))
+        opis = f"{naglowek} {podtytul}".strip()
         sciezka = wzgledny(glebokosc, f"assets/zrzuty/{a['slug']}/{jezyk}/{plik}")
+        podpis = f"<strong>{e(naglowek)}</strong>"
+        if podtytul:
+            podpis += f"<br>{e(podtytul)}"
         kadry.append(f'<figure><img src="{sciezka}" alt="{html.escape(opis, quote=True)}"'
                      f' width="420" height="912" loading="lazy">'
-                     f"<figcaption>{e(opis)}</figcaption></figure>")
+                     f"<figcaption>{podpis}</figcaption></figure>")
     return f"<h2>{e(n['naglowek_zrzutow'])}</h2>" + \
         f'<div class="zrzuty">{"".join(kadry)}</div>'
 
@@ -879,29 +883,35 @@ ZRZUTOW_NA_STRONE = 3
 KATALOGI_JEZYKA = {"pl": "pl", "en": "en-US"}
 
 
-def podpisy_kadrow(repo: Path, jezyk: str) -> list:
-    """Podpisy kadrów z metadanych — te same, które stoją pod zrzutami w App Store.
+def podpisy_kadrow(repo: Path, jezyk: str) -> dict:
+    """Podpisy kadrów z `docs/app-store/screenshots.json` — po identyfikatorze kadru.
 
-    **Ma je tylko część rodziny.** Zmierzone 09.09.2026: sekcję `Screenshot copy`
-    z numerowaną listą niosą Bunmyaku, Katsuyokei i Joshi; Kazoekata ma sekcję bez
-    listy, a sześć aplikacji nie ma jej wcale. Tam, gdzie podpisu nie ma, tekst
-    alternatywny mówi tylko, czym obrazek jest — **wymyślenie opisu ekranu byłoby
-    dopisaniem treści, której nikt nie przejrzał**, a tekst alternatywny czyta
-    czytnik ekranu i indeksuje wyszukiwarka.
+    **To jest źródło, a nie kopia.** Ten sam plik składa kadry (`screenshots.sh`),
+    rysuje na nich nagłówek (`make-store-frame.swift`) i jest pilnowany bramką
+    treści (`check-store-frames.swift`) — czyli tekst, który widać na obrazku
+    w App Store, bierze się dokładnie stąd.
+
+    Pierwsza wersja tej funkcji czytała sekcję `Screenshot copy` z pliku markdown
+    i na tej podstawie ogłosiłem, że **siedem aplikacji nie ma podpisów**. Nieprawda:
+    sekcja w markdownie jest ręczną kopią i ma ją troje z dziesięciu, a `copy`
+    w `screenshots.json` mają **wszystkie dziesięć, w obu językach, co do kadru**.
+    Czytanie kopii zamiast źródła dało fałszywy brak — i fałszywą zaległość.
+
+    Klucz to identyfikator kadru (`01-dzis`), a nie jego pozycja na liście:
+    kolejność kadrów w sklepie już raz się przesunęła (Joshi, „kadry 2–6 to dawne
+    1–5"), a identyfikator to przetrwał.
     """
-    plik = repo / "docs" / "app-store" / f"APP_STORE_METADATA_{jezyk.upper()}.md"
+    plik = repo / "docs" / "app-store" / "screenshots.json"
     if not plik.exists():
-        return []
-    sekcja = re.search(r"^## (?:Screenshot copy|Teksty pod zrzuty)[^\n]*\n(.*?)(?=^## |\Z)",
-                       plik.read_text(encoding="utf-8"), re.S | re.M)
-    if not sekcja:
-        return []
-    podpisy = []
-    for _, tresc in re.findall(r"^\s*(\d+)\.\s+(.+)$", sekcja.group(1), re.M):
-        czysty = re.sub(r"\*+", "", tresc)          # pogrubienia i kursywy z markdownu
-        czysty = re.sub(r"\s*\([^)]*\)\s*$", "", czysty)  # dopiski redakcyjne na końcu
-        czysty = czysty.split(" — ")[0].strip(" —–*_")
-        podpisy.append(czysty)
+        return {}
+    lokalizacja = {"pl": "pl", "en": "en-US"}[jezyk]
+    podpisy = {}
+    for kadr in json.loads(plik.read_text(encoding="utf-8")).get("shots", []):
+        tresc = (kadr.get("copy") or {}).get(lokalizacja) or {}
+        naglowek = (tresc.get("headline") or "").strip()
+        podtytul = (tresc.get("subtitle") or "").strip()
+        if naglowek:
+            podpisy[kadr["id"]] = (naglowek, podtytul)
     return podpisy
 
 
@@ -936,10 +946,10 @@ def importuj_zrzuty(apki, manifest, zapisuj):
                 continue
             kadry = sorted(zrodlo.glob("*.png"))[:ZRZUTOW_NA_STRONE]
             cel_katalog = katalog / a["slug"] / jezyk
-            for numer, kadr in enumerate(kadry, start=1):
-                klucz = f"{a['slug']}/{jezyk}/{numer}"
+            for kadr in kadry:
+                klucz = f"{a['slug']}/{jezyk}/{kadr.stem}"
                 skrot = hashlib.sha256(kadr.read_bytes()).hexdigest()[:16]
-                cel = cel_katalog / f"{numer:02d}.png"
+                cel = cel_katalog / kadr.name
                 nowe[klucz] = skrot
                 if cel.exists() and stare.get(klucz) == skrot:
                     continue
@@ -1123,7 +1133,17 @@ def bramki(apki, pliki, manifest):
             bledy.append(f"{a['slug']}: pytań pl={ile['pl']}, en={ile['en']} — "
                          "nagłówek sekcji w opisie rozjechał się między językami")
 
-    # 7. Mapa witryny wymienia dokładnie te strony, które generator zapisuje.
+    # 7. Każdy kadr na stronie ma podpis w obu językach. Tekst alternatywny czyta
+    #    czytnik ekranu i indeksuje wyszukiwarka, a zastępnik „zrzut ekranu" nie niesie
+    #    nic — ma być widoczny jako błąd, a nie jako cichy domyślny wybór.
+    for a in apki:
+        for jezyk in JEZYKI:
+            for plik in zrzuty_apki(a["slug"], jezyk):
+                if Path(plik).stem not in a["podpisy"][jezyk]:
+                    bledy.append(f"{a['slug']} {jezyk}: kadr {plik} bez podpisu "
+                                 "w screenshots.json")
+
+    # 8. Mapa witryny wymienia dokładnie te strony, które generator zapisuje.
     mapa = pliki.get("sitemap.xml", "")
     baza = manifest["bazaAdresu"] + "/"
     w_mapie = {a[len(baza):] for a in re.findall(r"<loc>([^<]*)</loc>", mapa)}

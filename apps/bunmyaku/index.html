@@ -55,6 +55,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
@@ -79,28 +87,69 @@ code { font-size: .9em; }
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Bunmyaku — Japoński w zdaniu",
-  "alternateName": "文脈",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "iOS",
-  "url": "https://jd-japanese.pl/apps/bunmyaku/index.html",
-  "description": "Sprawdzasz słowo, uczysz się go, odhaczasz.",
-  "inLanguage": [
-    "pl",
-    "en"
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Bunmyaku — Japoński w zdaniu",
+      "alternateName": "文脈",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "iOS",
+      "url": "https://jd-japanese.pl/apps/bunmyaku/index.html",
+      "description": "Sprawdzasz słowo, uczysz się go, odhaczasz.",
+      "inLanguage": [
+        "pl",
+        "en"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Jakub Dwojak"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      },
+      "sameAs": "https://apps.apple.com/app/id6804188062",
+      "installUrl": "https://apps.apple.com/app/id6804188062"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Czego uczy Bunmyaku?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sprawdzasz słowo, uczysz się go, odhaczasz. Tydzień później stoi w zdaniu i zatrzymujesz się na nim.\n\nTę lukę ćwiczy Bunmyaku. Nie kanji osobno i nie kolejna talia fiszek — słowa tam, gdzie naprawdę stoją. Cały materiał JLPT, od N5 do N1."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ile kosztuje Bunmyaku?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "N5 jest darmowe w całości — wszystkie słowa, cztery typy pytań, powtórki, postęp i kopia postępu, plus kilka wywołań analizy AI miesięcznie.\n\nPoziomy N4, N3, N2 i N1 kupujesz pojedynczo, w zestawach albo w całości — jednorazowo, bez konta, bez wygasania; z każdym z nich wchodzi ćwiczenie międzypoziomowe. Kto kupił Premium wcześniej, ma N2 i N1 bez dopłaty."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Czy działa bez internetu i bez konta?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bez konta, bez analityki i bez reklam. Nauka, powtórki i skanowanie działają bez internetu, a postęp zostaje na telefonie.\n\nSieci używa wyłącznie analiza AI i tylko wtedy, gdy sam ją wywołasz: na serwer jedzie złapane zdanie albo hasło z katalogu — nie historia nauki, nic o Tobie i nigdy zdjęcie."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "W jakich językach działa?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Język menu i język materiału przełączają się niezależnie."
+          }
+        }
+      ]
+    }
   ],
-  "author": {
-    "@type": "Person",
-    "name": "Jakub Dwojak"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "PLN"
-  },
-  "sameAs": "https://apps.apple.com/app/id6804188062",
-  "installUrl": "https://apps.apple.com/app/id6804188062",
   "image": "https://jd-japanese.pl/assets/karty/bunmyaku-pl.png"
 }
 </script>
@@ -140,6 +189,6 @@ code { font-size: .9em; }
 <p>Analiza AI jest osobną subskrypcją, bo jako jedyna kosztuje przy każdym użyciu: 14,99 zł miesięcznie albo 119,99 zł rocznie, odnawiana automatycznie, do wyłączenia w ustawieniach Apple ID. Poziomów JLPT nie dotyczy.</p>
 <p>Tego samego autora: Kaname — japońska gramatyka, Katsuyokei — odmiana, Joshi — partykuły, Kazoekata — liczniki.</p>
 <h3>WARUNKI</h3>
-<p>Warunki korzystania (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/<br>Polityka prywatności: https://jakub-dwojak-aseity.github.io/app-policies/bunmyaku/1.2/privacy.html</p><p class="podtytul">Powyższy opis jest tym samym tekstem, który stoi na karcie aplikacji w App Store – pochodzi z tego samego pliku.</p><h2>Dokumenty</h2><ul class="zwykla"><li><a href="../../bunmyaku/1.2/privacy.html">Polityka prywatności</a></li><li><a href="../../bunmyaku/1.2/terms.html">Warunki korzystania</a></li><li><a href="../../bunmyaku/1.2/support.html">Wsparcie</a></li></ul><h2>Pozostałe aplikacje</h2><ul class="zwykla"><li><a href="../../apps/kaname/index.html">Kaname: Gramatyka japońska</a> — Powtórki JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/katsuyokei/index.html">Katsuyokei: Odmiana japońska</a> — Japońska odmiana w praktyce</li><li><a href="../../apps/joshi/index.html">Joshi: Partykuły japońskie</a> — Ćwiczenia z は, が, に, で</li><li><a href="../../apps/kazoekata/index.html">Kazoekata: Liczniki japońskie</a> — Japońskie liczniki w praktyce</li><li><a href="../../apps/kuzushi/index.html">Kuzushi: Mowa potoczna</a> — Anime, dorama i skróty</li><li><a href="../../apps/shindan/index.html">Shindan: Poziom japońskiego</a> — Test JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/keigo/index.html">Keigo: Grzeczność japońska</a> — Japoński formalny do pracy</li><li><a href="../../apps/kifuku/index.html">Kifuku: Akcent japoński</a> — Wymowa, intonacja, słuchanie</li><li><a href="../../apps/onomatope/index.html">Onomatope: Japońskie dźwięki</a> — Słówka z mangi i anime</li></ul><footer>Jakub Dwojak · <a href="../../dokumenty.html">Spis dokumentów</a> · <a href="mailto:jakub.dwojak+bunmyaku@hotmail.com">jakub.dwojak+bunmyaku@hotmail.com</a><br>Strona wygenerowana z metadanych sklepowych (<code>Tools/generuj-strony.py</code>).</footer>
+<p>Warunki korzystania (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/<br>Polityka prywatności: https://jakub-dwojak-aseity.github.io/app-policies/bunmyaku/1.2/privacy.html</p><p class="podtytul">Powyższy opis jest tym samym tekstem, który stoi na karcie aplikacji w App Store – pochodzi z tego samego pliku.</p><h2>Częste pytania</h2><details><summary>Czego uczy Bunmyaku?</summary><p>Sprawdzasz słowo, uczysz się go, odhaczasz. Tydzień później stoi w zdaniu i zatrzymujesz się na nim.</p><p>Tę lukę ćwiczy Bunmyaku. Nie kanji osobno i nie kolejna talia fiszek — słowa tam, gdzie naprawdę stoją. Cały materiał JLPT, od N5 do N1.</p></details><details><summary>Ile kosztuje Bunmyaku?</summary><p>N5 jest darmowe w całości — wszystkie słowa, cztery typy pytań, powtórki, postęp i kopia postępu, plus kilka wywołań analizy AI miesięcznie.</p><p>Poziomy N4, N3, N2 i N1 kupujesz pojedynczo, w zestawach albo w całości — jednorazowo, bez konta, bez wygasania; z każdym z nich wchodzi ćwiczenie międzypoziomowe. Kto kupił Premium wcześniej, ma N2 i N1 bez dopłaty.</p></details><details><summary>Czy działa bez internetu i bez konta?</summary><p>Bez konta, bez analityki i bez reklam. Nauka, powtórki i skanowanie działają bez internetu, a postęp zostaje na telefonie.</p><p>Sieci używa wyłącznie analiza AI i tylko wtedy, gdy sam ją wywołasz: na serwer jedzie złapane zdanie albo hasło z katalogu — nie historia nauki, nic o Tobie i nigdy zdjęcie.</p></details><details><summary>W jakich językach działa?</summary><p>Język menu i język materiału przełączają się niezależnie.</p></details><h2>Dokumenty</h2><ul class="zwykla"><li><a href="../../bunmyaku/1.2/privacy.html">Polityka prywatności</a></li><li><a href="../../bunmyaku/1.2/terms.html">Warunki korzystania</a></li><li><a href="../../bunmyaku/1.2/support.html">Wsparcie</a></li></ul><h2>Pozostałe aplikacje</h2><ul class="zwykla"><li><a href="../../apps/kaname/index.html">Kaname: Gramatyka japońska</a> — Powtórki JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/katsuyokei/index.html">Katsuyokei: Odmiana japońska</a> — Japońska odmiana w praktyce</li><li><a href="../../apps/joshi/index.html">Joshi: Partykuły japońskie</a> — Ćwiczenia z は, が, に, で</li><li><a href="../../apps/kazoekata/index.html">Kazoekata: Liczniki japońskie</a> — Japońskie liczniki w praktyce</li><li><a href="../../apps/kuzushi/index.html">Kuzushi: Mowa potoczna</a> — Anime, dorama i skróty</li><li><a href="../../apps/shindan/index.html">Shindan: Poziom japońskiego</a> — Test JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/keigo/index.html">Keigo: Grzeczność japońska</a> — Japoński formalny do pracy</li><li><a href="../../apps/kifuku/index.html">Kifuku: Akcent japoński</a> — Wymowa, intonacja, słuchanie</li><li><a href="../../apps/onomatope/index.html">Onomatope: Japońskie dźwięki</a> — Słówka z mangi i anime</li></ul><footer>Jakub Dwojak · <a href="../../dokumenty.html">Spis dokumentów</a> · <a href="mailto:jakub.dwojak+bunmyaku@hotmail.com">jakub.dwojak+bunmyaku@hotmail.com</a><br>Strona wygenerowana z metadanych sklepowych (<code>Tools/generuj-strony.py</code>).</footer>
 </body>
 </html>

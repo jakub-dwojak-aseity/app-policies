@@ -152,5 +152,26 @@ def zdania(opis: str) -> list:
             re.split(r"(?<=[.!?])\s+(?=[A-ZĄĆĘŁŃÓŚŹŻ0-9「『])", akapit) if z.strip()]
 
 
+def sekcje(opis: str) -> list:
+    """Opis rozbity na sekcje: `(nagłówek, [akapity])`.
+
+    Opisy rodziny mają stały kształt wypracowany przy dziesięciu kartach: akapit
+    pisany wersalikami otwiera sekcję, reszta jest jej treścią. Pierwsza sekcja
+    nie ma nagłówka — to zdania otwierające, przed pierwszym wersalikiem.
+    """
+    out, naglowek, biezaca = [], None, []
+    for akapit in akapity(opis):
+        litery = [z for z in akapit if z.isalpha()]
+        czy_naglowek = (litery and all(z.isupper() for z in litery)
+                        and len(akapit) < 80 and "\n" not in akapit)
+        if czy_naglowek:
+            out.append((naglowek, biezaca))
+            naglowek, biezaca = akapit, []
+        else:
+            biezaca.append(akapit)
+    out.append((naglowek, biezaca))
+    return [(n, a) for n, a in out if a]
+
+
 def akapity(opis: str) -> list:
     return [a.strip() for a in opis.strip().split("\n\n") if a.strip()]

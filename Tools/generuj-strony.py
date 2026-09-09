@@ -69,6 +69,9 @@ NAPISY = {
         "darmowa": "Aplikacja darmowa, z zakupem w środku",
         "wiecej": "Czytaj dalej",
         "naglowek_zrzutow": "Jak to wygląda",
+        "naglowek_faq": "Częste pytania",
+        "pytanie_wyboru": "Którą z tych aplikacji do nauki japońskiego wybrać?",
+        "odpowiedz_wyboru": "Każda uczy jednej rzeczy i mierzy ją osobno:",
         "zrzut": "zrzut ekranu",
         "opis_naglowek": "Opis ze sklepu",
         "opis_stopka": "Powyższy opis jest tym samym tekstem, który stoi na karcie aplikacji "
@@ -104,6 +107,9 @@ NAPISY = {
         "darmowa": "Free app with an in-app purchase",
         "wiecej": "Read on",
         "naglowek_zrzutow": "What it looks like",
+        "naglowek_faq": "Common questions",
+        "pytanie_wyboru": "Which of these Japanese learning apps should I use?",
+        "odpowiedz_wyboru": "Each one teaches a single thing and measures it separately:",
         "zrzut": "screenshot",
         "opis_naglowek": "Description from the store",
         "opis_stopka": "The description above is the same text that stands on the App Store "
@@ -165,6 +171,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
@@ -396,6 +410,18 @@ def mapa_rodziny(apki, jezyk, manifest):
         + '<ul class="karty">' + "".join(karty) + "</ul>"
         + stopka(jezyk, glebokosc, manifest))
 
+    # Pytanie, które model dostaje o rodzinę aplikacji, brzmi „którą wybrać" — i tabela
+    # wyżej jest na nie odpowiedzią, tylko zapisaną znacznikami tabeli. Tu ta sama treść
+    # stoi jako pytanie i odpowiedź, czyli w kształcie, który modele cytują. Odpowiedź
+    # skleja się z nazw i podtytułów, więc dalej nie ma tu ani jednego nowego zdania.
+    wybor = "; ".join(f'{a["teksty"][jezyk]["nazwa"]} – {a["teksty"][jezyk]["podtytul"]}'
+                      for a in apki)
+    faq = {"@type": "FAQPage", "mainEntity": [{
+        "@type": "Question",
+        "name": n["pytanie_wyboru"],
+        "acceptedAnswer": {"@type": "Answer", "text": n["odpowiedz_wyboru"] + " " + wybor},
+    }]}
+
     jsonld = {
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -408,6 +434,8 @@ def mapa_rodziny(apki, jezyk, manifest):
              "name": a["teksty"][jezyk]["nazwa"]}
             for i, a in enumerate(apki)],
     }
+    jsonld = {"@context": "https://schema.org",
+              "@graph": [{k: v for k, v in jsonld.items() if k != "@context"}, faq]}
     return kanoniczny, strona(jezyk=jezyk, tytul=n["tytul_mapy"], opis=n["opis_mapy"],
                               kanoniczny=kanoniczny, alternatywny=alternatywny,
                               tresc=tresc, glebokosc=glebokosc, manifest=manifest,
@@ -422,6 +450,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
     kanoniczny = kanoniczny or wlasny
     alternatywny = sciezki(a["slug"], "en" if jezyk == "pl" else "pl")[0]
     t = a["teksty"][jezyk]
+    pary = pytania_apki(a, jezyk)
     katalog = a["dokumenty"][jezyk]
     ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.png")
 
@@ -453,6 +482,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
         + f"<h2>{e(n['opis_naglowek'])}</h2>"
         + opis_html(t["opis"])
         + f'<p class="podtytul">{e(n["opis_stopka"])}</p>'
+        + faq_html(pary, jezyk)
         + f"<h2>{e(n['dokumenty'])}</h2><ul class=\"zwykla\">{dokumenty}</ul>"
         + f"<h2>{e(n['rodzina'])}</h2><ul class=\"zwykla\">{rodzenstwo}</ul>"
         + stopka(jezyk, glebokosc, manifest, a["kontakt"]))
@@ -473,6 +503,11 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
     if a["wSklepie"]:
         jsonld["sameAs"] = link_sklepu(a["appId"])
         jsonld["installUrl"] = link_sklepu(a["appId"])
+
+    if pary:
+        jsonld = {"@context": "https://schema.org",
+                  "@graph": [{k: v for k, v in jsonld.items() if k != "@context"},
+                             faq_jsonld(pary)]}
 
     tytul = f'{t["nazwa"]} – {t["podtytul"]}'
     obrazek = f'{manifest["bazaAdresu"]}/assets/karty/{a["slug"]}-{jezyk}.png'
@@ -750,6 +785,94 @@ def ikony(apki, zapisuj):
     return zrobione
 
 
+# ---------------------------------------------------------------- pytania i odpowiedzi
+
+# **Pytania piszemy my, odpowiedzi nigdy.** To jest cała granica tej sekcji i jedyny
+# powód, dla którego wolno ją było dopisać obok reguły „treść pochodzi z metadanych".
+# Modele odpowiadające na pytania cytują tekst zbudowany jako pytanie i odpowiedź —
+# a my mamy odpowiedzi już napisane i przejrzane, tylko rozsypane po opisie sklepowym.
+# Pytanie **wskazuje** sekcję opisu; jeśli aplikacja takiej sekcji nie ma, pytanie się
+# nie pojawia. Nigdy nie powstaje odpowiedź, której nie ma w sklepie.
+#
+# Klucze to fragmenty NAGŁÓWKÓW sekcji, wielkimi literami, bo tak są pisane w opisach.
+PYTANIA = (
+    {
+        "pl": "Czego uczy {nazwa}?",
+        "en": "What does {nazwa} teach?",
+        "otwarcie": True,                     # zdania przed pierwszym nagłówkiem
+    },
+    {
+        "pl": "Ile kosztuje {nazwa}?",
+        "en": "What does {nazwa} cost?",
+        "klucze_pl": ("DARMOW", "ZA DARMO", "PREMIUM", "KUPIĆ", "PŁATNE", "ZAKUP"),
+        "klucze_en": ("FREE", "PAID", "PREMIUM", "BUY", "COSTS", "PURCHASE"),
+    },
+    {
+        "pl": "Czy działa bez internetu i bez konta?",
+        "en": "Does it work without an account or a network?",
+        "klucze_pl": ("BEZ KONTA", "BEZ SIECI", "PRYWAT"),
+        "klucze_en": ("NO ACCOUNT", "NO NETWORK", "PRIVAC", "PRIVATE", "OFFLINE"),
+    },
+    {
+        "pl": "W jakich językach działa?",
+        "en": "What languages does it support?",
+        "klucze_pl": ("POLSKI I ANGIELSKI",),
+        "klucze_en": ("POLISH AND ENGLISH", "ENGLISH AND POLISH"),
+    },
+    {
+        "pl": "Czego ta aplikacja nie robi?",
+        "en": "What does this app not do?",
+        "klucze_pl": ("CZEGO NIE", "NIE ZROBI", "BEZ ĆWICZEŃ", "CZEGO TU NIE MA"),
+        "klucze_en": ("WHAT IT DOES NOT", "DOES NOT DO", "NO PRACTICE", "WHAT IS NOT HERE",
+                      "WHAT IT WILL NOT"),
+    },
+)
+
+# Odpowiedź to najwyżej tyle akapitów sekcji. Sekcje bywają długie, a odpowiedź
+# w wynikach wyszukiwania i tak jest przycinana — lepiej przyciąć świadomie.
+AKAPITOW_W_ODPOWIEDZI = 2
+
+
+def pytania_apki(a, jezyk):
+    """Pary pytanie–odpowiedź dla jednej aplikacji, wyłącznie z jej opisu."""
+    sekcje = metadane.sekcje(a["teksty"][jezyk]["opis"])
+    nazwa = a["teksty"][jezyk]["nazwa"].split(":")[0].split(" —")[0].strip()
+    pary = []
+    for wzorzec in PYTANIA:
+        if wzorzec.get("otwarcie"):
+            akapity = next((tresc for naglowek, tresc in sekcje if naglowek is None), [])
+        else:
+            klucze = wzorzec[f"klucze_{jezyk}"]
+            akapity = []
+            for naglowek, tresc in sekcje:
+                if naglowek and any(k in naglowek for k in klucze):
+                    akapity.extend(tresc)
+        if not akapity:
+            continue
+        pary.append((wzorzec[jezyk].format(nazwa=nazwa), akapity[:AKAPITOW_W_ODPOWIEDZI]))
+    return pary
+
+
+def faq_html(pary, jezyk):
+    if not pary:
+        return ""
+    pozycje = []
+    for pytanie, akapity in pary:
+        odpowiedz = "".join(akapit_html(a) for a in akapity)
+        pozycje.append(f"<details><summary>{e(pytanie)}</summary>{odpowiedz}</details>")
+    return f"<h2>{e(NAPISY[jezyk]['naglowek_faq'])}</h2>" + "".join(pozycje)
+
+
+def faq_jsonld(pary):
+    return {
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": pytanie,
+             "acceptedAnswer": {"@type": "Answer", "text": "\n\n".join(akapity)}}
+            for pytanie, akapity in pary],
+    }
+
+
 # ---------------------------------------------------------------- zrzuty
 
 ZRZUTOW_NA_STRONE = 3
@@ -990,7 +1113,17 @@ def bramki(apki, pliki, manifest):
                              f"({nazwy[nazwa]}, {a['slug']})")
             nazwy[nazwa] = a["slug"]
 
-    # 6. Mapa witryny wymienia dokładnie te strony, które generator zapisuje.
+    # 6. Pytania dobierają się nagłówkami sekcji opisu, a te są pisane ręcznie
+    #    i osobno w każdym języku. Jeśli angielski nagłówek zmieni brzmienie, pytanie
+    #    **cicho zniknie z jednej wersji językowej** — strona dalej się zbuduje, tylko
+    #    będzie uboższa. Bramka porównuje liczby zamiast ufać, że nagłówki są zgodne.
+    for a in apki:
+        ile = {j: len(pytania_apki(a, j)) for j in JEZYKI}
+        if ile["pl"] != ile["en"]:
+            bledy.append(f"{a['slug']}: pytań pl={ile['pl']}, en={ile['en']} — "
+                         "nagłówek sekcji w opisie rozjechał się między językami")
+
+    # 7. Mapa witryny wymienia dokładnie te strony, które generator zapisuje.
     mapa = pliki.get("sitemap.xml", "")
     baza = manifest["bazaAdresu"] + "/"
     w_mapie = {a[len(baza):] for a in re.findall(r"<loc>([^<]*)</loc>", mapa)}

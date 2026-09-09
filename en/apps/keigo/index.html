@@ -55,6 +55,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
@@ -79,26 +87,59 @@ code { font-size: .9em; }
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Keigo: Polite Japanese",
-  "alternateName": "敬語",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "iOS",
-  "url": "https://jd-japanese.pl/en/apps/keigo/index.html",
-  "description": "The Japanese honorific register is not a list of forms to memorise.",
-  "inLanguage": [
-    "pl",
-    "en"
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Keigo: Polite Japanese",
+      "alternateName": "敬語",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "iOS",
+      "url": "https://jd-japanese.pl/en/apps/keigo/index.html",
+      "description": "The Japanese honorific register is not a list of forms to memorise.",
+      "inLanguage": [
+        "pl",
+        "en"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Jakub Dwojak"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does Keigo teach?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Japanese honorific register is not a list of forms to memorise. It is a decision about who you are talking to.\n\nYou can know that 伺う is the humble form of 行く and still aim it at a classmate one year above you. You can know お〜になる and use it about your own boss in front of a customer. The difference is not in the form – it is in who is speaking to whom. That is what Keigo asks about."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does Keigo cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Levels 1 and 2 in full – です/ます and all twenty irregular forms. A single purchase opens levels 3 to 5: productive patterns, favors, 内/外 and overdone keigo. No subscription."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work without an account or a network?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The material ships inside the app. Your progress stays on the device and goes nowhere. There is no sign-in, no tracking and no advertising."
+          }
+        }
+      ]
+    }
   ],
-  "author": {
-    "@type": "Person",
-    "name": "Jakub Dwojak"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "PLN"
-  },
   "image": "https://jd-japanese.pl/assets/karty/keigo-en.png"
 }
 </script>
@@ -127,6 +168,6 @@ exactly as much as too little – and that half is what nobody teaches.</p><h2>W
 <h3>THE REST OF THE FAMILY</h3>
 <p>Keigo is the seventh app in the same family. Kaname teaches grammar, Katsuyokei conjugation, Joshi particles, Kazoekata counters, Bunmyaku reading in context, Kuzushi casual speech. Each one shows your progress in the others – with no account and without sending anything anywhere.</p>
 <h3>THE ARBITER</h3>
-<p>The category split and every contested call follow 文化庁「敬語の指針」(2007). Where business etiquette guides disagree with each other, the app says whose side it takes.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Documents</h2><ul class="zwykla"><li><a href="../../../keigo/1.0/en/privacy.html">Privacy Policy</a></li><li><a href="../../../keigo/1.0/en/terms.html">Terms of Use</a></li><li><a href="../../../keigo/1.0/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a> — JLPT practice: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a> — Japanese Forms &amp; Drills</li><li><a href="../../../en/apps/joshi/index.html">Joshi: Japanese Particles</a> — Drills for は, が, に, で</li><li><a href="../../../en/apps/kazoekata/index.html">Kazoekata: Japanese Counters</a> — Master Japanese Counters</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/shindan/index.html">Shindan: Japanese Level Test</a> — JLPT placement: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li><li><a href="../../../en/apps/onomatope/index.html">Onomatope: Japanese Mimetics</a> — Manga and anime vocabulary</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+keigo@hotmail.com">jakub.dwojak+keigo@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
+<p>The category split and every contested call follow 文化庁「敬語の指針」(2007). Where business etiquette guides disagree with each other, the app says whose side it takes.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Common questions</h2><details><summary>What does Keigo teach?</summary><p>The Japanese honorific register is not a list of forms to memorise. It is a decision about who you are talking to.</p><p>You can know that 伺う is the humble form of 行く and still aim it at a classmate one year above you. You can know お〜になる and use it about your own boss in front of a customer. The difference is not in the form – it is in who is speaking to whom. That is what Keigo asks about.</p></details><details><summary>What does Keigo cost?</summary><p>Levels 1 and 2 in full – です/ます and all twenty irregular forms. A single purchase opens levels 3 to 5: productive patterns, favors, 内/外 and overdone keigo. No subscription.</p></details><details><summary>Does it work without an account or a network?</summary><p>The material ships inside the app. Your progress stays on the device and goes nowhere. There is no sign-in, no tracking and no advertising.</p></details><h2>Documents</h2><ul class="zwykla"><li><a href="../../../keigo/1.0/en/privacy.html">Privacy Policy</a></li><li><a href="../../../keigo/1.0/en/terms.html">Terms of Use</a></li><li><a href="../../../keigo/1.0/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a> — JLPT practice: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a> — Japanese Forms &amp; Drills</li><li><a href="../../../en/apps/joshi/index.html">Joshi: Japanese Particles</a> — Drills for は, が, に, で</li><li><a href="../../../en/apps/kazoekata/index.html">Kazoekata: Japanese Counters</a> — Master Japanese Counters</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/shindan/index.html">Shindan: Japanese Level Test</a> — JLPT placement: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li><li><a href="../../../en/apps/onomatope/index.html">Onomatope: Japanese Mimetics</a> — Manga and anime vocabulary</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+keigo@hotmail.com">jakub.dwojak+keigo@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
 </body>
 </html>

@@ -54,6 +54,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }

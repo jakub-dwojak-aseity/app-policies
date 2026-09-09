@@ -55,6 +55,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
@@ -79,28 +87,61 @@ code { font-size: .9em; }
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Kaname: Japanese Grammar",
-  "alternateName": "要",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "iOS",
-  "url": "https://jd-japanese.pl/en/apps/kaname/index.html",
-  "description": "Kaname teaches Japanese grammar the way real command of a language works: it does not ask whether you remember a rule, but whether you can use it.",
-  "inLanguage": [
-    "pl",
-    "en"
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Kaname: Japanese Grammar",
+      "alternateName": "要",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "iOS",
+      "url": "https://jd-japanese.pl/en/apps/kaname/index.html",
+      "description": "Kaname teaches Japanese grammar the way real command of a language works: it does not ask whether you remember a rule, but whether you can use it.",
+      "inLanguage": [
+        "pl",
+        "en"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Jakub Dwojak"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      },
+      "sameAs": "https://apps.apple.com/app/id6801993668",
+      "installUrl": "https://apps.apple.com/app/id6801993668"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does Kaname teach?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kaname teaches Japanese grammar the way real command of a language works: it does not ask whether you remember a rule, but whether you can use it.\n\nThe whole JLPT range – N5 through N1."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does Kaname cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The whole of JLPT N5, with its contrast pairs and all four exercise types. No time limit, no session limit, no ads. Plus a few AI analysis calls each month.\n\nLevels N4, N3, N2 and N1 – one at a time, in bundles, or all at once. A one-time purchase, no subscription and no account; access does not expire."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work without an account or a network?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "• No account, no sign-in\n• No ads, no tracking\n• No analytics, no third-party libraries\n• All progress stays on your device\n• Study, review and scanning work without an internet connection\n\nThe network is used only by AI analysis, and only when you invoke it: the practiced pattern and the sentence you wrote go to the server. Your study history does not, nothing about you does, and a photo never does – the text in a photo is read by the phone itself."
+          }
+        }
+      ]
+    }
   ],
-  "author": {
-    "@type": "Person",
-    "name": "Jakub Dwojak"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "PLN"
-  },
-  "sameAs": "https://apps.apple.com/app/id6801993668",
-  "installUrl": "https://apps.apple.com/app/id6801993668",
   "image": "https://jd-japanese.pl/assets/karty/kaname-en.png"
 }
 </script>
@@ -137,6 +178,6 @@ code { font-size: .9em; }
 <p>Explanations and example sentences were written specifically for this app.</p>
 <p>Kaname (要) is the rivet that holds a folding fan together – hence the figurative “the crux, the thing that matters”. Because that is what this is about: the difference that decides.</p>
 <h3>TERMS</h3>
-<p>Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/<br>Privacy Policy: https://jakub-dwojak-aseity.github.io/app-policies/kaname/1.2/en/privacy.html</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Documents</h2><ul class="zwykla"><li><a href="../../../kaname/1.2/en/privacy.html">Privacy Policy</a></li><li><a href="../../../kaname/1.2/en/terms.html">Terms of Use</a></li><li><a href="../../../kaname/1.2/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a> — Japanese Forms &amp; Drills</li><li><a href="../../../en/apps/joshi/index.html">Joshi: Japanese Particles</a> — Drills for は, が, に, で</li><li><a href="../../../en/apps/kazoekata/index.html">Kazoekata: Japanese Counters</a> — Master Japanese Counters</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/shindan/index.html">Shindan: Japanese Level Test</a> — JLPT placement: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/keigo/index.html">Keigo: Polite Japanese</a> — Formal Japanese for work</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li><li><a href="../../../en/apps/onomatope/index.html">Onomatope: Japanese Mimetics</a> — Manga and anime vocabulary</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+kaname@hotmail.com">jakub.dwojak+kaname@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
+<p>Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/<br>Privacy Policy: https://jakub-dwojak-aseity.github.io/app-policies/kaname/1.2/en/privacy.html</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Common questions</h2><details><summary>What does Kaname teach?</summary><p>Kaname teaches Japanese grammar the way real command of a language works: it does not ask whether you remember a rule, but whether you can use it.</p><p>The whole JLPT range – N5 through N1.</p></details><details><summary>What does Kaname cost?</summary><p>The whole of JLPT N5, with its contrast pairs and all four exercise types. No time limit, no session limit, no ads. Plus a few AI analysis calls each month.</p><p>Levels N4, N3, N2 and N1 – one at a time, in bundles, or all at once. A one-time purchase, no subscription and no account; access does not expire.</p></details><details><summary>Does it work without an account or a network?</summary><ul class="zwykla"><li>No account, no sign-in</li><li>No ads, no tracking</li><li>No analytics, no third-party libraries</li><li>All progress stays on your device</li><li>Study, review and scanning work without an internet connection</li></ul><p>The network is used only by AI analysis, and only when you invoke it: the practiced pattern and the sentence you wrote go to the server. Your study history does not, nothing about you does, and a photo never does – the text in a photo is read by the phone itself.</p></details><h2>Documents</h2><ul class="zwykla"><li><a href="../../../kaname/1.2/en/privacy.html">Privacy Policy</a></li><li><a href="../../../kaname/1.2/en/terms.html">Terms of Use</a></li><li><a href="../../../kaname/1.2/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a> — Japanese Forms &amp; Drills</li><li><a href="../../../en/apps/joshi/index.html">Joshi: Japanese Particles</a> — Drills for は, が, に, で</li><li><a href="../../../en/apps/kazoekata/index.html">Kazoekata: Japanese Counters</a> — Master Japanese Counters</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/shindan/index.html">Shindan: Japanese Level Test</a> — JLPT placement: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/keigo/index.html">Keigo: Polite Japanese</a> — Formal Japanese for work</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li><li><a href="../../../en/apps/onomatope/index.html">Onomatope: Japanese Mimetics</a> — Manga and anime vocabulary</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+kaname@hotmail.com">jakub.dwojak+kaname@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
 </body>
 </html>

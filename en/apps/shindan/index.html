@@ -55,6 +55,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
@@ -79,26 +87,51 @@ code { font-size: .9em; }
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Shindan: Japanese Level Test",
-  "alternateName": "診断",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "iOS",
-  "url": "https://jd-japanese.pl/en/apps/shindan/index.html",
-  "description": "Shindan does not teach.",
-  "inLanguage": [
-    "pl",
-    "en"
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Shindan: Japanese Level Test",
+      "alternateName": "診断",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "iOS",
+      "url": "https://jd-japanese.pl/en/apps/shindan/index.html",
+      "description": "Shindan does not teach.",
+      "inLanguage": [
+        "pl",
+        "en"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Jakub Dwojak"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does Shindan teach?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Shindan does not teach. It measures, and then it points.\n\nYou already know the feeling: you study, you make progress, and you still cannot say what your weakest link is. A grammar app knows how much grammar you have. It does not know that particles are what keeps costing you points. Nothing you own sees the whole picture, because nothing you own asks about all of it at once."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does this app not do?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There is nothing to grind here and that is deliberate. A sheet measures once. Answers are not marked as you go, because seeing three mistakes in a row changes how you answer the fourth – and then the test measures your nerve instead of your Japanese. The result comes at the end, or not at all.\n\nIt will not give you a level from half a sheet. If too much ran out on the clock, it says so instead of guessing – a number from a thin measurement looks exactly like a number from a good one, and someone would build a study plan on it."
+          }
+        }
+      ]
+    }
   ],
-  "author": {
-    "@type": "Person",
-    "name": "Jakub Dwojak"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "PLN"
-  },
   "image": "https://jd-japanese.pl/assets/karty/shindan-en.png"
 }
 </script>
@@ -118,6 +151,6 @@ One sheet under a clock, and the answer stops being a guess.</p><h2>What it look
 <p>It does not measure reading longer texts, and it does not measure listening. Both are missing, both are named on the opening screen, and neither is hidden in the small print.</p>
 <h3>BUILT ON NINE</h3>
 <p>The questions come from the catalogs of nine Japanese-learning apps, all by the same author: grammar constructions, vocabulary in context, particles, conjugation, counters, casual speech, honorific register and mimetics. That is why the diagnosis can point somewhere specific – and why it says which app fixes what.</p>
-<p>The first sheet is free.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Documents</h2><ul class="zwykla"><li><a href="../../../shindan/1.0/en/privacy.html">Privacy Policy</a></li><li><a href="../../../shindan/1.0/en/terms.html">Terms of Use</a></li><li><a href="../../../shindan/1.0/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a> — JLPT practice: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a> — Japanese Forms &amp; Drills</li><li><a href="../../../en/apps/joshi/index.html">Joshi: Japanese Particles</a> — Drills for は, が, に, で</li><li><a href="../../../en/apps/kazoekata/index.html">Kazoekata: Japanese Counters</a> — Master Japanese Counters</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/keigo/index.html">Keigo: Polite Japanese</a> — Formal Japanese for work</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li><li><a href="../../../en/apps/onomatope/index.html">Onomatope: Japanese Mimetics</a> — Manga and anime vocabulary</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+shindan@hotmail.com">jakub.dwojak+shindan@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
+<p>The first sheet is free.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Common questions</h2><details><summary>What does Shindan teach?</summary><p>Shindan does not teach. It measures, and then it points.</p><p>You already know the feeling: you study, you make progress, and you still cannot say what your weakest link is. A grammar app knows how much grammar you have. It does not know that particles are what keeps costing you points. Nothing you own sees the whole picture, because nothing you own asks about all of it at once.</p></details><details><summary>What does this app not do?</summary><p>There is nothing to grind here and that is deliberate. A sheet measures once. Answers are not marked as you go, because seeing three mistakes in a row changes how you answer the fourth – and then the test measures your nerve instead of your Japanese. The result comes at the end, or not at all.</p><p>It will not give you a level from half a sheet. If too much ran out on the clock, it says so instead of guessing – a number from a thin measurement looks exactly like a number from a good one, and someone would build a study plan on it.</p></details><h2>Documents</h2><ul class="zwykla"><li><a href="../../../shindan/1.0/en/privacy.html">Privacy Policy</a></li><li><a href="../../../shindan/1.0/en/terms.html">Terms of Use</a></li><li><a href="../../../shindan/1.0/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a> — JLPT practice: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a> — Japanese Forms &amp; Drills</li><li><a href="../../../en/apps/joshi/index.html">Joshi: Japanese Particles</a> — Drills for は, が, に, で</li><li><a href="../../../en/apps/kazoekata/index.html">Kazoekata: Japanese Counters</a> — Master Japanese Counters</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/keigo/index.html">Keigo: Polite Japanese</a> — Formal Japanese for work</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li><li><a href="../../../en/apps/onomatope/index.html">Onomatope: Japanese Mimetics</a> — Manga and anime vocabulary</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+shindan@hotmail.com">jakub.dwojak+shindan@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
 </body>
 </html>

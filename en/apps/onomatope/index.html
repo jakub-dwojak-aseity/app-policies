@@ -55,6 +55,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
@@ -79,26 +87,59 @@ code { font-size: .9em; }
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Onomatope: Japanese Mimetics",
-  "alternateName": "オノマトペ",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "iOS",
-  "url": "https://jd-japanese.pl/en/apps/onomatope/index.html",
-  "description": "Three hundred onomatopoeia are not a list to memorize.",
-  "inLanguage": [
-    "pl",
-    "en"
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Onomatope: Japanese Mimetics",
+      "alternateName": "オノマトペ",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "iOS",
+      "url": "https://jd-japanese.pl/en/apps/onomatope/index.html",
+      "description": "Three hundred onomatopoeia are not a list to memorize.",
+      "inLanguage": [
+        "pl",
+        "en"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Jakub Dwojak"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does Onomatope teach?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Three hundred onomatopoeia are not a list to memorize. They are a system where the sound\ncarries the meaning – and that is what this app teaches.\n\nSomething small and light rolls ころころ. Something big and heavy rolls ごろごろ. The\ndifference is two dots, not two separate words. さらさら is smooth, ざらざら is rough.\nぱらぱら is light, ばらばら is scattered. Understand what 濁点 does and you can guess a word\nyou have never met – no dictionary gives you that."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does Onomatope cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Levels 1 and 2 are free in full – not out of generosity but because a free version should be\nshorter, not pretend. The rest is a single purchase, with nothing to renew."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does this app not do?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No keyboard input: we measure the choice between four sounds, not your thumb. No question\nabout whether a word is written ドキドキ or どきどき – manga writes everything in katakana, so\nthat question has two right answers. No accounts, no ads, no subscription. No network: the\napp runs entirely on your phone."
+          }
+        }
+      ]
+    }
   ],
-  "author": {
-    "@type": "Person",
-    "name": "Jakub Dwojak"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "PLN"
-  },
   "image": "https://jd-japanese.pl/assets/karty/onomatope-en.png"
 }
 </script>
@@ -121,6 +162,6 @@ pleasant – understand that and you can guess a word you have never seen.</p><h
 <h3>WHAT IS NOT HERE</h3>
 <p>No keyboard input: we measure the choice between four sounds, not your thumb. No question<br>about whether a word is written ドキドキ or どきどき – manga writes everything in katakana, so<br>that question has two right answers. No accounts, no ads, no subscription. No network: the<br>app runs entirely on your phone.</p>
 <h3>ONE PURCHASE</h3>
-<p>Levels 1 and 2 are free in full – not out of generosity but because a free version should be<br>shorter, not pretend. The rest is a single purchase, with nothing to renew.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Documents</h2><ul class="zwykla"><li><a href="../../../onomatope/1.0/en/privacy.html">Privacy Policy</a></li><li><a href="../../../onomatope/1.0/en/terms.html">Terms of Use</a></li><li><a href="../../../onomatope/1.0/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a> — JLPT practice: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a> — Japanese Forms &amp; Drills</li><li><a href="../../../en/apps/joshi/index.html">Joshi: Japanese Particles</a> — Drills for は, が, に, で</li><li><a href="../../../en/apps/kazoekata/index.html">Kazoekata: Japanese Counters</a> — Master Japanese Counters</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/shindan/index.html">Shindan: Japanese Level Test</a> — JLPT placement: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/keigo/index.html">Keigo: Polite Japanese</a> — Formal Japanese for work</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+onomatope@hotmail.com">jakub.dwojak+onomatope@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
+<p>Levels 1 and 2 are free in full – not out of generosity but because a free version should be<br>shorter, not pretend. The rest is a single purchase, with nothing to renew.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Common questions</h2><details><summary>What does Onomatope teach?</summary><p>Three hundred onomatopoeia are not a list to memorize. They are a system where the sound<br>carries the meaning – and that is what this app teaches.</p><p>Something small and light rolls ころころ. Something big and heavy rolls ごろごろ. The<br>difference is two dots, not two separate words. さらさら is smooth, ざらざら is rough.<br>ぱらぱら is light, ばらばら is scattered. Understand what 濁点 does and you can guess a word<br>you have never met – no dictionary gives you that.</p></details><details><summary>What does Onomatope cost?</summary><p>Levels 1 and 2 are free in full – not out of generosity but because a free version should be<br>shorter, not pretend. The rest is a single purchase, with nothing to renew.</p></details><details><summary>What does this app not do?</summary><p>No keyboard input: we measure the choice between four sounds, not your thumb. No question<br>about whether a word is written ドキドキ or どきどき – manga writes everything in katakana, so<br>that question has two right answers. No accounts, no ads, no subscription. No network: the<br>app runs entirely on your phone.</p></details><h2>Documents</h2><ul class="zwykla"><li><a href="../../../onomatope/1.0/en/privacy.html">Privacy Policy</a></li><li><a href="../../../onomatope/1.0/en/terms.html">Terms of Use</a></li><li><a href="../../../onomatope/1.0/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a> — JLPT practice: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a> — Japanese Forms &amp; Drills</li><li><a href="../../../en/apps/joshi/index.html">Joshi: Japanese Particles</a> — Drills for は, が, に, で</li><li><a href="../../../en/apps/kazoekata/index.html">Kazoekata: Japanese Counters</a> — Master Japanese Counters</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/shindan/index.html">Shindan: Japanese Level Test</a> — JLPT placement: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/keigo/index.html">Keigo: Polite Japanese</a> — Formal Japanese for work</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+onomatope@hotmail.com">jakub.dwojak+onomatope@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
 </body>
 </html>

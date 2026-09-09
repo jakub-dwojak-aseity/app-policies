@@ -55,6 +55,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
@@ -79,28 +87,69 @@ code { font-size: .9em; }
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Katsuyokei: Conjugation",
-  "alternateName": "活用形",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "iOS",
-  "url": "https://jd-japanese.pl/en/apps/katsuyokei/index.html",
-  "description": "Katsuyokei drills Japanese conjugation until it becomes automatic.",
-  "inLanguage": [
-    "pl",
-    "en"
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Katsuyokei: Conjugation",
+      "alternateName": "活用形",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "iOS",
+      "url": "https://jd-japanese.pl/en/apps/katsuyokei/index.html",
+      "description": "Katsuyokei drills Japanese conjugation until it becomes automatic.",
+      "inLanguage": [
+        "pl",
+        "en"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Jakub Dwojak"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      },
+      "sameAs": "https://apps.apple.com/app/id6802813564",
+      "installUrl": "https://apps.apple.com/app/id6802813564"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does Katsuyokei teach?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Katsuyokei drills Japanese conjugation until it becomes automatic.\n\nKnowing that the te-form exists is not the same as producing 書いて without stopping to\nthink. The first is understanding; the second is a reflex, and a reflex is built by\nrepetition and feedback, not by explanation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does Katsuyokei cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Levels 1 and 2 are free in full — enough to reach the te-form, which is the point at\nwhich Japanese starts connecting into sentences. Premium is a single purchase that opens\nlevels 3 to 5, the full vocabulary pool and weak-form practice. No subscription.\n\nAlso from the same author: Kaname — Japanese Grammar, for when and why a construction is\nused, rather than how to build it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work without an account or a network?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Everything stays on your device. No account, no sign-in, no analytics, no advertising, no\ntracking. The app makes no network requests at all apart from handling the purchase\nitself. It works in aeroplane mode."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What languages does it support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Interface and content switch independently, so a Polish menu with English grammar terms\nis a normal combination rather than a compromise."
+          }
+        }
+      ]
+    }
   ],
-  "author": {
-    "@type": "Person",
-    "name": "Jakub Dwojak"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "PLN"
-  },
-  "sameAs": "https://apps.apple.com/app/id6802813564",
-  "installUrl": "https://apps.apple.com/app/id6802813564",
   "image": "https://jd-japanese.pl/assets/karty/katsuyokei-en.png"
 }
 </script>
@@ -128,6 +177,6 @@ have finished thinking about it.</p><h2>What it looks like</h2><div class="zrzut
 <p>Everything stays on your device. No account, no sign-in, no analytics, no advertising, no<br>tracking. The app makes no network requests at all apart from handling the purchase<br>itself. It works in aeroplane mode.</p>
 <h3>FREE AND PREMIUM</h3>
 <p>Levels 1 and 2 are free in full — enough to reach the te-form, which is the point at<br>which Japanese starts connecting into sentences. Premium is a single purchase that opens<br>levels 3 to 5, the full vocabulary pool and weak-form practice. No subscription.</p>
-<p>Also from the same author: Kaname — Japanese Grammar, for when and why a construction is<br>used, rather than how to build it.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Documents</h2><ul class="zwykla"><li><a href="../../../katsuyokei/en/privacy.html">Privacy Policy</a></li><li><a href="../../../katsuyokei/en/terms.html">Terms of Use</a></li><li><a href="../../../katsuyokei/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a> — JLPT practice: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/joshi/index.html">Joshi: Japanese Particles</a> — Drills for は, が, に, で</li><li><a href="../../../en/apps/kazoekata/index.html">Kazoekata: Japanese Counters</a> — Master Japanese Counters</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/shindan/index.html">Shindan: Japanese Level Test</a> — JLPT placement: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/keigo/index.html">Keigo: Polite Japanese</a> — Formal Japanese for work</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li><li><a href="../../../en/apps/onomatope/index.html">Onomatope: Japanese Mimetics</a> — Manga and anime vocabulary</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+katsuyokei@hotmail.com">jakub.dwojak+katsuyokei@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
+<p>Also from the same author: Kaname — Japanese Grammar, for when and why a construction is<br>used, rather than how to build it.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Common questions</h2><details><summary>What does Katsuyokei teach?</summary><p>Katsuyokei drills Japanese conjugation until it becomes automatic.</p><p>Knowing that the te-form exists is not the same as producing 書いて without stopping to<br>think. The first is understanding; the second is a reflex, and a reflex is built by<br>repetition and feedback, not by explanation.</p></details><details><summary>What does Katsuyokei cost?</summary><p>Levels 1 and 2 are free in full — enough to reach the te-form, which is the point at<br>which Japanese starts connecting into sentences. Premium is a single purchase that opens<br>levels 3 to 5, the full vocabulary pool and weak-form practice. No subscription.</p><p>Also from the same author: Kaname — Japanese Grammar, for when and why a construction is<br>used, rather than how to build it.</p></details><details><summary>Does it work without an account or a network?</summary><p>Everything stays on your device. No account, no sign-in, no analytics, no advertising, no<br>tracking. The app makes no network requests at all apart from handling the purchase<br>itself. It works in aeroplane mode.</p></details><details><summary>What languages does it support?</summary><p>Interface and content switch independently, so a Polish menu with English grammar terms<br>is a normal combination rather than a compromise.</p></details><h2>Documents</h2><ul class="zwykla"><li><a href="../../../katsuyokei/en/privacy.html">Privacy Policy</a></li><li><a href="../../../katsuyokei/en/terms.html">Terms of Use</a></li><li><a href="../../../katsuyokei/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a> — JLPT practice: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/joshi/index.html">Joshi: Japanese Particles</a> — Drills for は, が, に, で</li><li><a href="../../../en/apps/kazoekata/index.html">Kazoekata: Japanese Counters</a> — Master Japanese Counters</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/shindan/index.html">Shindan: Japanese Level Test</a> — JLPT placement: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/keigo/index.html">Keigo: Polite Japanese</a> — Formal Japanese for work</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li><li><a href="../../../en/apps/onomatope/index.html">Onomatope: Japanese Mimetics</a> — Manga and anime vocabulary</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+katsuyokei@hotmail.com">jakub.dwojak+katsuyokei@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
 </body>
 </html>

@@ -55,6 +55,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
@@ -79,28 +87,53 @@ code { font-size: .9em; }
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Kuzushi: Mowa potoczna",
-  "alternateName": "崩し",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "iOS",
-  "url": "https://jd-japanese.pl/apps/kuzushi/index.html",
-  "description": "Podręcznik uczy 〜ている i 〜てしまう.",
-  "inLanguage": [
-    "pl",
-    "en"
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Kuzushi: Mowa potoczna",
+      "alternateName": "崩し",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "iOS",
+      "url": "https://jd-japanese.pl/apps/kuzushi/index.html",
+      "description": "Podręcznik uczy 〜ている i 〜てしまう.",
+      "inLanguage": [
+        "pl",
+        "en"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Jakub Dwojak"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      },
+      "sameAs": "https://apps.apple.com/app/id6805788146",
+      "installUrl": "https://apps.apple.com/app/id6805788146"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Czego uczy Kuzushi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Podręcznik uczy 〜ている i 〜てしまう. Ludzie mówią 〜てる i 〜ちゃった.\n\nTę lukę ćwiczy Kuzushi. Nie gramatykę, której nie znasz – tę, którą już przerobiłeś, w kształcie, w jakim naprawdę do Ciebie dociera."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Czy działa bez internetu i bez konta?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wszystko na urządzeniu. Bez rejestracji, bez śledzenia, bez zbierania danych. Poziomy 1 i 2 są darmowe; jeden zakup otwiera resztę, na stałe."
+          }
+        }
+      ]
+    }
   ],
-  "author": {
-    "@type": "Person",
-    "name": "Jakub Dwojak"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "PLN"
-  },
-  "sameAs": "https://apps.apple.com/app/id6805788146",
-  "installUrl": "https://apps.apple.com/app/id6805788146",
   "image": "https://jd-japanese.pl/assets/karty/kuzushi-pl.png"
 }
 </script>
@@ -119,6 +152,6 @@ code { font-size: .9em; }
 <h3>JAK TO DZIAŁA</h3>
 <p>Wzorzec, którego jeszcze nie znasz, dostaje wyjaśnienie zanim padnie o niego pytanie – co się zmienia, dlaczego i jedno zdanie, które to pokazuje. Nowy materiał wchodzi w tempie, które ustawiasz.</p>
 <h3>BEZ KONTA, BEZ SIECI</h3>
-<p>Wszystko na urządzeniu. Bez rejestracji, bez śledzenia, bez zbierania danych. Poziomy 1 i 2 są darmowe; jeden zakup otwiera resztę, na stałe.</p><p class="podtytul">Powyższy opis jest tym samym tekstem, który stoi na karcie aplikacji w App Store – pochodzi z tego samego pliku.</p><h2>Dokumenty</h2><ul class="zwykla"><li><a href="../../kuzushi/pl/privacy.html">Polityka prywatności</a></li><li><a href="../../kuzushi/pl/terms.html">Warunki korzystania</a></li><li><a href="../../kuzushi/pl/support.html">Wsparcie</a></li></ul><h2>Pozostałe aplikacje</h2><ul class="zwykla"><li><a href="../../apps/kaname/index.html">Kaname: Gramatyka japońska</a> — Powtórki JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/bunmyaku/index.html">Bunmyaku — Japoński w zdaniu</a> — Czytaj japoński w kontekście</li><li><a href="../../apps/katsuyokei/index.html">Katsuyokei: Odmiana japońska</a> — Japońska odmiana w praktyce</li><li><a href="../../apps/joshi/index.html">Joshi: Partykuły japońskie</a> — Ćwiczenia z は, が, に, で</li><li><a href="../../apps/kazoekata/index.html">Kazoekata: Liczniki japońskie</a> — Japońskie liczniki w praktyce</li><li><a href="../../apps/shindan/index.html">Shindan: Poziom japońskiego</a> — Test JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/keigo/index.html">Keigo: Grzeczność japońska</a> — Japoński formalny do pracy</li><li><a href="../../apps/kifuku/index.html">Kifuku: Akcent japoński</a> — Wymowa, intonacja, słuchanie</li><li><a href="../../apps/onomatope/index.html">Onomatope: Japońskie dźwięki</a> — Słówka z mangi i anime</li></ul><footer>Jakub Dwojak · <a href="../../dokumenty.html">Spis dokumentów</a> · <a href="mailto:jakub.dwojak+kuzushi@hotmail.com">jakub.dwojak+kuzushi@hotmail.com</a><br>Strona wygenerowana z metadanych sklepowych (<code>Tools/generuj-strony.py</code>).</footer>
+<p>Wszystko na urządzeniu. Bez rejestracji, bez śledzenia, bez zbierania danych. Poziomy 1 i 2 są darmowe; jeden zakup otwiera resztę, na stałe.</p><p class="podtytul">Powyższy opis jest tym samym tekstem, który stoi na karcie aplikacji w App Store – pochodzi z tego samego pliku.</p><h2>Częste pytania</h2><details><summary>Czego uczy Kuzushi?</summary><p>Podręcznik uczy 〜ている i 〜てしまう. Ludzie mówią 〜てる i 〜ちゃった.</p><p>Tę lukę ćwiczy Kuzushi. Nie gramatykę, której nie znasz – tę, którą już przerobiłeś, w kształcie, w jakim naprawdę do Ciebie dociera.</p></details><details><summary>Czy działa bez internetu i bez konta?</summary><p>Wszystko na urządzeniu. Bez rejestracji, bez śledzenia, bez zbierania danych. Poziomy 1 i 2 są darmowe; jeden zakup otwiera resztę, na stałe.</p></details><h2>Dokumenty</h2><ul class="zwykla"><li><a href="../../kuzushi/pl/privacy.html">Polityka prywatności</a></li><li><a href="../../kuzushi/pl/terms.html">Warunki korzystania</a></li><li><a href="../../kuzushi/pl/support.html">Wsparcie</a></li></ul><h2>Pozostałe aplikacje</h2><ul class="zwykla"><li><a href="../../apps/kaname/index.html">Kaname: Gramatyka japońska</a> — Powtórki JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/bunmyaku/index.html">Bunmyaku — Japoński w zdaniu</a> — Czytaj japoński w kontekście</li><li><a href="../../apps/katsuyokei/index.html">Katsuyokei: Odmiana japońska</a> — Japońska odmiana w praktyce</li><li><a href="../../apps/joshi/index.html">Joshi: Partykuły japońskie</a> — Ćwiczenia z は, が, に, で</li><li><a href="../../apps/kazoekata/index.html">Kazoekata: Liczniki japońskie</a> — Japońskie liczniki w praktyce</li><li><a href="../../apps/shindan/index.html">Shindan: Poziom japońskiego</a> — Test JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/keigo/index.html">Keigo: Grzeczność japońska</a> — Japoński formalny do pracy</li><li><a href="../../apps/kifuku/index.html">Kifuku: Akcent japoński</a> — Wymowa, intonacja, słuchanie</li><li><a href="../../apps/onomatope/index.html">Onomatope: Japońskie dźwięki</a> — Słówka z mangi i anime</li></ul><footer>Jakub Dwojak · <a href="../../dokumenty.html">Spis dokumentów</a> · <a href="mailto:jakub.dwojak+kuzushi@hotmail.com">jakub.dwojak+kuzushi@hotmail.com</a><br>Strona wygenerowana z metadanych sklepowych (<code>Tools/generuj-strony.py</code>).</footer>
 </body>
 </html>

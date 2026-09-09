@@ -55,6 +55,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
@@ -79,28 +87,69 @@ code { font-size: .9em; }
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Kazoekata: Japanese Counters",
-  "alternateName": "数え方",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "iOS",
-  "url": "https://jd-japanese.pl/en/apps/kazoekata/index.html",
-  "description": "Japanese counting is not a number stuck onto a noun.",
-  "inLanguage": [
-    "pl",
-    "en"
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Kazoekata: Japanese Counters",
+      "alternateName": "数え方",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "iOS",
+      "url": "https://jd-japanese.pl/en/apps/kazoekata/index.html",
+      "description": "Japanese counting is not a number stuck onto a noun.",
+      "inLanguage": [
+        "pl",
+        "en"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Jakub Dwojak"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      },
+      "sameAs": "https://apps.apple.com/app/id6803676309",
+      "installUrl": "https://apps.apple.com/app/id6803676309"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does Kazoekata teach?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Japanese counting is not a number stuck onto a noun. Three books is 三冊, three cats is 三匹, three long thin things is 三本 — and 本 does not even sound the same at three as it does at six.\n\nKazoekata teaches the part that actually takes time: not the list of counters, but how they behave."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does Kazoekata cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Levels 1 and 2 are free in full — twenty-two counters, quick practice, reviews and progress. That is enough to count what is in your flat. One purchase opens levels 3 to 5, the complete set of thirty-eight counters, the irregular-reading training and weak-spot practice. No subscription.\n\nAlso from the same author: Kaname — Japanese Grammar, Katsuyokei — Conjugation, and Joshi — Japanese Particles."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work without an account or a network?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No account, no analytics, no ads, no network. The shipped app makes no request of any kind except to the App Store for the purchase itself. Everything stays on your phone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What languages does it support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Interface and content switch independently. A Polish menu with English descriptions is a deliberate combination."
+          }
+        }
+      ]
+    }
   ],
-  "author": {
-    "@type": "Person",
-    "name": "Jakub Dwojak"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "PLN"
-  },
-  "sameAs": "https://apps.apple.com/app/id6803676309",
-  "installUrl": "https://apps.apple.com/app/id6803676309",
   "image": "https://jd-japanese.pl/assets/karty/kazoekata-en.png"
 }
 </script>
@@ -134,6 +183,6 @@ code { font-size: .9em; }
 <p>No account, no analytics, no ads, no network. The shipped app makes no request of any kind except to the App Store for the purchase itself. Everything stays on your phone.</p>
 <h3>FREE AND PREMIUM</h3>
 <p>Levels 1 and 2 are free in full — twenty-two counters, quick practice, reviews and progress. That is enough to count what is in your flat. One purchase opens levels 3 to 5, the complete set of thirty-eight counters, the irregular-reading training and weak-spot practice. No subscription.</p>
-<p>Also from the same author: Kaname — Japanese Grammar, Katsuyokei — Conjugation, and Joshi — Japanese Particles.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Documents</h2><ul class="zwykla"><li><a href="../../../kazoekata/en/privacy.html">Privacy Policy</a></li><li><a href="../../../kazoekata/en/terms.html">Terms of Use</a></li><li><a href="../../../kazoekata/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a> — JLPT practice: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a> — Japanese Forms &amp; Drills</li><li><a href="../../../en/apps/joshi/index.html">Joshi: Japanese Particles</a> — Drills for は, が, に, で</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/shindan/index.html">Shindan: Japanese Level Test</a> — JLPT placement: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/keigo/index.html">Keigo: Polite Japanese</a> — Formal Japanese for work</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li><li><a href="../../../en/apps/onomatope/index.html">Onomatope: Japanese Mimetics</a> — Manga and anime vocabulary</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+kazoekata@hotmail.com">jakub.dwojak+kazoekata@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
+<p>Also from the same author: Kaname — Japanese Grammar, Katsuyokei — Conjugation, and Joshi — Japanese Particles.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Common questions</h2><details><summary>What does Kazoekata teach?</summary><p>Japanese counting is not a number stuck onto a noun. Three books is 三冊, three cats is 三匹, three long thin things is 三本 — and 本 does not even sound the same at three as it does at six.</p><p>Kazoekata teaches the part that actually takes time: not the list of counters, but how they behave.</p></details><details><summary>What does Kazoekata cost?</summary><p>Levels 1 and 2 are free in full — twenty-two counters, quick practice, reviews and progress. That is enough to count what is in your flat. One purchase opens levels 3 to 5, the complete set of thirty-eight counters, the irregular-reading training and weak-spot practice. No subscription.</p><p>Also from the same author: Kaname — Japanese Grammar, Katsuyokei — Conjugation, and Joshi — Japanese Particles.</p></details><details><summary>Does it work without an account or a network?</summary><p>No account, no analytics, no ads, no network. The shipped app makes no request of any kind except to the App Store for the purchase itself. Everything stays on your phone.</p></details><details><summary>What languages does it support?</summary><p>Interface and content switch independently. A Polish menu with English descriptions is a deliberate combination.</p></details><h2>Documents</h2><ul class="zwykla"><li><a href="../../../kazoekata/en/privacy.html">Privacy Policy</a></li><li><a href="../../../kazoekata/en/terms.html">Terms of Use</a></li><li><a href="../../../kazoekata/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a> — JLPT practice: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a> — Japanese Forms &amp; Drills</li><li><a href="../../../en/apps/joshi/index.html">Joshi: Japanese Particles</a> — Drills for は, が, に, で</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/shindan/index.html">Shindan: Japanese Level Test</a> — JLPT placement: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/keigo/index.html">Keigo: Polite Japanese</a> — Formal Japanese for work</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li><li><a href="../../../en/apps/onomatope/index.html">Onomatope: Japanese Mimetics</a> — Manga and anime vocabulary</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+kazoekata@hotmail.com">jakub.dwojak+kazoekata@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
 </body>
 </html>

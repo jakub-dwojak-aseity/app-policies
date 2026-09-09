@@ -55,6 +55,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
@@ -79,28 +87,61 @@ code { font-size: .9em; }
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Joshi: Partykuły japońskie",
-  "alternateName": "助詞",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "iOS",
-  "url": "https://jd-japanese.pl/apps/joshi/index.html",
-  "description": "Joshi ćwiczy japońskie partykuły, aż wybór właściwej przestaje być decyzją.",
-  "inLanguage": [
-    "pl",
-    "en"
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Joshi: Partykuły japońskie",
+      "alternateName": "助詞",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "iOS",
+      "url": "https://jd-japanese.pl/apps/joshi/index.html",
+      "description": "Joshi ćwiczy japońskie partykuły, aż wybór właściwej przestaje być decyzją.",
+      "inLanguage": [
+        "pl",
+        "en"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Jakub Dwojak"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      },
+      "sameAs": "https://apps.apple.com/app/id6803144744",
+      "installUrl": "https://apps.apple.com/app/id6803144744"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Czego uczy Joshi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Joshi ćwiczy japońskie partykuły, aż wybór właściwej przestaje być decyzją.\n\nMożna wiedzieć, że に wskazuje cel ruchu, a で miejsce czynności — i wahać się za każdym\nrazem. Rozumienie reguły i sięganie po nią bez namysłu to dwie różne umiejętności, a przez\nzdanie przeprowadza tylko ta druga."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ile kosztuje Joshi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Poziomy 1 i 2 w całości — は, が, を, に, で i へ, czyli większość partykuł w zwykłym zdaniu.\nJeden zakup, raz, otwiera poziomy 3–5, ćwiczenie słabych par i całą pulę zdań. Bez\nsubskrypcji."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Czy działa bez internetu i bez konta?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bez konta. Bez reklam. Bez analityki. Bez jakiegokolwiek zapytania sieciowego poza samym\nzakupem. Wszystko, co robisz, zostaje na Twoim urządzeniu — i możesz to w każdej chwili\nwyeksportować."
+          }
+        }
+      ]
+    }
   ],
-  "author": {
-    "@type": "Person",
-    "name": "Jakub Dwojak"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "PLN"
-  },
-  "sameAs": "https://apps.apple.com/app/id6803144744",
-  "installUrl": "https://apps.apple.com/app/id6803144744",
   "image": "https://jd-japanese.pl/assets/karty/joshi-pl.png"
 }
 </script>
@@ -129,6 +170,6 @@ luka, cztery partykuły — aż właściwa przychodzi sama.</p><h2>Jak to wyglą
 <h3>CO JEST ZA DARMO</h3>
 <p>Poziomy 1 i 2 w całości — は, が, を, に, で i へ, czyli większość partykuł w zwykłym zdaniu.<br>Jeden zakup, raz, otwiera poziomy 3–5, ćwiczenie słabych par i całą pulę zdań. Bez<br>subskrypcji.</p>
 <h3>PRYWATNOŚĆ</h3>
-<p>Bez konta. Bez reklam. Bez analityki. Bez jakiegokolwiek zapytania sieciowego poza samym<br>zakupem. Wszystko, co robisz, zostaje na Twoim urządzeniu — i możesz to w każdej chwili<br>wyeksportować.</p><p class="podtytul">Powyższy opis jest tym samym tekstem, który stoi na karcie aplikacji w App Store – pochodzi z tego samego pliku.</p><h2>Dokumenty</h2><ul class="zwykla"><li><a href="../../joshi/privacy.html">Polityka prywatności</a></li><li><a href="../../joshi/terms.html">Warunki korzystania</a></li><li><a href="../../joshi/support.html">Wsparcie</a></li></ul><h2>Pozostałe aplikacje</h2><ul class="zwykla"><li><a href="../../apps/kaname/index.html">Kaname: Gramatyka japońska</a> — Powtórki JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/bunmyaku/index.html">Bunmyaku — Japoński w zdaniu</a> — Czytaj japoński w kontekście</li><li><a href="../../apps/katsuyokei/index.html">Katsuyokei: Odmiana japońska</a> — Japońska odmiana w praktyce</li><li><a href="../../apps/kazoekata/index.html">Kazoekata: Liczniki japońskie</a> — Japońskie liczniki w praktyce</li><li><a href="../../apps/kuzushi/index.html">Kuzushi: Mowa potoczna</a> — Anime, dorama i skróty</li><li><a href="../../apps/shindan/index.html">Shindan: Poziom japońskiego</a> — Test JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/keigo/index.html">Keigo: Grzeczność japońska</a> — Japoński formalny do pracy</li><li><a href="../../apps/kifuku/index.html">Kifuku: Akcent japoński</a> — Wymowa, intonacja, słuchanie</li><li><a href="../../apps/onomatope/index.html">Onomatope: Japońskie dźwięki</a> — Słówka z mangi i anime</li></ul><footer>Jakub Dwojak · <a href="../../dokumenty.html">Spis dokumentów</a> · <a href="mailto:jakub.dwojak+joshi@hotmail.com">jakub.dwojak+joshi@hotmail.com</a><br>Strona wygenerowana z metadanych sklepowych (<code>Tools/generuj-strony.py</code>).</footer>
+<p>Bez konta. Bez reklam. Bez analityki. Bez jakiegokolwiek zapytania sieciowego poza samym<br>zakupem. Wszystko, co robisz, zostaje na Twoim urządzeniu — i możesz to w każdej chwili<br>wyeksportować.</p><p class="podtytul">Powyższy opis jest tym samym tekstem, który stoi na karcie aplikacji w App Store – pochodzi z tego samego pliku.</p><h2>Częste pytania</h2><details><summary>Czego uczy Joshi?</summary><p>Joshi ćwiczy japońskie partykuły, aż wybór właściwej przestaje być decyzją.</p><p>Można wiedzieć, że に wskazuje cel ruchu, a で miejsce czynności — i wahać się za każdym<br>razem. Rozumienie reguły i sięganie po nią bez namysłu to dwie różne umiejętności, a przez<br>zdanie przeprowadza tylko ta druga.</p></details><details><summary>Ile kosztuje Joshi?</summary><p>Poziomy 1 i 2 w całości — は, が, を, に, で i へ, czyli większość partykuł w zwykłym zdaniu.<br>Jeden zakup, raz, otwiera poziomy 3–5, ćwiczenie słabych par i całą pulę zdań. Bez<br>subskrypcji.</p></details><details><summary>Czy działa bez internetu i bez konta?</summary><p>Bez konta. Bez reklam. Bez analityki. Bez jakiegokolwiek zapytania sieciowego poza samym<br>zakupem. Wszystko, co robisz, zostaje na Twoim urządzeniu — i możesz to w każdej chwili<br>wyeksportować.</p></details><h2>Dokumenty</h2><ul class="zwykla"><li><a href="../../joshi/privacy.html">Polityka prywatności</a></li><li><a href="../../joshi/terms.html">Warunki korzystania</a></li><li><a href="../../joshi/support.html">Wsparcie</a></li></ul><h2>Pozostałe aplikacje</h2><ul class="zwykla"><li><a href="../../apps/kaname/index.html">Kaname: Gramatyka japońska</a> — Powtórki JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/bunmyaku/index.html">Bunmyaku — Japoński w zdaniu</a> — Czytaj japoński w kontekście</li><li><a href="../../apps/katsuyokei/index.html">Katsuyokei: Odmiana japońska</a> — Japońska odmiana w praktyce</li><li><a href="../../apps/kazoekata/index.html">Kazoekata: Liczniki japońskie</a> — Japońskie liczniki w praktyce</li><li><a href="../../apps/kuzushi/index.html">Kuzushi: Mowa potoczna</a> — Anime, dorama i skróty</li><li><a href="../../apps/shindan/index.html">Shindan: Poziom japońskiego</a> — Test JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/keigo/index.html">Keigo: Grzeczność japońska</a> — Japoński formalny do pracy</li><li><a href="../../apps/kifuku/index.html">Kifuku: Akcent japoński</a> — Wymowa, intonacja, słuchanie</li><li><a href="../../apps/onomatope/index.html">Onomatope: Japońskie dźwięki</a> — Słówka z mangi i anime</li></ul><footer>Jakub Dwojak · <a href="../../dokumenty.html">Spis dokumentów</a> · <a href="mailto:jakub.dwojak+joshi@hotmail.com">jakub.dwojak+joshi@hotmail.com</a><br>Strona wygenerowana z metadanych sklepowych (<code>Tools/generuj-strony.py</code>).</footer>
 </body>
 </html>

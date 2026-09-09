@@ -55,6 +55,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
@@ -79,28 +87,61 @@ code { font-size: .9em; }
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Joshi: Japanese Particles",
-  "alternateName": "助詞",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "iOS",
-  "url": "https://jd-japanese.pl/en/apps/joshi/index.html",
-  "description": "Joshi drills Japanese particles until the right one stops being a decision.",
-  "inLanguage": [
-    "pl",
-    "en"
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Joshi: Japanese Particles",
+      "alternateName": "助詞",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "iOS",
+      "url": "https://jd-japanese.pl/en/apps/joshi/index.html",
+      "description": "Joshi drills Japanese particles until the right one stops being a decision.",
+      "inLanguage": [
+        "pl",
+        "en"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Jakub Dwojak"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      },
+      "sameAs": "https://apps.apple.com/app/id6803144744",
+      "installUrl": "https://apps.apple.com/app/id6803144744"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does Joshi teach?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Joshi drills Japanese particles until the right one stops being a decision.\n\nYou can know that に marks a destination and で marks where an action happens, and still\nhesitate every time. Understanding a rule and reaching for it without thinking are two\ndifferent skills, and only the second one gets you through a sentence."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does Joshi cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Levels 1 and 2 are free in full — は, が, を, に, で and へ, which is most of the particles\nin an ordinary sentence. One purchase, once, opens levels 3 to 5, weak-pair practice and\nthe whole question pool. No subscription."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work without an account or a network?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No account. No adverts. No analytics. No network requests at all beyond the purchase\nitself. Everything you do stays on your device, and you can export it whenever you like."
+          }
+        }
+      ]
+    }
   ],
-  "author": {
-    "@type": "Person",
-    "name": "Jakub Dwojak"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "PLN"
-  },
-  "sameAs": "https://apps.apple.com/app/id6803144744",
-  "installUrl": "https://apps.apple.com/app/id6803144744",
   "image": "https://jd-japanese.pl/assets/karty/joshi-en.png"
 }
 </script>
@@ -129,6 +170,6 @@ one blank, four particles — until the right one arrives on its own.</p><h2>Wha
 <h3>FREE AND PAID</h3>
 <p>Levels 1 and 2 are free in full — は, が, を, に, で and へ, which is most of the particles<br>in an ordinary sentence. One purchase, once, opens levels 3 to 5, weak-pair practice and<br>the whole question pool. No subscription.</p>
 <h3>PRIVACY</h3>
-<p>No account. No adverts. No analytics. No network requests at all beyond the purchase<br>itself. Everything you do stays on your device, and you can export it whenever you like.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Documents</h2><ul class="zwykla"><li><a href="../../../joshi/en/privacy.html">Privacy Policy</a></li><li><a href="../../../joshi/en/terms.html">Terms of Use</a></li><li><a href="../../../joshi/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a> — JLPT practice: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a> — Japanese Forms &amp; Drills</li><li><a href="../../../en/apps/kazoekata/index.html">Kazoekata: Japanese Counters</a> — Master Japanese Counters</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/shindan/index.html">Shindan: Japanese Level Test</a> — JLPT placement: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/keigo/index.html">Keigo: Polite Japanese</a> — Formal Japanese for work</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li><li><a href="../../../en/apps/onomatope/index.html">Onomatope: Japanese Mimetics</a> — Manga and anime vocabulary</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+joshi@hotmail.com">jakub.dwojak+joshi@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
+<p>No account. No adverts. No analytics. No network requests at all beyond the purchase<br>itself. Everything you do stays on your device, and you can export it whenever you like.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><h2>Common questions</h2><details><summary>What does Joshi teach?</summary><p>Joshi drills Japanese particles until the right one stops being a decision.</p><p>You can know that に marks a destination and で marks where an action happens, and still<br>hesitate every time. Understanding a rule and reaching for it without thinking are two<br>different skills, and only the second one gets you through a sentence.</p></details><details><summary>What does Joshi cost?</summary><p>Levels 1 and 2 are free in full — は, が, を, に, で and へ, which is most of the particles<br>in an ordinary sentence. One purchase, once, opens levels 3 to 5, weak-pair practice and<br>the whole question pool. No subscription.</p></details><details><summary>Does it work without an account or a network?</summary><p>No account. No adverts. No analytics. No network requests at all beyond the purchase<br>itself. Everything you do stays on your device, and you can export it whenever you like.</p></details><h2>Documents</h2><ul class="zwykla"><li><a href="../../../joshi/en/privacy.html">Privacy Policy</a></li><li><a href="../../../joshi/en/terms.html">Terms of Use</a></li><li><a href="../../../joshi/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="zwykla"><li><a href="../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a> — JLPT practice: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/bunmyaku/index.html">Bunmyaku — Japanese Reading</a> — Read Japanese in Context</li><li><a href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a> — Japanese Forms &amp; Drills</li><li><a href="../../../en/apps/kazoekata/index.html">Kazoekata: Japanese Counters</a> — Master Japanese Counters</li><li><a href="../../../en/apps/kuzushi/index.html">Kuzushi: Casual Japanese</a> — Anime, drama and slang</li><li><a href="../../../en/apps/shindan/index.html">Shindan: Japanese Level Test</a> — JLPT placement: N5 N4 N3 N2 N1</li><li><a href="../../../en/apps/keigo/index.html">Keigo: Polite Japanese</a> — Formal Japanese for work</li><li><a href="../../../en/apps/kifuku/index.html">Kifuku: Japanese Pitch Accent</a> — Pronunciation and listening</li><li><a href="../../../en/apps/onomatope/index.html">Onomatope: Japanese Mimetics</a> — Manga and anime vocabulary</li></ul><footer>Jakub Dwojak · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:jakub.dwojak+joshi@hotmail.com">jakub.dwojak+joshi@hotmail.com</a><br>Generated from App Store metadata (<code>Tools/generuj-strony.py</code>).</footer>
 </body>
 </html>

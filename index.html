@@ -54,6 +54,14 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
 .zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
           padding-bottom: .5rem; scroll-snap-type: x mandatory; }
 .zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
@@ -78,70 +86,87 @@ code { font-size: .9em; }
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Japoński w dziesięciu aplikacjach",
-  "description": "Dziesięć aplikacji do nauki japońskiego, każda o jednej rzeczy: gramatyka, czytanie, odmiana, partykuły, liczniki, mowa potoczna, keigo, akcent i onomatopeje.",
-  "numberOfItems": 10,
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "url": "https://jd-japanese.pl/apps/kaname/index.html",
-      "name": "Kaname: Gramatyka japońska"
+      "@type": "ItemList",
+      "name": "Japoński w dziesięciu aplikacjach",
+      "description": "Dziesięć aplikacji do nauki japońskiego, każda o jednej rzeczy: gramatyka, czytanie, odmiana, partykuły, liczniki, mowa potoczna, keigo, akcent i onomatopeje.",
+      "numberOfItems": 10,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://jd-japanese.pl/apps/kaname/index.html",
+          "name": "Kaname: Gramatyka japońska"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "url": "https://jd-japanese.pl/apps/bunmyaku/index.html",
+          "name": "Bunmyaku — Japoński w zdaniu"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://jd-japanese.pl/apps/katsuyokei/index.html",
+          "name": "Katsuyokei: Odmiana japońska"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "url": "https://jd-japanese.pl/apps/joshi/index.html",
+          "name": "Joshi: Partykuły japońskie"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "url": "https://jd-japanese.pl/apps/kazoekata/index.html",
+          "name": "Kazoekata: Liczniki japońskie"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "url": "https://jd-japanese.pl/apps/kuzushi/index.html",
+          "name": "Kuzushi: Mowa potoczna"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "url": "https://jd-japanese.pl/apps/shindan/index.html",
+          "name": "Shindan: Poziom japońskiego"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "url": "https://jd-japanese.pl/apps/keigo/index.html",
+          "name": "Keigo: Grzeczność japońska"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "url": "https://jd-japanese.pl/apps/kifuku/index.html",
+          "name": "Kifuku: Akcent japoński"
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "url": "https://jd-japanese.pl/apps/onomatope/index.html",
+          "name": "Onomatope: Japońskie dźwięki"
+        }
+      ]
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "url": "https://jd-japanese.pl/apps/bunmyaku/index.html",
-      "name": "Bunmyaku — Japoński w zdaniu"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "url": "https://jd-japanese.pl/apps/katsuyokei/index.html",
-      "name": "Katsuyokei: Odmiana japońska"
-    },
-    {
-      "@type": "ListItem",
-      "position": 4,
-      "url": "https://jd-japanese.pl/apps/joshi/index.html",
-      "name": "Joshi: Partykuły japońskie"
-    },
-    {
-      "@type": "ListItem",
-      "position": 5,
-      "url": "https://jd-japanese.pl/apps/kazoekata/index.html",
-      "name": "Kazoekata: Liczniki japońskie"
-    },
-    {
-      "@type": "ListItem",
-      "position": 6,
-      "url": "https://jd-japanese.pl/apps/kuzushi/index.html",
-      "name": "Kuzushi: Mowa potoczna"
-    },
-    {
-      "@type": "ListItem",
-      "position": 7,
-      "url": "https://jd-japanese.pl/apps/shindan/index.html",
-      "name": "Shindan: Poziom japońskiego"
-    },
-    {
-      "@type": "ListItem",
-      "position": 8,
-      "url": "https://jd-japanese.pl/apps/keigo/index.html",
-      "name": "Keigo: Grzeczność japońska"
-    },
-    {
-      "@type": "ListItem",
-      "position": 9,
-      "url": "https://jd-japanese.pl/apps/kifuku/index.html",
-      "name": "Kifuku: Akcent japoński"
-    },
-    {
-      "@type": "ListItem",
-      "position": 10,
-      "url": "https://jd-japanese.pl/apps/onomatope/index.html",
-      "name": "Onomatope: Japońskie dźwięki"
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Którą z tych aplikacji do nauki japońskiego wybrać?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Każda uczy jednej rzeczy i mierzy ją osobno: Kaname: Gramatyka japońska – Powtórki JLPT: N5 N4 N3 N2 N1; Bunmyaku — Japoński w zdaniu – Czytaj japoński w kontekście; Katsuyokei: Odmiana japońska – Japońska odmiana w praktyce; Joshi: Partykuły japońskie – Ćwiczenia z は, が, に, で; Kazoekata: Liczniki japońskie – Japońskie liczniki w praktyce; Kuzushi: Mowa potoczna – Anime, dorama i skróty; Shindan: Poziom japońskiego – Test JLPT: N5 N4 N3 N2 N1; Keigo: Grzeczność japońska – Japoński formalny do pracy; Kifuku: Akcent japoński – Wymowa, intonacja, słuchanie; Onomatope: Japońskie dźwięki – Słówka z mangi i anime"
+          }
+        }
+      ]
     }
   ]
 }

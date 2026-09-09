@@ -68,6 +68,8 @@ NAPISY = {
         "wkrotce_opis": "Aplikacja czeka na recenzję Apple. Strona opisuje wersję złożoną do sklepu.",
         "darmowa": "Aplikacja darmowa, z zakupem w środku",
         "wiecej": "Czytaj dalej",
+        "naglowek_zrzutow": "Jak to wygląda",
+        "zrzut": "zrzut ekranu",
         "opis_naglowek": "Opis ze sklepu",
         "opis_stopka": "Powyższy opis jest tym samym tekstem, który stoi na karcie aplikacji "
                        "w App Store – pochodzi z tego samego pliku.",
@@ -101,6 +103,8 @@ NAPISY = {
         "wkrotce_opis": "Waiting for Apple review. This page describes the version submitted.",
         "darmowa": "Free app with an in-app purchase",
         "wiecej": "Read on",
+        "naglowek_zrzutow": "What it looks like",
+        "zrzut": "screenshot",
         "opis_naglowek": "Description from the store",
         "opis_stopka": "The description above is the same text that stands on the App Store "
                        "product page – it comes from the same file.",
@@ -161,6 +165,13 @@ td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: 
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
 .sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+.zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
+          padding-bottom: .5rem; scroll-snap-type: x mandatory; }
+.zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
+.zrzuty img { width: 210px; height: auto; border-radius: 14px;
+              border: 1px solid var(--linia); display: block; }
+.zrzuty figcaption { font-size: .85rem; color: var(--cichy); margin-top: .45rem;
+                     line-height: 1.4; }
 ul.zwykla { padding-left: 1.15rem; }
 ul.zwykla li { margin: .3rem 0; }
 footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
@@ -210,7 +221,9 @@ def zbierz(manifest):
             else:
                 teksty[jezyk] = metadane.z_markdown(repo, jezyk)
                 plik = Path(f"docs/app-store/APP_STORE_METADATA_{jezyk.upper()}.md")
-        apki.append({**wpis, "teksty": teksty, "repoSciezka": repo,
+        podpisy = {j: podpisy_kadrow(ZRODLA / wpis.get("repoZrzuty", wpis["repo"]), j)
+                   for j in JEZYKI}
+        apki.append({**wpis, "teksty": teksty, "repoSciezka": repo, "podpisy": podpisy,
                      "data": data_zrodla(repo, plik)})
     return apki
 
@@ -436,6 +449,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
         + f'<p class="podtytul">{e(t["podtytul"])}</p></div></div>'
         + sklep
         + f'<p class="lead">{e(t["promo"])}</p>'
+        + galeria(a, jezyk, glebokosc)
         + f"<h2>{e(n['opis_naglowek'])}</h2>"
         + opis_html(t["opis"])
         + f'<p class="podtytul">{e(n["opis_stopka"])}</p>'
@@ -471,6 +485,33 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
                                             '<meta property="og:image:width" content="1200">'
                                             '<meta property="og:image:height" content="630">'
                                             '<meta name="twitter:card" content="summary_large_image">'))
+
+
+def galeria(a, jezyk, glebokosc):
+    """Kadry sklepowe na stronie — te same, które widać w App Store.
+
+    Podstrona była do 09.09.2026 ścianą tekstu: opis ze sklepu i nic więcej.
+    Kadry są już zrobione, przejrzane i wgrane do App Store, więc **jedyne, co
+    tu przybywa, to znacznik `<img>`** — nie nowa treść.
+
+    Pusta, gdy zrzutów nie zaimportowano: aplikacja bez galerii ma wyglądać jak
+    strona bez galerii, a nie jak strona z dziurą.
+    """
+    pliki = zrzuty_apki(a["slug"], jezyk)
+    if not pliki:
+        return ""
+    n = NAPISY[jezyk]
+    podpisy = a["podpisy"][jezyk]
+    kadry = []
+    for numer, plik in enumerate(pliki):
+        opis = podpisy[numer] if numer < len(podpisy) else \
+            f'{a["teksty"][jezyk]["nazwa"]} – {n["zrzut"]}'
+        sciezka = wzgledny(glebokosc, f"assets/zrzuty/{a['slug']}/{jezyk}/{plik}")
+        kadry.append(f'<figure><img src="{sciezka}" alt="{html.escape(opis, quote=True)}"'
+                     f' width="420" height="912" loading="lazy">'
+                     f"<figcaption>{e(opis)}</figcaption></figure>")
+    return f"<h2>{e(n['naglowek_zrzutow'])}</h2>" + \
+        f'<div class="zrzuty">{"".join(kadry)}</div>'
 
 
 def spis_dokumentow(apki, jezyk, manifest):
@@ -709,6 +750,89 @@ def ikony(apki, zapisuj):
     return zrobione
 
 
+# ---------------------------------------------------------------- zrzuty
+
+ZRZUTOW_NA_STRONE = 3
+KATALOGI_JEZYKA = {"pl": "pl", "en": "en-US"}
+
+
+def podpisy_kadrow(repo: Path, jezyk: str) -> list:
+    """Podpisy kadrów z metadanych — te same, które stoją pod zrzutami w App Store.
+
+    **Ma je tylko część rodziny.** Zmierzone 09.09.2026: sekcję `Screenshot copy`
+    z numerowaną listą niosą Bunmyaku, Katsuyokei i Joshi; Kazoekata ma sekcję bez
+    listy, a sześć aplikacji nie ma jej wcale. Tam, gdzie podpisu nie ma, tekst
+    alternatywny mówi tylko, czym obrazek jest — **wymyślenie opisu ekranu byłoby
+    dopisaniem treści, której nikt nie przejrzał**, a tekst alternatywny czyta
+    czytnik ekranu i indeksuje wyszukiwarka.
+    """
+    plik = repo / "docs" / "app-store" / f"APP_STORE_METADATA_{jezyk.upper()}.md"
+    if not plik.exists():
+        return []
+    sekcja = re.search(r"^## (?:Screenshot copy|Teksty pod zrzuty)[^\n]*\n(.*?)(?=^## |\Z)",
+                       plik.read_text(encoding="utf-8"), re.S | re.M)
+    if not sekcja:
+        return []
+    podpisy = []
+    for _, tresc in re.findall(r"^\s*(\d+)\.\s+(.+)$", sekcja.group(1), re.M):
+        czysty = re.sub(r"\*+", "", tresc)          # pogrubienia i kursywy z markdownu
+        czysty = re.sub(r"\s*\([^)]*\)\s*$", "", czysty)  # dopiski redakcyjne na końcu
+        czysty = czysty.split(" — ")[0].strip(" —–*_")
+        podpisy.append(czysty)
+    return podpisy
+
+
+def zrzuty_apki(slug: str, jezyk: str) -> list:
+    """Zrzuty już zaimportowane do repozytorium stron, po kolei."""
+    katalog = KORZEN / "assets" / "zrzuty" / slug / jezyk
+    if not katalog.exists():
+        return []
+    return sorted(p.name for p in katalog.glob("*.png"))
+
+
+def importuj_zrzuty(apki, manifest, zapisuj):
+    """Wciąga kadry sklepowe z repozytoriów aplikacji i skaluje je na stronę.
+
+    **Osobne polecenie, nie część zwykłego przebiegu**, i to jest cała ostrożność
+    tej funkcji: w większości repozytoriów `docs/app-store/screenshots/` jest
+    **ignorowany przez gita** — kadry są artefaktem odtwarzanym z App Store Connect.
+    Gdyby galeria powstawała z tego, co akurat leży w drzewie obok, przebieg na
+    maszynie bez kadrów wyczyściłby ją po cichu. Strony rysują więc galerię z tego,
+    co już zostało zaimportowane do `assets/zrzuty/`.
+    """
+    katalog = KORZEN / "assets" / "zrzuty"
+    rejestr = katalog / "zrodla.json"
+    stare = json.loads(rejestr.read_text(encoding="utf-8")) if rejestr.exists() else {}
+    nowe, zrobione, brakujace = dict(stare), [], []
+    for a in apki:
+        repo = ZRODLA / a.get("repoZrzuty", a["repo"])
+        for jezyk, katalog_jezyka in KATALOGI_JEZYKA.items():
+            zrodlo = repo / "docs" / "app-store" / "screenshots" / katalog_jezyka
+            if not zrodlo.exists():
+                brakujace.append(f"{a['slug']} {jezyk}")
+                continue
+            kadry = sorted(zrodlo.glob("*.png"))[:ZRZUTOW_NA_STRONE]
+            cel_katalog = katalog / a["slug"] / jezyk
+            for numer, kadr in enumerate(kadry, start=1):
+                klucz = f"{a['slug']}/{jezyk}/{numer}"
+                skrot = hashlib.sha256(kadr.read_bytes()).hexdigest()[:16]
+                cel = cel_katalog / f"{numer:02d}.png"
+                nowe[klucz] = skrot
+                if cel.exists() and stare.get(klucz) == skrot:
+                    continue
+                zrobione.append(klucz)
+                if not zapisuj:
+                    continue
+                cel_katalog.mkdir(parents=True, exist_ok=True)
+                subprocess.run(["sips", "-Z", "840", str(kadr), "--out", str(cel)],
+                               check=True, capture_output=True)
+    if zapisuj and nowe != stare:
+        katalog.mkdir(parents=True, exist_ok=True)
+        rejestr.write_text(json.dumps(nowe, ensure_ascii=False, indent=2,
+                                      sort_keys=True) + "\n", encoding="utf-8")
+    return zrobione, brakujace
+
+
 # ---------------------------------------------------------------- karty do podglądu
 
 KARTA_SVG = """<?xml version="1.0" encoding="UTF-8"?>
@@ -812,6 +936,8 @@ def bramki(apki, pliki, manifest):
                              for p in KORZEN.rglob("*.html") if ".git" not in p.parts}
     powstana |= {f"assets/ikony/{a['slug']}.png" for a in apki}
     powstana |= {f"assets/karty/{a['slug']}-{j}.png" for a in apki for j in JEZYKI}
+    powstana |= {f"assets/zrzuty/{a['slug']}/{j}/{p}"
+                 for a in apki for j in JEZYKI for p in zrzuty_apki(a["slug"], j)}
     for adres, tresc in pliki.items():
         if not adres.endswith(".html"):
             continue
@@ -945,6 +1071,8 @@ def main():
     parser.add_argument("--sprawdz", action="store_true", help="tylko bramki, bez zapisu")
     parser.add_argument("--powtarzalnie", action="store_true",
                         help="generuje dwa razy i porównuje wynik bajt w bajt")
+    parser.add_argument("--zrzuty", action="store_true",
+                        help="wciąga kadry sklepowe z repozytoriów aplikacji do assets/zrzuty/")
     parser.add_argument("--sprawdz-sklep", action="store_true",
                         help="porównuje manifest z App Store (wymaga sieci)")
     args = parser.parse_args()
@@ -958,6 +1086,14 @@ def main():
             print("  ⚠", r)
         print(f"App Store: {len(rozjazdy)} rozjazdów na {len(apki)} aplikacji")
         return 1 if rozjazdy else 0
+
+    if args.zrzuty:
+        zrobione, brakujace = importuj_zrzuty(apki, manifest, zapisuj=True)
+        print(f"zrzuty: {len(zrobione)} przeskalowanych")
+        for b in brakujace:
+            print(f"  ⚠ brak kadrów: {b}")
+        print("teraz puść generator bez flagi, żeby galerie weszły na strony")
+        return 0
 
     pliki = zbuduj(apki, manifest)
 

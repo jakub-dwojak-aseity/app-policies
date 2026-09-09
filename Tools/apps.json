@@ -20,6 +20,15 @@
     "ponownie `generuj-strony.py --sprawdz-sklep`, świadomie osobnym poleceniem, żeby",
     "samo generowanie nie zależało od sieci i dawało ten sam wynik bit w bit."
   ],
+  "_zrzuty": [
+    "`repoZrzuty` tylko tam, gdzie zrzuty leżą w INNYM drzewie niż metadane: Kaname ma",
+    "teksty w jp-grammar-1.2.5, a kadry w jp-grammar. W większości repozytoriów katalog",
+    "`docs/app-store/screenshots/` jest **ignorowany przez gita** — kadry są artefaktem",
+    "odtwarzanym z App Store Connect, nie źródłem. Dlatego import do `assets/zrzuty/`",
+    "jest osobnym poleceniem (`--zrzuty`), a strony rysują galerię z tego, co już zostało",
+    "zaimportowane: przebieg na maszynie bez kadrów ma nic nie zmienić, a nie wyczyścić",
+    "galerię po cichu."
+  ],
   "bazaAdresu": "https://jd-japanese.pl",
   "autor": "Jakub Dwojak",
   "_pozostale": [
@@ -38,6 +47,7 @@
     {
       "slug": "kaname", "japonska": "要", "appId": "6801993668",
       "repo": "jp-grammar-1.2.5", "zrodlo": "kaname", "wersja": "1.3.2",
+      "repoZrzuty": "jp-grammar",
       "dokumenty": {"pl": "kaname/1.2", "en": "kaname/1.2/en"},
       "kontakt": "jakub.dwojak+kaname@hotmail.com",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",

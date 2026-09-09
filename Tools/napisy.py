@@ -25,7 +25,7 @@ NAPISY = {
         "opis_mapy": "Dziesięć aplikacji do nauki japońskiego, każda o jednej rzeczy: "
                      "gramatyka, czytanie, odmiana, partykuły, liczniki, mowa potoczna, "
                      "keigo, akcent i onomatopeje.",
-        "naglowek_tabeli": "Który problem, ta aplikacja",
+        "naglowek_wyboru": "Którą aplikację wybrać",
         "naglowek_kart": "Wszystkie aplikacje",
         "w_sklepie": "App Store",
         "wkrotce": "Wkrótce w App Store",
@@ -53,6 +53,28 @@ NAPISY = {
         "spis_opis": "Polityki prywatności, warunki korzystania i strony wsparcia "
                      "wszystkich aplikacji.",
         "spis_link": "Spis dokumentów",
+        "autor_link": "O autorze",
+        "autor_tytul": "O autorze",
+        "autor_opis": "Kto pisze te aplikacje i dlaczego jest ich dziesięć, a nie jedna.",
+        "autor_kim": "Nazywam się Jakub Dwojak i piszę te aplikacje sam – kod, treść "
+                     "i wszystko, co widać na ekranie.",
+        "autor_naglowek_dlaczego": "Dlaczego dziesięć aplikacji, a nie jedna",
+        "autor_dlaczego_1": "Bo to, czego uczą, to dziesięć osobnych umiejętności, "
+                            "a nie dziesięć zakładek jednego programu. Gramatyka, odmiana, "
+                            "partykuły, liczniki, czytanie w kontekście, mowa potoczna, keigo, "
+                            "akcent i onomatopeje ćwiczą się inaczej, mierzą się inaczej "
+                            "i przydają się w innym momencie nauki.",
+        "autor_dlaczego_2": "Aplikacja, która robi to wszystko naraz, zaczyna się od ekranu "
+                            "z wyborem i każdą z tych rzeczy robi trochę gorzej. Osobne "
+                            "aplikacje kosztują dziesięć razy więcej wydań i dziesięć "
+                            "kompletów dokumentów – ale ten koszt płacę ja, nie Ty.",
+        "autor_naglowek_jak": "Jak są zrobione",
+        "autor_jak": "Wszystkie działają bez konta, bez reklam i bez śledzenia, a nauka "
+                     "i powtórki nie potrzebują internetu. Nie jest to obietnica na tej "
+                     "stronie – stoi to w polityce prywatności każdej z nich.",
+        "autor_naglowek_kontakt": "Kontakt",
+        "autor_kontakt": "Najszybciej mailem. Każda aplikacja ma własny adres – znajdziesz "
+                         "go na jej stronie i w jej dokumentach.",
         "do_tresci": "Przejdź do treści",
         "nawigacja": "Witryna",
     },
@@ -62,7 +84,7 @@ NAPISY = {
         "opis_mapy": "Ten apps for learning Japanese, each about one thing: grammar, "
                      "reading, conjugation, particles, counters, casual speech, "
                      "keigo, pitch accent and mimetics.",
-        "naglowek_tabeli": "Which problem, which app",
+        "naglowek_wyboru": "Which app do you need",
         "naglowek_kart": "All apps",
         "w_sklepie": "App Store",
         "wkrotce": "Coming to the App Store",
@@ -89,6 +111,28 @@ NAPISY = {
         "spis_tytul": "App documents",
         "spis_opis": "Privacy policies, terms of use and support pages for every app.",
         "spis_link": "Document index",
+        "autor_link": "About",
+        "autor_tytul": "About the author",
+        "autor_opis": "Who writes these apps, and why there are ten of them rather than one.",
+        "autor_kim": "I am Jakub Dwojak and I write these apps myself – the code, the content "
+                     "and everything you see on screen.",
+        "autor_naglowek_dlaczego": "Why ten apps rather than one",
+        "autor_dlaczego_1": "Because what they teach is ten separate skills, not ten tabs of "
+                            "one program. Grammar, conjugation, particles, counters, reading "
+                            "in context, casual speech, keigo, pitch accent and mimetics are "
+                            "drilled differently, measured differently, and each becomes "
+                            "useful at a different point.",
+        "autor_dlaczego_2": "An app that does all of it at once opens on a menu and does each "
+                            "of those things slightly worse. Separate apps cost ten times the "
+                            "releases and ten sets of documents – but that cost is mine, "
+                            "not yours.",
+        "autor_naglowek_jak": "How they are built",
+        "autor_jak": "All of them work without an account, without ads and without tracking, "
+                     "and studying works offline. That is not a promise made on this page – "
+                     "it is written in each app's privacy policy.",
+        "autor_naglowek_kontakt": "Contact",
+        "autor_kontakt": "Email is fastest. Each app has its own address – you will find it "
+                         "on its page and in its documents.",
         "do_tresci": "Skip to content",
         "nawigacja": "Site",
     },

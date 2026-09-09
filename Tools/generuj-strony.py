@@ -360,8 +360,10 @@ def stopka(jezyk, glebokosc, manifest, kontakt=None, spis_dokumentow=False):
     do siebie, tak jak `gora()` nie linkuje do mapy, stojąc na mapie."""
     n = NAPISY[jezyk]
     spis = "dokumenty.html" if jezyk == "pl" else "en/documents.html"
+    autor = "o-autorze/index.html" if jezyk == "pl" else "en/about/index.html"
     linki = ([] if spis_dokumentow
              else [f'<a href="{wzgledny(glebokosc, spis)}">{e(n["spis_link"])}</a>'])
+    linki.insert(0, f'<a href="{wzgledny(glebokosc, autor)}">{e(n["autor_link"])}</a>')
     if kontakt:
         linki.append(f'<a href="mailto:{kontakt}">{e(kontakt)}</a>')
     czlony = [e(manifest["autor"])] + linki
@@ -407,7 +409,7 @@ def mapa_rodziny(apki, jezyk, manifest):
     tresc = (
         f"<h1>{e(n['tytul_mapy'])}</h1>"
         + f'<p class="podtytul">{e(n["opis_mapy"])}</p>'
-        + f"<h2>{e(n['naglowek_tabeli'])}</h2>"
+        + f"<h2>{e(n['naglowek_wyboru'])}</h2>"
         + '<ul class="karty">' + "".join(karty) + "</ul>")
 
     # Pytanie, które model dostaje o rodzinę aplikacji, brzmi „którą wybrać" — i tabela
@@ -780,6 +782,51 @@ def llms_txt(apki, manifest):
                 f"- [Dokumenty prawne wszystkich aplikacji]({baza}/dokumenty.html)",
                 f"- [Legal documents, English]({baza}/en/documents.html)", ""]
     return "\n".join(wiersze)
+
+
+def strona_autora(apki, jezyk, manifest):
+    """Jedyna strona witryny pisana od siebie — i jedyny wyjątek od reguły `NAPISY`.
+
+    **Wyjątek dotyczy autora, a nie aplikacji, i tak ma zostać.** O aplikacjach ta
+    witryna nadal nie mówi ani jednego własnego zdania: obietnicy o produkcie nikt
+    nie sprawdził, więc obowiązuje metadana ze sklepu. Zdanie o sobie Jakub
+    potwierdza sam — i to jest cała różnica.
+
+    Po co w ogóle: `SoftwareApplication` deklarował `author` typu `Person` bez
+    żadnego adresu, a w stopce stało „Jakub Dwojak" bez linku. Przy treści
+    edukacyjnej wyszukiwarka pyta, kto za nią stoi, i dotąd nie miała gdzie
+    sprawdzić. Stąd też `sameAs` na profil, pod którym stoi to repozytorium.
+    """
+    n = NAPISY[jezyk]
+    kanoniczny = "o-autorze/index.html" if jezyk == "pl" else "en/about/index.html"
+    alternatywny = "en/about/index.html" if jezyk == "pl" else "o-autorze/index.html"
+    glebokosc = 1 if jezyk == "pl" else 2
+    baza = manifest["bazaAdresu"]
+
+    apki_lista = "".join(
+        f'<li><a href="{wzgledny(glebokosc, sciezki(a["slug"], jezyk)[0])}">'
+        f'{e(a["teksty"][jezyk]["nazwa"])}</a></li>' for a in apki)
+
+    tresc = (f"<h1>{e(n['autor_tytul'])}</h1>"
+             + f'<p class="lead">{e(n["autor_kim"])}</p>'
+             + f"<h2>{e(n['autor_naglowek_dlaczego'])}</h2>"
+             + f"<p>{e(n['autor_dlaczego_1'])}</p><p>{e(n['autor_dlaczego_2'])}</p>"
+             + f"<h2>{e(n['autor_naglowek_jak'])}</h2><p>{e(n['autor_jak'])}</p>"
+             + f"<h2>{e(n['autor_naglowek_kontakt'])}</h2><p>{e(n['autor_kontakt'])}</p>"
+             + f"<h2>{e(n['naglowek_kart'])}</h2>"
+             + f'<ul class="zwykla">{apki_lista}</ul>')
+
+    osoba = {"@context": "https://schema.org", "@type": "Person",
+             "name": manifest["autor"],
+             "url": f"{baza}/{publiczny(kanoniczny)}",
+             "sameAs": [manifest["profil"]],
+             "description": n["autor_opis"]}
+    return kanoniczny, strona(jezyk=jezyk, tytul=n["autor_tytul"], opis=n["autor_opis"],
+                              kanoniczny=kanoniczny, alternatywny=alternatywny,
+                              tresc=tresc, glebokosc=glebokosc, manifest=manifest,
+                              jsonld=osoba,
+                              nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
+                              stopka_html=stopka(jezyk, glebokosc, manifest))
 
 
 def strona_404(apki, manifest):
@@ -1618,6 +1665,9 @@ def zbuduj(apki, manifest):
         pliki[adres] = tresc
         daty[adres] = max(a["data"] for a in apki)
         adres, tresc = spis_dokumentow(apki, jezyk, manifest)
+        pliki[adres] = tresc
+        daty[adres] = max(a["data"] for a in apki)
+        adres, tresc = strona_autora(apki, jezyk, manifest)
         pliki[adres] = tresc
         daty[adres] = max(a["data"] for a in apki)
         for a in apki:

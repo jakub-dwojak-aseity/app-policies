@@ -36,6 +36,7 @@ import html
 import json
 import re
 import subprocess
+import unicodedata
 import sys
 import urllib.request
 from pathlib import Path
@@ -93,7 +94,12 @@ a { color: var(--akcent); }
 .znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
-.sklep { display: inline-block; margin: .35rem 0 1.25rem; font-weight: 600; }
+.sklep { display: block; margin: .35rem 0 1.25rem; font-weight: 600; }
+.przycisk { display: inline-block; background: var(--akcent); color: var(--tlo);
+            padding: .55rem 1.1rem; border-radius: 10px; text-decoration: none; }
+.spis-sekcji ul { list-style: none; padding: 0; margin: 0 0 1.75rem;
+                  display: flex; flex-wrap: wrap; gap: .35rem .9rem; font-size: .92rem; }
+.spis-sekcji li { margin: 0; }
 details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
 details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
                   position: relative; }
@@ -185,8 +191,44 @@ def akapit_html(akapit: str) -> str:
     return "<p>" + "<br>".join(e(l) for l in linie) + "</p>"
 
 
-def opis_html(opis: str) -> str:
-    return "\n".join(akapit_html(a) for a in metadane.akapity(opis))
+def kotwica(tekst: str, zajete: set) -> str:
+    """Adres kotwicy z nagłówka sekcji — bez znaków, które trzeba by kodować.
+
+    Nagłówki są po polsku i po angielsku, więc ogonki idą przez rozkład Unicode
+    do liter podstawowych. Adres z `%C4%85` w środku działa, ale nie da się go
+    komuś podyktować ani wkleić do rozmowy bez tłumaczenia się z niego.
+    """
+    # `ł` i `Ł` **nie są literą z ogonkiem** — to osobne znaki i rozkład Unicode ich
+    # nie rusza. Bez tej podmiany „WYŁAWIANIE ZDAŃ" dawało kotwicę `wy-awianie-zdan`.
+    tekst = tekst.lower().replace("ł", "l")
+    goly = unicodedata.normalize("NFKD", tekst)
+    slug = re.sub(r"[^a-z0-9]+", "-", "".join(z for z in goly if not unicodedata.combining(z)))
+    slug = slug.strip("-") or "sekcja"
+    kandydat, licznik = slug, 2
+    while kandydat in zajete:
+        kandydat, licznik = f"{slug}-{licznik}", licznik + 1
+    zajete.add(kandydat)
+    return kandydat
+
+
+def opis_html(opis: str) -> tuple:
+    """Opis sklepowy jako HTML **i lista jego nagłówków**.
+
+    Nagłówki dostają kotwice z dwóch powodów naraz: żeby dało się zbudować nad
+    opisem spis treści (2200–4100 znaków jednym ciągiem to osiem do dziesięciu
+    przewinięć na telefonie, bez żadnego punktu zaczepienia) i żeby dało się
+    podesłać komuś adres prosto do sekcji, a nie do całej strony.
+    """
+    zajete, naglowki, kawalki = set(), [], []
+    for akapit in metadane.akapity(opis):
+        znacznik = akapit_html(akapit)
+        if znacznik.startswith("<h3>"):
+            tekst = znacznik[len("<h3>"):-len("</h3>")]
+            adres = kotwica(akapit, zajete)
+            naglowki.append((adres, tekst))
+            znacznik = f'<h3 id="{adres}">{tekst}</h3>'
+        kawalki.append(znacznik)
+    return "\n".join(kawalki), naglowki
 
 
 def meta_opis(teksty: dict) -> str:
@@ -407,7 +449,8 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
     ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
 
     if a["wSklepie"]:
-        sklep = (f'<p class="sklep"><a href="{link_sklepu(a["appId"])}">{e(n["w_sklepie"])} →</a>'
+        sklep = (f'<p class="sklep"><a class="przycisk" href="{link_sklepu(a["appId"])}">'
+                 f'{e(n["w_sklepie"])} →</a>'
                  f'<span class="znacznik">{e(n["darmowa"])}</span></p>')
     else:
         sklep = (f'<p class="sklep"><span class="znacznik">{e(n["wkrotce"])}</span></p>'
@@ -423,6 +466,17 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
         f'{e(inna["teksty"][jezyk]["nazwa"])}</a> — {e(inna["teksty"][jezyk]["podtytul"])}</li>'
         for inna in apki if inna["slug"] != a["slug"])
 
+    opis, naglowki = opis_html(t["opis"])
+    # Spis sekcji tylko wtedy, gdy jest co spisywać: przy trzech nagłówkach byłby
+    # dłuższy niż droga, którą skraca. Próg wzięty z pomiaru — opisy rodziny mają
+    # od czterech do trzynastu sekcji.
+    spis_sekcji = ""
+    if len(naglowki) >= 4:
+        pozycje = "".join(f'<li><a href="#{adres}">{tekst}</a></li>'
+                          for adres, tekst in naglowki)
+        spis_sekcji = (f'<nav class="spis-sekcji" aria-label="{e(n["opis_naglowek"])}">'
+                       f"<ul>{pozycje}</ul></nav>")
+
     tresc = (
         f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
         + f'<div><h1>{e(t["nazwa"])}<span class="jp" lang="ja">{e(a["japonska"])}</span></h1>'
@@ -431,8 +485,13 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
         + f'<p class="lead">{e(t["promo"])}</p>'
         + galeria(a, jezyk, glebokosc)
         + f"<h2>{e(n['opis_naglowek'])}</h2>"
-        + opis_html(t["opis"])
+        + spis_sekcji
+        + opis
         + f'<p class="podtytul">{e(n["opis_stopka"])}</p>'
+        # Powtórzone wyjście do sklepu. Opis ma 2200–4100 znaków, więc czytelnik,
+        # który doszedł tu do końca, miał dotąd jedyny przycisk App Store dziesięć
+        # przewinięć wyżej — i musiał po niego wrócić na samą górę.
+        + sklep
         + faq_html(pary, jezyk)
         + f"<h2>{e(n['dokumenty'])}</h2><ul class=\"zwykla\">{dokumenty}</ul>"
         + f"<h2>{e(n['rodzina'])}</h2><ul class=\"zwykla\">{rodzenstwo}</ul>")
@@ -497,14 +556,19 @@ def galeria(a, jezyk, glebokosc):
     for plik in pliki:
         naglowek, podtytul = podpisy.get(Path(plik).stem,
                                          (f'{a["teksty"][jezyk]["nazwa"]} – {n["zrzut"]}', ""))
-        opis = f"{naglowek} {podtytul}".strip()
         sciezka = wzgledny(glebokosc, f"assets/zrzuty/{a['slug']}/{jezyk}/{plik}")
         podpis = f"<strong>{e(naglowek)}</strong>"
         if podtytul:
             podpis += f"<br>{e(podtytul)}"
-        kadry.append(f'<figure><img src="{sciezka}" alt="{html.escape(opis, quote=True)}"'
-                     f' width="420" height="912" loading="lazy">'
-                     f"<figcaption>{podpis}</figcaption></figure>")
+        # `alt` jest **pusty**, bo podpis pod kadrem niesie dokładnie ten sam tekst
+        # i stoi obok, widoczny. Do 09.09.2026 były to dwie kopie tego samego zdania
+        # i czytnik ekranu czytał każdy kadr dwa razy.
+        #
+        # Kadr jest **linkiem do pełnego pliku**: na stronie ma 210 px, więc tekstu
+        # na zrzucie telefonu nie da się przeczytać, a powiększenia nie było żadnego.
+        kadry.append(f'<figure><a href="{sciezka}">'
+                     f'<img src="{sciezka}" alt="" width="420" height="912" loading="lazy">'
+                     f"</a><figcaption>{podpis}</figcaption></figure>")
     return f"<h2>{e(n['naglowek_zrzutow'])}</h2>" + \
         f'<div class="zrzuty">{"".join(kadry)}</div>'
 
@@ -839,7 +903,7 @@ def faq_jsonld(pary):
 
 # ---------------------------------------------------------------- zrzuty
 
-ZRZUTOW_NA_STRONE = 3
+ZRZUTOW_NA_STRONE = 5
 KATALOGI_JEZYKA = {"pl": "pl", "en": "en-US"}
 
 

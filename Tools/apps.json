@@ -20,7 +20,7 @@
     "ponownie `generuj-strony.py --sprawdz-sklep`, świadomie osobnym poleceniem, żeby",
     "samo generowanie nie zależało od sieci i dawało ten sam wynik bit w bit."
   ],
-  "bazaAdresu": "https://jakub-dwojak-aseity.github.io/app-policies",
+  "bazaAdresu": "https://jd-japanese.pl",
   "autor": "Jakub Dwojak",
   "_pozostale": [
     "Aplikacje spoza rodziny japońskiej. Nie mają stron produktowych ani metadanych",

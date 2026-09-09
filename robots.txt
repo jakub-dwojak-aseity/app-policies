@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jakub-dwojak-aseity.github.io/app-policies/sitemap.xml
+Sitemap: https://jd-japanese.pl/sitemap.xml

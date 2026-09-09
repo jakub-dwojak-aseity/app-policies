@@ -310,7 +310,7 @@ def publiczny(adres: str) -> str:
 
 
 def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
-           manifest, jsonld=None, dodatkowa_glowa=""):
+           manifest, jsonld=None, dodatkowa_glowa="", nawigacja="", stopka_html=""):
     n = NAPISY[jezyk]
     baza = manifest["bazaAdresu"]
     kanoniczny, alternatywny = publiczny(kanoniczny), publiczny(alternatywny)
@@ -337,7 +337,15 @@ def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
     if jsonld:
         czesci.append('<script type="application/ld+json">\n'
                       + json.dumps(jsonld, ensure_ascii=False, indent=2) + "\n</script>")
-    czesci += ["</head>", "<body>", tresc, "</body>", "</html>", ""]
+    # Jeden `<main>` na stronę: czytnik ekranu daje wtedy skok do treści z pominięciem
+    # nawigacji. Pasek języka i powrotu zostaje poza nim, bo jest nawigacją, a stopka
+    # poza nim, bo jest stopką — inaczej „przejdź do treści" prowadziłoby do linków.
+    # Jeden `<main>` na stronę: czytnik ekranu daje wtedy skok do treści z pominięciem
+    # nawigacji. Pasek języka i powrotu stoi **poza** nim, bo jest nawigacją, a stopka
+    # poza nim, bo jest stopką — gdyby siedziały w środku, „przejdź do treści"
+    # prowadziłoby do linków, czyli dokładnie tam, skąd czytnik miał uciec.
+    czesci += ["</head>", "<body>", nawigacja, f"<main>{tresc}</main>", stopka_html,
+               "</body>", "</html>", ""]
     return "\n".join(cz for cz in czesci if cz)
 
 
@@ -346,7 +354,7 @@ def gora(jezyk, glebokosc, alternatywny, manifest, mapa=True):
     lewo = (f'<a href="{wzgledny(glebokosc, "index.html" if jezyk == "pl" else "en/index.html")}">'
             f"← {e(n['wroc'])}</a>") if mapa else ""
     prawo = f'<a href="{manifest["bazaAdresu"]}/{alternatywny}">{e(n["inny_jezyk"])}</a>'
-    return f'<div class="gora"><span>{lewo}</span><span>{prawo}</span></div>'
+    return f'<nav class="gora"><span>{lewo}</span><span>{prawo}</span></nav>'
 
 
 def stopka(jezyk, glebokosc, manifest, kontakt=None):
@@ -391,7 +399,7 @@ def mapa_rodziny(apki, jezyk, manifest):
     for a in apki:
         t = a["teksty"][jezyk]
         cel = wzgledny(glebokosc, sciezki(a["slug"], jezyk)[0])
-        ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.png")
+        ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
         karty.append(
             f'<li class="karta"><img src="{ikona}" alt="" width="52" height="52" loading="lazy">'
             f'<div><a class="nazwa" href="{cel}">{e(t["nazwa"])}</a>'
@@ -399,16 +407,14 @@ def mapa_rodziny(apki, jezyk, manifest):
             f"<p>{e(metadane.pierwsze_zdanie(t['opis']))}</p></div></li>")
 
     tresc = (
-        gora(jezyk, glebokosc, alternatywny, manifest, mapa=False)
-        + f"<h1>{e(n['tytul_mapy'])}</h1>"
+        f"<h1>{e(n['tytul_mapy'])}</h1>"
         + f'<p class="podtytul">{e(n["opis_mapy"])}</p>'
         + f"<h2>{e(n['naglowek_tabeli'])}</h2>"
         + "<table><thead><tr>"
         + f"<th>{e(n['kolumna_problem'])}</th><th>{e(n['kolumna_aplikacja'])}</th>"
         + "</tr></thead><tbody>" + "".join(wiersze) + "</tbody></table>"
         + f"<h2>{e(n['naglowek_kart'])}</h2>"
-        + '<ul class="karty">' + "".join(karty) + "</ul>"
-        + stopka(jezyk, glebokosc, manifest))
+        + '<ul class="karty">' + "".join(karty) + "</ul>")
 
     # Pytanie, które model dostaje o rodzinę aplikacji, brzmi „którą wybrać" — i tabela
     # wyżej jest na nie odpowiedzią, tylko zapisaną znacznikami tabeli. Tu ta sama treść
@@ -439,7 +445,9 @@ def mapa_rodziny(apki, jezyk, manifest):
     return kanoniczny, strona(jezyk=jezyk, tytul=n["tytul_mapy"], opis=n["opis_mapy"],
                               kanoniczny=kanoniczny, alternatywny=alternatywny,
                               tresc=tresc, glebokosc=glebokosc, manifest=manifest,
-                              jsonld=jsonld)
+                              jsonld=jsonld,
+                              nawigacja=gora(jezyk, glebokosc, alternatywny, manifest, mapa=False),
+                              stopka_html=stopka(jezyk, glebokosc, manifest))
 
 
 def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebokosc=None):
@@ -452,7 +460,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
     t = a["teksty"][jezyk]
     pary = pytania_apki(a, jezyk)
     katalog = a["dokumenty"][jezyk]
-    ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.png")
+    ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
 
     if a["wSklepie"]:
         sklep = (f'<p class="sklep"><a href="{link_sklepu(a["appId"])}">{e(n["w_sklepie"])} →</a>'
@@ -472,8 +480,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
         for inna in apki if inna["slug"] != a["slug"])
 
     tresc = (
-        gora(jezyk, glebokosc, alternatywny, manifest)
-        + f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
+        f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
         + f'<div><h1>{e(t["nazwa"])}<span class="jp">{e(a["japonska"])}</span></h1>'
         + f'<p class="podtytul">{e(t["podtytul"])}</p></div></div>'
         + sklep
@@ -484,8 +491,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
         + f'<p class="podtytul">{e(n["opis_stopka"])}</p>'
         + faq_html(pary, jezyk)
         + f"<h2>{e(n['dokumenty'])}</h2><ul class=\"zwykla\">{dokumenty}</ul>"
-        + f"<h2>{e(n['rodzina'])}</h2><ul class=\"zwykla\">{rodzenstwo}</ul>"
-        + stopka(jezyk, glebokosc, manifest, a["kontakt"]))
+        + f"<h2>{e(n['rodzina'])}</h2><ul class=\"zwykla\">{rodzenstwo}</ul>")
 
     jsonld = {
         "@context": "https://schema.org",
@@ -516,6 +522,8 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
                            kanoniczny=kanoniczny, alternatywny=alternatywny,
                            tresc=tresc, glebokosc=glebokosc, manifest=manifest,
                            jsonld=jsonld,
+                           nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
+                           stopka_html=stopka(jezyk, glebokosc, manifest, a["kontakt"]),
                            dodatkowa_glowa=(f'<meta property="og:image" content="{obrazek}">'
                                             '<meta property="og:image:width" content="1200">'
                                             '<meta property="og:image:height" content="630">'
@@ -584,14 +592,14 @@ def spis_dokumentow(apki, jezyk, manifest):
         sekcje.append(f'<h2>{e(inna["nazwa"][jezyk])}</h2>'
                       f'<ul class="zwykla">{"".join(pozycje)}</ul>')
 
-    tresc = (gora(jezyk, glebokosc, alternatywny, manifest)
-             + f"<h1>{e(n['spis_tytul'])}</h1>"
+    tresc = (f"<h1>{e(n['spis_tytul'])}</h1>"
              + f'<p class="podtytul">{e(n["spis_opis"])}</p>'
-             + "".join(sekcje)
-             + stopka(jezyk, glebokosc, manifest))
+             + "".join(sekcje))
     return kanoniczny, strona(jezyk=jezyk, tytul=n["spis_tytul"], opis=n["spis_opis"],
                               kanoniczny=kanoniczny, alternatywny=alternatywny,
-                              tresc=tresc, glebokosc=glebokosc, manifest=manifest)
+                              tresc=tresc, glebokosc=glebokosc, manifest=manifest,
+                              nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
+                              stopka_html=stopka(jezyk, glebokosc, manifest))
 
 
 ZNACZNIK_OD = "<!-- ADRESY: sekcja poniżej jest generowana przez Tools/generuj-strony.py, nie edytować ręcznie -->"
@@ -723,20 +731,21 @@ def strona_404(apki, manifest):
     pozycje = "".join(
         f'<li><a href="{baza}/apps/{a["slug"]}/">{e(a["teksty"]["pl"]["nazwa"])}</a> — '
         f'{e(a["teksty"]["pl"]["podtytul"])}</li>' for a in apki)
-    tresc = (f'<div class="gora"><span></span><span><a href="{baza}/en/">English</a></span></div>'
-             "<h1>Nie ma takiej strony</h1>"
+    tresc = ("<h1>Nie ma takiej strony</h1>"
              '<p class="podtytul">Adres mógł się zmienić — dokumenty prawne dostały numer '
              "wersji w adresie, a cała witryna przeniosła się na tę domenę. Poniżej "
              "wszystko, co tu jest.</p>"
              f'<h2>{e(n["naglowek_kart"])}</h2><ul class="zwykla">{pozycje}</ul>'
              f'<h2>{e(n["dokumenty"])}</h2><ul class="zwykla">'
              f'<li><a href="{baza}/dokumenty.html">{e(n["spis_tytul"])}</a></li>'
-             f'<li><a href="{baza}/">{e(n["tytul_mapy"])}</a></li></ul>'
-             + stopka("pl", 0, manifest))
+             f'<li><a href="{baza}/">{e(n["tytul_mapy"])}</a></li></ul>')
     return strona(jezyk="pl", tytul="Nie ma takiej strony",
                   opis="Adres nie istnieje. Spis wszystkich aplikacji i dokumentów rodziny.",
                   kanoniczny="404.html", alternatywny="en/index.html",
                   tresc=tresc, glebokosc=0, manifest=manifest,
+                  nawigacja=f'<nav class="gora"><span></span>'
+                            f'<span><a href="{baza}/en/">English</a></span></nav>',
+                  stopka_html=stopka("pl", 0, manifest),
                   dodatkowa_glowa='<meta name="robots" content="noindex">')
 
 
@@ -771,7 +780,7 @@ def ikony(apki, zapisuj):
         if not zrodlo.exists():
             raise SystemExit(f"{a['slug']}: brak ikony {zrodlo}")
         skrot = hashlib.sha256(zrodlo.read_bytes()).hexdigest()[:16]
-        cel = katalog / f"{a['slug']}.png"
+        cel = katalog / f"{a['slug']}.webp"
         nowe[a["slug"]] = skrot
         if cel.exists() and stare.get(a["slug"]) == skrot:
             continue
@@ -779,8 +788,7 @@ def ikony(apki, zapisuj):
             zrobione.append(a["slug"])
             continue
         katalog.mkdir(parents=True, exist_ok=True)
-        subprocess.run(["sips", "-Z", "180", str(zrodlo), "--out", str(cel)],
-                       check=True, capture_output=True)
+        do_webp(zrodlo, cel, dluzszy_bok=180)
         zrobione.append(a["slug"])
     if zapisuj and nowe != stare:
         katalog.mkdir(parents=True, exist_ok=True)
@@ -883,6 +891,30 @@ ZRZUTOW_NA_STRONE = 3
 KATALOGI_JEZYKA = {"pl": "pl", "en": "en-US"}
 
 
+def do_webp(zrodlo: Path, cel: Path, dluzszy_bok: int):
+    """Skaluje `sips`-em i zapisuje jako WebP przez `cwebp`.
+
+    **Format, nie wymiary, był tu całym kosztem.** Kadr sklepowy ma tło z gradientem
+    i zrzut telefonu — jako PNG waży 168 kB przy 912 px dłuższego boku, jako WebP
+    przy tej samej wielkości **16 kB**. Trzy kadry na stronie to było pół megabajta
+    obrazków na stronę tekstową; teraz jest 48 kB. Ikona: 20 kB → 4 kB.
+
+    Wymiary zostają: strona pokazuje kadr na 210 px, więc na ekranie o podwójnej
+    gęstości potrzeba 420 px szerokości, czyli 912 px wysokości przy proporcji kadru
+    sklepowego. Zmniejszanie poniżej tego dałoby rozmyty obrazek na telefonie —
+    a to jest urządzenie, na którym te strony się ogląda.
+
+    **Karty `og:image` zostają PNG-iem** i to jest świadome: czytniki podglądu
+    w komunikatorach obsługują WebP nierówno, a karta ma się pokazać wszędzie.
+    """
+    posrednie = cel.with_suffix(".posrednie.png")
+    subprocess.run(["sips", "-Z", str(dluzszy_bok), str(zrodlo), "--out", str(posrednie)],
+                   check=True, capture_output=True)
+    subprocess.run(["cwebp", "-q", "80", "-quiet", str(posrednie), "-o", str(cel)],
+                   check=True, capture_output=True)
+    posrednie.unlink()
+
+
 def podpisy_kadrow(repo: Path, jezyk: str) -> dict:
     """Podpisy kadrów z `docs/app-store/screenshots.json` — po identyfikatorze kadru.
 
@@ -920,7 +952,7 @@ def zrzuty_apki(slug: str, jezyk: str) -> list:
     katalog = KORZEN / "assets" / "zrzuty" / slug / jezyk
     if not katalog.exists():
         return []
-    return sorted(p.name for p in katalog.glob("*.png"))
+    return sorted(p.name for p in katalog.glob("*.webp"))
 
 
 def importuj_zrzuty(apki, manifest, zapisuj):
@@ -949,7 +981,7 @@ def importuj_zrzuty(apki, manifest, zapisuj):
             for kadr in kadry:
                 klucz = f"{a['slug']}/{jezyk}/{kadr.stem}"
                 skrot = hashlib.sha256(kadr.read_bytes()).hexdigest()[:16]
-                cel = cel_katalog / kadr.name
+                cel = cel_katalog / f"{kadr.stem}.webp"
                 nowe[klucz] = skrot
                 if cel.exists() and stare.get(klucz) == skrot:
                     continue
@@ -957,8 +989,7 @@ def importuj_zrzuty(apki, manifest, zapisuj):
                 if not zapisuj:
                     continue
                 cel_katalog.mkdir(parents=True, exist_ok=True)
-                subprocess.run(["sips", "-Z", "840", str(kadr), "--out", str(cel)],
-                               check=True, capture_output=True)
+                do_webp(kadr, cel, dluzszy_bok=912)
     if zapisuj and nowe != stare:
         katalog.mkdir(parents=True, exist_ok=True)
         rejestr.write_text(json.dumps(nowe, ensure_ascii=False, indent=2,
@@ -1067,7 +1098,7 @@ def bramki(apki, pliki, manifest):
     # 2. Każdy link wewnętrzny musi prowadzić do pliku, który powstanie albo już jest.
     powstana = set(pliki) | {p.relative_to(KORZEN).as_posix()
                              for p in KORZEN.rglob("*.html") if ".git" not in p.parts}
-    powstana |= {f"assets/ikony/{a['slug']}.png" for a in apki}
+    powstana |= {f"assets/ikony/{a['slug']}.webp" for a in apki}
     powstana |= {f"assets/karty/{a['slug']}-{j}.png" for a in apki for j in JEZYKI}
     powstana |= {f"assets/zrzuty/{a['slug']}/{j}/{p}"
                  for a in apki for j in JEZYKI for p in zrzuty_apki(a["slug"], j)}

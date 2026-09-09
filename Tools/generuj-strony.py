@@ -1104,14 +1104,45 @@ def landmark(tresc):
     return skargi
 
 
+def jezyk_pliku(sciezka: Path):
+    """Język dokumentu wzięty z `<html lang>`, a nie z tego, w jakim leży katalogu.
+
+    Katalogi bywają nazwane różnie w każdym repozytorium (`en/`, `1.0/en/`, a Kuzushi
+    trzyma angielski w korzeniu i polski w `pl/`); atrybut `lang` jest w każdym pliku
+    i mówi to samo. Wyciągnięcie języka z **treści** jest jedynym parowaniem, które
+    przeżyje przeprowadzkę katalogu.
+    """
+    trafienie = re.search(r'<html lang="([a-z]{2})"',
+                          sciezka.read_text(encoding="utf-8", errors="replace"))
+    return trafienie.group(1) if trafienie else None
+
+
+def kopie_zrodlowe(a):
+    """Skróty i ścieżki dokumentów prawnych w repozytorium aplikacji.
+
+    Zwraca (skróty → ścieżka, katalog). Pusty słownik przy braku drzewa — o czym
+    bramka 10 mówi wprost, zamiast przemilczeć.
+    """
+    katalog = ZRODLA / a["repo"] / "docs" / "app-store"
+    if not katalog.is_dir():
+        return {}, katalog
+    return ({hashlib.sha256(p.read_bytes()).hexdigest(): p
+             for p in sorted(katalog.rglob("*.html"))}, katalog)
+
+
 def bramki(apki, pliki, manifest):
     """Wszystko, co musi być prawdą, zanim strony pojadą na serwer.
 
     Bramka mierzy **wytwór**, a nie zamiar: patrzy w wygenerowany HTML i w pliki
     na dysku, a nie w to, co generator zamierzał zapisać.
 
+    Zwraca dwie listy: `bledy` **zatrzymują zapis**, `uwagi` są nazwane i wypisane,
+    ale przepuszczają. Rozdział jest z pomiaru, nie z wygody: bramka 10 (rozjazd
+    z kopiami w repozytoriach aplikacji) świeci na czerwono od dnia narodzin, bo
+    kopie są w cudzych repozytoriach i naprawia je kto inny. Bramka blokująca,
+    której nie da się dziś zazielenić, kończy tak, że ktoś ją wyłącza.
     """
-    bledy = []
+    bledy, uwagi = [], []
 
     # 1. Każdy dokument prawny, do którego strona linkuje, musi istnieć,
     # 9. i mieć landmark `<main>` — dokumenty prawne pisze się ręcznie, więc
@@ -1251,7 +1282,39 @@ def bramki(apki, pliki, manifest):
         for skarga in landmark(plik.read_text(encoding="utf-8")):
             bledy.append(f"{adres}: {skarga}")
 
-    return bledy
+    # 10. Rozjazd z kopiami źródłowymi. Te same dokumenty prawne leżą w repozytoriach
+    #     aplikacji (`<repo>/docs/app-store/**`) i to stamtąd trafiły tutaj. Dwie kopie
+    #     jednego tekstu rozjeżdżają się zawsze — pytanie tylko, czy ktoś to zobaczy.
+    #
+    #     **Parowanie idzie po sumie kontrolnej treści, nie po mapie ścieżek.** Mapa
+    #     ścieżek rozjeżdża się przy pierwszej przeprowadzce katalogu (Kaname ma dziś
+    #     dwa drzewa robocze, Bunmyaku też) i wtedy bramka zaczyna kłamać o czymś
+    #     zupełnie innym, niż mierzy. Dopiero gdy bliźniaka o tej samej treści nie ma,
+    #     szukamy kopii po nazwie pliku i języku — po to wyłącznie, żeby **nazwać**
+    #     rozjazd konkretnym plikiem zamiast napisać „coś się nie zgadza".
+    for a in apki:
+        skroty, katalog = kopie_zrodlowe(a)
+        if not skroty:
+            uwagi.append(f"{a['slug']}: brak kopii źródłowych obok — {katalog} "
+                         f"{'jest puste' if katalog.is_dir() else 'nie istnieje'}")
+            continue
+        for jezyk in JEZYKI:
+            for plik in DOKUMENTY:
+                sciezka = KORZEN / a["dokumenty"][jezyk] / plik
+                if not sciezka.exists():
+                    continue
+                if hashlib.sha256(sciezka.read_bytes()).hexdigest() in skroty:
+                    continue
+                kandydaci = [p for p in skroty.values()
+                             if p.name == plik and jezyk_pliku(p) == jezyk]
+                gdzie = ", ".join(str(p.relative_to(ZRODLA)) for p in kandydaci)
+                uwagi.append(
+                    f"{a['slug']} {jezyk} {plik}: kopia w repo {a['repo']} "
+                    + (f"rozjechała się ({gdzie})" if kandydaci
+                       else f"nie istnieje — {katalog.relative_to(ZRODLA)} nie ma "
+                            f"pliku {plik} w języku {jezyk}"))
+
+    return bledy, uwagi
 
 
 def sprawdz_sklep(apki):
@@ -1353,7 +1416,11 @@ def main():
         print("powtarzalność:", "ten sam wynik bit w bit" if not rozne else f"ROZJAZD {rozne}")
         return 1 if rozne else 0
 
-    bledy = bramki(apki, pliki, manifest)
+    bledy, uwagi = bramki(apki, pliki, manifest)
+    for uwaga in uwagi:
+        print("  ⚠", uwaga)
+    if uwagi:
+        print(f"rozjazd z kopiami źródłowymi: {len(uwagi)} — nazwane, nie blokujące")
     for blad in bledy:
         print("  ✗", blad)
     if bledy:

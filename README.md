@@ -76,6 +76,13 @@ dopisane później nie trafiły do dokumentu; są tu jako 6 i 7.
    **i strony generowane** — te ostatnie trzymały landmark na jednej linii szablonu
    i żadnym teście, więc nowy szablon bez `<main>` przeszedłby bez słowa.
 
+Dziesiąta jest **nazwana, ale nie blokuje**: dokumenty prawne mają bliźniaki
+w `<repo>/docs/app-store/**` i bramka mówi, które się rozjechały, parując je
+**sumą kontrolną treści**, a nie mapą ścieżek — mapa rozjeżdża się przy pierwszej
+przeprowadzce katalogu, a Kaname i Bunmyaku mają po dwa drzewa robocze. Nie blokuje,
+bo kopie leżą w cudzych repozytoriach i naprawia je kto inny; bramka blokująca,
+której nie da się zazielenić na miejscu, kończy tak, że ktoś ją wyłącza.
+
 `--powtarzalnie` sprawdza dodatkowo, że dwa przebiegi dają ten sam wynik bit w bit.
 Ikony są przeskalowane z zasobów aplikacji i powstają **tylko przy zmianie skrótu
 źródła** (`assets/ikony/zrodla.json`), bo `sips` nie gwarantuje powtarzalnego bajtu.

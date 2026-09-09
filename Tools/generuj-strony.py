@@ -338,12 +338,10 @@ def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
         czesci.append('<script type="application/ld+json">\n'
                       + json.dumps(jsonld, ensure_ascii=False, indent=2) + "\n</script>")
     # Jeden `<main>` na stronę: czytnik ekranu daje wtedy skok do treści z pominięciem
-    # nawigacji. Pasek języka i powrotu zostaje poza nim, bo jest nawigacją, a stopka
-    # poza nim, bo jest stopką — inaczej „przejdź do treści" prowadziłoby do linków.
-    # Jeden `<main>` na stronę: czytnik ekranu daje wtedy skok do treści z pominięciem
     # nawigacji. Pasek języka i powrotu stoi **poza** nim, bo jest nawigacją, a stopka
     # poza nim, bo jest stopką — gdyby siedziały w środku, „przejdź do treści"
     # prowadziłoby do linków, czyli dokładnie tam, skąd czytnik miał uciec.
+    # Że ta linia naprawdę wstawia landmark, sprawdza bramka 9 — na wytworze.
     czesci += ["</head>", "<body>", nawigacja, f"<main>{tresc}</main>", stopka_html,
                "</body>", "</html>", ""]
     return "\n".join(cz for cz in czesci if cz)

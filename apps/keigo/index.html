@@ -13,6 +13,8 @@
 <meta property="og:description" content="Japoński formalny do pracy. Japoński rejestr grzecznościowy to nie lista form do zapamiętania, tylko decyzja: wobec kogo.">
 <meta property="og:url" content="https://jd-japanese.pl/apps/keigo/">
 <meta property="og:type" content="website">
+<link rel="icon" type="image/png" sizes="48x48" href="../../assets/znak-48.png">
+<link rel="apple-touch-icon" href="../../assets/znak-180.png">
 <meta property="og:image" content="https://jd-japanese.pl/assets/karty/keigo-pl.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <style>
 :root { color-scheme: light dark; --tlo:#fff; --tekst:#1c1c1e; --cichy:#6b6b70;
@@ -36,6 +38,8 @@ a { color: var(--akcent); }
 .gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
         margin-bottom: 2rem; color: var(--cichy); }
 .gora a { text-decoration: none; }
+.gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
+.gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
 .szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
 .szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
 .jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
@@ -109,6 +113,8 @@ code { font-size: .9em; }
         "price": "0",
         "priceCurrency": "PLN"
       },
+      "sameAs": "https://apps.apple.com/app/id6808383597",
+      "installUrl": "https://apps.apple.com/app/id6808383597",
       "image": "https://jd-japanese.pl/assets/karty/keigo-pl.png"
     },
     {
@@ -145,8 +151,8 @@ code { font-size: .9em; }
 </script>
 </head>
 <body>
-<nav class="gora"><span><a href="../../index.html">← Wszystkie aplikacje</a></span><span><a href="https://jd-japanese.pl/en/apps/keigo/index.html">English</a></span></nav>
-<main><div class="szyld"><img src="../../assets/ikony/keigo.webp" alt="" width="72" height="72"><div><h1>Keigo: Grzeczność japońska<span class="jp">敬語</span></h1><p class="podtytul">Japoński formalny do pracy</p></div></div><p class="sklep"><span class="znacznik">Wkrótce w App Store</span></p><p class="podtytul">Aplikacja czeka na recenzję Apple. Strona opisuje wersję złożoną do sklepu.</p><p class="lead">Znać formę to nie to samo co wiedzieć, wobec kogo jej użyć. Za dużo keigo jest błędem
+<nav class="gora"><span><a class="znak" href="../../index.html" aria-hidden="true" tabindex="-1"><img src="../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../index.html">← Wszystkie aplikacje</a></span><span><a href="https://jd-japanese.pl/en/apps/keigo/">English</a></span></nav>
+<main><div class="szyld"><img src="../../assets/ikony/keigo.webp" alt="" width="72" height="72"><div><h1>Keigo: Grzeczność japońska<span class="jp">敬語</span></h1><p class="podtytul">Japoński formalny do pracy</p></div></div><p class="sklep"><a href="https://apps.apple.com/app/id6808383597">App Store →</a><span class="znacznik">Aplikacja darmowa, z zakupem w środku</span></p><p class="lead">Znać formę to nie to samo co wiedzieć, wobec kogo jej użyć. Za dużo keigo jest błędem
 dokładnie tak samo jak za mało – i to jest ta połowa, której nie uczy nikt.</p><h2>Jak to wygląda</h2><div class="zrzuty"><figure><img src="../../assets/zrzuty/keigo/pl/01-dzis.webp" alt="Naucz się mówić z szacunkiem 敬語 od です/ます po 内 i 外, z powtórkami pilnującymi terminu" width="420" height="912" loading="lazy"><figcaption><strong>Naucz się mówić z szacunkiem</strong><br>敬語 od です/ます po 内 i 外, z powtórkami pilnującymi terminu</figcaption></figure><figure><img src="../../assets/zrzuty/keigo/pl/02-cwiczenie.webp" alt="Odpowiadasz kafelkami, nie klawiaturą Literówki nie da się pomylić z niewiedzą" width="420" height="912" loading="lazy"><figcaption><strong>Odpowiadasz kafelkami, nie klawiaturą</strong><br>Literówki nie da się pomylić z niewiedzą</figcaption></figure><figure><img src="../../assets/zrzuty/keigo/pl/03-wyjasnienie.webp" alt="Przeczytaj, zanim spróbujesz Formy, zdanie, postęp na każdą kompetencję i z czym się to myli" width="420" height="912" loading="lazy"><figcaption><strong>Przeczytaj, zanim spróbujesz</strong><br>Formy, zdanie, postęp na każdą kompetencję i z czym się to myli</figcaption></figure></div><h2>Opis ze sklepu</h2><p>Japoński rejestr grzecznościowy to nie lista form do zapamiętania, tylko decyzja: wobec kogo.</p>
 <p>Można wiedzieć, że 伺う to forma skromna od 行く, i mimo to postawić ją wobec kolegi o rok starszego. Można umieć お〜になる i użyć go, mówiąc o własnym szefie do klienta. Różnica nie siedzi w formie – siedzi w tym, kto do kogo mówi. Keigo pyta właśnie o to.</p>
 <h3>CZTERY RZECZY MIERZONE OSOBNO</h3>
@@ -170,6 +176,6 @@ dokładnie tak samo jak za mało – i to jest ta połowa, której nie uczy nikt
 <p>Keigo jest siódmą aplikacją tej samej rodziny. Gramatykę wykłada Kaname, odmianę Katsuyokei, partykuły Joshi, liczniki Kazoekata, czytanie Bunmyaku, mowę potoczną Kuzushi. Każda z nich pokazuje twój postęp w pozostałych – bez konta i bez wysyłania czegokolwiek.</p>
 <h3>ARBITER</h3>
 <p>Podział na kategorie i rozstrzygnięcia sporne idą za 文化庁「敬語の指針」(2007). Tam, gdzie poradniki biznesowe się nie zgadzają, aplikacja mówi, czyją stronę bierze.</p><p class="podtytul">Powyższy opis jest tym samym tekstem, który stoi na karcie aplikacji w App Store – pochodzi z tego samego pliku.</p><h2>Częste pytania</h2><details><summary>Czego uczy Keigo?</summary><p>Japoński rejestr grzecznościowy to nie lista form do zapamiętania, tylko decyzja: wobec kogo.</p><p>Można wiedzieć, że 伺う to forma skromna od 行く, i mimo to postawić ją wobec kolegi o rok starszego. Można umieć お〜になる i użyć go, mówiąc o własnym szefie do klienta. Różnica nie siedzi w formie – siedzi w tym, kto do kogo mówi. Keigo pyta właśnie o to.</p></details><details><summary>Ile kosztuje Keigo?</summary><p>Poziomy 1 i 2 w całości – です/ます i wszystkie dwadzieścia form nieregularnych. Jednorazowy zakup otwiera poziomy 3–5: wzorce produktywne, przysługi, 内/外 i przesadę. Bez abonamentu.</p></details><details><summary>Czy działa bez internetu i bez konta?</summary><p>Materiał jedzie w aplikacji. Postęp zostaje na urządzeniu i nie idzie nigdzie. Nie ma logowania, nie ma śledzenia, nie ma reklam.</p></details><h2>Dokumenty</h2><ul class="zwykla"><li><a href="../../keigo/1.0/privacy.html">Polityka prywatności</a></li><li><a href="../../keigo/1.0/terms.html">Warunki korzystania</a></li><li><a href="../../keigo/1.0/support.html">Wsparcie</a></li></ul><h2>Pozostałe aplikacje</h2><ul class="zwykla"><li><a href="../../apps/kaname/index.html">Kaname: Gramatyka japońska</a> — Powtórki JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/bunmyaku/index.html">Bunmyaku: Japoński w zdaniu</a> — Słówka, kanji i furigana</li><li><a href="../../apps/katsuyokei/index.html">Katsuyokei: Odmiana japońska</a> — Czasowniki, formy, fiszki</li><li><a href="../../apps/joshi/index.html">Joshi: Partykuły japońskie</a> — Gramatyka i ćwiczenia JLPT</li><li><a href="../../apps/kazoekata/index.html">Kazoekata: Liczniki japońskie</a> — Liczenie, kanji, ćwiczenia</li><li><a href="../../apps/kuzushi/index.html">Kuzushi: Mowa potoczna</a> — Anime, dorama i skróty</li><li><a href="../../apps/shindan/index.html">Shindan: Poziom japońskiego</a> — Test JLPT: N5 N4 N3 N2 N1</li><li><a href="../../apps/kifuku/index.html">Kifuku: Akcent japoński</a> — Wymowa, intonacja, słuchanie</li><li><a href="../../apps/onomatope/index.html">Onomatope: Dźwięki i wyrażenia</a> — Słówka z mangi i anime</li></ul></main>
-<footer>Jakub Dwojak · <a href="../../dokumenty.html">Spis dokumentów</a> · <a href="mailto:jakub.dwojak+keigo@hotmail.com">jakub.dwojak+keigo@hotmail.com</a><br>Strona wygenerowana z metadanych sklepowych (<code>Tools/generuj-strony.py</code>).</footer>
+<footer>Jakub Dwojak · <a href="../../dokumenty.html">Spis dokumentów</a> · <a href="mailto:jakub.dwojak+keigo@hotmail.com">jakub.dwojak+keigo@hotmail.com</a></footer>
 </body>
 </html>

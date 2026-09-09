@@ -39,92 +39,168 @@
   "pozostale": [
     {
       "slug": "spoolcalc",
-      "nazwa": {"pl": "SpoolCalc – kalkulator pojemności szpuli", "en": "SpoolCalc – spool capacity calculator"},
-      "dokumenty": {"en": "spoolcalc"}
+      "nazwa": {
+        "pl": "SpoolCalc – kalkulator pojemności szpuli",
+        "en": "SpoolCalc – spool capacity calculator"
+      },
+      "dokumenty": {
+        "en": "spoolcalc"
+      }
     }
   ],
   "aplikacje": [
     {
-      "slug": "kaname", "japonska": "要", "appId": "6801993668",
-      "repo": "jp-grammar-1.2.5", "zrodlo": "kaname", "wersja": "1.3.2",
+      "slug": "kaname",
+      "japonska": "要",
+      "appId": "6801993668",
+      "repo": "jp-grammar-1.2.5",
+      "zrodlo": "kaname",
+      "wersja": "1.3.2",
       "repoZrzuty": "jp-grammar",
-      "dokumenty": {"pl": "kaname/1.2", "en": "kaname/1.2/en"},
+      "dokumenty": {
+        "pl": "kaname/1.2",
+        "en": "kaname/1.2/en"
+      },
       "kontakt": "jakub.dwojak+kaname@hotmail.com",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
-      "wSklepie": true, "kolejnosc": 1
+      "wSklepie": true,
+      "kolejnosc": 1
     },
     {
-      "slug": "bunmyaku", "japonska": "文脈", "appId": "6804188062",
-      "repo": "bunmyaku-n2", "zrodlo": "md",
-      "dokumenty": {"pl": "bunmyaku/1.2", "en": "bunmyaku/1.2/en"},
+      "slug": "bunmyaku",
+      "japonska": "文脈",
+      "appId": "6804188062",
+      "repo": "bunmyaku-n2",
+      "zrodlo": "md",
+      "dokumenty": {
+        "pl": "bunmyaku/1.2",
+        "en": "bunmyaku/1.2/en"
+      },
       "kontakt": "jakub.dwojak+bunmyaku@hotmail.com",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
-      "wSklepie": true, "kolejnosc": 2
+      "wSklepie": true,
+      "kolejnosc": 2
     },
     {
-      "slug": "katsuyokei", "japonska": "活用形", "appId": "6802813564",
-      "repo": "katsuyokei-ios", "zrodlo": "md",
-      "dokumenty": {"pl": "katsuyokei", "en": "katsuyokei/en"},
+      "slug": "katsuyokei",
+      "japonska": "活用形",
+      "appId": "6802813564",
+      "repo": "katsuyokei-ios",
+      "zrodlo": "md",
+      "dokumenty": {
+        "pl": "katsuyokei",
+        "en": "katsuyokei/en"
+      },
       "kontakt": "jakub.dwojak+katsuyokei@hotmail.com",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
-      "wSklepie": true, "kolejnosc": 3
+      "wSklepie": true,
+      "kolejnosc": 3
     },
     {
-      "slug": "joshi", "japonska": "助詞", "appId": "6803144744",
-      "repo": "joshi-ios", "zrodlo": "md",
-      "dokumenty": {"pl": "joshi", "en": "joshi/en"},
+      "slug": "joshi",
+      "japonska": "助詞",
+      "appId": "6803144744",
+      "repo": "joshi-ios",
+      "zrodlo": "md",
+      "dokumenty": {
+        "pl": "joshi",
+        "en": "joshi/en"
+      },
       "kontakt": "jakub.dwojak+joshi@hotmail.com",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
-      "wSklepie": true, "kolejnosc": 4
+      "wSklepie": true,
+      "kolejnosc": 4
     },
     {
-      "slug": "kazoekata", "japonska": "数え方", "appId": "6803676309",
-      "repo": "kazoekata-ios", "zrodlo": "md",
-      "dokumenty": {"pl": "kazoekata", "en": "kazoekata/en"},
+      "slug": "kazoekata",
+      "japonska": "数え方",
+      "appId": "6803676309",
+      "repo": "kazoekata-ios",
+      "zrodlo": "md",
+      "dokumenty": {
+        "pl": "kazoekata",
+        "en": "kazoekata/en"
+      },
       "kontakt": "jakub.dwojak+kazoekata@hotmail.com",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
-      "wSklepie": true, "kolejnosc": 5
+      "wSklepie": true,
+      "kolejnosc": 5
     },
     {
-      "slug": "kuzushi", "japonska": "崩し", "appId": "6805788146",
-      "repo": "kuzushi-ios", "zrodlo": "md",
-      "dokumenty": {"pl": "kuzushi/pl", "en": "kuzushi"},
+      "slug": "kuzushi",
+      "japonska": "崩し",
+      "appId": "6805788146",
+      "repo": "kuzushi-ios",
+      "zrodlo": "md",
+      "dokumenty": {
+        "pl": "kuzushi/pl",
+        "en": "kuzushi"
+      },
       "kontakt": "jakub.dwojak+kuzushi@hotmail.com",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
-      "wSklepie": true, "kolejnosc": 6,
+      "wSklepie": true,
+      "kolejnosc": 6,
       "adresHistoryczny": "kuzushi/index.html"
     },
     {
-      "slug": "shindan", "japonska": "診断", "appId": "6809168153",
-      "repo": "shindan-ios", "zrodlo": "md",
-      "dokumenty": {"pl": "shindan/1.0", "en": "shindan/1.0/en"},
+      "slug": "shindan",
+      "japonska": "診断",
+      "appId": "6809168153",
+      "repo": "shindan-ios",
+      "zrodlo": "md",
+      "dokumenty": {
+        "pl": "shindan/1.0",
+        "en": "shindan/1.0/en"
+      },
       "kontakt": "jakub.dwojak+shindan@hotmail.com",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
-      "wSklepie": false, "kolejnosc": 7
+      "wSklepie": true,
+      "kolejnosc": 7
     },
     {
-      "slug": "keigo", "japonska": "敬語", "appId": "6808383597",
-      "repo": "keigo-ios", "zrodlo": "md",
-      "dokumenty": {"pl": "keigo/1.0", "en": "keigo/1.0/en"},
+      "slug": "keigo",
+      "japonska": "敬語",
+      "appId": "6808383597",
+      "repo": "keigo-ios",
+      "zrodlo": "md",
+      "dokumenty": {
+        "pl": "keigo/1.0",
+        "en": "keigo/1.0/en"
+      },
       "kontakt": "jakub.dwojak+keigo@hotmail.com",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
-      "wSklepie": false, "kolejnosc": 8
+      "wSklepie": true,
+      "kolejnosc": 8
     },
     {
-      "slug": "kifuku", "japonska": "起伏", "appId": "6809029465",
-      "repo": "kifuku", "zrodlo": "md",
-      "dokumenty": {"pl": "kifuku/1.0", "en": "kifuku/1.0/en"},
+      "slug": "kifuku",
+      "japonska": "起伏",
+      "appId": "6809029465",
+      "repo": "kifuku",
+      "zrodlo": "md",
+      "dokumenty": {
+        "pl": "kifuku/1.0",
+        "en": "kifuku/1.0/en"
+      },
       "kontakt": "jakub.dwojak+kifuku@hotmail.com",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
-      "wSklepie": false, "kolejnosc": 9
+      "wSklepie": true,
+      "kolejnosc": 9
     },
     {
-      "slug": "onomatope", "japonska": "オノマトペ", "appId": "6808981682",
-      "repo": "onomatope-ios", "zrodlo": "md",
-      "dokumenty": {"pl": "onomatope/1.0", "en": "onomatope/1.0/en"},
+      "slug": "onomatope",
+      "japonska": "オノマトペ",
+      "appId": "6808981682",
+      "repo": "onomatope-ios",
+      "zrodlo": "md",
+      "dokumenty": {
+        "pl": "onomatope/1.0",
+        "en": "onomatope/1.0/en"
+      },
       "kontakt": "jakub.dwojak+onomatope@hotmail.com",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
-      "wSklepie": false, "kolejnosc": 10
+      "wSklepie": true,
+      "kolejnosc": 10
     }
   ]
 }

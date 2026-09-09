@@ -90,8 +90,6 @@ NAPISY = {
         "spis_opis": "Polityki prywatności, warunki korzystania i strony wsparcia "
                      "wszystkich aplikacji.",
         "spis_link": "Spis dokumentów",
-        "generowane": "Strona wygenerowana z metadanych sklepowych "
-                      "(<code>Tools/generuj-strony.py</code>).",
     },
     "en": {
         "html_lang": "en",
@@ -128,8 +126,6 @@ NAPISY = {
         "spis_tytul": "App documents",
         "spis_opis": "Privacy policies, terms of use and support pages for every app.",
         "spis_link": "Document index",
-        "generowane": "Generated from App Store metadata "
-                      "(<code>Tools/generuj-strony.py</code>).",
     },
 }
 
@@ -155,6 +151,8 @@ a { color: var(--akcent); }
 .gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
         margin-bottom: 2rem; color: var(--cichy); }
 .gora a { text-decoration: none; }
+.gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
+.gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
 .szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
 .szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
 .jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
@@ -334,6 +332,12 @@ def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
         f'<meta property="og:description" content="{html.escape(opis, quote=True)}">',
         f'<meta property="og:url" content="{baza}/{kanoniczny}">',
         '<meta property="og:type" content="website">',
+        # Ikona witryny. Google pokazuje ją obok wyniku na telefonie i **wymaga
+        # co najmniej 48 px**; kafelek 180 px obsługuje iOS i podwójną gęstość.
+        f'<link rel="icon" type="image/png" sizes="48x48" '
+        f'href="{wzgledny(glebokosc, "assets/znak-48.png")}">',
+        f'<link rel="apple-touch-icon" '
+        f'href="{wzgledny(glebokosc, "assets/znak-180.png")}">',
         dodatkowa_glowa,
         f"<style>\n{STYL}</style>",
     ]
@@ -351,11 +355,30 @@ def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
 
 
 def gora(jezyk, glebokosc, alternatywny, manifest, mapa=True):
+    """Pasek: znak witryny i powrót po lewej, przełącznik języka po prawej.
+
+    Znak jest linkiem do mapy rodziny na podstronach, a na samej mapie zwykłym
+    obrazkiem — link prowadzący do strony, na której się stoi, jest dla czytnika
+    ekranu szumem. Opis alternatywny to nazwa witryny, czyli tekst, który i tak
+    już stoi w `NAPISY`; znak nie dokłada ani jednego nowego zdania.
+    """
     n = NAPISY[jezyk]
-    lewo = (f'<a href="{wzgledny(glebokosc, "index.html" if jezyk == "pl" else "en/index.html")}">'
-            f"← {e(n['wroc'])}</a>") if mapa else ""
-    prawo = f'<a href="{manifest["bazaAdresu"]}/{alternatywny}">{e(n["inny_jezyk"])}</a>'
-    return f'<nav class="gora"><span>{lewo}</span><span>{prawo}</span></nav>'
+    dom = wzgledny(glebokosc, "index.html" if jezyk == "pl" else "en/index.html")
+    # Na podstronie znak stoi tuż obok linku tekstowego prowadzącego w to samo
+    # miejsce, więc jego opis alternatywny jest **pusty**: czytnik ekranu przeczytałby
+    # inaczej dwa razy pod rząd ten sam cel. Na mapie sąsiada nie ma i opisem jest
+    # nazwa witryny — tekst, który i tak stoi w `NAPISY`.
+    def obrazek(opis):
+        return (f'<img src="{wzgledny(glebokosc, "assets/znak-48.png")}" '
+                f'alt="{opis}" width="22" height="22">')
+
+    znak_html = (f'<a class="znak" href="{dom}" aria-hidden="true" tabindex="-1">{obrazek("")}</a>'
+                 if mapa else f'<span class="znak">{obrazek(e(n["tytul_mapy"]))}</span>')
+    powrot = f'<a href="{dom}">← {e(n["wroc"])}</a>' if mapa else ""
+    prawo = (f'<a href="{manifest["bazaAdresu"]}/{publiczny(alternatywny)}">'
+             f'{e(n["inny_jezyk"])}</a>')
+    return (f'<nav class="gora"><span>{znak_html}{powrot}</span>'
+            f'<span>{prawo}</span></nav>')
 
 
 def stopka(jezyk, glebokosc, manifest, kontakt=None):
@@ -364,8 +387,7 @@ def stopka(jezyk, glebokosc, manifest, kontakt=None):
     linki = [f'<a href="{wzgledny(glebokosc, spis)}">{e(n["spis_link"])}</a>']
     if kontakt:
         linki.append(f'<a href="mailto:{kontakt}">{e(kontakt)}</a>')
-    return (f"<footer>{e(manifest['autor'])} · " + " · ".join(linki)
-            + f"<br>{n['generowane']}</footer>")
+    return f"<footer>{e(manifest['autor'])} · " + " · ".join(linki) + "</footer>"
 
 
 # ---------------------------------------------------------------- strony
@@ -1036,6 +1058,59 @@ KARTA_SVG = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 
+ZNAK_SVG = """<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <rect width="180" height="180" rx="40" ry="40" fill="#a34f5a"/>
+  <text x="90" y="122" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="92" font-weight="600" fill="#ffffff" text-anchor="middle">jd</text>
+</svg>
+"""
+
+ZNAK_ROZMIARY = (48, 180)
+
+
+def znak(zapisuj):
+    """Znak witryny: kafelek w pasku nawigacji i ikona karty przeglądarki.
+
+    **Czego tu wcześniej nie było w ogóle: favicony.** Google pokazuje ikonę witryny
+    obok wyniku na telefonie, a karta przeglądarki stała pusta. Nie jest to nowa
+    tożsamość wizualna — litery `jd` i barwa `#a34f5a` stoją już na kartach `og:image`
+    razem z napisem `jd-japanese.pl`, a zaokrąglony kwadrat powtarza kształt ikon
+    aplikacji na stronie. Znak zbiera to, co już jest, w jedno miejsce.
+
+    Dwa rozmiary: **48 px, bo tyle Google wymaga jako minimum** i lubi wielokrotności
+    48, oraz 180 px na kafelek iOS i na pasek przy podwójnej gęstości.
+
+    Jak przy kartach: plik powstaje **tylko przy zmianie skrótu wejścia**, bo
+    `rsvg-convert` nie gwarantuje powtarzalnego bajtu, a `--powtarzalnie` mierzy
+    determinizm generatora, nie konwertera.
+    """
+    katalog = KORZEN / "assets"
+    rejestr = katalog / "znak.json"
+    skrot = hashlib.sha256(ZNAK_SVG.encode()).hexdigest()[:16]
+    stare = json.loads(rejestr.read_text(encoding="utf-8")) if rejestr.exists() else {}
+    zrobione = []
+    for bok in ZNAK_ROZMIARY:
+        cel = katalog / f"znak-{bok}.png"
+        klucz = f"znak-{bok}"
+        if cel.exists() and stare.get(klucz) == skrot:
+            continue
+        zrobione.append(klucz)
+        if not zapisuj:
+            continue
+        katalog.mkdir(parents=True, exist_ok=True)
+        zrodlo = katalog / ".znak.svg"
+        zrodlo.write_text(ZNAK_SVG, encoding="utf-8")
+        subprocess.run(["rsvg-convert", "-w", str(bok), "-h", str(bok),
+                        "-o", str(cel), str(zrodlo)], check=True, capture_output=True)
+        zrodlo.unlink()
+    if zapisuj and zrobione:
+        rejestr.write_text(json.dumps({f"znak-{b}": skrot for b in ZNAK_ROZMIARY},
+                                      ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+                           encoding="utf-8")
+    return zrobione
+
+
 def karty_og(apki, zapisuj):
     """Karty 1200×630 do podglądu w komunikatorach i w wynikach wyszukiwania.
 
@@ -1212,6 +1287,7 @@ def bramki(apki, pliki, manifest):
                              for p in KORZEN.rglob("*.html") if ".git" not in p.parts}
     powstana |= {f"assets/ikony/{a['slug']}.webp" for a in apki}
     powstana |= {f"assets/karty/{a['slug']}-{j}.png" for a in apki for j in JEZYKI}
+    powstana |= {f"assets/znak-{bok}.png" for bok in ZNAK_ROZMIARY}
     powstana |= {f"assets/zrzuty/{a['slug']}/{j}/{p}"
                  for a in apki for j in JEZYKI for p in zrzuty_apki(a["slug"], j)}
     for adres, tresc in pliki.items():
@@ -1378,13 +1454,35 @@ def bramki(apki, pliki, manifest):
     return bledy, uwagi
 
 
+SKLEPY = ("pl", "us", "gb", "de", "jp")
+
+
 def sprawdz_sklep(apki):
-    """Porównuje manifest z tym, co App Store oddaje publicznie. Wymaga sieci."""
+    """Porównuje manifest z tym, co App Store oddaje publicznie. Wymaga sieci.
+
+    **Pyta pięć witryn sklepu, nie jedną, i to jest naprawa z pomiaru.** 09.09.2026
+    Kifuku po wydaniu wracało z `pl` jako `resultCount: 0`, a z `us`, `gb`, `de`
+    i `jp` jako `1.0.0` wydane o 10:05 UTC — przy czym `apps.apple.com/pl/app/id…`
+    oddawało `200`. Czyli aplikacja **była** dostępna w Polsce, a spóźniał się indeks
+    wyszukiwania jednej witryny. Pytanie o samo `pl` kazałoby wtedy trzymać na stronie
+    „wkrótce w App Store" nad aplikacją, którą dało się kupić.
+
+    Obecna w którejkolwiek witrynie znaczy obecna. Nazwę bierzemy z pierwszej, która
+    odpowiedziała — jest ta sama we wszystkich, bo to jedno pole w App Store Connect.
+    """
     rozjazdy = []
     for a in apki:
-        adres = f"https://itunes.apple.com/lookup?id={a['appId']}&country=pl"
-        with urllib.request.urlopen(adres, timeout=20) as odpowiedz:
-            dane = json.loads(odpowiedz.read().decode())
+        dane = {"resultCount": 0}
+        for kraj in SKLEPY:
+            adres = f"https://itunes.apple.com/lookup?id={a['appId']}&country={kraj}"
+            try:
+                with urllib.request.urlopen(adres, timeout=20) as odpowiedz:
+                    odczyt = json.loads(odpowiedz.read().decode())
+            except (urllib.error.URLError, json.JSONDecodeError):
+                continue
+            if odczyt["resultCount"] > 0:
+                dane = odczyt
+                break
         zywa = dane["resultCount"] > 0
         if zywa != a["wSklepie"]:
             rozjazdy.append(f"{a['slug']}: manifest mówi wSklepie={a['wSklepie']}, "
@@ -1488,7 +1586,9 @@ def main():
         print(f"bramki: {len(bledy)} błędów — nic nie zapisano")
         return 1
 
-    zrobione_ikony = ikony(apki, zapisuj=not args.sprawdz) + karty_og(apki, zapisuj=not args.sprawdz)
+    zrobione_ikony = (ikony(apki, zapisuj=not args.sprawdz)
+                      + karty_og(apki, zapisuj=not args.sprawdz)
+                      + znak(zapisuj=not args.sprawdz))
     if args.sprawdz:
         print(f"bramki: zielone ({len(pliki)} plików, {len(apki)} aplikacji)")
         if zrobione_ikony:

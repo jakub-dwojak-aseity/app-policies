@@ -74,6 +74,10 @@ a { color: var(--akcent); }
 .gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
         margin-bottom: 2rem; color: var(--cichy); }
 .gora a { text-decoration: none; }
+.do-tresci { position: absolute; left: -9999px; }
+.do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
+:focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
+footer { overflow-wrap: anywhere; }
 .gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
 .gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
 .szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
@@ -286,6 +290,10 @@ def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
         f'<meta property="og:description" content="{html.escape(opis, quote=True)}">',
         f'<meta property="og:url" content="{baza}/{kanoniczny}">',
         '<meta property="og:type" content="website">',
+        f'<meta property="og:site_name" content="{html.escape(n["tytul_mapy"], quote=True)}">',
+        f'<meta property="og:locale" content="{"pl_PL" if jezyk == "pl" else "en_US"}">',
+        f'<meta property="og:locale:alternate" content="{"en_US" if jezyk == "pl" else "pl_PL"}">',
+        '<meta name="theme-color" content="#a34f5a">',
         # Ikona witryny. Google pokazuje ją obok wyniku na telefonie i **wymaga
         # co najmniej 48 px**; kafelek 180 px obsługuje iOS i podwójną gęstość.
         #
@@ -309,7 +317,12 @@ def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
     # poza nim, bo jest stopką — gdyby siedziały w środku, „przejdź do treści"
     # prowadziłoby do linków, czyli dokładnie tam, skąd czytnik miał uciec.
     # Że ta linia naprawdę wstawia landmark, sprawdza bramka 9 — na wytworze.
-    czesci += ["</head>", "<body>", nawigacja, f"<main>{tresc}</main>", stopka_html,
+    # Skip-link. Położenie `<main>` było w tym pliku uzasadniane właśnie tym
+    # mechanizmem — „przejdź do treści" ma omijać nawigację — a samego linku
+    # nie było na żadnej stronie. Widoczny dopiero po dojściu do niego klawiszem.
+    do_tresci = f'<a class="do-tresci" href="#tresc">{e(n["do_tresci"])}</a>'
+    czesci += ["</head>", "<body>", do_tresci, nawigacja,
+               f'<main id="tresc">{tresc}</main>', stopka_html,
                "</body>", "</html>", ""]
     return "\n".join(cz for cz in czesci if cz)
 
@@ -337,17 +350,22 @@ def gora(jezyk, glebokosc, alternatywny, manifest, mapa=True):
     powrot = f'<a href="{dom}">← {e(n["wroc"])}</a>' if mapa else ""
     prawo = (f'<a href="{manifest["bazaAdresu"]}/{publiczny(alternatywny)}">'
              f'{e(n["inny_jezyk"])}</a>')
-    return (f'<nav class="gora"><span>{znak_html}{powrot}</span>'
+    return (f'<nav class="gora" aria-label="{e(n["nawigacja"])}">'
+            f'<span>{znak_html}{powrot}</span>'
             f'<span>{prawo}</span></nav>')
 
 
-def stopka(jezyk, glebokosc, manifest, kontakt=None):
+def stopka(jezyk, glebokosc, manifest, kontakt=None, spis_dokumentow=False):
+    """Stopka. `spis_dokumentow=True` na stronie spisu — żeby nie linkowała sama
+    do siebie, tak jak `gora()` nie linkuje do mapy, stojąc na mapie."""
     n = NAPISY[jezyk]
     spis = "dokumenty.html" if jezyk == "pl" else "en/documents.html"
-    linki = [f'<a href="{wzgledny(glebokosc, spis)}">{e(n["spis_link"])}</a>']
+    linki = ([] if spis_dokumentow
+             else [f'<a href="{wzgledny(glebokosc, spis)}">{e(n["spis_link"])}</a>'])
     if kontakt:
         linki.append(f'<a href="mailto:{kontakt}">{e(kontakt)}</a>')
-    return f"<footer>{e(manifest['autor'])} · " + " · ".join(linki) + "</footer>"
+    czlony = [e(manifest["autor"])] + linki
+    return f"<footer>{' · '.join(czlony)}</footer>"
 
 
 # ---------------------------------------------------------------- strony
@@ -428,10 +446,16 @@ def mapa_rodziny(apki, jezyk, manifest):
     jsonld = {"@context": "https://schema.org",
               "@graph": [witryna,
                          {k: v for k, v in jsonld.items() if k != "@context"}, faq]}
+    obrazek = f'{manifest["bazaAdresu"]}/assets/karty/rodzina-{jezyk}.png'
+    witryna["image"] = obrazek
     return kanoniczny, strona(jezyk=jezyk, tytul=n["tytul_mapy"], opis=n["opis_mapy"],
                               kanoniczny=kanoniczny, alternatywny=alternatywny,
                               tresc=tresc, glebokosc=glebokosc, manifest=manifest,
                               jsonld=jsonld,
+                              dodatkowa_glowa=(f'<meta property="og:image" content="{obrazek}">'
+                                               '<meta property="og:image:width" content="1200">'
+                                               '<meta property="og:image:height" content="630">'
+                                               '<meta name="twitter:card" content="summary_large_image">'),
                               nawigacja=gora(jezyk, glebokosc, alternatywny, manifest, mapa=False),
                               stopka_html=stopka(jezyk, glebokosc, manifest))
 
@@ -513,6 +537,19 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
         jsonld["sameAs"] = link_sklepu(a["appId"])
         jsonld["installUrl"] = link_sklepu(a["appId"])
 
+    # Kadry sklepowe w danych strukturalnych. Leżą na dysku od 09.09.2026, a nie
+    # deklarowaliśmy ani jednego — to najmocniejsze z pól, których tu brakowało.
+    kadry = zrzuty_apki(a["slug"], jezyk)
+    if kadry:
+        jsonld["screenshot"] = [
+            f"{manifest['bazaAdresu']}/assets/zrzuty/{a['slug']}/{jezyk}/{plik}"
+            for plik in kadry]
+    # Data ostatniej zmiany metadanych — ta sama, którą niesie mapa witryny.
+    # `datePublished` świadomie pominięte: daty premiery w repozytorium nie ma,
+    # a zmyślona data w danych strukturalnych jest gorsza niż jej brak.
+    if a.get("data"):
+        jsonld["dateModified"] = a["data"]
+
     tytul = f'{t["nazwa"]} – {t["podtytul"]}'
     obrazek = f'{manifest["bazaAdresu"]}/assets/karty/{a["slug"]}-{jezyk}.png'
 
@@ -521,10 +558,19 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
     # gdzie nie opisuje niczego — zmierzone 09.09.2026 na wygenerowanym HTML-u.
     jsonld["image"] = obrazek
 
+    # Okruszek: `Rodzina → Aplikacja`. Google pokazuje go w wynikach zamiast adresu,
+    # a wizualnym odpowiednikiem jest „← Wszystkie aplikacje" w pasku — drugiego
+    # okruszka na stronie nie stawiamy, bo mówiłby dokładnie to samo.
+    baza = manifest["bazaAdresu"]
+    dom = f"{baza}/" if jezyk == "pl" else f"{baza}/en/"
+    okruszek = {"@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": n["tytul_mapy"], "item": dom},
+        {"@type": "ListItem", "position": 2, "name": t["nazwa"],
+         "item": f"{baza}/{publiczny(kanoniczny)}"}]}
+    wezly = [{k: v for k, v in jsonld.items() if k != "@context"}, okruszek]
     if pary:
-        jsonld = {"@context": "https://schema.org",
-                  "@graph": [{k: v for k, v in jsonld.items() if k != "@context"},
-                             faq_jsonld(pary)]}
+        wezly.append(faq_jsonld(pary))
+    jsonld = {"@context": "https://schema.org", "@graph": wezly}
     return sciezka, strona(jezyk=jezyk, tytul=tytul, opis=meta_opis(t),
                            kanoniczny=kanoniczny, alternatywny=alternatywny,
                            tresc=tresc, glebokosc=glebokosc, manifest=manifest,
@@ -569,8 +615,11 @@ def galeria(a, jezyk, glebokosc):
         kadry.append(f'<figure><a href="{sciezka}">'
                      f'<img src="{sciezka}" alt="" width="420" height="912" loading="lazy">'
                      f"</a><figcaption>{podpis}</figcaption></figure>")
-    return f"<h2>{e(n['naglowek_zrzutow'])}</h2>" + \
-        f'<div class="zrzuty">{"".join(kadry)}</div>'
+    # `tabindex` na karuzeli: bez niego pas z kadrami przewija się wyłącznie
+    # myszą i gestem, a klawiaturą nie da się go ruszyć wcale.
+    return (f"<h2>{e(n['naglowek_zrzutow'])}</h2>"
+            f'<div class="zrzuty" tabindex="0" role="group" '
+            f'aria-label="{e(n["naglowek_zrzutow"])}">{"".join(kadry)}</div>')
 
 
 def spis_dokumentow(apki, jezyk, manifest):
@@ -611,7 +660,8 @@ def spis_dokumentow(apki, jezyk, manifest):
                               kanoniczny=kanoniczny, alternatywny=alternatywny,
                               tresc=tresc, glebokosc=glebokosc, manifest=manifest,
                               nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
-                              stopka_html=stopka(jezyk, glebokosc, manifest))
+                              stopka_html=stopka(jezyk, glebokosc, manifest,
+                                                 spis_dokumentow=True))
 
 
 ZNACZNIK_OD = "<!-- ADRESY: sekcja poniżej jest generowana przez Tools/generuj-strony.py, nie edytować ręcznie -->"
@@ -759,8 +809,10 @@ def strona_404(apki, manifest):
                   opis="Adres nie istnieje. Spis wszystkich aplikacji i dokumentów rodziny.",
                   kanoniczny="404.html", alternatywny="en/index.html",
                   tresc=tresc, glebokosc=0, manifest=manifest,
-                  nawigacja=f'<nav class="gora"><span></span>'
-                            f'<span><a href="{baza}/en/">English</a></span></nav>',
+                  # Do 09.09.2026 pasek na 404 miał pusty lewy `<span>`: jako
+                  # jedyna strona witryny nie niosła znaku ani powrotu — czyli
+                  # dokładnie tam, gdzie gość jest zgubiony, brakowało wyjścia.
+                  nawigacja=gora("pl", 0, "en/index.html", manifest),
                   stopka_html=stopka("pl", 0, manifest),
                   dodatkowa_glowa='<meta name="robots" content="noindex">')
 
@@ -1097,6 +1149,59 @@ def znak(zapisuj):
     return zrobione
 
 
+KARTA_RODZINY_SVG = """<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#faf9f9"/>
+  <rect x="0" y="0" width="1200" height="10" fill="#a34f5a"/>
+  <clipPath id="rog"><rect x="90" y="175" width="280" height="280" rx="62" ry="62"/></clipPath>
+  <image x="90" y="175" width="280" height="280" clip-path="url(#rog)"
+         xlink:href="data:image/png;base64,{znak}"/>
+  <text x="440" y="290" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="56" font-weight="600" fill="#1c1c1e">{tytul}</text>
+  <text x="440" y="430" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="28" fill="#a34f5a">jd-japanese.pl</text>
+</svg>
+"""
+
+
+def karta_rodziny(zapisuj):
+    """Karta podglądu mapy rodziny — jedyna strona, która jej nie miała.
+
+    Udostępniony link do `jd-japanese.pl` dawał dotąd goły tekst, bo `og:image`
+    stało wyłącznie na dwudziestu podstronach aplikacji. Karta powstaje tą samą
+    drogą co tamte i z tych samych składników: znak witryny zamiast ikony
+    aplikacji, nazwa mapy zamiast nazwy apki. Ani jednego nowego napisu.
+    """
+    katalog = KORZEN / "assets" / "karty"
+    rejestr = katalog / "zrodla.json"
+    stare = json.loads(rejestr.read_text(encoding="utf-8")) if rejestr.exists() else {}
+    nowe, zrobione = dict(stare), []
+    piksele = base64.b64encode((KORZEN / "assets" / "znak-180.png").read_bytes()).decode()
+    for jezyk in JEZYKI:
+        svg = KARTA_RODZINY_SVG.format(znak=piksele,
+                                       tytul=html.escape(NAPISY[jezyk]["tytul_mapy"]))
+        klucz = f"rodzina-{jezyk}"
+        skrot = hashlib.sha256(svg.encode()).hexdigest()[:16]
+        cel = katalog / f"{klucz}.png"
+        nowe[klucz] = skrot
+        if cel.exists() and stare.get(klucz) == skrot:
+            continue
+        zrobione.append(klucz)
+        if not zapisuj:
+            continue
+        katalog.mkdir(parents=True, exist_ok=True)
+        zrodlo = katalog / f".{klucz}.svg"
+        zrodlo.write_text(svg, encoding="utf-8")
+        subprocess.run(["rsvg-convert", "-w", "1200", "-h", "630",
+                        "-o", str(cel), str(zrodlo)], check=True, capture_output=True)
+        zrodlo.unlink()
+    if zapisuj and nowe != stare:
+        rejestr.write_text(json.dumps(nowe, ensure_ascii=False, indent=2,
+                                      sort_keys=True) + "\n", encoding="utf-8")
+    return zrobione
+
+
 def karty_og(apki, zapisuj):
     """Karty 1200×630 do podglądu w komunikatorach i w wynikach wyszukiwania.
 
@@ -1283,6 +1388,7 @@ def bramki(apki, pliki, manifest):
     powstana |= {f"assets/ikony/{a['slug']}.webp" for a in apki}
     powstana |= {f"assets/karty/{a['slug']}-{j}.png" for a in apki for j in JEZYKI}
     powstana |= {f"assets/znak-{bok}.png" for bok in ZNAK_ROZMIARY}
+    powstana |= {f"assets/karty/rodzina-{j}.png" for j in JEZYKI}
     powstana |= {f"assets/zrzuty/{a['slug']}/{j}/{p}"
                  for a in apki for j in JEZYKI for p in zrzuty_apki(a["slug"], j)}
     for adres, tresc in pliki.items():
@@ -1595,6 +1701,7 @@ def main():
 
     zrobione_ikony = (ikony(apki, zapisuj=not args.sprawdz)
                       + karty_og(apki, zapisuj=not args.sprawdz)
+                      + karta_rodziny(zapisuj=not args.sprawdz)
                       + znak(zapisuj=not args.sprawdz))
     if args.sprawdz:
         print(f"bramki: zielone ({len(pliki)} plików, {len(apki)} aplikacji)")

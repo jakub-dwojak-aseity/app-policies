@@ -13,6 +13,10 @@
 <meta property="og:description" content="Słówka, kanji i furigana. Sprawdzasz słowo, uczysz się go, odhaczasz. Tydzień później stoi w zdaniu i zatrzymujesz się na nim.">
 <meta property="og:url" content="https://jd-japanese.pl/apps/bunmyaku/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Japoński w dziesięciu aplikacjach">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="theme-color" content="#a34f5a">
 <link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
 <link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
 <meta property="og:image" content="https://jd-japanese.pl/assets/karty/bunmyaku-pl.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
@@ -38,6 +42,10 @@ a { color: var(--akcent); }
 .gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
         margin-bottom: 2rem; color: var(--cichy); }
 .gora a { text-decoration: none; }
+.do-tresci { position: absolute; left: -9999px; }
+.do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
+:focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
+footer { overflow-wrap: anywhere; }
 .gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
 .gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
 .szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
@@ -113,7 +121,32 @@ code { font-size: .9em; }
       },
       "sameAs": "https://apps.apple.com/app/id6804188062",
       "installUrl": "https://apps.apple.com/app/id6804188062",
+      "screenshot": [
+        "https://jd-japanese.pl/assets/zrzuty/bunmyaku/pl/01-dzis.webp",
+        "https://jd-japanese.pl/assets/zrzuty/bunmyaku/pl/02-cwiczenie.webp",
+        "https://jd-japanese.pl/assets/zrzuty/bunmyaku/pl/03-wyjasnienie.webp",
+        "https://jd-japanese.pl/assets/zrzuty/bunmyaku/pl/04-material.webp",
+        "https://jd-japanese.pl/assets/zrzuty/bunmyaku/pl/05-slabe.webp"
+      ],
+      "dateModified": "2026-09-09",
       "image": "https://jd-japanese.pl/assets/karty/bunmyaku-pl.png"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Japoński w dziesięciu aplikacjach",
+          "item": "https://jd-japanese.pl/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Bunmyaku: Japoński w zdaniu",
+          "item": "https://jd-japanese.pl/apps/bunmyaku/"
+        }
+      ]
     },
     {
       "@type": "FAQPage",
@@ -157,8 +190,9 @@ code { font-size: .9em; }
 </script>
 </head>
 <body>
-<nav class="gora"><span><a class="znak" href="../../index.html" aria-hidden="true" tabindex="-1"><img src="../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../index.html">← Wszystkie aplikacje</a></span><span><a href="https://jd-japanese.pl/en/apps/bunmyaku/">English</a></span></nav>
-<main><div class="szyld"><img src="../../assets/ikony/bunmyaku.webp" alt="" width="72" height="72"><div><h1>Bunmyaku: Japoński w zdaniu<span class="jp" lang="ja">文脈</span></h1><p class="podtytul">Słówka, kanji i furigana</p></div></div><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/id6804188062">App Store →</a><span class="znacznik">Aplikacja darmowa, z zakupem w środku</span></p><p class="lead">Znasz znak. Znasz słowo. Ale czy przeczytasz je, gdy wyskoczy w środku zdania? To osobna pamięć – i ta aplikacja ją ćwiczy.</p><h2>Jak to wygląda</h2><div class="zrzuty"><figure><a href="../../assets/zrzuty/bunmyaku/pl/01-dzis.webp"><img src="../../assets/zrzuty/bunmyaku/pl/01-dzis.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Czytaj japoński w kontekście</strong><br>Słowa wracają dzień przed tym, jak byś je zapomniał</figcaption></figure><figure><a href="../../assets/zrzuty/bunmyaku/pl/02-cwiczenie.webp"><img src="../../assets/zrzuty/bunmyaku/pl/02-cwiczenie.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Ucz się słów w prawdziwych zdaniach</strong><br>Furigana nad resztą zdania, nigdy nad odpowiedzią</figcaption></figure><figure><a href="../../assets/zrzuty/bunmyaku/pl/03-wyjasnienie.webp"><img src="../../assets/zrzuty/bunmyaku/pl/03-wyjasnienie.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Po pomyłce widać, dlaczego</strong><br>Całe zdanie i poprawne czytanie, nie samo hasło</figcaption></figure><figure><a href="../../assets/zrzuty/bunmyaku/pl/04-material.webp"><img src="../../assets/zrzuty/bunmyaku/pl/04-material.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Nie tylko znaczenie — także czytanie</strong><br>Czytanie liczy się osobno od znaczenia</figcaption></figure><figure><a href="../../assets/zrzuty/bunmyaku/pl/05-slabe.webp"><img src="../../assets/zrzuty/bunmyaku/pl/05-slabe.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Powtarzaj to, co zaraz zapomnisz</strong><br>Najpierw to, co najsłabsze, a nie to, co najnowsze</figcaption></figure></div><h2>Opis ze sklepu</h2><nav class="spis-sekcji" aria-label="Opis ze sklepu"><ul><li><a href="#czytanie-i-znaczenie-to-dwie-rozne-pamieci">CZYTANIE I ZNACZENIE TO DWIE RÓŻNE PAMIĘCI</a></li><li><a href="#cztery-sposoby-zapytania">CZTERY SPOSOBY ZAPYTANIA</a></li><li><a href="#zdanie-nie-jest-ozdoba">ZDANIE NIE JEST OZDOBĄ</a></li><li><a href="#furigana-ktora-nie-zdradza-odpowiedzi">FURIGANA, KTÓRA NIE ZDRADZA ODPOWIEDZI</a></li><li><a href="#warianty-bledne-ktore-ucza">WARIANTY BŁĘDNE, KTÓRE UCZĄ</a></li><li><a href="#uczciwie-o-tym-co-niepewne">UCZCIWIE O TYM, CO NIEPEWNE</a></li><li><a href="#powtorki-ktore-zmieniaja-zdanie">POWTÓRKI, KTÓRE ZMIENIAJĄ ZDANIE</a></li><li><a href="#slowa-odmienione-nie-tylko-formy-slownikowe">SŁOWA ODMIENIONE, NIE TYLKO FORMY SŁOWNIKOWE</a></li><li><a href="#polski-i-angielski">POLSKI I ANGIELSKI</a></li><li><a href="#wlasne-slowa-z-tego-co-czytasz">WŁASNE SŁOWA Z TEGO, CO CZYTASZ</a></li><li><a href="#prywatnosc">PRYWATNOŚĆ</a></li><li><a href="#darmowe-i-platne">DARMOWE I PŁATNE</a></li><li><a href="#warunki">WARUNKI</a></li></ul></nav><p>Sprawdzasz słowo, uczysz się go, odhaczasz. Tydzień później stoi w zdaniu i zatrzymujesz się na nim.</p>
+<a class="do-tresci" href="#tresc">Przejdź do treści</a>
+<nav class="gora" aria-label="Witryna"><span><a class="znak" href="../../index.html" aria-hidden="true" tabindex="-1"><img src="../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../index.html">← Wszystkie aplikacje</a></span><span><a href="https://jd-japanese.pl/en/apps/bunmyaku/">English</a></span></nav>
+<main id="tresc"><div class="szyld"><img src="../../assets/ikony/bunmyaku.webp" alt="" width="72" height="72"><div><h1>Bunmyaku: Japoński w zdaniu<span class="jp" lang="ja">文脈</span></h1><p class="podtytul">Słówka, kanji i furigana</p></div></div><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/id6804188062">App Store →</a><span class="znacznik">Aplikacja darmowa, z zakupem w środku</span></p><p class="lead">Znasz znak. Znasz słowo. Ale czy przeczytasz je, gdy wyskoczy w środku zdania? To osobna pamięć – i ta aplikacja ją ćwiczy.</p><h2>Jak to wygląda</h2><div class="zrzuty" tabindex="0" role="group" aria-label="Jak to wygląda"><figure><a href="../../assets/zrzuty/bunmyaku/pl/01-dzis.webp"><img src="../../assets/zrzuty/bunmyaku/pl/01-dzis.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Czytaj japoński w kontekście</strong><br>Słowa wracają dzień przed tym, jak byś je zapomniał</figcaption></figure><figure><a href="../../assets/zrzuty/bunmyaku/pl/02-cwiczenie.webp"><img src="../../assets/zrzuty/bunmyaku/pl/02-cwiczenie.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Ucz się słów w prawdziwych zdaniach</strong><br>Furigana nad resztą zdania, nigdy nad odpowiedzią</figcaption></figure><figure><a href="../../assets/zrzuty/bunmyaku/pl/03-wyjasnienie.webp"><img src="../../assets/zrzuty/bunmyaku/pl/03-wyjasnienie.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Po pomyłce widać, dlaczego</strong><br>Całe zdanie i poprawne czytanie, nie samo hasło</figcaption></figure><figure><a href="../../assets/zrzuty/bunmyaku/pl/04-material.webp"><img src="../../assets/zrzuty/bunmyaku/pl/04-material.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Nie tylko znaczenie — także czytanie</strong><br>Czytanie liczy się osobno od znaczenia</figcaption></figure><figure><a href="../../assets/zrzuty/bunmyaku/pl/05-slabe.webp"><img src="../../assets/zrzuty/bunmyaku/pl/05-slabe.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Powtarzaj to, co zaraz zapomnisz</strong><br>Najpierw to, co najsłabsze, a nie to, co najnowsze</figcaption></figure></div><h2>Opis ze sklepu</h2><nav class="spis-sekcji" aria-label="Opis ze sklepu"><ul><li><a href="#czytanie-i-znaczenie-to-dwie-rozne-pamieci">CZYTANIE I ZNACZENIE TO DWIE RÓŻNE PAMIĘCI</a></li><li><a href="#cztery-sposoby-zapytania">CZTERY SPOSOBY ZAPYTANIA</a></li><li><a href="#zdanie-nie-jest-ozdoba">ZDANIE NIE JEST OZDOBĄ</a></li><li><a href="#furigana-ktora-nie-zdradza-odpowiedzi">FURIGANA, KTÓRA NIE ZDRADZA ODPOWIEDZI</a></li><li><a href="#warianty-bledne-ktore-ucza">WARIANTY BŁĘDNE, KTÓRE UCZĄ</a></li><li><a href="#uczciwie-o-tym-co-niepewne">UCZCIWIE O TYM, CO NIEPEWNE</a></li><li><a href="#powtorki-ktore-zmieniaja-zdanie">POWTÓRKI, KTÓRE ZMIENIAJĄ ZDANIE</a></li><li><a href="#slowa-odmienione-nie-tylko-formy-slownikowe">SŁOWA ODMIENIONE, NIE TYLKO FORMY SŁOWNIKOWE</a></li><li><a href="#polski-i-angielski">POLSKI I ANGIELSKI</a></li><li><a href="#wlasne-slowa-z-tego-co-czytasz">WŁASNE SŁOWA Z TEGO, CO CZYTASZ</a></li><li><a href="#prywatnosc">PRYWATNOŚĆ</a></li><li><a href="#darmowe-i-platne">DARMOWE I PŁATNE</a></li><li><a href="#warunki">WARUNKI</a></li></ul></nav><p>Sprawdzasz słowo, uczysz się go, odhaczasz. Tydzień później stoi w zdaniu i zatrzymujesz się na nim.</p>
 <p>Tę lukę ćwiczy Bunmyaku. Nie kanji osobno i nie kolejna talia fiszek – słowa tam, gdzie naprawdę stoją. Cały materiał JLPT, od N5 do N1.</p>
 <h3 id="czytanie-i-znaczenie-to-dwie-rozne-pamieci">CZYTANIE I ZNACZENIE TO DWIE RÓŻNE PAMIĘCI</h3>
 <p>Możesz rozumieć 改善 w każdym zdaniu i dalej nie umieć powiedzieć かいぜん. Większość aplikacji uśrednia to do jednej liczby na słowo. Ta trzyma je osobno, bo dopiero wtedy z liczby coś wynika:</p>

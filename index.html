@@ -13,8 +13,13 @@
 <meta property="og:description" content="Dziesięć aplikacji do nauki japońskiego, każda o jednej rzeczy: gramatyka, czytanie, odmiana, partykuły, liczniki, mowa potoczna, keigo, akcent i onomatopeje.">
 <meta property="og:url" content="https://jd-japanese.pl/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Japoński w dziesięciu aplikacjach">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="theme-color" content="#a34f5a">
 <link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
 <link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
+<meta property="og:image" content="https://jd-japanese.pl/assets/karty/rodzina-pl.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <style>
 :root { color-scheme: light dark; --tlo:#fff; --tekst:#1c1c1e; --cichy:#6b6b70;
         --linia:#e3e3e6; --akcent:#a34f5a; --karta:#faf9f9; }
@@ -37,6 +42,10 @@ a { color: var(--akcent); }
 .gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
         margin-bottom: 2rem; color: var(--cichy); }
 .gora a { text-decoration: none; }
+.do-tresci { position: absolute; left: -9999px; }
+.do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
+:focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
+footer { overflow-wrap: anywhere; }
 .gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
 .gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
 .szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
@@ -98,7 +107,8 @@ code { font-size: .9em; }
       "author": {
         "@type": "Person",
         "name": "Jakub Dwojak"
-      }
+      },
+      "image": "https://jd-japanese.pl/assets/karty/rodzina-pl.png"
     },
     {
       "@type": "ItemList",
@@ -186,8 +196,9 @@ code { font-size: .9em; }
 </script>
 </head>
 <body>
-<nav class="gora"><span><span class="znak"><img src="assets/znak-48.png" alt="Japoński w dziesięciu aplikacjach" width="22" height="22"></span></span><span><a href="https://jd-japanese.pl/en/">English</a></span></nav>
-<main><h1>Japoński w dziesięciu aplikacjach</h1><p class="podtytul">Dziesięć aplikacji do nauki japońskiego, każda o jednej rzeczy: gramatyka, czytanie, odmiana, partykuły, liczniki, mowa potoczna, keigo, akcent i onomatopeje.</p><h2>Który problem, ta aplikacja</h2><ul class="karty"><li class="karta"><img src="assets/ikony/kaname.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/kaname/index.html">Kaname: Gramatyka japońska</a><span class="jp" lang="ja">要</span><span class="co">Powtórki JLPT: N5 N4 N3 N2 N1</span><p>Mylisz podobne konstrukcje? Zobacz je obok siebie w prawdziwych zdaniach, nie w samym opisie. Do tego skan japońskiego ze zdjęcia i sprawdzenie własnego zdania przez AI.</p></div></li><li class="karta"><img src="assets/ikony/bunmyaku.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/bunmyaku/index.html">Bunmyaku: Japoński w zdaniu</a><span class="jp" lang="ja">文脈</span><span class="co">Słówka, kanji i furigana</span><p>Znasz znak. Znasz słowo. Ale czy przeczytasz je, gdy wyskoczy w środku zdania? To osobna pamięć – i ta aplikacja ją ćwiczy.</p></div></li><li class="karta"><img src="assets/ikony/katsuyokei.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/katsuyokei/index.html">Katsuyokei: Odmiana japońska</a><span class="jp" lang="ja">活用形</span><span class="co">Czasowniki, formy, fiszki</span><p>Formy biorą się z reguł, nie z pamięci. Ćwicz je, aż 書いて pojawi się, zanim zdążysz
+<a class="do-tresci" href="#tresc">Przejdź do treści</a>
+<nav class="gora" aria-label="Witryna"><span><span class="znak"><img src="assets/znak-48.png" alt="Japoński w dziesięciu aplikacjach" width="22" height="22"></span></span><span><a href="https://jd-japanese.pl/en/">English</a></span></nav>
+<main id="tresc"><h1>Japoński w dziesięciu aplikacjach</h1><p class="podtytul">Dziesięć aplikacji do nauki japońskiego, każda o jednej rzeczy: gramatyka, czytanie, odmiana, partykuły, liczniki, mowa potoczna, keigo, akcent i onomatopeje.</p><h2>Który problem, ta aplikacja</h2><ul class="karty"><li class="karta"><img src="assets/ikony/kaname.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/kaname/index.html">Kaname: Gramatyka japońska</a><span class="jp" lang="ja">要</span><span class="co">Powtórki JLPT: N5 N4 N3 N2 N1</span><p>Mylisz podobne konstrukcje? Zobacz je obok siebie w prawdziwych zdaniach, nie w samym opisie. Do tego skan japońskiego ze zdjęcia i sprawdzenie własnego zdania przez AI.</p></div></li><li class="karta"><img src="assets/ikony/bunmyaku.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/bunmyaku/index.html">Bunmyaku: Japoński w zdaniu</a><span class="jp" lang="ja">文脈</span><span class="co">Słówka, kanji i furigana</span><p>Znasz znak. Znasz słowo. Ale czy przeczytasz je, gdy wyskoczy w środku zdania? To osobna pamięć – i ta aplikacja ją ćwiczy.</p></div></li><li class="karta"><img src="assets/ikony/katsuyokei.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/katsuyokei/index.html">Katsuyokei: Odmiana japońska</a><span class="jp" lang="ja">活用形</span><span class="co">Czasowniki, formy, fiszki</span><p>Formy biorą się z reguł, nie z pamięci. Ćwicz je, aż 書いて pojawi się, zanim zdążysz
 o nim pomyśleć.</p></div></li><li class="karta"><img src="assets/ikony/joshi.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/joshi/index.html">Joshi: Partykuły japońskie</a><span class="jp" lang="ja">助詞</span><span class="co">Gramatyka i ćwiczenia JLPT</span><p>Wiedzieć, co znaczy に, to nie to samo co wiedzieć, kiedy jest で. Dziewięćset zdań, jedna
 luka, cztery partykuły – aż właściwa przychodzi sama.</p></div></li><li class="karta"><img src="assets/ikony/kazoekata.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/kazoekata/index.html">Kazoekata: Liczniki japońskie</a><span class="jp" lang="ja">数え方</span><span class="co">Liczenie, kanji, ćwiczenia</span><p>Przestań zgadywać, jak czyta się japońskie liczniki. 三本 to さんぼん, 六本 to ろっぽん – i stoi za tym reguła.</p></div></li><li class="karta"><img src="assets/ikony/kuzushi.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/kuzushi/index.html">Kuzushi: Mowa potoczna</a><span class="jp" lang="ja">崩し</span><span class="co">Anime, dorama i skróty</span><p>Podręcznik uczy 〜ている. Ludzie mówią 〜てる. Kuzushi ćwiczy tę lukę: rozpoznawanie skrótu i wytwarzanie go są liczone osobno, bo to dwie różne umiejętności.</p></div></li><li class="karta"><img src="assets/ikony/shindan.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/shindan/index.html">Shindan: Poziom japońskiego</a><span class="jp" lang="ja">診断</span><span class="co">Test JLPT: N5 N4 N3 N2 N1</span><p>Dziewięć aplikacji uczy po jednej rzeczy. Żadna nie powie ci, której naprawdę
 potrzebujesz. Jeden arkusz pod zegarem i odpowiedź przestaje być zgadywaniem.</p></div></li><li class="karta"><img src="assets/ikony/keigo.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/keigo/index.html">Keigo: Grzeczność japońska</a><span class="jp" lang="ja">敬語</span><span class="co">Japoński formalny do pracy</span><p>Znać formę to nie to samo co wiedzieć, wobec kogo jej użyć. Za dużo keigo jest błędem

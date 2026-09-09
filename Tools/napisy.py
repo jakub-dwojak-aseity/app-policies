@@ -53,6 +53,8 @@ NAPISY = {
         "spis_opis": "Polityki prywatności, warunki korzystania i strony wsparcia "
                      "wszystkich aplikacji.",
         "spis_link": "Spis dokumentów",
+        "do_tresci": "Przejdź do treści",
+        "nawigacja": "Witryna",
     },
     "en": {
         "html_lang": "en",
@@ -87,5 +89,7 @@ NAPISY = {
         "spis_tytul": "App documents",
         "spis_opis": "Privacy policies, terms of use and support pages for every app.",
         "spis_link": "Document index",
+        "do_tresci": "Skip to content",
+        "nawigacja": "Site",
     },
 }

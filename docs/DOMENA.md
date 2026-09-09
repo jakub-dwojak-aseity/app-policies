@@ -41,7 +41,12 @@ Skasuj rekord `A` z pustą subdomeną, ten na `213.186.33.5`.
 
 ## Krok 3 — dodaj cztery rekordy `A` na apeksie
 
-Subdomena **pusta**, typ `A`, po jednym rekordzie na adres:
+**Pole „subdomena" zostaw PUSTE.** Puste znaczy „sama domena", czyli apeks. `@` to notacja
+z plików strefy (BIND) i z paneli w stylu Cloudflare — OVH pyta o subdomenę i chce tam
+pustki. Gdyby formularz pustego nie przyjął, `@` znaczy to samo. Po dodaniu rekord jest
+na liście opisany jako `jd-japanese.pl.` z kropką na końcu, a nie jako `@`.
+
+Typ `A`, po jednym rekordzie na adres:
 
 ```
 185.199.108.153
@@ -66,7 +71,7 @@ subdomena: www     typ: CNAME     cel: jakub-dwojak-aseity.github.io.
 
 ## Krok 5 — *(opcjonalnie)* cztery `AAAA`, żeby działało po IPv6
 
-Subdomena pusta, typ `AAAA`:
+Subdomena znów **pusta**, typ `AAAA`:
 
 ```
 2606:50c0:8000::153

@@ -49,6 +49,8 @@ wstawka, zamiast wstawiać w przypadkowe miejsce.
 - **`canonical` niezgodny z adresem pliku** — zgłaszany jako błąd, nie nadpisywany
   po cichu; to znaczy, że ktoś wstawił go ręcznie i trzeba na to spojrzeć;
 - **`noindex` na dokumencie bieżącym** — błąd. Bieżąca polityka ma być w indeksie;
+- **brak ikony witryny** — dokumenty prawne nie idą przez generator, więc `<link rel="icon">`
+  nie dostają skądinąd i ich karta w przeglądarce stoi pusta;
 - **dokument w manifeście, którego nie ma na dysku** — błąd, bo to znaczy, że strona
   linkuje w pustkę.
 
@@ -65,6 +67,12 @@ KORZEN = Path(__file__).resolve().parent.parent
 PLIKI_DOKUMENTU = ("privacy.html", "terms.html", "support.html")
 CANONICAL = '<link rel="canonical" href="{adres}">'
 NOINDEX = '<meta name="robots" content="noindex, follow">'
+# Ikona witryny — adresem bezwzględnym, nie względnym. Dokumenty leżą na czterech
+# różnych głębokościach (`kuzushi/`, `kaname/1.2/`, `kaname/1.2/en/`, …), a wyliczanie
+# `../..` dla każdej z nich to trzy okazje do pomyłki w plikach, których nikt nie
+# generuje. `canonical` obok i tak jest bezwzględny.
+IKONY = ('<link rel="icon" type="image/png" sizes="48x48" href="{baza}/assets/znak-48.png">',
+         '<link rel="apple-touch-icon" href="{baza}/assets/znak-180.png">')
 
 
 def manifest() -> dict:
@@ -138,6 +146,7 @@ def main() -> int:
 
         ma_canonical = 'rel="canonical"' in tresc
         ma_noindex = "noindex" in tresc
+        ma_ikone = 'rel="icon"' in tresc
 
         if ma_canonical and adres not in tresc:
             bledy.append(f"{wzgledna}: ma canonical na inny adres niż własny")
@@ -151,6 +160,8 @@ def main() -> int:
             potrzebne.append(CANONICAL.format(adres=adres))
         if przestarzaly and not ma_noindex:
             potrzebne.append(NOINDEX)
+        if not ma_ikone:
+            potrzebne.extend(wzor.format(baza=baza) for wzor in IKONY)
         if not potrzebne:
             pominiete += 1
             continue

@@ -334,10 +334,16 @@ def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
         '<meta property="og:type" content="website">',
         # Ikona witryny. Google pokazuje ją obok wyniku na telefonie i **wymaga
         # co najmniej 48 px**; kafelek 180 px obsługuje iOS i podwójną gęstość.
+        #
+        # **Adresem bezwzględnym, nie względnym, i to jest naprawa z pomiaru.**
+        # Zgłoszenie Jakuba 09.09.2026: ikona widoczna na mapie rodziny, na
+        # podstronie aplikacji nie. Znacznik był na obu, ale mapa leży w korzeniu
+        # (`assets/…`), a podstrona dwa katalogi niżej (`../../assets/…`) — i to
+        # jedyne, czym się różniły. Adres bezwzględny zdejmuje głębokość z równania
+        # i zgadza się z tym, co dostają dokumenty prawne.
         f'<link rel="icon" type="image/png" sizes="48x48" '
-        f'href="{wzgledny(glebokosc, "assets/znak-48.png")}">',
-        f'<link rel="apple-touch-icon" '
-        f'href="{wzgledny(glebokosc, "assets/znak-180.png")}">',
+        f'href="{baza}/assets/znak-48.png">',
+        f'<link rel="apple-touch-icon" href="{baza}/assets/znak-180.png">',
         dodatkowa_glowa,
         f"<style>\n{STYL}</style>",
     ]
@@ -1104,8 +1110,19 @@ def znak(zapisuj):
         subprocess.run(["rsvg-convert", "-w", str(bok), "-h", str(bok),
                         "-o", str(cel), str(zrodlo)], check=True, capture_output=True)
         zrodlo.unlink()
+    # `/favicon.ico` w korzeniu — bo przeglądarka sięga po ten adres **sama**, nawet
+    # gdy nie zrozumiała znacznika w głowie, i to jest jedyna droga do ikony, która
+    # nie zależy od niczego w HTML-u. `sips` robi z PNG-a poprawny zasób ikony
+    # Windows, co potwierdza `file`; `rsvg-convert` tego formatu nie umie.
+    ico = KORZEN / "favicon.ico"
+    if not ico.exists() or stare.get("favicon") != skrot:
+        zrobione.append("favicon.ico")
+        if zapisuj:
+            subprocess.run(["sips", "-s", "format", "ico", str(katalog / "znak-48.png"),
+                            "--out", str(ico)], check=True, capture_output=True)
     if zapisuj and zrobione:
-        rejestr.write_text(json.dumps({f"znak-{b}": skrot for b in ZNAK_ROZMIARY},
+        rejestr.write_text(json.dumps({**{f"znak-{b}": skrot for b in ZNAK_ROZMIARY},
+                                       "favicon": skrot},
                                       ensure_ascii=False, indent=2, sort_keys=True) + "\n",
                            encoding="utf-8")
     return zrobione
@@ -1223,7 +1240,8 @@ def bez_glowy_witryny(tresc: str) -> str:
     zamiast 5** — czyli utopiła własny sygnał w zmianie, która treści nie dotknęła.
     """
     return "\n".join(w for w in tresc.split("\n")
-                     if 'rel="canonical"' not in w and 'name="robots"' not in w)
+                     if 'rel="canonical"' not in w and 'name="robots"' not in w
+                     and 'rel="icon"' not in w and 'rel="apple-touch-icon"' not in w)
 
 
 def skrot_dokumentu(sciezka: Path) -> str:
@@ -1450,6 +1468,9 @@ def bramki(apki, pliki, manifest):
             bledy.append(f"{wzgledna}: dokument przestarzały bez noindex")
         if not przestarzaly and "noindex" in tresc:
             bledy.append(f"{wzgledna}: dokument bieżący ma noindex")
+        if 'rel="icon"' not in tresc:
+            bledy.append(f"{wzgledna}: brak ikony witryny "
+                     f"(uruchom Tools/glowy_dokumentow.py)")
 
     return bledy, uwagi
 

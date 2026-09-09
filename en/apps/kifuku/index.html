@@ -43,18 +43,18 @@ a { color: var(--akcent); }
 .szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
 .szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
 .jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
-table { border-collapse: collapse; width: 100%; margin: 1rem 0 2rem; font-size: .95rem; }
-th, td { text-align: left; vertical-align: top; padding: .7rem .8rem .7rem 0;
-         border-bottom: 1px solid var(--linia); }
-th { color: var(--cichy); font-weight: 600; font-size: .85rem; }
-td.app { white-space: nowrap; }
-td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: normal; }
 .karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
 .karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
          border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
 .karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+.karta { position: relative; }
 .karta .nazwa { font-weight: 600; }
-.karta p { margin: .15rem 0 0; color: var(--cichy); font-size: .93rem; }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
+   Gramatyka japońska", a nie cały akapit o problemie. */
+.karta .nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
+.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
 .znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
@@ -80,13 +80,6 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia)
          font-size: .88rem; color: var(--cichy); }
 footer a { color: var(--akcent); }
 code { font-size: .9em; }
-@media (max-width: 34rem) {
-  table, tbody, tr, td, th { display: block; }
-  thead { display: none; }
-  tr { border-bottom: 1px solid var(--linia); padding: .6rem 0; }
-  td { border: 0; padding: .15rem 0; }
-  td.app { white-space: normal; font-weight: 600; }
-}
 </style>
 <script type="application/ld+json">
 {
@@ -152,7 +145,7 @@ code { font-size: .9em; }
 </head>
 <body>
 <nav class="gora"><span><a class="znak" href="../../../en/index.html" aria-hidden="true" tabindex="-1"><img src="../../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../../en/index.html">← All apps</a></span><span><a href="https://jd-japanese.pl/apps/kifuku/">Polski</a></span></nav>
-<main><div class="szyld"><img src="../../../assets/ikony/kifuku.webp" alt="" width="72" height="72"><div><h1>Kifuku: Japanese Pitch Accent<span class="jp">起伏</span></h1><p class="podtytul">Pronunciation and listening</p></div></div><p class="sklep"><a href="https://apps.apple.com/app/id6809029465">App Store →</a><span class="znacznik">Free app with an in-app purchase</span></p><p class="lead">Japanese hides a layer the kana does not write. 箸 and 橋 are spelled the same and are not the same word – and the difference is a rule you learn, not a list you memorize.</p><h2>What it looks like</h2><div class="zrzuty"><figure><img src="../../../assets/zrzuty/kifuku/en/01-dzis.webp" alt="箸 or 橋? The same kana. Only the place the tone drops tells them apart" width="420" height="912" loading="lazy"><figcaption><strong>箸 or 橋?</strong><br>The same kana. Only the place the tone drops tells them apart</figcaption></figure><figure><img src="../../../assets/zrzuty/kifuku/en/02-wzorzec.webp" alt="Four patterns, not a thousand words Every answer carries a drawing of where the tone holds and where it drops" width="420" height="912" loading="lazy"><figcaption><strong>Four patterns, not a thousand words</strong><br>Every answer carries a drawing of where the tone holds and where it drops</figcaption></figure><figure><img src="../../../assets/zrzuty/kifuku/en/03-karta.webp" alt="How it sounds, mora by mora The contour over the reading and a Tokyo recording — never a synthesiser" width="420" height="912" loading="lazy"><figcaption><strong>How it sounds, mora by mora</strong><br>The contour over the reading and a Tokyo recording — never a synthesiser</figcaption></figure></div><h2>Description from the store</h2><p>Kifuku teaches Japanese pitch accent – the layer of the language that kana does not write down.</p>
+<main><div class="szyld"><img src="../../../assets/ikony/kifuku.webp" alt="" width="72" height="72"><div><h1>Kifuku: Japanese Pitch Accent<span class="jp" lang="ja">起伏</span></h1><p class="podtytul">Pronunciation and listening</p></div></div><p class="sklep"><a href="https://apps.apple.com/app/id6809029465">App Store →</a><span class="znacznik">Free app with an in-app purchase</span></p><p class="lead">Japanese hides a layer the kana does not write. 箸 and 橋 are spelled the same and are not the same word – and the difference is a rule you learn, not a list you memorize.</p><h2>What it looks like</h2><div class="zrzuty"><figure><img src="../../../assets/zrzuty/kifuku/en/01-dzis.webp" alt="箸 or 橋? The same kana. Only the place the tone drops tells them apart" width="420" height="912" loading="lazy"><figcaption><strong>箸 or 橋?</strong><br>The same kana. Only the place the tone drops tells them apart</figcaption></figure><figure><img src="../../../assets/zrzuty/kifuku/en/02-wzorzec.webp" alt="Four patterns, not a thousand words Every answer carries a drawing of where the tone holds and where it drops" width="420" height="912" loading="lazy"><figcaption><strong>Four patterns, not a thousand words</strong><br>Every answer carries a drawing of where the tone holds and where it drops</figcaption></figure><figure><img src="../../../assets/zrzuty/kifuku/en/03-karta.webp" alt="How it sounds, mora by mora The contour over the reading and a Tokyo recording — never a synthesiser" width="420" height="912" loading="lazy"><figcaption><strong>How it sounds, mora by mora</strong><br>The contour over the reading and a Tokyo recording — never a synthesiser</figcaption></figure></div><h2>Description from the store</h2><p>Kifuku teaches Japanese pitch accent – the layer of the language that kana does not write down.</p>
 <p>箸 and 橋 are both はし. 雨 and 飴 are both あめ. Nothing on the page tells them apart; only where the tone drops does. Most courses mention this once and move on, because it looks like a list of thousands of facts to memorize. It is not. It is mostly rules, and this app is built to show you which ones.</p>
 <h3>FOUR SKILLS MEASURED APART</h3>
 <p>Rules – where the tone drops in a word you have never seen. This one is measured only on words that are not on your review schedule, so it answers a question your memory cannot fake.<br>Patterns – which of the four patterns a word has: 平板, 頭高, 中高, 尾高.<br>Inflection – what happens to the accent when the word changes: 〜ます, 〜た, 〜ない, 〜て.<br>Ear – where the drop falls in a recording.</p>

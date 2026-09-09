@@ -43,18 +43,18 @@ a { color: var(--akcent); }
 .szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
 .szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
 .jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
-table { border-collapse: collapse; width: 100%; margin: 1rem 0 2rem; font-size: .95rem; }
-th, td { text-align: left; vertical-align: top; padding: .7rem .8rem .7rem 0;
-         border-bottom: 1px solid var(--linia); }
-th { color: var(--cichy); font-weight: 600; font-size: .85rem; }
-td.app { white-space: nowrap; }
-td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: normal; }
 .karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
 .karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
          border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
 .karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+.karta { position: relative; }
 .karta .nazwa { font-weight: 600; }
-.karta p { margin: .15rem 0 0; color: var(--cichy); font-size: .93rem; }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
+   Gramatyka japońska", a nie cały akapit o problemie. */
+.karta .nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
+.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
 .znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
@@ -80,13 +80,6 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia)
          font-size: .88rem; color: var(--cichy); }
 footer a { color: var(--akcent); }
 code { font-size: .9em; }
-@media (max-width: 34rem) {
-  table, tbody, tr, td, th { display: block; }
-  thead { display: none; }
-  tr { border-bottom: 1px solid var(--linia); padding: .6rem 0; }
-  td { border: 0; padding: .15rem 0; }
-  td.app { white-space: normal; font-weight: 600; }
-}
 </style>
 <script type="application/ld+json">
 {
@@ -160,7 +153,7 @@ code { font-size: .9em; }
 </head>
 <body>
 <nav class="gora"><span><a class="znak" href="../../index.html" aria-hidden="true" tabindex="-1"><img src="../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../index.html">← Wszystkie aplikacje</a></span><span><a href="https://jd-japanese.pl/en/apps/kazoekata/">English</a></span></nav>
-<main><div class="szyld"><img src="../../assets/ikony/kazoekata.webp" alt="" width="72" height="72"><div><h1>Kazoekata: Liczniki japońskie<span class="jp">数え方</span></h1><p class="podtytul">Liczenie, kanji, ćwiczenia</p></div></div><p class="sklep"><a href="https://apps.apple.com/app/id6803676309">App Store →</a><span class="znacznik">Aplikacja darmowa, z zakupem w środku</span></p><p class="lead">Przestań zgadywać, jak czyta się japońskie liczniki. 三本 to さんぼん, 六本 to ろっぽん – i stoi za tym reguła.</p><h2>Jak to wygląda</h2><div class="zrzuty"><figure><img src="../../assets/zrzuty/kazoekata/pl/01-dzis.webp" alt="Wreszcie opanuj japońskie liczniki Plan na dziś układa się z tego, co się sypie" width="420" height="912" loading="lazy"><figcaption><strong>Wreszcie opanuj japońskie liczniki</strong><br>Plan na dziś układa się z tego, co się sypie</figcaption></figure><figure><img src="../../assets/zrzuty/kazoekata/pl/02-cwiczenie.webp" alt="Naucz się, który licznik pasuje Każde pytanie przychodzi ze zdaniem, w którym stoi" width="420" height="912" loading="lazy"><figcaption><strong>Naucz się, który licznik pasuje</strong><br>Każde pytanie przychodzi ze zdaniem, w którym stoi</figcaption></figure><figure><img src="../../assets/zrzuty/kazoekata/pl/03-wyjasnienie.webp" alt="Trafiaj czytania nieregularne Po pomyłce dostajesz regułę, nie samą poprawkę" width="420" height="912" loading="lazy"><figcaption><strong>Trafiaj czytania nieregularne</strong><br>Po pomyłce dostajesz regułę, nie samą poprawkę</figcaption></figure></div><h2>Opis ze sklepu</h2><p>Japońskie liczenie to nie liczba doklejona do rzeczy. Trzy książki to 三冊, trzy koty to 三匹, trzy długie cienkie przedmioty to 三本 – a 本 przy trójce nie brzmi nawet tak samo jak przy szóstce.</p>
+<main><div class="szyld"><img src="../../assets/ikony/kazoekata.webp" alt="" width="72" height="72"><div><h1>Kazoekata: Liczniki japońskie<span class="jp" lang="ja">数え方</span></h1><p class="podtytul">Liczenie, kanji, ćwiczenia</p></div></div><p class="sklep"><a href="https://apps.apple.com/app/id6803676309">App Store →</a><span class="znacznik">Aplikacja darmowa, z zakupem w środku</span></p><p class="lead">Przestań zgadywać, jak czyta się japońskie liczniki. 三本 to さんぼん, 六本 to ろっぽん – i stoi za tym reguła.</p><h2>Jak to wygląda</h2><div class="zrzuty"><figure><img src="../../assets/zrzuty/kazoekata/pl/01-dzis.webp" alt="Wreszcie opanuj japońskie liczniki Plan na dziś układa się z tego, co się sypie" width="420" height="912" loading="lazy"><figcaption><strong>Wreszcie opanuj japońskie liczniki</strong><br>Plan na dziś układa się z tego, co się sypie</figcaption></figure><figure><img src="../../assets/zrzuty/kazoekata/pl/02-cwiczenie.webp" alt="Naucz się, który licznik pasuje Każde pytanie przychodzi ze zdaniem, w którym stoi" width="420" height="912" loading="lazy"><figcaption><strong>Naucz się, który licznik pasuje</strong><br>Każde pytanie przychodzi ze zdaniem, w którym stoi</figcaption></figure><figure><img src="../../assets/zrzuty/kazoekata/pl/03-wyjasnienie.webp" alt="Trafiaj czytania nieregularne Po pomyłce dostajesz regułę, nie samą poprawkę" width="420" height="912" loading="lazy"><figcaption><strong>Trafiaj czytania nieregularne</strong><br>Po pomyłce dostajesz regułę, nie samą poprawkę</figcaption></figure></div><h2>Opis ze sklepu</h2><p>Japońskie liczenie to nie liczba doklejona do rzeczy. Trzy książki to 三冊, trzy koty to 三匹, trzy długie cienkie przedmioty to 三本 – a 本 przy trójce nie brzmi nawet tak samo jak przy szóstce.</p>
 <p>Kazoekata uczy tej części, która naprawdę zabiera czas: nie listy liczników, tylko tego, jak się zachowują.</p>
 <h3>TRZY UMIEJĘTNOŚCI, MIERZONE OSOBNO</h3>
 <p>Wiedzieć, że książki liczy się przez 冊, to jedno. Powiedzieć 八冊 bez zatrzymania się – drugie. Usłyszeć ろっぷん i wiedzieć, że to sześć minut – trzecie.</p>

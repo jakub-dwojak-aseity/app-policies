@@ -26,8 +26,6 @@ NAPISY = {
                      "gramatyka, czytanie, odmiana, partykuły, liczniki, mowa potoczna, "
                      "keigo, akcent i onomatopeje.",
         "naglowek_tabeli": "Który problem, ta aplikacja",
-        "kolumna_problem": "Jeśli to jest twój problem",
-        "kolumna_aplikacja": "Aplikacja",
         "naglowek_kart": "Wszystkie aplikacje",
         "w_sklepie": "App Store",
         "wkrotce": "Wkrótce w App Store",
@@ -63,8 +61,6 @@ NAPISY = {
                      "reading, conjugation, particles, counters, casual speech, "
                      "keigo, pitch accent and mimetics.",
         "naglowek_tabeli": "Which problem, which app",
-        "kolumna_problem": "If this is your problem",
-        "kolumna_aplikacja": "App",
         "naglowek_kart": "All apps",
         "w_sklepie": "App Store",
         "wkrotce": "Coming to the App Store",

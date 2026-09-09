@@ -43,18 +43,18 @@ a { color: var(--akcent); }
 .szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
 .szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
 .jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
-table { border-collapse: collapse; width: 100%; margin: 1rem 0 2rem; font-size: .95rem; }
-th, td { text-align: left; vertical-align: top; padding: .7rem .8rem .7rem 0;
-         border-bottom: 1px solid var(--linia); }
-th { color: var(--cichy); font-weight: 600; font-size: .85rem; }
-td.app { white-space: nowrap; }
-td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: normal; }
 .karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
 .karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
          border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
 .karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+.karta { position: relative; }
 .karta .nazwa { font-weight: 600; }
-.karta p { margin: .15rem 0 0; color: var(--cichy); font-size: .93rem; }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
+   Gramatyka japońska", a nie cały akapit o problemie. */
+.karta .nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
+.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
 .znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
@@ -80,13 +80,6 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia)
          font-size: .88rem; color: var(--cichy); }
 footer a { color: var(--akcent); }
 code { font-size: .9em; }
-@media (max-width: 34rem) {
-  table, tbody, tr, td, th { display: block; }
-  thead { display: none; }
-  tr { border-bottom: 1px solid var(--linia); padding: .6rem 0; }
-  td { border: 0; padding: .15rem 0; }
-  td.app { white-space: normal; font-weight: 600; }
-}
 </style>
 <script type="application/ld+json">
 {
@@ -160,7 +153,7 @@ code { font-size: .9em; }
 </head>
 <body>
 <nav class="gora"><span><a class="znak" href="../../../en/index.html" aria-hidden="true" tabindex="-1"><img src="../../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../../en/index.html">← All apps</a></span><span><a href="https://jd-japanese.pl/apps/kazoekata/">Polski</a></span></nav>
-<main><div class="szyld"><img src="../../../assets/ikony/kazoekata.webp" alt="" width="72" height="72"><div><h1>Kazoekata: Japanese Counters<span class="jp">数え方</span></h1><p class="podtytul">Counting, kanji and drills</p></div></div><p class="sklep"><a href="https://apps.apple.com/app/id6803676309">App Store →</a><span class="znacznik">Free app with an in-app purchase</span></p><p class="lead">Stop guessing how Japanese counters are read. 三本 is さんぼん, 六本 is ろっぽん – and there is a rule behind it.</p><h2>What it looks like</h2><div class="zrzuty"><figure><img src="../../../assets/zrzuty/kazoekata/en/01-dzis.webp" alt="Finally master Japanese counters A daily plan built from what you keep forgetting" width="420" height="912" loading="lazy"><figcaption><strong>Finally master Japanese counters</strong><br>A daily plan built from what you keep forgetting</figcaption></figure><figure><img src="../../../assets/zrzuty/kazoekata/en/02-cwiczenie.webp" alt="Learn which counter belongs Every question comes with the sentence it lives in" width="420" height="912" loading="lazy"><figcaption><strong>Learn which counter belongs</strong><br>Every question comes with the sentence it lives in</figcaption></figure><figure><img src="../../../assets/zrzuty/kazoekata/en/03-wyjasnienie.webp" alt="Nail irregular readings A mistake answers why, not just what" width="420" height="912" loading="lazy"><figcaption><strong>Nail irregular readings</strong><br>A mistake answers why, not just what</figcaption></figure></div><h2>Description from the store</h2><p>Japanese counting is not a number stuck onto a noun. Three books is 三冊, three cats is 三匹, three long thin things is 三本 – and 本 does not even sound the same at three as it does at six.</p>
+<main><div class="szyld"><img src="../../../assets/ikony/kazoekata.webp" alt="" width="72" height="72"><div><h1>Kazoekata: Japanese Counters<span class="jp" lang="ja">数え方</span></h1><p class="podtytul">Counting, kanji and drills</p></div></div><p class="sklep"><a href="https://apps.apple.com/app/id6803676309">App Store →</a><span class="znacznik">Free app with an in-app purchase</span></p><p class="lead">Stop guessing how Japanese counters are read. 三本 is さんぼん, 六本 is ろっぽん – and there is a rule behind it.</p><h2>What it looks like</h2><div class="zrzuty"><figure><img src="../../../assets/zrzuty/kazoekata/en/01-dzis.webp" alt="Finally master Japanese counters A daily plan built from what you keep forgetting" width="420" height="912" loading="lazy"><figcaption><strong>Finally master Japanese counters</strong><br>A daily plan built from what you keep forgetting</figcaption></figure><figure><img src="../../../assets/zrzuty/kazoekata/en/02-cwiczenie.webp" alt="Learn which counter belongs Every question comes with the sentence it lives in" width="420" height="912" loading="lazy"><figcaption><strong>Learn which counter belongs</strong><br>Every question comes with the sentence it lives in</figcaption></figure><figure><img src="../../../assets/zrzuty/kazoekata/en/03-wyjasnienie.webp" alt="Nail irregular readings A mistake answers why, not just what" width="420" height="912" loading="lazy"><figcaption><strong>Nail irregular readings</strong><br>A mistake answers why, not just what</figcaption></figure></div><h2>Description from the store</h2><p>Japanese counting is not a number stuck onto a noun. Three books is 三冊, three cats is 三匹, three long thin things is 三本 – and 本 does not even sound the same at three as it does at six.</p>
 <p>Kazoekata teaches the part that actually takes time: not the list of counters, but how they behave.</p>
 <h3>THREE SKILLS, MEASURED SEPARATELY</h3>
 <p>Knowing that books take 冊 is one thing. Saying 八冊 without stopping is another. Hearing ろっぷん and knowing it means six minutes is a third.</p>

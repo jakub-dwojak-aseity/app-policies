@@ -78,18 +78,18 @@ a { color: var(--akcent); }
 .szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
 .szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
 .jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
-table { border-collapse: collapse; width: 100%; margin: 1rem 0 2rem; font-size: .95rem; }
-th, td { text-align: left; vertical-align: top; padding: .7rem .8rem .7rem 0;
-         border-bottom: 1px solid var(--linia); }
-th { color: var(--cichy); font-weight: 600; font-size: .85rem; }
-td.app { white-space: nowrap; }
-td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: normal; }
 .karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
 .karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
          border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
 .karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+.karta { position: relative; }
 .karta .nazwa { font-weight: 600; }
-.karta p { margin: .15rem 0 0; color: var(--cichy); font-size: .93rem; }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
+   Gramatyka japońska", a nie cały akapit o problemie. */
+.karta .nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
+.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
 .znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
@@ -115,13 +115,6 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia)
          font-size: .88rem; color: var(--cichy); }
 footer a { color: var(--akcent); }
 code { font-size: .9em; }
-@media (max-width: 34rem) {
-  table, tbody, tr, td, th { display: block; }
-  thead { display: none; }
-  tr { border-bottom: 1px solid var(--linia); padding: .6rem 0; }
-  td { border: 0; padding: .15rem 0; }
-  td.app { white-space: normal; font-weight: 600; }
-}
 """
 
 
@@ -333,35 +326,28 @@ def mapa_rodziny(apki, jezyk, manifest):
     alternatywny = "en/index.html" if jezyk == "pl" else "index.html"
     glebokosc = 0 if jezyk == "pl" else 1
 
-    wiersze = []
-    for a in apki:
-        t = a["teksty"][jezyk]
-        cel = wzgledny(glebokosc, sciezki(a["slug"], jezyk)[0])
-        znacznik = "" if a["wSklepie"] else f'<span class="znacznik">{e(n["wkrotce"])}</span>'
-        wiersze.append(
-            f"<tr><td>{e(t['promo'])}</td>"
-            f'<td class="app"><a href="{cel}">{e(t["nazwa"])}</a>{znacznik}'
-            f'<span class="co">{e(t["podtytul"])}</span></td></tr>')
-
+    # **Jedna sekcja, nie dwie.** Do 09.09.2026 ta strona pokazywała tę samą dziesiątkę
+    # dwa razy: najpierw tabelę „problem → aplikacja" (dziesięć akapitów prozy, klikalna
+    # tylko nazwa), a pod nią karty z ikonami. Na telefonie było to około dwudziestu
+    # przewinięć przez to samo. Karta niesie teraz oba wkłady: ikonę, po której apkę
+    # się rozpoznaje, i zdanie o problemie, po którym się ją wybiera.
     karty = []
     for a in apki:
         t = a["teksty"][jezyk]
         cel = wzgledny(glebokosc, sciezki(a["slug"], jezyk)[0])
         ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
+        znacznik = "" if a["wSklepie"] else f'<span class="znacznik">{e(n["wkrotce"])}</span>'
         karty.append(
             f'<li class="karta"><img src="{ikona}" alt="" width="52" height="52" loading="lazy">'
             f'<div><a class="nazwa" href="{cel}">{e(t["nazwa"])}</a>'
-            f'<span class="jp">{e(a["japonska"])}</span>'
-            f"<p>{e(metadane.pierwsze_zdanie(t['opis']))}</p></div></li>")
+            f'<span class="jp" lang="ja">{e(a["japonska"])}</span>{znacznik}'
+            f'<span class="co">{e(t["podtytul"])}</span>'
+            f"<p>{e(t['promo'])}</p></div></li>")
 
     tresc = (
         f"<h1>{e(n['tytul_mapy'])}</h1>"
         + f'<p class="podtytul">{e(n["opis_mapy"])}</p>'
         + f"<h2>{e(n['naglowek_tabeli'])}</h2>"
-        + "<table><thead><tr>"
-        + f"<th>{e(n['kolumna_problem'])}</th><th>{e(n['kolumna_aplikacja'])}</th>"
-        + "</tr></thead><tbody>" + "".join(wiersze) + "</tbody></table>"
-        + f"<h2>{e(n['naglowek_kart'])}</h2>"
         + '<ul class="karty">' + "".join(karty) + "</ul>")
 
     # Pytanie, które model dostaje o rodzinę aplikacji, brzmi „którą wybrać" — i tabela
@@ -439,7 +425,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
 
     tresc = (
         f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
-        + f'<div><h1>{e(t["nazwa"])}<span class="jp">{e(a["japonska"])}</span></h1>'
+        + f'<div><h1>{e(t["nazwa"])}<span class="jp" lang="ja">{e(a["japonska"])}</span></h1>'
         + f'<p class="podtytul">{e(t["podtytul"])}</p></div></div>'
         + sklep
         + f'<p class="lead">{e(t["promo"])}</p>'
@@ -538,7 +524,7 @@ def spis_dokumentow(apki, jezyk, manifest):
                 f'<a href="{wzgledny(glebokosc, a["dokumenty"][j])}/{plik}">'
                 f'{e(NAPISY[j][klucz])}</a>' for j in JEZYKI)
             pozycje.append(f"<li>{pary}</li>")
-        sekcje.append(f'<h2>{e(t["nazwa"])}<span class="jp">{e(a["japonska"])}</span></h2>'
+        sekcje.append(f'<h2>{e(t["nazwa"])}<span class="jp" lang="ja">{e(a["japonska"])}</span></h2>'
                       f'<ul class="zwykla">{"".join(pozycje)}</ul>')
 
     # Aplikacje spoza rodziny japońskiej mają w tym repozytorium tylko dokumenty

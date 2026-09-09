@@ -43,18 +43,18 @@ a { color: var(--akcent); }
 .szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
 .szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
 .jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
-table { border-collapse: collapse; width: 100%; margin: 1rem 0 2rem; font-size: .95rem; }
-th, td { text-align: left; vertical-align: top; padding: .7rem .8rem .7rem 0;
-         border-bottom: 1px solid var(--linia); }
-th { color: var(--cichy); font-weight: 600; font-size: .85rem; }
-td.app { white-space: nowrap; }
-td.app .co { display: block; color: var(--cichy); font-size: .9em; white-space: normal; }
 .karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
 .karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
          border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
 .karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+.karta { position: relative; }
 .karta .nazwa { font-weight: 600; }
-.karta p { margin: .15rem 0 0; color: var(--cichy); font-size: .93rem; }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
+   Gramatyka japońska", a nie cały akapit o problemie. */
+.karta .nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
+.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
 .znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
@@ -80,13 +80,6 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia)
          font-size: .88rem; color: var(--cichy); }
 footer a { color: var(--akcent); }
 code { font-size: .9em; }
-@media (max-width: 34rem) {
-  table, tbody, tr, td, th { display: block; }
-  thead { display: none; }
-  tr { border-bottom: 1px solid var(--linia); padding: .6rem 0; }
-  td { border: 0; padding: .15rem 0; }
-  td.app { white-space: normal; font-weight: 600; }
-}
 </style>
 <script type="application/ld+json">
 {
@@ -152,7 +145,7 @@ code { font-size: .9em; }
 </head>
 <body>
 <nav class="gora"><span><a class="znak" href="../../index.html" aria-hidden="true" tabindex="-1"><img src="../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../index.html">← Wszystkie aplikacje</a></span><span><a href="https://jd-japanese.pl/en/apps/joshi/">English</a></span></nav>
-<main><div class="szyld"><img src="../../assets/ikony/joshi.webp" alt="" width="72" height="72"><div><h1>Joshi: Partykuły japońskie<span class="jp">助詞</span></h1><p class="podtytul">Gramatyka i ćwiczenia JLPT</p></div></div><p class="sklep"><a href="https://apps.apple.com/app/id6803144744">App Store →</a><span class="znacznik">Aplikacja darmowa, z zakupem w środku</span></p><p class="lead">Wiedzieć, co znaczy に, to nie to samo co wiedzieć, kiedy jest で. Dziewięćset zdań, jedna
+<main><div class="szyld"><img src="../../assets/ikony/joshi.webp" alt="" width="72" height="72"><div><h1>Joshi: Partykuły japońskie<span class="jp" lang="ja">助詞</span></h1><p class="podtytul">Gramatyka i ćwiczenia JLPT</p></div></div><p class="sklep"><a href="https://apps.apple.com/app/id6803144744">App Store →</a><span class="znacznik">Aplikacja darmowa, z zakupem w środku</span></p><p class="lead">Wiedzieć, co znaczy に, to nie to samo co wiedzieć, kiedy jest で. Dziewięćset zdań, jedna
 luka, cztery partykuły – aż właściwa przychodzi sama.</p><h2>Jak to wygląda</h2><div class="zrzuty"><figure><img src="../../assets/zrzuty/joshi/pl/01-dzis.webp" alt="Wiesz, co dziś zrobić Cel dnia, poziom, na którym jesteś, i jedno dotknięcie do pytania" width="420" height="912" loading="lazy"><figcaption><strong>Wiesz, co dziś zrobić</strong><br>Cel dnia, poziom, na którym jesteś, i jedno dotknięcie do pytania</figcaption></figure><figure><img src="../../assets/zrzuty/joshi/pl/02-cwiczenie.webp" alt="Koniec zgadywania między は i が Zdanie z luką i cztery partykuły do wyboru" width="420" height="912" loading="lazy"><figcaption><strong>Koniec zgadywania między は i が</strong><br>Zdanie z luką i cztery partykuły do wyboru</figcaption></figure><figure><img src="../../assets/zrzuty/joshi/pl/03-wyjasnienie.webp" alt="Widzisz dlaczego, nie tylko co Po pomyłce widać rolę partykuły i parę, którą mylisz" width="420" height="912" loading="lazy"><figcaption><strong>Widzisz dlaczego, nie tylko co</strong><br>Po pomyłce widać rolę partykuły i parę, którą mylisz</figcaption></figure></div><h2>Opis ze sklepu</h2><p>Japońskie partykuły to nie lista do zapamiętania. Każda zmienia to, o czym zdanie mówi.</p>
 <p>Można wiedzieć, że に wskazuje cel ruchu, a で miejsce czynności – i wahać się za każdym<br>razem. Rozumienie reguły i sięganie po nią bez namysłu to dwie różne umiejętności, a przez<br>zdanie przeprowadza tylko ta druga.</p>
 <h3>JAK TO DZIAŁA</h3>

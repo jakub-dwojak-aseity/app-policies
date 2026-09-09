@@ -30,6 +30,7 @@ w `NAPISY` i policzalny w jednym miejscu.
 """
 
 import argparse
+import base64
 import hashlib
 import html
 import json
@@ -460,13 +461,16 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
         jsonld["installUrl"] = link_sklepu(a["appId"])
 
     tytul = f'{t["nazwa"]} – {t["podtytul"]}'
-    obrazek = f'{manifest["bazaAdresu"]}/assets/ikony/{a["slug"]}.png'
+    obrazek = f'{manifest["bazaAdresu"]}/assets/karty/{a["slug"]}-{jezyk}.png'
     jsonld["image"] = obrazek
     return sciezka, strona(jezyk=jezyk, tytul=tytul, opis=meta_opis(t),
                            kanoniczny=kanoniczny, alternatywny=alternatywny,
                            tresc=tresc, glebokosc=glebokosc, manifest=manifest,
                            jsonld=jsonld,
-                           dodatkowa_glowa=f'<meta property="og:image" content="{obrazek}">')
+                           dodatkowa_glowa=(f'<meta property="og:image" content="{obrazek}">'
+                                            '<meta property="og:image:width" content="1200">'
+                                            '<meta property="og:image:height" content="630">'
+                                            '<meta name="twitter:card" content="summary_large_image">'))
 
 
 def spis_dokumentow(apki, jezyk, manifest):
@@ -705,6 +709,80 @@ def ikony(apki, zapisuj):
     return zrobione
 
 
+# ---------------------------------------------------------------- karty do podglądu
+
+KARTA_SVG = """<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#faf9f9"/>
+  <rect x="0" y="0" width="1200" height="10" fill="#a34f5a"/>
+  <clipPath id="rog"><rect x="90" y="175" width="280" height="280" rx="62" ry="62"/></clipPath>
+  <image x="90" y="175" width="280" height="280" clip-path="url(#rog)"
+         xlink:href="data:image/png;base64,{ikona}"/>
+  <text x="440" y="285" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="{stopien}" font-weight="600" fill="#1c1c1e">{nazwa}</text>
+  <text x="440" y="345" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="36" fill="#6b6b70">{podtytul}</text>
+  <text x="440" y="430" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="28" fill="#a34f5a">jd-japanese.pl</text>
+</svg>
+"""
+
+
+def karty_og(apki, zapisuj):
+    """Karty 1200×630 do podglądu w komunikatorach i w wynikach wyszukiwania.
+
+    Do 09.09.2026 w `og:image` stała **ikona 180×180**. Serwisy społecznościowe mają
+    dolny próg na obrazek karty (zwykle 200–300 px) i przy mniejszym albo pokazują
+    mikro-miniaturę obok tekstu, albo nie pokazują nic — czyli link do strony
+    produktowej wyglądał jak goły adres.
+
+    Karta powstaje jako SVG i idzie przez `rsvg-convert`, bo `sips` nie umie tekstu,
+    a rysowanie liter przez CoreGraphics wymagałoby własnego programu. Nazwa
+    i podtytuł pochodzą — jak wszystko tutaj — z metadanych sklepowych.
+
+    Jak przy ikonach: plik powstaje **tylko przy zmianie skrótu wejścia**, bo
+    `rsvg-convert` nie gwarantuje powtarzalnego bajtu, a `--powtarzalnie` ma mierzyć
+    determinizm generatora, nie konwertera.
+    """
+    katalog = KORZEN / "assets" / "karty"
+    rejestr = katalog / "zrodla.json"
+    stare = json.loads(rejestr.read_text(encoding="utf-8")) if rejestr.exists() else {}
+    nowe, zrobione = dict(stare), []
+    for a in apki:
+        piksele = base64.b64encode((a["repoSciezka"] / a["ikona"]).read_bytes()).decode()
+        for jezyk in JEZYKI:
+            teksty = a["teksty"][jezyk]
+            # Nazwa ma 13–29 znaków i przy 64 px najdłuższa wychodziła poza krawędź:
+            # na tekst zostaje 700 px, a „Kifuku: Japanese Pitch Accent" potrzebuje
+            # przy tym stopniu około 950. Stopień dobiera się długością, zamiast
+            # łamać nazwę aplikacji na dwie linie.
+            stopien = 64 if len(teksty["nazwa"]) <= 22 else 56 if len(teksty["nazwa"]) <= 26 else 48
+            svg = KARTA_SVG.format(ikona=piksele, stopien=stopien,
+                                   nazwa=html.escape(teksty["nazwa"]),
+                                   podtytul=html.escape(teksty["podtytul"]))
+            klucz = f"{a['slug']}-{jezyk}"
+            skrot = hashlib.sha256(svg.encode()).hexdigest()[:16]
+            cel = katalog / f"{klucz}.png"
+            nowe[klucz] = skrot
+            if cel.exists() and stare.get(klucz) == skrot:
+                continue
+            zrobione.append(klucz)
+            if not zapisuj:
+                continue
+            katalog.mkdir(parents=True, exist_ok=True)
+            zrodlo = KORZEN / "assets" / "karty" / f".{klucz}.svg"
+            zrodlo.write_text(svg, encoding="utf-8")
+            subprocess.run(["rsvg-convert", "-w", "1200", "-h", "630",
+                            "-o", str(cel), str(zrodlo)], check=True, capture_output=True)
+            zrodlo.unlink()
+    if zapisuj and nowe != stare:
+        katalog.mkdir(parents=True, exist_ok=True)
+        rejestr.write_text(json.dumps(nowe, ensure_ascii=False, indent=2,
+                                      sort_keys=True) + "\n", encoding="utf-8")
+    return zrobione
+
+
 # ---------------------------------------------------------------- bramki
 
 def bramki(apki, pliki, manifest):
@@ -733,6 +811,7 @@ def bramki(apki, pliki, manifest):
     powstana = set(pliki) | {p.relative_to(KORZEN).as_posix()
                              for p in KORZEN.rglob("*.html") if ".git" not in p.parts}
     powstana |= {f"assets/ikony/{a['slug']}.png" for a in apki}
+    powstana |= {f"assets/karty/{a['slug']}-{j}.png" for a in apki for j in JEZYKI}
     for adres, tresc in pliki.items():
         if not adres.endswith(".html"):
             continue
@@ -895,7 +974,7 @@ def main():
         print(f"bramki: {len(bledy)} błędów — nic nie zapisano")
         return 1
 
-    zrobione_ikony = ikony(apki, zapisuj=not args.sprawdz)
+    zrobione_ikony = ikony(apki, zapisuj=not args.sprawdz) + karty_og(apki, zapisuj=not args.sprawdz)
     if args.sprawdz:
         print(f"bramki: zielone ({len(pliki)} plików, {len(apki)} aplikacji)")
         if zrobione_ikony:

@@ -1,6 +1,10 @@
 # `jd-japanese.pl` — krok po kroku
 
-Stan zmierzony **09.09.2026**. Nic z tego nie zostało wykonane: apeks wymaga panelu OVH.
+> **ZROBIONE — domena przełączona 09.09.2026, kroki 1–10 wykonane.** Ten plik jest odtąd
+> **historią** (co po kolei zrobiono i czym to zmierzono), nie instrukcją do wykonania.
+> Stan bieżący witryny: `TERAZ.md`.
+
+Stan wyjściowy zmierzony **09.09.2026**, zanim cokolwiek ruszono: apeks wymagał panelu OVH.
 Każdy krok ma pod spodem polecenie, którym sprawdzasz, czy zadziałał — **nie przechodź
 dalej, dopóki nie odpowie tak, jak napisane.**
 

@@ -77,6 +77,36 @@ NAPISY = {
                          "go na jej stronie i w jej dokumentach.",
         "do_tresci": "Przejdź do treści",
         "nawigacja": "Witryna",
+
+        # --- strony tematyczne ---------------------------------------------
+        # Tytuł i jedno zdanie na temat, i nic ponadto: glosy, wyjaśnienia
+        # i zdania przykładowe przychodzą z eksportów aplikacji, przejrzane
+        # i z odciskiem. Jeżeli ten blok zacznie rosnąć poza tytuł i zdanie,
+        # to znaczy, że strona tematyczna zaczęła mówić od siebie.
+        "nauka_tytul": "Nauka japońskiego – partykuły, liczniki, formy, keigo",
+        "nauka_opis": "Materiał wyjęty z darmowej części aplikacji rodziny: partykuły, "
+                      "liczniki, formy czasownika, mowa potoczna i keigo.",
+        "nauka_link": "Nauka japońskiego",
+        "nauka_spis": "Na tej stronie",
+        "nauka_przyklady": "Przykłady",
+        "nauka_skad": "Skąd ten materiał",
+        "nauka_skad_opis": "Wszystko powyżej pochodzi z darmowej części aplikacji {apka} "
+                           "i przeszło jej przegląd treści.",
+        "temat_partykuly_tytul": "Partykuły japońskie: は, が, を, に, で, へ",
+        "temat_partykuly_opis": "Partykuły, które niosą zwykłe japońskie zdanie, i role, "
+                                "w jakich stoją – z przykładami i tłumaczeniem.",
+        "temat_liczniki_tytul": "Liczniki japońskie – jak liczyć ludzi, rzeczy i zwierzęta",
+        "temat_liczniki_opis": "Czym liczy się ludzi, cienkie przedmioty, książki i zwierzęta "
+                               "– z czytaniem, notą o wyjątkach i zdaniami przykładowymi.",
+        "temat_formy_tytul": "Formy czasownika japońskiego: ます, て, た, ない",
+        "temat_formy_opis": "Formy z pierwszych dwóch etapów odmiany – co każda robi "
+                            "i kiedy się jej używa.",
+        "temat_potoczny_tytul": "Japoński potoczny – skróty z anime i rozmowy",
+        "temat_potoczny_opis": "Skróty, które słychać na co dzień, każdy obok pełnej formy, "
+                               "z której powstał.",
+        "temat_keigo_tytul": "Keigo – japońska grzeczność w praktyce",
+        "temat_keigo_opis": "Sytuacje z pracy oraz formy czczące i skromne – co powiedzieć "
+                            "i dlaczego akurat to.",
     },
     "en": {
         "html_lang": "en",
@@ -133,6 +163,31 @@ NAPISY = {
         "autor_naglowek_kontakt": "Contact",
         "autor_kontakt": "Email is fastest. Each app has its own address – you will find it "
                          "on its page and in its documents.",
+        # --- strony tematyczne ---------------------------------------------
+        "nauka_tytul": "Learning Japanese – particles, counters, forms, keigo",
+        "nauka_opis": "Material taken from the free part of the family's apps: particles, "
+                      "counters, verb forms, casual speech and keigo.",
+        "nauka_link": "Learning Japanese",
+        "nauka_spis": "On this page",
+        "nauka_przyklady": "Examples",
+        "nauka_skad": "Where this comes from",
+        "nauka_skad_opis": "Everything above comes from the free part of the {apka} app "
+                           "and has passed its content review.",
+        "temat_partykuly_tytul": "Japanese particles: は, が, を, に, で, へ",
+        "temat_partykuly_opis": "The particles that carry an ordinary Japanese sentence, "
+                                "and the roles they stand in – with examples and translations.",
+        "temat_liczniki_tytul": "Japanese counters – how to count people, things and animals",
+        "temat_liczniki_opis": "What you use to count people, thin objects, books and animals "
+                               "– with readings, notes on the exceptions and example sentences.",
+        "temat_formy_tytul": "Japanese verb forms: masu, te, ta, nai",
+        "temat_formy_opis": "The forms from the first two stages of conjugation – what each "
+                            "one does and when it is used.",
+        "temat_potoczny_tytul": "Casual Japanese – the contractions in anime and conversation",
+        "temat_potoczny_opis": "The contractions you hear every day, each next to the full "
+                               "form it came from.",
+        "temat_keigo_tytul": "Keigo – Japanese politeness in practice",
+        "temat_keigo_opis": "Situations from working life and the honorific and humble forms "
+                            "– what to say and why that one.",
         "do_tresci": "Skip to content",
         "nawigacja": "Site",
     },

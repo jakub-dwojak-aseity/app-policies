@@ -121,6 +121,14 @@ details p { margin: .6rem 0 .3rem; }
                      line-height: 1.4; }
 ul.zwykla { padding-left: 1.15rem; }
 ul.zwykla li { margin: .3rem 0; }
+/* Strony tematyczne. Pięć reguł i ani jednej więcej: hasło ma wyglądać jak
+   sekcja opisu sklepowego, a nie jak inny gatunek strony. Rubin dostaje własny
+   rozmiar, bo domyślny w Safari bywa większy niż linia tekstu wokół. */
+.przyklady { padding-left: 0; list-style: none; margin: .4rem 0 1.25rem; }
+.przyklady li { margin: .6rem 0; }
+.przyklady .pelna { color: var(--cichy); }
+.przyklady .tlum { display: block; color: var(--cichy); font-size: .93rem; }
+ruby rt { font-size: .55em; color: var(--cichy); }
 footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
          font-size: .88rem; color: var(--cichy); }
 footer a { color: var(--akcent); }
@@ -355,14 +363,24 @@ def gora(jezyk, glebokosc, alternatywny, manifest, mapa=True):
             f'<span>{prawo}</span></nav>')
 
 
-def stopka(jezyk, glebokosc, manifest, kontakt=None, spis_dokumentow=False):
+def stopka(jezyk, glebokosc, manifest, kontakt=None, spis_dokumentow=False,
+           nauka=True):
     """Stopka. `spis_dokumentow=True` na stronie spisu — żeby nie linkowała sama
-    do siebie, tak jak `gora()` nie linkuje do mapy, stojąc na mapie."""
+    do siebie, tak jak `gora()` nie linkuje do mapy, stojąc na mapie.
+
+    `nauka=False` z tego samego powodu na rozdrożu stron tematycznych. Wyjście
+    na to rozdroże stoi w stopce **każdej** strony z rozmysłu: strona bez
+    wejścia jest stroną, której nie ma, a 09.09.2026 sześćdziesiąt dziewięć
+    dokumentów prawnych stało dokładnie w takim stanie.
+    """
     n = NAPISY[jezyk]
     spis = "dokumenty.html" if jezyk == "pl" else "en/documents.html"
     autor = "o-autorze/index.html" if jezyk == "pl" else "en/about/index.html"
     linki = ([] if spis_dokumentow
              else [f'<a href="{wzgledny(glebokosc, spis)}">{e(n["spis_link"])}</a>'])
+    if nauka:
+        linki.insert(0, f'<a href="{wzgledny(glebokosc, ROZDROZE[jezyk])}">'
+                        f'{e(n["nauka_link"])}</a>')
     linki.insert(0, f'<a href="{wzgledny(glebokosc, autor)}">{e(n["autor_link"])}</a>')
     if kontakt:
         linki.append(f'<a href="mailto:{kontakt}">{e(kontakt)}</a>')
@@ -382,7 +400,7 @@ def link_sklepu(appId):
     return f"https://apps.apple.com/app/id{appId}"
 
 
-def mapa_rodziny(apki, jezyk, manifest):
+def mapa_rodziny(apki, jezyk, manifest, zywe=()):
     n = NAPISY[jezyk]
     kanoniczny = "index.html" if jezyk == "pl" else "en/index.html"
     alternatywny = "en/index.html" if jezyk == "pl" else "index.html"
@@ -406,11 +424,27 @@ def mapa_rodziny(apki, jezyk, manifest):
             f'<span class="co">{e(t["podtytul"])}</span>'
             f"<p>{e(t['promo'])}</p></div></li>")
 
+    # Wyjście na strony tematyczne — z mapy, nie tylko ze stopki. To jedyna strona
+    # witryny, na którą ktoś trafia sam, więc linki stąd są jedynym, co prowadzi
+    # dalej niż do kart aplikacji. Zwykła lista, nie karty: karty na tej stronie
+    # znaczą „aplikacja", a to nie są aplikacje.
+    nauka_html = ""
+    if zywe:
+        pozycje = []
+        for temat, _, _ in zywe:
+            cel = wzgledny(glebokosc, sciezki_tematu(temat, jezyk)[0])
+            tytul_t = e(n["temat_%s_tytul" % temat["klucz"]])
+            opis_t = e(n["temat_%s_opis" % temat["klucz"]])
+            pozycje.append(f'<li><a href="{cel}">{tytul_t}</a> – {opis_t}</li>')
+        nauka_html = (f"<h2>{e(n['nauka_link'])}</h2>"
+                      f'<ul class="zwykla">{"".join(pozycje)}</ul>')
+
     tresc = (
         f"<h1>{e(n['tytul_mapy'])}</h1>"
         + f'<p class="podtytul">{e(n["opis_mapy"])}</p>'
         + f"<h2>{e(n['naglowek_wyboru'])}</h2>"
-        + '<ul class="karty">' + "".join(karty) + "</ul>")
+        + '<ul class="karty">' + "".join(karty) + "</ul>"
+        + nauka_html)
 
     # Pytanie, które model dostaje o rodzinę aplikacji, brzmi „którą wybrać" — i tabela
     # wyżej jest na nie odpowiedzią, tylko zapisaną znacznikami tabeli. Tu ta sama treść
@@ -462,7 +496,8 @@ def mapa_rodziny(apki, jezyk, manifest):
                               stopka_html=stopka(jezyk, glebokosc, manifest))
 
 
-def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebokosc=None):
+def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
+              glebokosc=None, temat=None):
     n = NAPISY[jezyk]
     wlasny, wlasna_glebokosc = sciezki(a["slug"], jezyk)
     sciezka = sciezka or wlasny
@@ -492,6 +527,17 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
         f'{e(inna["teksty"][jezyk]["nazwa"])}</a> — {e(inna["teksty"][jezyk]["podtytul"])}</li>'
         for inna in apki if inna["slug"] != a["slug"])
 
+    # Wyjście na stronę tematyczną tej aplikacji — tylko wtedy, gdy taka strona
+    # istnieje. Stoi obok opisu, a nie wyłącznie w stopce, bo czytelnik podstrony
+    # jest dokładnie tym, kto chce przeczytać o samym materiale.
+    nauka_html = ""
+    if temat:
+        cel_tematu = wzgledny(glebokosc, sciezki_tematu(temat, jezyk)[0])
+        nauka_html = (f"<h2>{e(n['nauka_link'])}</h2><ul class=\"zwykla\">"
+                      f'<li><a href="{cel_tematu}">'
+                      f'{e(n["temat_%s_tytul" % temat["klucz"]])}</a> – '
+                      f'{e(n["temat_%s_opis" % temat["klucz"]])}</li></ul>')
+
     opis, naglowki = opis_html(t["opis"])
     # Spis sekcji tylko wtedy, gdy jest co spisywać: przy trzech nagłówkach byłby
     # dłuższy niż droga, którą skraca. Próg wzięty z pomiaru — opisy rodziny mają
@@ -519,6 +565,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None, glebok
         # przewinięć wyżej — i musiał po niego wrócić na samą górę.
         + sklep
         + faq_html(pary, jezyk)
+        + nauka_html
         + f"<h2>{e(n['dokumenty'])}</h2><ul class=\"zwykla\">{dokumenty}</ul>"
         + f"<h2>{e(n['rodzina'])}</h2><ul class=\"zwykla\">{rodzenstwo}</ul>")
 
@@ -711,6 +758,320 @@ ROBOTY_AI = ("GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-Use
              "Bingbot", "Amazonbot", "meta-externalagent")
 
 
+# ---------------------------------------------------------------- strony tematyczne
+
+# Pięć tematów, po jednym na aplikację, która ma eksport przejrzanej treści.
+#
+# **Adres jest tym, co ktoś wpisuje w wyszukiwarkę**, a nie nazwą aplikacji:
+# nikt nie szuka „Kazoekaty", szuka „jaki licznik do butelek". Slug polski
+# i angielski są różne z tego samego powodu i nie muszą być swoimi tłumaczeniami.
+#
+# Kolejność jest kolejnością nauki, nie alfabetem: partykuły niosą zdanie,
+# formy je odmieniają, liczniki wchodzą wszędzie, a mowa potoczna i keigo są
+# dwoma końcami tej samej skali rejestru.
+TEMATY = (
+    {"apka": "joshi", "klucz": "partykuly",
+     "sciezka": {"pl": "nauka/partykuly-japonskie", "en": "en/learn/japanese-particles"}},
+    {"apka": "katsuyokei", "klucz": "formy",
+     "sciezka": {"pl": "nauka/formy-czasownika", "en": "en/learn/verb-forms"}},
+    {"apka": "kazoekata", "klucz": "liczniki",
+     "sciezka": {"pl": "nauka/liczniki-japonskie", "en": "en/learn/japanese-counters"}},
+    {"apka": "kuzushi", "klucz": "potoczny",
+     "sciezka": {"pl": "nauka/mowa-potoczna", "en": "en/learn/casual-japanese"}},
+    {"apka": "keigo", "klucz": "keigo",
+     "sciezka": {"pl": "nauka/keigo", "en": "en/learn/keigo"}},
+)
+
+EKSPORT_SCHEMA = 1
+EKSPORT_PLIK = Path("docs") / "www" / "eksport.json"
+
+ROZDROZE = {"pl": "nauka/index.html", "en": "en/learn/index.html"}
+
+
+def sciezki_tematu(temat, jezyk):
+    sciezka = temat["sciezka"][jezyk] + "/index.html"
+    return sciezka, sciezka.count("/")
+
+
+def wczytaj_eksporty(apki):
+    """Eksporty przejrzanej treści z repozytoriów aplikacji — slug → zawartość.
+
+    **Witryna nie liczy odcisków i nie umie ich policzyć.** Odcisk powstaje
+    z jednostki złożonej z bazy i nakładki, a narzędzia przeglądu ośmiu sióstr
+    to osiem różnych programów o różnym kształcie jednostki. Czytnik odtwarzający
+    tutaj ich sposób hashowania rozjechałby się przy pierwszej zmianie u siostry
+    i zrobił to **cicho**: strona nie zniknęłaby, tylko przestała odpadać przy
+    rozjeździe, czyli bramka zamieniłaby się w ozdobę.
+
+    Dlatego każda siostra ma u siebie `review-content.py --eksport-www`, który
+    wypuszcza wyłącznie jednostki darmowe, zielone we wszystkich soczewkach
+    i z aktualnym odciskiem. Tu czyta się gotowy plik i sprawdza jego kształt.
+
+    Brak pliku **nie jest błędem**: aplikacja, która eksportu jeszcze nie ma,
+    po prostu nie dostaje strony tematycznej. Bramka 12 to nazywa.
+    """
+    eksporty = {}
+    for a in apki:
+        plik = a["repoSciezka"] / EKSPORT_PLIK
+        if not plik.is_file():
+            continue
+        eksporty[a["slug"]] = json.loads(plik.read_text(encoding="utf-8"))
+    return eksporty
+
+
+def tematy_zywe(apki, eksporty):
+    """Tematy, które mają czym stanąć: (temat, aplikacja, eksport)."""
+    po_slugu = {a["slug"]: a for a in apki}
+    zywe = []
+    for temat in TEMATY:
+        eksport = eksporty.get(temat["apka"])
+        apka = po_slugu.get(temat["apka"])
+        if not eksport or not apka or not eksport.get("jednostki"):
+            continue
+        zywe.append((temat, apka, eksport))
+    return zywe
+
+
+# Notacja czytań rodziny: `見[み]る`. Podstawą jest **ciąg znaków chińskich tuż
+# przed nawiasem** — 家族[かぞく] daje 家族, a お名前[なまえ] zostawia お poza
+# rubinem, bo お kanji nie jest. Znak 々 (powtórzenie) wchodzi do podstawy.
+CZYTANIE = re.compile(r"([一-鿿々]+)\[([^\]]+)\]")
+
+
+def ruby_html(tekst: str) -> str:
+    """Notacja czytań → `<ruby>`. Bez notacji zwraca tekst bez zmian.
+
+    Escape idzie **przed** podmianą, nie po: inaczej znaczniki, które ta funkcja
+    dokłada, same zostałyby zescape'owane. Nawiasy kwadratowe nie są dla HTML-a
+    znakami szczególnymi, więc kolejność jest bezpieczna.
+    """
+    return CZYTANIE.sub(r"<ruby>\1<rt>\2</rt></ruby>", e(tekst))
+
+
+def haslo_html(jednostka, jezyk, n, zajete):
+    """Jedno hasło strony tematycznej. Zwraca `(kotwica, etykieta, html)`.
+
+    Kotwica bierze się z **identyfikatora jednostki**, nie z nagłówka: nagłówki
+    są po japońsku, a `kotwica()` sprowadza tekst do liter łacińskich i z 本
+    zrobiłaby „sekcja", z 冊 „sekcja-2" i tak dalej. Identyfikatory katalogów są
+    ASCII i mówią, co to jest (`c.hon`, `p.teiru.teru`, `l2.lex.ossharu`).
+    """
+    termin = jednostka.get("termin") or ""
+    nazwa = jednostka["nazwa"][jezyk]
+    kot = kotwica(jednostka["id"], zajete)
+    naglowek = ruby_html(termin) if termin else e(nazwa)
+    etykieta = termin or nazwa
+
+    czesci = [f'<h2 id="{kot}"'
+              + (' lang="ja"' if termin else "")
+              + f">{naglowek}</h2>"]
+
+    if termin and nazwa:
+        podpis = e(nazwa)
+        # Czytanie tylko wtedy, gdy mówi coś ponad sam nagłówek: licznik つ ma
+        # czytanie „つ" i plakietka powtarzałaby wtedy to, co stoi obok niej.
+        if jednostka.get("czytanie") and jednostka["czytanie"] != termin:
+            podpis += (f'<span class="znacznik" lang="ja">'
+                       f'{e(jednostka["czytanie"])}</span>')
+        czesci.append(f'<p class="podtytul">{podpis}</p>')
+
+    if jednostka["glosa"][jezyk]:
+        czesci.append(f'<p class="lead">{ruby_html(jednostka["glosa"][jezyk])}</p>')
+
+    for akapit in jednostka["wyjasnienie"][jezyk].split("\n\n"):
+        if akapit.strip():
+            czesci.append(f"<p>{ruby_html(akapit.strip())}</p>")
+
+    if jednostka["przyklady"]:
+        czesci.append(f'<p class="podtytul">{e(n["nauka_przyklady"])}</p>')
+        wiersze = []
+        for p in jednostka["przyklady"]:
+            wiersz = ""
+            # Pełna forma przed skrótem — tylko Kuzushi ją niesie, bo tylko tam
+            # nauka polega na złożeniu jednego z drugim. Strzałkę wyjaśnia zdanie
+            # wprowadzające strony, więc nie dokładamy do niej etykiety.
+            if p.get("jpPelne"):
+                wiersz += (f'<span class="pelna" lang="ja">{ruby_html(p["jpPelne"])}'
+                           f"</span> → ")
+            wiersz += f'<span lang="ja">{ruby_html(p["jp"])}</span>'
+            if p.get(jezyk):
+                wiersz += f'<span class="tlum">{e(p[jezyk])}</span>'
+            wiersze.append(f"<li>{wiersz}</li>")
+        czesci.append(f'<ul class="przyklady">{"".join(wiersze)}</ul>')
+
+    return kot, etykieta, "".join(czesci)
+
+
+def strona_tematu(temat, a, eksport, jezyk, manifest, apki):
+    """Strona tematyczna: hasła z eksportu plus wyjście do aplikacji, z której są.
+
+    Układ jest **układem strony produktowej**, celowo co do kolejności: szyld
+    z ikoną, zdanie wprowadzające, spis sekcji z kotwicami, treść, wyjście do
+    sklepu, stopka. Czytelnik, który przyszedł z podstrony aplikacji, ma nie
+    poznać, że to inny typ strony.
+    """
+    n = NAPISY[jezyk]
+    sciezka, glebokosc = sciezki_tematu(temat, jezyk)
+    alternatywny = sciezki_tematu(temat, "en" if jezyk == "pl" else "pl")[0]
+    t = a["teksty"][jezyk]
+    tytul = n["temat_%s_tytul" % temat["klucz"]]
+    opis = n["temat_%s_opis" % temat["klucz"]]
+    ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
+
+    zajete, spis, hasla, etykiety = set(), [], [], []
+    for jednostka in eksport["jednostki"]:
+        kot, etykieta, html_hasla = haslo_html(jednostka, jezyk, n, zajete)
+        spis.append(f'<li><a href="#{kot}">{ruby_html(etykieta)}</a></li>')
+        etykiety.append(etykieta)
+        hasla.append(html_hasla)
+
+    # Spis sekcji ma dwa kształty i wybiera go DŁUGOŚĆ etykiet, nie temat.
+    # `.spis-sekcji` układa pozycje w wiersz i jest zrobiony pod hasła krótkie
+    # (本, 〜ている); trzynaście zdań w rodzaju „Pierwszy dzień w nowej pracy:
+    # podchodzisz do kolegów przy biurkach" daje w tym samym znaczniku ścianę
+    # tekstu udającą nawigację. Próg wzięty z pomiaru na pięciu tematach:
+    # najdłuższe hasło rzeczownikowe to 人前 i 丁目, najkrótsza sytuacja Keigo
+    # ma 25 znaków.
+    dlugie = any(len(etykieta) > 24 for etykieta in etykiety)
+    if dlugie:
+        spis_sekcji = (f'<nav aria-label="{e(n["nauka_spis"])}">'
+                       f'<ul class="zwykla">{"".join(spis)}</ul></nav>')
+    else:
+        spis_sekcji = (f'<nav class="spis-sekcji" aria-label="{e(n["nauka_spis"])}">'
+                       f'<ul>{"".join(spis)}</ul></nav>')
+
+    if a["wSklepie"]:
+        sklep = (f'<p class="sklep"><a class="przycisk" href="{link_sklepu(a["appId"])}">'
+                 f'{e(n["w_sklepie"])} →</a>'
+                 f'<span class="znacznik">{e(n["darmowa"])}</span></p>')
+    else:
+        sklep = f'<p class="sklep"><span class="znacznik">{e(n["wkrotce"])}</span></p>'
+
+    # Wyjście do aplikacji, z której ten materiał pochodzi. Ta sama karta, co na
+    # mapie rodziny — bo to jest ta sama rzecz, a druga jej postać byłaby drugim
+    # językiem wizualnym na tej samej witrynie.
+    cel_apki = wzgledny(glebokosc, sciezki(a["slug"], jezyk)[0])
+    karta = (f'<ul class="karty"><li class="karta">'
+             f'<img src="{ikona}" alt="" width="52" height="52">'
+             f'<div><a class="nazwa" href="{cel_apki}">{e(t["nazwa"])}</a>'
+             f'<span class="co">{e(t["podtytul"])}</span></div></li></ul>')
+
+    tresc = (
+        f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
+        f'<div><h1>{e(tytul)}</h1>'
+        f'<p class="podtytul">{e(opis)}</p></div></div>'
+        + spis_sekcji
+        + "".join(hasla)
+        + f"<h2>{e(n['nauka_skad'])}</h2>"
+        + f'<p>{e(n["nauka_skad_opis"].format(apka=t["nazwa"]))}</p>'
+        + karta
+        + sklep)
+
+    baza = manifest["bazaAdresu"]
+    dom = "index.html" if jezyk == "pl" else "en/index.html"
+    jsonld = {
+        "@context": "https://schema.org",
+        "@graph": [
+            # `DefinedTermSet`, a nie `Article`. To nie jest artykuł, tylko zestaw
+            # haseł wyjętych z katalogu aplikacji — typ ma mówić prawdę o treści,
+            # bo dokładnie po to stoi w danych strukturalnych.
+            {
+                "@type": "DefinedTermSet",
+                "name": tytul,
+                "description": opis,
+                "url": f"{manifest['bazaAdresu']}/{publiczny(sciezka)}",
+                "inLanguage": jezyk,
+                "hasDefinedTerm": [
+                    {
+                        "@type": "DefinedTerm",
+                        "name": j.get("termin") or j["nazwa"][jezyk],
+                        "description": (j["glosa"][jezyk]
+                                        or j["wyjasnienie"][jezyk].split("\n\n")[0]),
+                    }
+                    for j in eksport["jednostki"]
+                ],
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": n["tytul_mapy"],
+                     "item": f"{baza}/{publiczny(dom)}"},
+                    {"@type": "ListItem", "position": 2, "name": n["nauka_link"],
+                     "item": f"{baza}/{publiczny(ROZDROZE[jezyk])}"},
+                    {"@type": "ListItem", "position": 3, "name": tytul,
+                     "item": f"{baza}/{publiczny(sciezka)}"},
+                ],
+            },
+        ],
+    }
+
+    karta_og = f"assets/karty/{a['slug']}-{jezyk}.png"
+    dodatkowa = (f'<meta property="og:image" content="{baza}/{karta_og}">'
+                 '<meta property="og:image:width" content="1200">'
+                 '<meta property="og:image:height" content="630">'
+                 '<meta name="twitter:card" content="summary_large_image">')
+
+    return sciezka, strona(
+        jezyk=jezyk, tytul=tytul, opis=opis, kanoniczny=sciezka,
+        alternatywny=alternatywny, tresc=tresc, glebokosc=glebokosc,
+        manifest=manifest, jsonld=jsonld, dodatkowa_glowa=dodatkowa,
+        nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
+        stopka_html=stopka(jezyk, glebokosc, manifest, kontakt=a["kontakt"]))
+
+
+def rozdroze_nauki(zywe, jezyk, manifest):
+    """Rozdroże `/nauka/`: pięć kart, po jednej na temat.
+
+    Istnieje po to, żeby strony tematyczne nie były sierotami. Lekcja z 09.09:
+    69 dokumentów prawnych stało bez jednego wyjścia na witrynę, a wchodził tam
+    kupujący z App Store. Strona bez wejścia jest stroną, której nie ma.
+    """
+    n = NAPISY[jezyk]
+    sciezka = ROZDROZE[jezyk]
+    alternatywny = ROZDROZE["en" if jezyk == "pl" else "pl"]
+    glebokosc = sciezka.count("/")
+
+    karty = []
+    for temat, a, eksport in zywe:
+        cel = wzgledny(glebokosc, sciezki_tematu(temat, jezyk)[0])
+        ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
+        tytul_tematu = e(n["temat_%s_tytul" % temat["klucz"]])
+        opis_tematu = e(n["temat_%s_opis" % temat["klucz"]])
+        karty.append(
+            f'<li class="karta"><img src="{ikona}" alt="" width="52" height="52">'
+            f'<div><a class="nazwa" href="{cel}">{tytul_tematu}</a>'
+            f'<p>{opis_tematu}</p></div></li>')
+
+    tresc = (f'<h1>{e(n["nauka_tytul"])}</h1>'
+             f'<p class="podtytul">{e(n["nauka_opis"])}</p>'
+             f'<ul class="karty">{"".join(karty)}</ul>')
+
+    baza = manifest["bazaAdresu"]
+    dom = "index.html" if jezyk == "pl" else "en/index.html"
+    jsonld = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "ItemList", "itemListElement": [
+                {"@type": "ListItem", "position": i,
+                 "name": n["temat_%s_tytul" % temat["klucz"]],
+                 "url": f"{baza}/{publiczny(sciezki_tematu(temat, jezyk)[0])}"}
+                for i, (temat, _, _) in enumerate(zywe, start=1)]},
+            {"@type": "BreadcrumbList", "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": n["tytul_mapy"],
+                 "item": f"{baza}/{publiczny(dom)}"},
+                {"@type": "ListItem", "position": 2, "name": n["nauka_link"],
+                 "item": f"{baza}/{publiczny(sciezka)}"}]},
+        ],
+    }
+
+    return sciezka, strona(
+        jezyk=jezyk, tytul=n["nauka_tytul"], opis=n["nauka_opis"],
+        kanoniczny=sciezka, alternatywny=alternatywny, tresc=tresc,
+        glebokosc=glebokosc, manifest=manifest, jsonld=jsonld,
+        nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
+        stopka_html=stopka(jezyk, glebokosc, manifest, nauka=False))
+
+
 def poza_mapa(apki):
     """Strony, które powstają, ale do mapy witryny nie należą.
 
@@ -742,7 +1103,7 @@ def robots(manifest):
     return "\n".join(wiersze)
 
 
-def llms_txt(apki, manifest):
+def llms_txt(apki, manifest, zywe=()):
     """`llms.txt` — indeks strony w markdownie, pisany pod modele językowe.
 
     Model, który dostaje HTML, musi z niego wyłuskać treść; `llms.txt` podaje mu to
@@ -776,7 +1137,22 @@ def llms_txt(apki, manifest):
         stan = "" if a["wSklepie"] else f" ({NAPISY['en']['przed_premiera']})"
         wiersze.append(f"- [{t['nazwa']}]({baza}/en/apps/{a['slug']}/){stan}: "
                        f"{t['podtytul']}. {t['promo']}")
+    # Strony tematyczne. Dla modelu językowego są tu najcenniejszą częścią indeksu:
+    # to jedyne miejsce na witrynie, które mówi o **japońskim**, a nie o aplikacjach,
+    # i jedyne, które odpowiada na pytanie zadane wprost („は czy が").
+    if zywe:
+        wiersze += ["", "## Nauka japońskiego", ""]
+        for jezyk in JEZYKI:
+            n_j = NAPISY[jezyk]
+            for temat, a, eksport in zywe:
+                tytul = n_j["temat_%s_tytul" % temat["klucz"]]
+                opis_t = n_j["temat_%s_opis" % temat["klucz"]]
+                adres = publiczny(sciezki_tematu(temat, jezyk)[0])
+                wiersze.append(f"- [{tytul}]({baza}/{adres}): {opis_t}")
+
     wiersze += ["", "## Pozostałe strony", "",
+                f"- [Rozdroże stron tematycznych]({baza}/nauka/)",
+                f"- [Learning Japanese, English]({baza}/en/learn/)",
                 f"- [Mapa rodziny: tabela problem → aplikacja]({baza}/)",
                 f"- [Family map, English]({baza}/en/)",
                 f"- [Dokumenty prawne wszystkich aplikacji]({baza}/dokumenty.html)",
@@ -1611,6 +1987,95 @@ def bramki(apki, pliki, manifest):
             bledy.append(f"{wzgledna}: stopka bez wyjścia na witrynę "
                          f"(uruchom Tools/glowy_dokumentow.py)")
 
+    # 12. Eksport przejrzanej treści: schemat, komplet obu języków, poręczenie.
+    #
+    #     Witryna nie liczy odcisków — liczy je siostra, u siebie, bo tam mieszka
+    #     ich definicja. Zostaje więc pomiar tego, czy plik, który dostała,
+    #     w ogóle da się postawić na stronie: czy zna schemat, czy każde hasło ma
+    #     nazwę w OBU językach, czy ma czym być wyjaśnione i czy niesie choć jeden
+    #     odcisk. Hasło bez odcisku jest hasłem, za które nikt nie ręczy.
+    #
+    #     Brak eksportu **nie jest błędem** — to stan roboczy: eksport dopisuje
+    #     agent biorący repozytorium swojej apki, tak samo jak przy wydaniach.
+    #     Dlatego uwaga, nie błąd; ale wypisana z nazwy, bo cicha nieobecność
+    #     strony tematycznej wygląda dokładnie jak jej brak w planie.
+    eksporty = wczytaj_eksporty(apki)
+    po_slugu = {a["slug"]: a for a in apki}
+    for temat in TEMATY:
+        eksport = eksporty.get(temat["apka"])
+        if eksport is None:
+            uwagi.append(f"{temat['apka']}: brak {EKSPORT_PLIK} — strona tematyczna "
+                         f"nie powstaje (uruchom Tools/review-content.py --eksport-www)")
+            continue
+        if eksport.get("schemaVersion") != EKSPORT_SCHEMA:
+            bledy.append(f"{temat['apka']}: eksport ma schemat "
+                         f"{eksport.get('schemaVersion')}, witryna zna {EKSPORT_SCHEMA}")
+            continue
+        if not eksport.get("jednostki"):
+            uwagi.append(f"{temat['apka']}: eksport jest pusty — strona tematyczna "
+                         f"nie powstaje")
+            continue
+        for j in eksport["jednostki"]:
+            gdzie = f"{temat['apka']}/{j.get('id', '?')}"
+            if not j.get("odciski"):
+                bledy.append(f"{gdzie}: hasło bez odcisku — nikt za nie nie ręczy")
+            for jezyk in JEZYKI:
+                if not (j.get("nazwa") or {}).get(jezyk):
+                    bledy.append(f"{gdzie}: brak nazwy w języku {jezyk}")
+                tresci = [(j.get("glosa") or {}).get(jezyk),
+                          (j.get("wyjasnienie") or {}).get(jezyk)]
+                if not any(t and t.strip() for t in tresci):
+                    bledy.append(f"{gdzie}: nie ma czym wyjaśnić hasła "
+                                 f"w języku {jezyk}")
+
+    # 13. Czy eksport nie zwietrzał wobec katalogu, z którego powstał.
+    #
+    #     To jest bramka na klasę błędu zmierzoną 09.09.2026: **strona wyliczana
+    #     psuje się w ŹRÓDLE, a nie w wytworze.** Metadane zmieniły się o 14:15,
+    #     strony stały przeliczone o 10:35, dziesięć stron z dwudziestu czterech
+    #     niosło stare tytuły przez pół dnia — i nie sygnalizowało tego nic, bo
+    #     wszystkie bramki mierzyły wytwór i wytwór był poprawny.
+    #
+    #     Uwaga, nie błąd, z tego samego powodu co przy bramce 10: katalog leży
+    #     w cudzym repozytorium, a agent tej apki może być w środku zmiany treści.
+    #     Rozjazd ma być **widoczny i nazwany**, a nie blokować przeliczenie stron.
+    for temat in TEMATY:
+        eksport = eksporty.get(temat["apka"])
+        a = po_slugu.get(temat["apka"])
+        if not eksport or not a:
+            continue
+        zrodlo = eksport.get("zrodlo") or {}
+        if not zrodlo.get("sciezka") or not zrodlo.get("commit"):
+            uwagi.append(f"{temat['apka']}: eksport nie mówi, z jakiego commitu "
+                         f"katalogu powstał — świeżości nie da się zmierzyć")
+            continue
+        wynik = subprocess.run(
+            ["git", "-C", str(a["repoSciezka"]), "log", "-1", "--format=%H",
+             "--", zrodlo["sciezka"]],
+            capture_output=True, text=True)
+        biezacy = (wynik.stdout or "").strip()
+        if biezacy and biezacy != zrodlo["commit"]:
+            uwagi.append(
+                f"{temat['apka']}: eksport powstał z {zrodlo['commit'][:12]}, "
+                f"a {zrodlo['sciezka']} stoi dziś na {biezacy[:12]} — przelicz "
+                f"eksport (Tools/review-content.py --eksport-www)")
+
+    # 14. Żadnej cudzej treści na stronie tematycznej.
+    #
+    #     Kifuku niesie `Vendor/tofugu` na CC BY-SA 4.0 i `Vendor/unidic` jako
+    #     jedyna z dziesięciu. Użycie w aplikacji to co innego niż publikacja na
+    #     stronie: share-alike przenosi warunki na to, co się z tego wyprowadzi.
+    #     Dziś żaden temat z Kifuku nie korzysta i ta bramka jest bezczynna —
+    #     stoi po to, żeby rozszerzenie listy tematów o repozytorium z `Vendor/`
+    #     zatrzymało się tutaj, a nie na stronie, która już wyszła.
+    for temat in TEMATY:
+        a = po_slugu.get(temat["apka"])
+        if a and (a["repoSciezka"] / "Vendor").exists():
+            bledy.append(
+                f"{temat['apka']}: repozytorium ma Vendor/ (cudza treść, możliwe "
+                f"share-alike) — proweniencja wymaga sprawdzenia pozycja po pozycji, "
+                f"zanim cokolwiek stąd trafi na stronę")
+
     return bledy, uwagi
 
 
@@ -1660,8 +2125,13 @@ def sprawdz_sklep(apki):
 def zbuduj(apki, manifest):
     pliki = {}
     daty = {}
+    # Liczone raz i przed pętlą, bo potrzebuje tego i strona tematyczna, i podstrona
+    # produktowa — ta druga po to, żeby wyjście na temat stało obok opisu aplikacji,
+    # a nie tylko w stopce.
+    zywe = tematy_zywe(apki, wczytaj_eksporty(apki))
+    temat_apki = {temat["apka"]: temat for temat, _, _ in zywe}
     for jezyk in JEZYKI:
-        adres, tresc = mapa_rodziny(apki, jezyk, manifest)
+        adres, tresc = mapa_rodziny(apki, jezyk, manifest, zywe)
         pliki[adres] = tresc
         daty[adres] = max(a["data"] for a in apki)
         adres, tresc = spis_dokumentow(apki, jezyk, manifest)
@@ -1671,9 +2141,25 @@ def zbuduj(apki, manifest):
         pliki[adres] = tresc
         daty[adres] = max(a["data"] for a in apki)
         for a in apki:
-            adres, tresc = podstrona(a, jezyk, manifest, apki)
+            adres, tresc = podstrona(a, jezyk, manifest, apki,
+                                     temat=temat_apki.get(a["slug"]))
             pliki[adres] = tresc
             daty[adres] = a["data"]
+
+    # Strony tematyczne. Powstają tylko dla aplikacji, które mają eksport przejrzanej
+    # treści — reszta po prostu nie dostaje strony i **to nie jest błąd**, tylko stan
+    # roboczy: eksport dopisuje agent biorący repozytorium swojej apki, tak jak przy
+    # wydaniach. `daty` muszą dostać wpis razem z plikiem, bo mapa witryny czyta je
+    # słownikiem i przy braku wywala `KeyError`, a nie ostrzeżenie.
+    for jezyk in JEZYKI:
+        for temat, a, eksport in zywe:
+            adres, tresc = strona_tematu(temat, a, eksport, jezyk, manifest, apki)
+            pliki[adres] = tresc
+            daty[adres] = data_zrodla(a["repoSciezka"], EKSPORT_PLIK)
+        if zywe:
+            adres, tresc = rozdroze_nauki(zywe, jezyk, manifest)
+            pliki[adres] = tresc
+            daty[adres] = max(daty[sciezki_tematu(t, jezyk)[0]] for t, _, _ in zywe)
 
     # Adres historyczny: `kuzushi/index.html` jest wpisany w App Store Connect jako
     # Marketing URL i był jedyną stroną produktową w tym repozytorium. Zostaje żywy,
@@ -1689,7 +2175,7 @@ def zbuduj(apki, manifest):
         pliki[adres] = tresc
 
     pliki["robots.txt"] = robots(manifest)
-    pliki["llms.txt"] = llms_txt(apki, manifest)
+    pliki["llms.txt"] = llms_txt(apki, manifest, zywe)
     pliki["404.html"] = strona_404(apki, manifest)
     pliki["README.md"] = readme(apki, manifest,
                                 (KORZEN / "README.md").read_text(encoding="utf-8"))

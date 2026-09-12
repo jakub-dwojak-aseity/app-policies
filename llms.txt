@@ -40,8 +40,23 @@ exactly as much as too little – and that half is what nobody teaches.
 - [Onomatope: Japanese Mimetics](https://jd-japanese.pl/en/apps/onomatope/): Manga and anime vocabulary. Japanese onomatopoeia are not arbitrary. 濁点 makes a thing bigger, heavier and less
 pleasant – understand that and you can guess a word you have never seen.
 
+## Nauka japońskiego
+
+- [Partykuły japońskie: は, が, を, に, で, へ](https://jd-japanese.pl/nauka/partykuly-japonskie/): Partykuły, które niosą zwykłe japońskie zdanie, i role, w jakich stoją – z przykładami i tłumaczeniem.
+- [Formy czasownika japońskiego: ます, て, た, ない](https://jd-japanese.pl/nauka/formy-czasownika/): Formy z pierwszych dwóch etapów odmiany – co każda robi i kiedy się jej używa.
+- [Liczniki japońskie – jak liczyć ludzi, rzeczy i zwierzęta](https://jd-japanese.pl/nauka/liczniki-japonskie/): Czym liczy się ludzi, cienkie przedmioty, książki i zwierzęta – z czytaniem, notą o wyjątkach i zdaniami przykładowymi.
+- [Japoński potoczny – skróty z anime i rozmowy](https://jd-japanese.pl/nauka/mowa-potoczna/): Skróty, które słychać na co dzień, każdy obok pełnej formy, z której powstał.
+- [Keigo – japońska grzeczność w praktyce](https://jd-japanese.pl/nauka/keigo/): Sytuacje z pracy oraz formy czczące i skromne – co powiedzieć i dlaczego akurat to.
+- [Japanese particles: は, が, を, に, で, へ](https://jd-japanese.pl/en/learn/japanese-particles/): The particles that carry an ordinary Japanese sentence, and the roles they stand in – with examples and translations.
+- [Japanese verb forms: masu, te, ta, nai](https://jd-japanese.pl/en/learn/verb-forms/): The forms from the first two stages of conjugation – what each one does and when it is used.
+- [Japanese counters – how to count people, things and animals](https://jd-japanese.pl/en/learn/japanese-counters/): What you use to count people, thin objects, books and animals – with readings, notes on the exceptions and example sentences.
+- [Casual Japanese – the contractions in anime and conversation](https://jd-japanese.pl/en/learn/casual-japanese/): The contractions you hear every day, each next to the full form it came from.
+- [Keigo – Japanese politeness in practice](https://jd-japanese.pl/en/learn/keigo/): Situations from working life and the honorific and humble forms – what to say and why that one.
+
 ## Pozostałe strony
 
+- [Rozdroże stron tematycznych](https://jd-japanese.pl/nauka/)
+- [Learning Japanese, English](https://jd-japanese.pl/en/learn/)
 - [Mapa rodziny: tabela problem → aplikacja](https://jd-japanese.pl/)
 - [Family map, English](https://jd-japanese.pl/en/)
 - [Dokumenty prawne wszystkich aplikacji](https://jd-japanese.pl/dokumenty.html)

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Japanese verb forms: masu, te, ta, nai</title>
+<meta name="description" content="The forms from the first two stages of conjugation – what each one does and when it is used.">
+<link rel="canonical" href="https://jd-japanese.pl/en/learn/verb-forms/">
+<link rel="alternate" hreflang="en" href="https://jd-japanese.pl/en/learn/verb-forms/">
+<link rel="alternate" hreflang="pl" href="https://jd-japanese.pl/nauka/formy-czasownika/">
+<link rel="alternate" hreflang="x-default" href="https://jd-japanese.pl/en/learn/verb-forms/">
+<meta property="og:title" content="Japanese verb forms: masu, te, ta, nai">
+<meta property="og:description" content="The forms from the first two stages of conjugation – what each one does and when it is used.">
+<meta property="og:url" content="https://jd-japanese.pl/en/learn/verb-forms/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Japanese in ten apps">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pl_PL">
+<meta name="theme-color" content="#a34f5a">
+<link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
+<link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
+<meta property="og:image" content="https://jd-japanese.pl/assets/karty/katsuyokei-en.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<style>
+:root { color-scheme: light dark; --tlo:#fff; --tekst:#1c1c1e; --cichy:#6b6b70;
+        --linia:#e3e3e6; --akcent:#a34f5a; --karta:#faf9f9; }
+@media (prefers-color-scheme: dark) {
+  :root { --tlo:#131315; --tekst:#ececef; --cichy:#9a9aa0; --linia:#2c2c30;
+          --akcent:#e08a94; --karta:#1b1b1e; }
+}
+* { box-sizing: border-box; }
+body { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
+       font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       color: var(--tekst); background: var(--tlo); }
+h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 .35rem; }
+h2 { font-size: 1.15rem; margin: 2.5rem 0 .75rem; }
+h3 { font-size: 1rem; margin: 1.75rem 0 .4rem; letter-spacing: .01em; }
+p { margin: .75rem 0; }
+a { color: var(--akcent); }
+.podtytul { color: var(--cichy); margin: 0 0 1rem; font-size: 1.05rem; }
+.lead { border-left: 3px solid var(--akcent); padding: .1rem 0 .1rem 1rem;
+        margin: 1.5rem 0; color: var(--tekst); }
+.gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
+        margin-bottom: 2rem; color: var(--cichy); }
+.gora a { text-decoration: none; }
+.do-tresci { position: absolute; left: -9999px; }
+.do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
+:focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
+footer { overflow-wrap: anywhere; }
+.gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
+.gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
+.szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
+.szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
+.jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
+.karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
+.karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
+         border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
+.karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+.karta { position: relative; }
+.karta .nazwa { font-weight: 600; }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
+   Gramatyka japońska", a nie cały akapit o problemie. */
+.karta .nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
+.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
+.znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
+            border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
+            margin-left: .4rem; vertical-align: .1em; }
+.sklep { display: block; margin: .35rem 0 1.25rem; font-weight: 600; }
+.przycisk { display: inline-block; background: var(--akcent); color: var(--tlo);
+            padding: .55rem 1.1rem; border-radius: 10px; text-decoration: none; }
+.spis-sekcji ul { list-style: none; padding: 0; margin: 0 0 1.75rem;
+                  display: flex; flex-wrap: wrap; gap: .35rem .9rem; font-size: .92rem; }
+.spis-sekcji li { margin: 0; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
+.zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
+          padding-bottom: .5rem; scroll-snap-type: x mandatory; }
+.zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
+.zrzuty img { width: 210px; height: auto; border-radius: 14px;
+              border: 1px solid var(--linia); display: block; }
+.zrzuty figcaption { font-size: .85rem; color: var(--cichy); margin-top: .45rem;
+                     line-height: 1.4; }
+ul.zwykla { padding-left: 1.15rem; }
+ul.zwykla li { margin: .3rem 0; }
+/* Strony tematyczne. Pięć reguł i ani jednej więcej: hasło ma wyglądać jak
+   sekcja opisu sklepowego, a nie jak inny gatunek strony. Rubin dostaje własny
+   rozmiar, bo domyślny w Safari bywa większy niż linia tekstu wokół. */
+.przyklady { padding-left: 0; list-style: none; margin: .4rem 0 1.25rem; }
+.przyklady li { margin: .6rem 0; }
+.przyklady .pelna { color: var(--cichy); }
+.przyklady .tlum { display: block; color: var(--cichy); font-size: .93rem; }
+ruby rt { font-size: .55em; color: var(--cichy); }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
+         font-size: .88rem; color: var(--cichy); }
+footer a { color: var(--akcent); }
+code { font-size: .9em; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "DefinedTermSet",
+      "name": "Japanese verb forms: masu, te, ta, nai",
+      "description": "The forms from the first two stages of conjugation – what each one does and when it is used.",
+      "url": "https://jd-japanese.pl/en/learn/verb-forms/",
+      "inLanguage": "en",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "name": "dictionary form",
+          "description": "the base shape every other form is built from"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "polite ます form",
+          "description": "the everyday polite shape for people you do not know well"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "polite negative ません",
+          "description": "politely: that something does not happen"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "polite past ました",
+          "description": "politely: that something already happened"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "polite past negative ませんでした",
+          "description": "politely: that something did not happen"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "plain negative (nai-form)",
+          "description": "plainly, without the polite ending: it does not happen"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "plain past (ta-form)",
+          "description": "plainly, without the polite ending: it happened"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "plain past negative",
+          "description": "plainly: that something did not happen"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "te-form",
+          "description": "links one clause to the next and carries most requests"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "negative te-form",
+          "description": "links clauses when the first half is a negative"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "conditional ba-form",
+          "description": "a condition: if this happens, something follows"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "conditional tara-form",
+          "description": "a condition once met: when this has happened, something follows"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "adverbial form",
+          "description": "says how something is done"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "attributive な form",
+          "description": "describes the noun that comes right after it"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Japanese in ten apps",
+          "item": "https://jd-japanese.pl/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Learning Japanese",
+          "item": "https://jd-japanese.pl/en/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Japanese verb forms: masu, te, ta, nai",
+          "item": "https://jd-japanese.pl/en/learn/verb-forms/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="do-tresci" href="#tresc">Skip to content</a>
+<nav class="gora" aria-label="Site"><span><a class="znak" href="../../../en/index.html" aria-hidden="true" tabindex="-1"><img src="../../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../../en/index.html">← All apps</a></span><span><a href="https://jd-japanese.pl/nauka/formy-czasownika/">Polski</a></span></nav>
+<main id="tresc"><div class="szyld"><img src="../../../assets/ikony/katsuyokei.webp" alt="" width="72" height="72"><div><h1>Japanese verb forms: masu, te, ta, nai</h1><p class="podtytul">The forms from the first two stages of conjugation – what each one does and when it is used.</p></div></div><nav aria-label="On this page"><ul class="zwykla"><li><a href="#f-dictionary">dictionary form</a></li><li><a href="#f-masu">polite ます form</a></li><li><a href="#f-masunegative">polite negative ません</a></li><li><a href="#f-masupast">polite past ました</a></li><li><a href="#f-masupastnegative">polite past negative ませんでした</a></li><li><a href="#f-nai">plain negative (nai-form)</a></li><li><a href="#f-ta">plain past (ta-form)</a></li><li><a href="#f-naipast">plain past negative</a></li><li><a href="#f-te">te-form</a></li><li><a href="#f-tenegative">negative te-form</a></li><li><a href="#f-ba">conditional ba-form</a></li><li><a href="#f-tara">conditional tara-form</a></li><li><a href="#f-adverbial">adverbial form</a></li><li><a href="#f-attributive">attributive な form</a></li></ul></nav><h2 id="f-dictionary">dictionary form</h2><p class="lead">the base shape every other form is built from</p><p>The plain form you find in a dictionary. Every other form is built from it.</p><p>the bare verb: write</p><h2 id="f-masu">polite ます form</h2><p class="lead">the everyday polite shape for people you do not know well</p><p>The everyday polite form, used with people you do not know well.</p><p>I write (polite)</p><h2 id="f-masunegative">polite negative ません</h2><p class="lead">politely: that something does not happen</p><p>The polite way to say something does not happen.</p><p>I don't write (polite)</p><h2 id="f-masupast">polite past ました</h2><p class="lead">politely: that something already happened</p><p>The polite way to say something already happened.</p><p>I wrote (polite)</p><h2 id="f-masupastnegative">polite past negative ませんでした</h2><p class="lead">politely: that something did not happen</p><p>The polite way to say something did not happen.</p><p>I didn't write (polite)</p><h2 id="f-nai">plain negative (nai-form)</h2><p class="lead">plainly, without the polite ending: it does not happen</p><p>The plain way to say something does not happen.</p><p>I don't write</p><h2 id="f-ta">plain past (ta-form)</h2><p class="lead">plainly, without the polite ending: it happened</p><p>The plain past. It follows exactly the same sound changes as the te-form.</p><p>I wrote</p><h2 id="f-naipast">plain past negative</h2><p class="lead">plainly: that something did not happen</p><p>The plain way to say something did not happen.</p><p>I didn't write</p><h2 id="f-te">te-form</h2><p class="lead">links one clause to the next and carries most requests</p><p>The connecting form. It links clauses together and carries most requests.</p><p>…and then…</p><h2 id="f-tenegative">negative te-form</h2><p class="lead">links clauses when the first half is a negative</p><p>The connecting form when the first half is a negative.</p><p>I don't write, and…</p><h2 id="f-ba">conditional ba-form</h2><p class="lead">a condition: if this happens, something follows</p><p>If this happens, then something follows.</p><p>if I write…</p><h2 id="f-tara">conditional tara-form</h2><p class="lead">a condition once met: when this has happened, something follows</p><p>Once this has happened, then something follows.</p><p>once I've written…</p><h2 id="f-adverbial">adverbial form</h2><p class="lead">says how something is done</p><p>Turns an adjective into a description of how something is done.</p><p>quickly, quietly</p><h2 id="f-attributive">attributive な form</h2><p class="lead">describes the noun that comes right after it</p><p>The shape a na-adjective takes directly in front of a noun.</p><p>a quiet street</p><h2>Where this comes from</h2><p>Everything above comes from the free part of the Katsuyokei: Conjugation app and has passed its content review.</p><ul class="karty"><li class="karta"><img src="../../../assets/ikony/katsuyokei.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../../../en/apps/katsuyokei/index.html">Katsuyokei: Conjugation</a><span class="co">Verbs, adjectives and drills</span></div></li></ul><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/id6802813564">App Store →</a><span class="znacznik">Free app with an in-app purchase</span></p></main>
+<footer>Jakub Dwojak · <a href="../../../en/about/index.html">About</a> · <a href="../../../en/learn/index.html">Learning Japanese</a> · <a href="../../../en/documents.html">Document index</a> · <a href="mailto:katsuyokei@jd-japanese.pl">katsuyokei@jd-japanese.pl</a></footer>
+</body>
+</html>

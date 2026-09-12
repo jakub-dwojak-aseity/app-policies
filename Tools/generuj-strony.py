@@ -2171,6 +2171,50 @@ def bramki(apki, pliki, manifest):
                         f"angielskim — nakładka jest niedokończona, a nie pusta")
                     break
 
+    # 16. Manifest wskazuje NAJŚWIEŻSZY blok tekstów sklepowych, a nie dowolny.
+    #
+    #     Dotyczy wyłącznie Kaname, bo tylko ona trzyma teksty per wersja
+    #     (`version-texts.json`); dziewięć sióstr ma jeden plik markdown bez osi
+    #     wersji i zestarzeć się nie może. Pole `wersja` w `apps.json` wpisuje się
+    #     RĘKĄ i **nic dotąd nie pytało, czy nie zostało w tyle** — a wystarczy
+    #     wydanie, które zmienia podtytuł albo opis, żeby strona cicho niosła
+    #     poprzednie brzmienie. Dokładnie ta klasa błędu, co 09.09.2026: strona
+    #     wyliczana psuje się w źródle, nie w wytworze.
+    #
+    #     Liczą się wyłącznie bloki z polami INDEKSOWANYMI. Wersje niosące samo
+    #     `whatsNew` (dziś 1.3.3 i 1.3.4) nowszym blokiem nie są: `z_json` bierze
+    #     z nich podtytuł i opis wprost, bez schodzenia w dół, więc wskazanie ich
+    #     w manifeście nie dałoby świeższej strony, tylko przerwany przebieg.
+    POLA_SKLEPOWE = ("subtitle", "description", "keywords", "promotionalText")
+
+    def _wersja_klucz(tekst):
+        czlony = tekst.split(".")
+        if len(czlony) != 3 or not all(c.isdigit() for c in czlony):
+            return None
+        return tuple(int(c) for c in czlony)
+
+    for a in apki:
+        if a.get("zrodlo") != "kaname" or not a.get("wersja"):
+            continue
+        plik = a["repoSciezka"] / "docs" / "app-store" / "version-texts.json"
+        if not plik.is_file():
+            continue
+        dane = json.loads(plik.read_text(encoding="utf-8"))
+        wskazana = _wersja_klucz(a["wersja"])
+        if wskazana is None:
+            bledy.append(f"{a['slug']}: `wersja` w apps.json nie jest numerem x.y.z")
+            continue
+        nowsze = sorted(
+            k for k, blok in dane.items()
+            if isinstance(blok, dict)
+            and any(blok.get(pole) for pole in POLA_SKLEPOWE)
+            and (_wersja_klucz(k) or (0, 0, 0)) > wskazana)
+        if nowsze:
+            bledy.append(
+                f"{a['slug']}: apps.json wskazuje teksty wersji {a['wersja']}, "
+                f"a {plik.name} ma nowszy blok z polami sklepowymi: "
+                f"{', '.join(nowsze)} — strona niesie poprzednie brzmienie")
+
     return bledy, uwagi
 
 

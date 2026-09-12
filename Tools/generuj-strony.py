@@ -848,7 +848,7 @@ def ruby_html(tekst: str) -> str:
     return CZYTANIE.sub(r"<ruby>\1<rt>\2</rt></ruby>", e(tekst))
 
 
-def haslo_html(jednostka, jezyk, n, zajete):
+def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):
     """Jedno hasło strony tematycznej. Zwraca `(kotwica, etykieta, html)`.
 
     Kotwica bierze się z **identyfikatora jednostki**, nie z nagłówka: nagłówki
@@ -859,14 +859,29 @@ def haslo_html(jednostka, jezyk, n, zajete):
     termin = jednostka.get("termin") or ""
     nazwa = jednostka["nazwa"][jezyk]
     kot = kotwica(jednostka["id"], zajete)
-    naglowek = ruby_html(termin) if termin else e(nazwa)
-    etykieta = termin or nazwa
+
+    # **Termin, który na tej stronie nie jest jedyny, sam nie jest nagłówkiem.**
+    # Zmierzone na stronie partykuł: が niesie pięć różnych ról, więc pięć sekcji
+    # miało identyczny nagłówek, a spis sekcji pokazywał „は が が が が を に に
+    # に に に で で へ" — czyli nawigację, po której nie da się nawigować.
+    # Rola dochodzi do nagłówka wyłącznie tam, gdzie sam znak nie wystarcza;
+    # 本 i 〜ている zostają nagłówkiem samym w sobie, bo są jedyne.
+    dwuznaczny = bool(termin) and termin in powtorzone
+    if termin and dwuznaczny and nazwa:
+        naglowek = f'<span lang="ja">{ruby_html(termin)}</span> · {e(nazwa)}'
+        etykieta = f"{termin} · {nazwa}"
+    elif termin:
+        naglowek = ruby_html(termin)
+        etykieta = termin
+    else:
+        naglowek = e(nazwa)
+        etykieta = nazwa
 
     czesci = [f'<h2 id="{kot}"'
-              + (' lang="ja"' if termin else "")
+              + (' lang="ja"' if termin and not dwuznaczny else "")
               + f">{naglowek}</h2>"]
 
-    if termin and nazwa:
+    if termin and nazwa and not dwuznaczny:
         podpis = e(nazwa)
         # Czytanie tylko wtedy, gdy mówi coś ponad sam nagłówek: licznik つ ma
         # czytanie „つ" i plakietka powtarzałaby wtedy to, co stoi obok niej.
@@ -918,9 +933,18 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=()):
     opis = n["temat_%s_opis" % temat["klucz"]]
     ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
 
+    # Które terminy powtarzają się na tej stronie — liczone przed składaniem haseł,
+    # bo o kształcie nagłówka decyduje to, co stoi obok niego, a nie samo hasło.
+    liczba = {}
+    for jednostka in eksport["jednostki"]:
+        t_j = jednostka.get("termin") or ""
+        if t_j:
+            liczba[t_j] = liczba.get(t_j, 0) + 1
+    powtorzone = frozenset(t_j for t_j, ile in liczba.items() if ile > 1)
+
     zajete, spis, hasla, etykiety = set(), [], [], []
     for jednostka in eksport["jednostki"]:
-        kot, etykieta, html_hasla = haslo_html(jednostka, jezyk, n, zajete)
+        kot, etykieta, html_hasla = haslo_html(jednostka, jezyk, n, zajete, powtorzone)
         spis.append(f'<li><a href="#{kot}">{ruby_html(etykieta)}</a></li>')
         etykiety.append(etykieta)
         hasla.append(html_hasla)

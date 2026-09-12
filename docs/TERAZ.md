@@ -4,66 +4,103 @@
 nie zakładaj `PRZEKAZANIE_<data>.md` ani „TERAZ_2" — osusz ten plik, historia zostaje w `git log`.
 Pomiary i uzasadnienia: `jp-grammar/docs/PLAN_SEO_AEO.md` §11–§12. Otwarte pozycje backlogu
 rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontaktowy),
-**112** (zapowiadanie apek), **113** (wizytówka poza witryną).
+**112** (zapowiadanie apek), **113** (wizytówka poza witryną), **189** (strony tematyczne).
 
 ## Od czego zacząć
 
-**Witryna stoi i jest zrobiona od środka.** Domena przełączona 09.09.2026 (`CNAME` w repo, cztery
-`A` GitHub Pages, HTTPS), dziesięć podstron w dwóch językach plus mapa rodziny, spis dokumentów,
-strona o autorze i własna 404. `robots.txt` z robotami AI z nazwy, `sitemap.xml` (26 adresów),
-`llms.txt`, `schema.org`, karty `og:image`, kadry w WebP, poczta rodziny na własnej domenie.
-Bramki generatora: **zielone, 32 pliki, 10 aplikacji** (pomiar `--sprawdz`, 11.09).
+**Witryna mówi już o japońskim, a nie tylko o aplikacjach.** W nocy z 13 na 14.09.2026 doszło
+**pięć stron tematycznych plus rozdroże, w dwóch językach** — dwanaście plików, mapa witryny
+**26 → 38 adresów**. Wcześniej wszystko, co tu stało, mówiło wyłącznie o dziesiątce apek,
+a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" albo „は czy が".
+
+| adres | z czego | ile |
+|---|---|---|
+| `/nauka/partykuly-japonskie/` | Joshi | 14 ról w 6 partykułach, 56 zdań |
+| `/nauka/formy-czasownika/` | Katsuyokei | 14 form |
+| `/nauka/liczniki-japonskie/` | Kazoekata | 22 liczniki, 44 zdania |
+| `/nauka/mowa-potoczna/` | Kuzushi | 34 wzorce, 61 par zdań |
+| `/nauka/keigo/` | Keigo | 32 pozycje |
+| `/nauka/` i `/en/learn/` | rozdroże | żeby strony nie były sierotami |
+
+Poza tym bez zmian: domena przełączona 09.09, dziesięć podstron produktowych w dwóch językach,
+mapa rodziny, spis dokumentów, strona o autorze, własna 404, `robots.txt` z robotami AI
+z nazwy, `llms.txt`, `schema.org`, karty `og:image`, kadry w WebP, poczta na własnej domenie.
+**Bramki generatora: zielone, 44 pliki, 10 aplikacji** (pomiar `--sprawdz`, 14.09).
 
 **Tor witrynowy jedzie równolegle do wydań** i nie zjada miejsc w turze apek (§12 planu SEO).
-Wchodząc tu, bierzesz albo **pozycję z kolejki niżej**, albo **obowiązkowy powrót po wydaniu apki**:
-`marketingUrl` (§21.AB) · `wSklepie` przy premierze · przeliczenie stron po zmianie metadanych ·
-import kadrów po zmianie zrzutów · **porównanie `<title>` na żywym adresie z repo**.
+Wchodząc tu, bierzesz albo **pozycję z kolejki niżej**, albo **obowiązkowy powrót po wydaniu
+apki**: `marketingUrl` (§21.AB) · `wSklepie` przy premierze · przeliczenie stron po zmianie
+metadanych · import kadrów po zmianie zrzutów · **porównanie `<title>` na żywym adresie
+z repo**. Od 14.09 dochodzi szósty: **przeliczenie eksportu po zmianie katalogu** w Joshi,
+Katsuyokei, Kazoekacie, Kuzushim albo Keigo.
 
 Kolejka toru, w kolejności taniości: (1) domknięcie poz. 84 — 16 plików prozy i stare adresy
 w dwóch martwych drzewach, część to historia i **ma zostać**; (2) Search Console (Jakub);
 (3) nazwy i opisy 42 zakupów w ASC; (4) 12 pól `marketingUrl`, łapanych przy składaniu apek;
-(5) **strony tematyczne z katalogów** — materiał przejrzany (6 482 zielone werdykty z odciskiem),
-wycena „miesiące" obalona; miny: dwa schematy `review.json`, brak go w Kifuku i Shindanie,
-CC BY-SA w `kifuku/Vendor/tofugu`.
+(5) **strony tematyczne dla pozostałej piątki — poz. 189**, gdzie stoi, co blokuje którą.
+
+## Jak działają strony tematyczne — w trzech zdaniach
+
+**Witryna nie liczy odcisków i nie umie ich policzyć.** Każda siostra ma u siebie
+`Tools/review-content.py --eksport-www`, który zapisuje `docs/www/eksport.json` z jednostkami
+darmowymi, zielonymi we wszystkich soczewkach i z aktualnym odciskiem; generator czyta gotowy
+plik. Odwrotność — pięć kopii cudzej logiki hashowania po tej stronie — rozjechałaby się przy
+pierwszej zmianie u siostry i zrobiła to **cicho**: strona by nie zniknęła, tylko przestała
+odpadać przy rozjeździe.
+
+Format eksportu jest wspólny dla wszystkich pięciu: `schemaVersion`, `zrodlo`
+(ścieżka katalogu + jego commit), `grupy`, `jednostki` z `nazwa`/`glosa`/`wyjasnienie`
+w obu językach, `przyklady` i `odciski`. Wyjaśnienie wieloakapitowe rozdziela pusta linia.
 
 ## Czeka na decyzję Jakuba
 
-1. **Search Console — jedyna pętla zwrotna, jaką mamy.** Klucz ASC oddaje `403` na
-   `analyticsReportRequests`, więc fraz z App Store nie zobaczy żaden skrypt. Do wyklikania:
-   mapa ma **26 adresów, GSC znał 24**; powtórka prośby o zaindeksowanie dla **shindan, keigo,
-   kifuku, onomatope** (pierwsze prośby mogły pójść **przed** przestawieniem `wSklepie`, czyli
-   Google ma wersję ze znacznikiem „wkrótce" nad apką do kupienia); ewentualna druga własność
-   „Prefiks URL", bo własność „Domena" obejmuje też `api.` i `admin.`.
-2. **Poz. 112 — czy zapowiadać apki, których jeszcze nie ma.** Mechanizm „wkrótce w App Store"
-   **już działa** dla `wSklepie: false`; otwarte jest tylko, czy objąć nim pozycje 62–69. Zapowiedź
-   to obietnica z datą, której nie mamy. Wariant pośredni: dziedziny bez dat i bez kart.
-3. **Poz. 113 — wizytówka poza witryną.** Zobowiązanie **cykliczne**, nie jednorazowe: koszt leży
-   w rytmie publikowania, nie w treści (materiał jest) — kto prowadzi i jak często.
-4. **Bunmyaku ma pauzę w nazwie** jako jedyna z dziesięciu — jedno wywołanie, ale **decyzja
-   redakcyjna, nie porządek techniczny** (§21.X przyjmuje też w kolejce).
+1. **Czy umorzone zastrzeżenie wpuszcza hasło na stronę** (poz. 189). Dziś **nie** — eksport
+   wymaga `ok` wprost. Kosztowało to dwie pozycje Keigo, przy których `--stats` pokazuje zero
+   zastrzeżeń. Reguła z poz. 82 brzmi dosłownie „wszystkie soczewki mają `ok`".
+2. **Bunmyaku i Onomatope dadzą 351 i 84 hasła** — jedna strona na tyle pozycji jest zła tak
+   samo jak 351 stron po jednym słowie. Grupowanie to decyzja redakcyjna.
+3. **Search Console — jedyna pętla zwrotna, jaką mamy.** Klucz ASC oddaje `403` na
+   `analyticsReportRequests`. Do wyklikania: **mapa ma teraz 38 adresów**, GSC znał 24 —
+   zgłosić od nowa; powtórka prośby o zaindeksowanie dla **shindan, keigo, kifuku, onomatope**
+   (pierwsze prośby mogły pójść **przed** przestawieniem `wSklepie`); ewentualna druga
+   własność „Prefiks URL", bo własność „Domena" obejmuje też `api.` i `admin.`.
+4. **Poz. 112 — czy zapowiadać apki, których jeszcze nie ma.** Mechanizm „wkrótce w App Store"
+   **już działa** dla `wSklepie: false`; otwarte jest tylko, czy objąć nim pozycje 62–69.
+5. **Poz. 113 — wizytówka poza witryną.** Zobowiązanie **cykliczne**: koszt leży w rytmie
+   publikowania, nie w treści. **Strony tematyczne zmieniły tu rachunek** — jest teraz
+   116 haseł w gotowym kształcie do wystawiania pojedynczo.
+6. **Bunmyaku ma pauzę w nazwie** jako jedyna z dziesięciu — decyzja redakcyjna (§21.X).
+7. **Przegląd okiem stron tematycznych.** Rozszerzenie Chrome było w nocy odłączone, więc
+   układ sprawdzony w znaczniku, nie na ekranie: jasny i ciemny motyw, szerokość telefonu.
 
 ## Świeże miny
 
-- **Strona wyliczana psuje się w ŹRÓDLE, nie w wytworze.** 09.09 metadane zmieniły się o 14:15,
-  strony stały przeliczone o 10:35 i **dziesięć stron z dwudziestu czterech niosło stare tytuły
-  przez pół dnia** — bramki mierzą wytwór, nie to, czy ktoś generator uruchomił.
-- **Bramka 10 świeci dziś 5 rozjazdów** (Bunmyaku `terms.html` i `support.html` wobec
+- **Strona wyliczana psuje się w ŹRÓDLE, nie w wytworze.** 09.09 metadane zmieniły się
+  o 14:15, strony stały przeliczone o 10:35 i **dziesięć stron z dwudziestu czterech niosło
+  stare tytuły przez pół dnia**. Od 14.09 pilnuje tego przy eksportach **bramka 13**:
+  porównuje commit katalogu zapisany w eksporcie z bieżącym stanem repo siostry. Uwaga
+  nazwana, nieblokująca — katalog leży w cudzym drzewie.
+- **Bramka 12 i 13 sprawdzone MUTACJĄ, nie zielenią.** Podstawiony zerowy commit, pusta nazwa
+  angielska i hasło bez odcisku dały trzy komunikaty i kod 1. Zielony zestaw nic nie dowodzi,
+  dopóki nie wiadomo, co go wywala.
+- **Bramka 10 świeci dalej 5 rozjazdów** (Bunmyaku `terms.html` i `support.html` wobec
   `bunmyaku-n2/docs/app-store/`) — **nazwane, nieblokujące**, bo kopie leżą w cudzym repo.
   Dokumenty zmienia się **po obu stronach naraz**; podmiana po jednej topi prawdziwy sygnał.
+- **Tekst własny witryny urósł z 42 do 59 kluczy `NAPISY`** — tytuł i jedno zdanie na temat,
+  i nic ponadto. Ta liczba jest miarą: jeśli rośnie dalej, strona zaczęła mówić od siebie.
 - **Generator nie dotyka dokumentów prawnych.** Piszą w nie tylko `Tools/landmark-main.py`
-  i `Tools/glowy_dokumentow.py` — **bez jednego renderowanego znaku zmiany**, i odmawiają pracy
-  na pliku o innym kształcie. Przestarzałe wersje dostają `noindex, follow`, **nigdy `canonical`
-  na nowszą** — to nie jest ta sama treść.
-- **`docs/DOMENA.md` opisuje stan sprzed przełączenia** („nic z tego nie zostało wykonane").
-  Kroki 1–10 są zrobione; czytaj go jak historię, nie jak instrukcję.
-- **Klienta ASC `asc.py` to repo pożycza z `../kifuku/Tools`** — publiczne repozytorium świadomie
-  nie ma go u siebie, tak jak nie ma klucza ani `ASC_ISSUER_ID`.
+  i `Tools/glowy_dokumentow.py`. Przestarzałe wersje dostają `noindex, follow`, **nigdy
+  `canonical` na nowszą** — to nie jest ta sama treść.
+- **`docs/DOMENA.md` opisuje stan sprzed przełączenia.** Kroki 1–10 są zrobione; czytaj go
+  jak historię, nie jak instrukcję.
+- **Klienta ASC `asc.py` to repo pożycza z `../kifuku/Tools`** — publiczne repozytorium
+  świadomie nie ma go u siebie, tak jak nie ma klucza ani `ASC_ISSUER_ID`.
 
 ## Jak zmierzyć stan
 
 ```sh
 cd ~/aseity/app-policies
-python3 Tools/generuj-strony.py --sprawdz        # jedenaście bramek, bez zapisu
+python3 Tools/generuj-strony.py --sprawdz        # czternaście bramek, bez zapisu
 python3 Tools/generuj-strony.py                  # przelicz
 python3 Tools/generuj-strony.py --powtarzalnie   # dwa przebiegi, bit w bit
 python3 Tools/generuj-strony.py --sprawdz-sklep  # manifest kontra pięć witryn App Store (sieć)
@@ -71,9 +108,16 @@ python3 Tools/generuj-strony.py --zrzuty         # import kadrów z repo apek
 python3 Tools/glowy_dokumentow.py --sprawdz      # canonical i noindex w dokumentach
 python3 Tools/asc-marketing-url.py --apka <slug> # bez --zapisz: przebieg na sucho
 
+# eksport przejrzanej treści — w repozytorium siostry, nie tutaj:
+cd ~/aseity/<joshi-ios|katsuyokei-ios|kazoekata-ios|kuzushi-ios|keigo-ios>
+python3 Tools/review-content.py --eksport-www
+
 # ZAWSZE po przeliczeniu — pomiar na żywym adresie, nie na plikach:
 for u in kaname bunmyaku katsuyokei joshi kazoekata kuzushi shindan keigo kifuku onomatope; do
   curl -sS -L "https://jd-japanese.pl/apps/$u/" | grep -o '<title>[^<]*'
+done
+for t in partykuly-japonskie formy-czasownika liczniki-japonskie mowa-potoczna keigo; do
+  curl -sS -L "https://jd-japanese.pl/nauka/$t/" | grep -o '<title>[^<]*'
 done
 ```
 

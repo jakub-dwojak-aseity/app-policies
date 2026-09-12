@@ -902,7 +902,7 @@ def haslo_html(jednostka, jezyk, n, zajete):
     return kot, etykieta, "".join(czesci)
 
 
-def strona_tematu(temat, a, eksport, jezyk, manifest, apki):
+def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=()):
     """Strona tematyczna: hasła z eksportu plus wyjście do aplikacji, z której są.
 
     Układ jest **układem strony produktowej**, celowo co do kolejności: szyld
@@ -956,6 +956,22 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki):
              f'<div><a class="nazwa" href="{cel_apki}">{e(t["nazwa"])}</a>'
              f'<span class="co">{e(t["podtytul"])}</span></div></li></ul>')
 
+    # Wyjście na pozostałe tematy. Czytelnik, który przyszedł tu po liczniki, jest
+    # najbardziej prawdopodobnym czytelnikiem strony o partykułach — a bez tych
+    # linków jedyną drogą dalej jest stopka. Ta sama lista co na mapie rodziny.
+    pozostale = [t for t in zywe if t[0]["klucz"] != temat["klucz"]]
+    pozostale_html = ""
+    if pozostale:
+        pozycje_t = []
+        for inny, _, _ in pozostale:
+            cel_t = wzgledny(glebokosc, sciezki_tematu(inny, jezyk)[0])
+            pozycje_t.append(
+                f'<li><a href="{cel_t}">'
+                f'{e(n["temat_%s_tytul" % inny["klucz"]])}</a> – '
+                f'{e(n["temat_%s_opis" % inny["klucz"]])}</li>')
+        pozostale_html = (f'<h2>{e(n["nauka_link"])}</h2>'
+                          f'<ul class="zwykla">{"".join(pozycje_t)}</ul>')
+
     tresc = (
         f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
         f'<div><h1>{e(tytul)}</h1>'
@@ -963,9 +979,13 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki):
         + spis_sekcji
         + "".join(hasla)
         + f"<h2>{e(n['nauka_skad'])}</h2>"
-        + f'<p>{e(n["nauka_skad_opis"].format(apka=t["nazwa"]))}</p>'
+        # Sama nazwa własna, bez podtytułu ze sklepu: „z darmowej części aplikacji
+        # Kazoekata: Liczniki japońskie i przeszło jej przegląd" rozpada się na
+        # dwukropku. Nazwa przed dwukropkiem jest tą, której aplikacja używa o sobie.
+        + f'<p>{e(n["nauka_skad_opis"].format(apka=t["nazwa"].split(":")[0].strip()))}</p>'
         + karta
-        + sklep)
+        + sklep
+        + pozostale_html)
 
     baza = manifest["bazaAdresu"]
     dom = "index.html" if jezyk == "pl" else "en/index.html"
@@ -1215,7 +1235,7 @@ def strona_autora(apki, jezyk, manifest):
                               stopka_html=stopka(jezyk, glebokosc, manifest))
 
 
-def strona_404(apki, manifest):
+def strona_404(apki, manifest, zywe=()):
     """Strona 404 — po przenosinach domeny jest realnie potrzebna.
 
     W obiegu krąży dwadzieścia starych adresów z App Store Connect i nieznana liczba
@@ -1230,11 +1250,24 @@ def strona_404(apki, manifest):
     pozycje = "".join(
         f'<li><a href="{baza}/apps/{a["slug"]}/">{e(a["teksty"]["pl"]["nazwa"])}</a> — '
         f'{e(a["teksty"]["pl"]["podtytul"])}</li>' for a in apki)
+    # Ta strona obiecuje „poniżej wszystko, co tu jest" i obietnica ma zostać
+    # prawdziwa: od 14.09.2026 witryna ma też strony tematyczne, więc pominięcie
+    # ich zamieniłoby zdanie wyżej w nieprawdę.
+    tematy_html = ""
+    if zywe:
+        pozycje_t = "".join(
+            f'<li><a href="{baza}/{publiczny(sciezki_tematu(temat, "pl")[0])}">'
+            f'{e(n["temat_%s_tytul" % temat["klucz"]])}</a></li>'
+            for temat, _, _ in zywe)
+        tematy_html = (f'<h2>{e(n["nauka_link"])}</h2>'
+                       f'<ul class="zwykla">{pozycje_t}</ul>')
+
     tresc = ("<h1>Nie ma takiej strony</h1>"
              '<p class="podtytul">Adres mógł się zmienić — dokumenty prawne dostały numer '
              "wersji w adresie, a cała witryna przeniosła się na tę domenę. Poniżej "
              "wszystko, co tu jest.</p>"
              f'<h2>{e(n["naglowek_kart"])}</h2><ul class="zwykla">{pozycje}</ul>'
+             f'{tematy_html}'
              f'<h2>{e(n["dokumenty"])}</h2><ul class="zwykla">'
              f'<li><a href="{baza}/dokumenty.html">{e(n["spis_tytul"])}</a></li>'
              f'<li><a href="{baza}/">{e(n["tytul_mapy"])}</a></li></ul>')
@@ -2191,7 +2224,8 @@ def zbuduj(apki, manifest):
     # słownikiem i przy braku wywala `KeyError`, a nie ostrzeżenie.
     for jezyk in JEZYKI:
         for temat, a, eksport in zywe:
-            adres, tresc = strona_tematu(temat, a, eksport, jezyk, manifest, apki)
+            adres, tresc = strona_tematu(temat, a, eksport, jezyk, manifest,
+                                         apki, zywe)
             pliki[adres] = tresc
             daty[adres] = data_zrodla(a["repoSciezka"], EKSPORT_PLIK)
         if zywe:
@@ -2214,7 +2248,7 @@ def zbuduj(apki, manifest):
 
     pliki["robots.txt"] = robots(manifest)
     pliki["llms.txt"] = llms_txt(apki, manifest, zywe)
-    pliki["404.html"] = strona_404(apki, manifest)
+    pliki["404.html"] = strona_404(apki, manifest, zywe)
     pliki["README.md"] = readme(apki, manifest,
                                 (KORZEN / "README.md").read_text(encoding="utf-8"))
     pliki["sitemap.xml"] = sitemap(

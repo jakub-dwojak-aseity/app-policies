@@ -1064,10 +1064,20 @@ def rozdroze_nauki(zywe, jezyk, manifest):
         ],
     }
 
+    # Karta podglądu: znak rodziny, nie żadnej z pięciu aplikacji. Rozdroże nie jest
+    # o jednej z nich, a karta z cudzą ikoną obiecywałaby przy udostępnieniu co innego,
+    # niż stoi pod adresem.
+    karta_og = f"{baza}/assets/karty/rodzina-{jezyk}.png"
+    dodatkowa = (f'<meta property="og:image" content="{karta_og}">'
+                 '<meta property="og:image:width" content="1200">'
+                 '<meta property="og:image:height" content="630">'
+                 '<meta name="twitter:card" content="summary_large_image">')
+
     return sciezka, strona(
         jezyk=jezyk, tytul=n["nauka_tytul"], opis=n["nauka_opis"],
         kanoniczny=sciezka, alternatywny=alternatywny, tresc=tresc,
         glebokosc=glebokosc, manifest=manifest, jsonld=jsonld,
+        dodatkowa_glowa=dodatkowa,
         nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
         stopka_html=stopka(jezyk, glebokosc, manifest, nauka=False))
 
@@ -2075,6 +2085,34 @@ def bramki(apki, pliki, manifest):
                 f"{temat['apka']}: repozytorium ma Vendor/ (cudza treść, możliwe "
                 f"share-alike) — proweniencja wymaga sprawdzenia pozycja po pozycji, "
                 f"zanim cokolwiek stąd trafi na stronę")
+
+    # 15. Przeciek języka w eksporcie: polska nakładka wpisana w pole angielskie.
+    #
+    #     Bramka 12 widzi pole PUSTE, a nie pole wypełnione nie tym językiem — a to
+    #     drugie jest właśnie tym, co robi katalog z niedokończoną nakładką: nakłada
+    #     polski tekst jako zapasowy i **nie mówi ani słowa**. Rodzina ma tę bliznę
+    #     opisaną: liczenie pokrycia po katalogu daje fałszywą zieleń.
+    #
+    #     Miarą są polskie znaki diakrytyczne, bo to jedyna cecha, która odróżnia
+    #     oba języki maszynowo i nie da się jej pomylić z japońskim. Mierzone na
+    #     eksporcie, nie na wytworze, żeby komunikat wskazywał hasło i repozytorium,
+    #     a nie stronę, na której skutek widać dopiero okiem.
+    POLSKIE = set("ąćęłńóśźżĄĆĘŁŃÓŚŹŻ")
+    for temat in TEMATY:
+        eksport = eksporty.get(temat["apka"])
+        if not eksport or eksport.get("schemaVersion") != EKSPORT_SCHEMA:
+            continue
+        for j in eksport.get("jednostki", []):
+            teksty = [(j.get("nazwa") or {}).get("en", ""),
+                      (j.get("glosa") or {}).get("en", ""),
+                      (j.get("wyjasnienie") or {}).get("en", "")]
+            teksty += [p.get("en", "") for p in j.get("przyklady") or []]
+            for tekst in teksty:
+                if POLSKIE & set(tekst or ""):
+                    bledy.append(
+                        f"{temat['apka']}/{j.get('id', '?')}: polski tekst w polu "
+                        f"angielskim — nakładka jest niedokończona, a nie pusta")
+                    break
 
     return bledy, uwagi
 

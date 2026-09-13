@@ -2221,13 +2221,16 @@ def bez_glowy_witryny(tresc: str) -> str:
 
     Bez tego przesiewu bramka po wstawieniu głów 09.09.2026 zgłosiła **60 rozjazdów
     zamiast 5** — czyli utopiła własny sygnał w zmianie, która treści nie dotknęła.
+    **Powtórzyło się 13.09.2026 przy `hreflang`**, dokładnie tak samo: 5 → 60. Ta lista
+    jest więc rejestrem, nie jednorazową łatką — każdy nowy znacznik, który witryna
+    dokłada do cudzego pliku, trzeba tu dopisać, inaczej bramka przestaje mierzyć treść.
     """
     bez_linii = "\n".join(
         w for w in tresc.split("\n")
         if 'rel="canonical"' not in w and 'name="robots"' not in w
         and 'rel="icon"' not in w and 'rel="apple-touch-icon"' not in w
         and 'name="description"' not in w and 'property="og:' not in w
-        and 'name="twitter:card"' not in w)
+        and 'name="twitter:card"' not in w and 'rel="alternate"' not in w)
     # Wyjście na witrynę dopisujemy **wewnątrz** istniejącej stopki, więc przy stopce
     # jednolinijkowej siedzi w tej samej linii co `</footer>` i wycinanie po liniach
     # zabrałoby razem z nim koniec stopki. Stąd wzorzec, a nie filtr linii.
@@ -2450,6 +2453,7 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
     aktualne = glowy_dokumentow.biezace(manifest)
     ctx = glowy_dokumentow.kontekst(manifest)
     baza = manifest["bazaAdresu"].rstrip("/")
+    pary = glowy_dokumentow.pary_jezykowe(manifest, baza)
     for wzgledna in glowy_dokumentow.dokumenty_na_dysku():
         tresc = (KORZEN / wzgledna).read_text(encoding="utf-8")
         adres = f"{baza}/{wzgledna}"
@@ -2466,6 +2470,19 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
                          f"(uruchom Tools/glowy_dokumentow.py)")
         if 'name="description"' not in tresc:
             bledy.append(f"{wzgledna}: brak opisu (uruchom Tools/glowy_dokumentow.py)")
+        # Para językowa. Mierzymy **oba adresy osobno**, nie samą obecność słowa
+        # `hreflang`: dokument, który wskazuje siebie jako obie wersje albo wskazuje
+        # nie tego brata, przechodzi każdą bramkę pytającą „czy jest hreflang".
+        # Kuzushi trzyma angielski w korzeniu, a polski w `pl/` — dokładnie tam
+        # wzorzec „`/en/` znaczy angielski" robi parę na opak.
+        para = pary.get(wzgledna)
+        if para:
+            for jezyk, adres_pary in para.items():
+                if f'hreflang="{jezyk}" href="{adres_pary}"' not in tresc:
+                    bledy.append(f"{wzgledna}: brak hreflang {jezyk} → {adres_pary} "
+                                 f"(uruchom Tools/glowy_dokumentow.py)")
+        elif "hreflang" in tresc:
+            bledy.append(f"{wzgledna}: ma hreflang, a nie ma pary językowej w manifeście")
         # Wyjście na witrynę. Dokument prawny bez niego jest ślepym zaułkiem dla
         # człowieka, który przyszedł tu z App Store — a to jest ruch od kogoś,
         # kto już kupił jedną aplikację i nie widzi pozostałych dziewięciu.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Dopisuje `canonical` do dokumentów prawnych, a przestarzałym — `noindex`.
+"""Dopisuje `canonical` i `hreflang` do dokumentów prawnych, a przestarzałym — `noindex`.
 
     python3 Tools/glowy_dokumentow.py            # dopisuje i zapisuje
     python3 Tools/glowy_dokumentow.py --sprawdz  # nic nie pisze, tylko zgłasza braki
@@ -51,6 +51,8 @@ wstawka, zamiast wstawiać w przypadkowe miejsce.
 - **`noindex` na dokumencie bieżącym** — błąd. Bieżąca polityka ma być w indeksie;
 - **brak ikony witryny** — dokumenty prawne nie idą przez generator, więc `<link rel="icon">`
   nie dostają skądinąd i ich karta w przeglądarce stoi pusta;
+- **brak pary językowej** — plik, który już ma jakikolwiek `hreflang`, jest pomijany
+  w całości: drugie uruchomienie nie dokłada drugiego kompletu;
 - **dokument w manifeście, którego nie ma na dysku** — błąd, bo to znaczy, że strona
   linkuje w pustkę.
 
@@ -81,6 +83,16 @@ NOINDEX = '<meta name="robots" content="noindex, follow">'
 IKONY = ('<link rel="icon" type="image/png" sizes="48x48" href="{baza}/assets/znak-48.png">',
          '<link rel="apple-touch-icon" href="{baza}/assets/znak-180.png">')
 OPIS = '<meta name="description" content="{tresc}">'
+# Polska i angielska wersja tego samego dokumentu wskazują na siebie. Zmierzone
+# 13.09.2026: **69 dokumentów prawnych, zero `hreflang`** — czyli wyszukiwarka widziała
+# dwie niepowiązane cienkie strony tam, gdzie stoi jedna treść w dwóch językach.
+# A wchodzi tam kupujący z App Store, bo to jego `privacyPolicyUrl`.
+#
+# `x-default` wskazuje **angielski**, tak samo jak na stronach generowanych — witryna
+# ma jeden wzór na to, kogo obsługuje odwiedzający spoza obu języków.
+HREFLANG = ('<link rel="alternate" hreflang="pl" href="{pl}">',
+            '<link rel="alternate" hreflang="en" href="{en}">',
+            '<link rel="alternate" hreflang="x-default" href="{en}">')
 OG = ('<meta property="og:title" content="{tytul}">',
       '<meta property="og:description" content="{tresc}">',
       '<meta property="og:url" content="{adres}">',
@@ -103,6 +115,33 @@ def biezace(m: dict) -> set[str]:
     for a in list(m["aplikacje"]) + list(m.get("pozostale", [])):
         for katalog in a["dokumenty"].values():
             wynik |= {f"{katalog}/{plik}" for plik in PLIKI_DOKUMENTU}
+    return wynik
+
+
+def pary_jezykowe(m: dict, baza: str) -> dict[str, dict[str, str]]:
+    """Ścieżka dokumentu → adresy jego pary językowej. **Tylko dokumenty bieżące.**
+
+    Parowania **nie da się wyliczyć ze ścieżki** i to jest tu jedyna pułapka warta
+    zapamiętania: dziewięć aplikacji trzyma angielski w podkatalogu `en/`, a Kuzushi
+    odwrotnie — `kuzushi/` jest angielskie, `kuzushi/pl/` polskie. Kto założy wzorzec
+    „`/en/` znaczy angielski", zrobi Kuzushiemu parę na opak i powie wyszukiwarce,
+    że polska polityka jest wersją angielską. Manifest wie to poprawnie, więc czytamy
+    manifest.
+
+    **Przestarzałe wersje nie dostają pary z rozmysłem.** Mają `noindex, follow`;
+    `hreflang` wskazujący stronę wyłączoną z indeksu to polecenie sprzeczne — raz
+    „nie pokazuj", raz „to jest wersja językowa tamtej". SpoolCalc ma tylko angielski,
+    więc pary nie ma i nie wymyślamy jej.
+    """
+    wynik = {}
+    for a in list(m["aplikacje"]) + list(m.get("pozostale", [])):
+        katalogi = a["dokumenty"]
+        if not {"pl", "en"} <= set(katalogi):
+            continue
+        for plik in PLIKI_DOKUMENTU:
+            adresy = {j: f"{baza}/{katalogi[j]}/{plik}" for j in ("pl", "en")}
+            for jezyk in ("pl", "en"):
+                wynik[f"{katalogi[jezyk]}/{plik}"] = adresy
     return wynik
 
 
@@ -265,6 +304,7 @@ def main() -> int:
     baza = m["bazaAdresu"].rstrip("/")
     aktualne = biezace(m)
     ctx = kontekst(m)
+    pary = pary_jezykowe(m, baza)
     bledy, zmienione, pominiete = [], [], 0
 
     for wzgledna in sorted(aktualne):
@@ -282,6 +322,7 @@ def main() -> int:
         ma_ikone = 'rel="icon"' in tresc
         ma_opis = 'name="description"' in tresc
         ma_og = 'property="og:' in tresc
+        ma_hreflang = "hreflang=" in tresc
         ma_wyjscie = f"{baza}/apps/" in tresc or f"{baza}/en/apps/" in tresc
 
         if ma_canonical and adres not in tresc:
@@ -298,6 +339,8 @@ def main() -> int:
             potrzebne.append(NOINDEX)
         if not ma_ikone:
             potrzebne.extend(wzor.format(baza=baza) for wzor in IKONY)
+        if not ma_hreflang and (para := pary.get(wzgledna)):
+            potrzebne.extend(wzor.format(**para) for wzor in HREFLANG)
 
         wpis = ctx["apka"].get(wzgledna)
         zajawka = opis_dokumentu(tresc) if not (ma_opis and ma_og) else ""

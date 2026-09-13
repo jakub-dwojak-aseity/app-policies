@@ -64,8 +64,8 @@ Kolejka toru, w kolejności taniości: (1) domknięcie poz. 84 — 16 plików pr
 w dwóch martwych drzewach, część to historia i **ma zostać**; (2) Search Console (Jakub);
 (3) ~~sekcje bez własnego opisu~~ — **zrobione 15.09, 22 z 22, bramka 19 milczy**;
 (4) **przemianowanie 38 zakupów w ASC** — nie 42 i nie „wpisanie brakujących": wszystkie
-mają komplet nazw i opisów, a wzorzec z planu mieści się w 30 znakach w 6 nazwach z 38
-(propozycja i dziewięć spornych: przekazane Jakubowi 15.09);
+mają komplet nazw i opisów, a wzorzec z planu mieści się w 30 znakach w 6 nazwach z 38.
+Tabela z propozycją i dziewięcioma spornymi nazwami: **`docs/ZAKUPY_NAZWY.md`**;
 (5) **nic z sióstr — wszystko, co się dało, jest wzięte.**
 Bunmyaku odpada decyzją Jakuba (318 z 351 haseł to samo znaczenie), Shindan i Kifuku są
 zablokowane, Keigo i Kaname mają już swoje — szczegóły w poz. 189.
@@ -102,8 +102,14 @@ dziesięć adresów z dnia 1 plus ponowne zaindeksowanie `apps/shindan`.
 `analyticsReportRequests`, a Search Console nie ma tu API w naszym zasięgu. **Ta sekcja jest
 jedynym źródłem prawdy o tym, co poszło**, więc odhacza się ją w chwili kliku, nie po tygodniu.
 
-**Uwaga przy najbliższym zgłoszeniu mapy:** jeśli doszły nowe strony po 14.09, mapa wymaga
+**Uwaga przy najbliższym zgłoszeniu mapy:** jeśli doszły nowe strony, mapa wymaga
 powtórnego zgłoszenia — sama się nie odświeży w indeksie.
+
+**Liczba adresów w Search Console to stan z chwili POBRANIA mapy, nie z teraz.** Zmierzone
+15.09: Jakub zgłosił mapę między dwoma wdrożeniami tego samego dnia i GSC pokazał 84, choć
+plik na żywo miał już 88. Sprawdzać zawsze u źródła —
+`curl -sS https://jd-japanese.pl/sitemap.xml | grep -c '<loc>'` — zanim uzna się rozjazd
+za wadę generatora. Ponowne zgłoszenie wymusza pobranie; sam licznik się nie odświeży.
 
 **Zostają trzy strony produktowe do powtórki** (pierwsze prośby mogły pójść, gdy strony
 mówiły jeszcze „wkrótce"):

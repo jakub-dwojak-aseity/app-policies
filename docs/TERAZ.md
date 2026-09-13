@@ -29,7 +29,17 @@ Poza tym bez zmian: domena przełączona 09.09, dziesięć podstron produktowych
 mapa rodziny, spis dokumentów, strona o autorze, własna 404, `robots.txt` z robotami AI
 z nazwy, `llms.txt`, `schema.org`, karty `og:image`, kadry w WebP, poczta na własnej domenie.
 **Bramki generatora: zielone, 90 plików, 10 aplikacji** (pomiar `--sprawdz`, 15.09) —
-bramek jest dziś **dziewiętnaście**, trzy ostatnie doszły przy podziale onomatopei.
+bramek jest dziś **dwadzieścia**: trzy doszły przy podziale onomatopei, dwudziesta
+przy zapowiedzianych.
+
+**Od 15.09 witryna pokazuje też to, czego jeszcze nie ma.** Sekcja **„Co dojdzie do rodziny"**
+pod dziesiątką: sześć kart z ikoną, nazwą i jednym zdaniem, plakietka **„W przygotowaniu"** —
+świadomie inna niż „Wkrótce w App Store", bo tamta znaczy tu „czeka na recenzję Apple".
+**Trzeci stan w manifeście (`zapowiedziane`), nie przeciążenie `wSklepie`:** tamta ścieżka
+buduje pełną stronę produktową i wymaga kompletu metadanych oraz dokumentów prawnych.
+Zapowiedziane **nie mają stron produktowych ani wpisów w mapie witryny** — pomiar po
+przeliczeniu: 90 plików bez zmian, mapa dalej 84 adresy, ikon 16. Pilnuje **bramka 20**.
+Rozstrzygnięcie i to, czego nie wybrano: poz. 112; tożsamość szóstki: poz. 62–67.
 
 **Tor witrynowy jedzie równolegle do wydań** i nie zjada miejsc w turze apek (§12 planu SEO).
 Wchodząc tu, bierzesz albo **pozycję z kolejki niżej**, albo **obowiązkowy powrót po wydaniu
@@ -232,7 +242,7 @@ https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne/
 
 ```sh
 cd ~/aseity/app-policies
-python3 Tools/generuj-strony.py --sprawdz        # dziewiętnaście bramek, bez zapisu
+python3 Tools/generuj-strony.py --sprawdz        # dwadzieścia bramek, bez zapisu
 python3 Tools/generuj-strony.py                  # przelicz
 python3 Tools/generuj-strony.py --powtarzalnie   # dwa przebiegi, bit w bit
 python3 Tools/generuj-strony.py --sprawdz-sklep  # manifest kontra pięć witryn App Store (sieć)

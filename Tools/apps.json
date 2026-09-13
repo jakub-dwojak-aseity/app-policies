@@ -62,8 +62,8 @@
     "",
     "Nazwa i podtytuł idą z `docs/app-store/APP_STORE_METADATA_{PL,EN}.md` repozytorium",
     "aplikacji, tak samo jak u dziesiątki — manifest trzyma fakty, nie kopie tekstu.",
-    "`appId` nie ma, bo w dniu zakładania tej sekcji rekordy w ASC dopiero powstawały;",
-    "dopisuje się go tutaj razem z przeniesieniem wpisu do `aplikacje` przy pierwszym wydaniu.",
+    "`appId` jest, bo rekordy w ASC powstały 15.09.2026 — ale link do sklepu z niego NIE powstaje:",
+    "rekord bez builda nie ma strony w App Store. `zarezerwowana` to data założenia rekordu — rekord bez wgranego builda ma w ASC termin ważności i po tej dacie liczy się go ręcznie.",
     "",
     "Nazwy zmierzone w App Store 15.09.2026 (`itunes.apple.com/search`, cztery witryny).",
     "Próg jest MYLENIEM SIĘ W OBRĘBIE NAUKI JAPOŃSKIEGO, nie obecnością słowa w sklepie:",
@@ -78,7 +78,9 @@
       "repo": "kikitori-ios",
       "poz": 62,
       "ikona": "docs/ikona/icon-1024.png",
-      "kolejnosc": 1
+      "kolejnosc": 1,
+      "appId": "6811569814",
+      "zarezerwowana": "2026-09-15"
     },
     {
       "slug": "danraku",
@@ -87,7 +89,9 @@
       "repo": "danraku-ios",
       "poz": 63,
       "ikona": "docs/ikona/icon-1024.png",
-      "kolejnosc": 2
+      "kolejnosc": 2,
+      "appId": "6811569672",
+      "zarezerwowana": "2026-09-15"
     },
     {
       "slug": "sakubun",
@@ -96,7 +100,9 @@
       "repo": "sakubun-ios",
       "poz": 64,
       "ikona": "docs/ikona/icon-1024.png",
-      "kolejnosc": 3
+      "kolejnosc": 3,
+      "appId": "6811570249",
+      "zarezerwowana": "2026-09-15"
     },
     {
       "slug": "hatsuwa",
@@ -105,7 +111,9 @@
       "repo": "hatsuwa-ios",
       "poz": 65,
       "ikona": "docs/ikona/icon-1024.png",
-      "kolejnosc": 4
+      "kolejnosc": 4,
+      "appId": "6811570171",
+      "zarezerwowana": "2026-09-15"
     },
     {
       "slug": "hitsujun",
@@ -114,7 +122,9 @@
       "repo": "hitsujun-ios",
       "poz": 66,
       "ikona": "docs/ikona/icon-1024.png",
-      "kolejnosc": 5
+      "kolejnosc": 5,
+      "appId": "6811570035",
+      "zarezerwowana": "2026-09-15"
     },
     {
       "slug": "bushu",
@@ -123,7 +133,9 @@
       "repo": "bushu-ios",
       "poz": 67,
       "ikona": "docs/ikona/icon-1024.png",
-      "kolejnosc": 6
+      "kolejnosc": 6,
+      "appId": "6811570369",
+      "zarezerwowana": "2026-09-15"
     }
   ],
   "aplikacje": [

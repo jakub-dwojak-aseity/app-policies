@@ -772,6 +772,8 @@ ROBOTY_AI = ("GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-Use
 TEMATY = (
     {"apka": "joshi", "klucz": "partykuly",
      "sciezka": {"pl": "nauka/partykuly-japonskie", "en": "en/learn/japanese-particles"}},
+    {"apka": "kaname", "klucz": "pary",
+     "sciezka": {"pl": "nauka/mylace-pary", "en": "en/learn/confusing-pairs"}},
     {"apka": "katsuyokei", "klucz": "formy",
      "sciezka": {"pl": "nauka/formy-czasownika", "en": "en/learn/verb-forms"}},
     {"apka": "kazoekata", "klucz": "liczniki",
@@ -902,6 +904,11 @@ def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):
         wiersze = []
         for p in jednostka["przyklady"]:
             wiersz = ""
+            # Sytuacja **nad** zdaniem, nie pod: u Kaname zdanie kontrastowe bez niej
+            # nie ma czego rozstrzygać — „あまり czy ぜんぜん" zależy od tego, ile się
+            # naprawdę rozumie. Kolejność na ekranie jest kolejnością czytania.
+            if (p.get("kontekst") or {}).get(jezyk):
+                wiersz += f'<span class="tlum">{e(p["kontekst"][jezyk])}</span>'
             # Pełna forma przed skrótem — tylko Kuzushi ją niesie, bo tylko tam
             # nauka polega na złożeniu jednego z drugim. Strzałkę wyjaśnia zdanie
             # wprowadzające strony, więc nie dokładamy do niej etykiety.
@@ -909,8 +916,13 @@ def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):
                 wiersz += (f'<span class="pelna" lang="ja">{ruby_html(p["jpPelne"])}'
                            f"</span> → ")
             wiersz += f'<span lang="ja">{ruby_html(p["jp"])}</span>'
+            # Tłumaczenie zdania. Osobne pole od `uwaga` z rozmysłu: czytelnik bierze
+            # polską linijkę pod japońskim zdaniem za tłumaczenie, więc wpisanie tam
+            # uzasadnienia byłoby drobnym kłamstwem na każdej pozycji.
             if p.get(jezyk):
                 wiersz += f'<span class="tlum">{e(p[jezyk])}</span>'
+            if (p.get("uwaga") or {}).get(jezyk):
+                wiersz += f'<span class="tlum">{e(p["uwaga"][jezyk])}</span>'
             wiersze.append(f"<li>{wiersz}</li>")
         czesci.append(f'<ul class="przyklady">{"".join(wiersze)}</ul>')
 
@@ -2086,9 +2098,15 @@ def bramki(apki, pliki, manifest):
             gdzie = f"{temat['apka']}/{j.get('id', '?')}"
             if not j.get("odciski"):
                 bledy.append(f"{gdzie}: hasło bez odcisku — nikt za nie nie ręczy")
+            # Nagłówkiem hasła jest termin **albo** nazwa. Para kontrastowa Kaname
+            # („あまり〜ない / ぜんぜん〜ない") krótkiej nazwy nie ma i mieć nie może:
+            # nazwą pary jest samo zestawienie. Termin jest jeden dla obu języków,
+            # więc wystarcza sam; nazwa musi być w obu, bo jest tekstem.
+            if not j.get("termin") and not all(
+                    (j.get("nazwa") or {}).get(jezyk) for jezyk in JEZYKI):
+                bledy.append(f"{gdzie}: hasło bez nagłówka — ani terminu, "
+                             f"ani nazwy w obu językach")
             for jezyk in JEZYKI:
-                if not (j.get("nazwa") or {}).get(jezyk):
-                    bledy.append(f"{gdzie}: brak nazwy w języku {jezyk}")
                 tresci = [(j.get("glosa") or {}).get(jezyk),
                           (j.get("wyjasnienie") or {}).get(jezyk)]
                 if not any(t and t.strip() for t in tresci):

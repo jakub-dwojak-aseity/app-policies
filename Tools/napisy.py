@@ -95,6 +95,9 @@ NAPISY = {
         "temat_partykuly_tytul": "Partykuły japońskie: は, が, を, に, で, へ",
         "temat_partykuly_opis": "Partykuły, które niosą zwykłe japońskie zdanie, i role, "
                                 "w jakich stoją – z przykładami i tłumaczeniem.",
+        "temat_pary_tytul": "Mylące pary w japońskim: は czy が, もう czy まだ",
+        "temat_pary_opis": "Pary, które wyglądają wymiennie i nie są – przy każdym zdaniu "
+                           "sytuacja i powód, dla którego druga forma nie pasuje.",
         "temat_liczniki_tytul": "Liczniki japońskie – jak liczyć ludzi, rzeczy i zwierzęta",
         "temat_liczniki_opis": "Czym liczy się ludzi, cienkie przedmioty, książki i zwierzęta "
                                "– z czytaniem, notą o wyjątkach i zdaniami przykładowymi.",
@@ -176,6 +179,9 @@ NAPISY = {
         "temat_partykuly_tytul": "Japanese particles: は, が, を, に, で, へ",
         "temat_partykuly_opis": "The particles that carry an ordinary Japanese sentence, "
                                 "and the roles they stand in – with examples and translations.",
+        "temat_pary_tytul": "Confusing pairs in Japanese: は or が, もう or まだ",
+        "temat_pary_opis": "Pairs that look interchangeable and are not – each sentence "
+                           "comes with the situation and the reason the other form fails.",
         "temat_liczniki_tytul": "Japanese counters – how to count people, things and animals",
         "temat_liczniki_opis": "What you use to count people, thin objects, books and animals "
                                "– with readings, notes on the exceptions and example sentences.",

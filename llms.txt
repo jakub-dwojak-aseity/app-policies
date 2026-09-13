@@ -43,11 +43,13 @@ pleasant – understand that and you can guess a word you have never seen.
 ## Nauka japońskiego
 
 - [Partykuły japońskie: は, が, を, に, で, へ](https://jd-japanese.pl/nauka/partykuly-japonskie/): Partykuły, które niosą zwykłe japońskie zdanie, i role, w jakich stoją – z przykładami i tłumaczeniem.
+- [Mylące pary w japońskim: は czy が, もう czy まだ](https://jd-japanese.pl/nauka/mylace-pary/): Pary, które wyglądają wymiennie i nie są – przy każdym zdaniu sytuacja i powód, dla którego druga forma nie pasuje.
 - [Formy czasownika japońskiego: ます, て, た, ない](https://jd-japanese.pl/nauka/formy-czasownika/): Formy z pierwszych dwóch etapów odmiany – co każda robi i kiedy się jej używa.
 - [Liczniki japońskie – jak liczyć ludzi, rzeczy i zwierzęta](https://jd-japanese.pl/nauka/liczniki-japonskie/): Czym liczy się ludzi, cienkie przedmioty, książki i zwierzęta – z czytaniem, notą o wyjątkach i zdaniami przykładowymi.
 - [Japoński potoczny – skróty z anime i rozmowy](https://jd-japanese.pl/nauka/mowa-potoczna/): Skróty, które słychać na co dzień, każdy obok pełnej formy, z której powstał.
 - [Keigo – japońska grzeczność w praktyce](https://jd-japanese.pl/nauka/keigo/): Sytuacje z pracy oraz formy czczące i skromne – co powiedzieć i dlaczego akurat to.
 - [Japanese particles: は, が, を, に, で, へ](https://jd-japanese.pl/en/learn/japanese-particles/): The particles that carry an ordinary Japanese sentence, and the roles they stand in – with examples and translations.
+- [Confusing pairs in Japanese: は or が, もう or まだ](https://jd-japanese.pl/en/learn/confusing-pairs/): Pairs that look interchangeable and are not – each sentence comes with the situation and the reason the other form fails.
 - [Japanese verb forms: masu, te, ta, nai](https://jd-japanese.pl/en/learn/verb-forms/): The forms from the first two stages of conjugation – what each one does and when it is used.
 - [Japanese counters – how to count people, things and animals](https://jd-japanese.pl/en/learn/japanese-counters/): What you use to count people, thin objects, books and animals – with readings, notes on the exceptions and example sentences.
 - [Casual Japanese – the contractions in anime and conversation](https://jd-japanese.pl/en/learn/casual-japanese/): The contractions you hear every day, each next to the full form it came from.

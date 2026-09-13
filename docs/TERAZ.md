@@ -63,6 +63,58 @@ Przykład ma cztery pola opcjonalne: `jpPelne` (forma pełna przed skrótem, Kuz
 (tłumaczenie). Nagłówkiem hasła jest `termin` **albo** `nazwa` — para kontrastowa
 krótkiej nazwy nie ma i mieć nie może.
 
+## Search Console — co wkleić, w tej kolejności
+
+**Najpierw mapa:** `https://jd-japanese.pl/sitemap.xml` — zgłosić od nowa, ma dziś
+**56 adresów**, a GSC znał 24. Potem „Sprawdzenie adresu URL → Poproś o zaindeksowanie",
+po ok. dziesięć dziennie (limit Google), w tej kolejności:
+
+**Dzień 1 — rozdroża i najmocniejsze frazy**
+```
+https://jd-japanese.pl/nauka/
+https://jd-japanese.pl/nauka/gramatyka-n5/
+https://jd-japanese.pl/nauka/partykuly-japonskie/
+https://jd-japanese.pl/nauka/mylace-pary/
+https://jd-japanese.pl/nauka/liczniki-japonskie/
+https://jd-japanese.pl/nauka/gramatyka-n5/szkielet-zdania/
+https://jd-japanese.pl/nauka/mowa-potoczna/
+https://jd-japanese.pl/nauka/keigo/
+https://jd-japanese.pl/nauka/formy-czasownika/
+https://jd-japanese.pl/nauka/gramatyka-n5/formy-czasownika/
+```
+
+**Dzień 2 — reszta grup N5 po polsku i rozdroża angielskie**
+```
+https://jd-japanese.pl/nauka/gramatyka-n5/czas-i-miejsce/
+https://jd-japanese.pl/nauka/gramatyka-n5/prosby-i-zakazy/
+https://jd-japanese.pl/nauka/gramatyka-n5/przymiotniki/
+https://jd-japanese.pl/nauka/gramatyka-n5/checi-i-zaproszenia/
+https://jd-japanese.pl/nauka/gramatyka-n5/powod-i-ton/
+https://jd-japanese.pl/en/learn/
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/
+https://jd-japanese.pl/en/learn/japanese-particles/
+https://jd-japanese.pl/en/learn/confusing-pairs/
+https://jd-japanese.pl/en/learn/japanese-counters/
+```
+
+**Dzień 3 — reszta angielskich**
+```
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/sentence-skeleton/
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/verb-forms/
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/time-and-place/
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/requests-and-prohibitions/
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/adjectives/
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/wishes-and-invitations/
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/reason-and-tone/
+https://jd-japanese.pl/en/learn/casual-japanese/
+https://jd-japanese.pl/en/learn/keigo/
+https://jd-japanese.pl/en/learn/verb-forms/
+```
+
+**Osobno, wciąż otwarte z 09.09:** powtórka prośby dla `apps/shindan`, `apps/keigo`,
+`apps/kifuku`, `apps/onomatope` — pierwsze prośby mogły pójść **przed** przestawieniem
+`wSklepie`, czyli Google ma wersję ze znacznikiem „wkrótce" nad apką do kupienia.
+
 ## Czeka na decyzję Jakuba
 
 1. **Czy umorzone zastrzeżenie wpuszcza hasło na stronę** (poz. 189). Dziś **nie** — eksport

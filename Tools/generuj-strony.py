@@ -840,7 +840,7 @@ TEMATY = (
     # strony**. Wypisane z ręki, tak jak adresy, i z tego samego powodu: para
     # „partykuły" i „szkielet zdania N5" to dwie strony pełne は・が・を, a bez
     # powiedzianej hierarchii wyszukiwarka sama zgaduje, która jest tą właściwą
-    # na „japanese particles". Zmierzone 15.09: wszystkie 32 strony sekcji miały
+    # na „japanese particles". Zmierzone 13.09: wszystkie 32 strony sekcji miały
     # zero linków do innego tematu.
     {"apka": "joshi", "klucz": "partykuly",
      "sciezka": {"pl": "nauka/partykuly-japonskie", "en": "en/learn/japanese-particles"},
@@ -875,11 +875,11 @@ TEMATY = (
          {"grupa": "lexeme", "sciezka": {"pl": "slowa", "en": "words"}},
      )},
     # Sześć sekcji, nie dwie — i **oba stare adresy zostają**. Podział zapadł
-    # 15.09, bo `pary-dzwieczne` i `cialo-i-samopoczucie` były najcięższymi
+    # 13.09, bo `pary-dzwieczne` i `cialo-i-samopoczucie` były najcięższymi
     # plikami witryny (86 i 60 KB przy 33 KB największej pozostałej). Oś wybiera
     # siostra w `review-content.py`, tutaj stoją tylko adresy; kubełki `l1` i `l2`
     # zachowały dawny klucz właśnie po to, żeby te dwa adresy nie zginęły —
-    # poszły do Search Console 14.09.
+    # poszły do Search Console 13.09.
     {"apka": "onomatope", "klucz": "onomatopeje",
      "sciezka": {"pl": "nauka/onomatopeje", "en": "en/learn/japanese-mimetics"},
      "grupy": (
@@ -888,7 +888,7 @@ TEMATY = (
          {"grupa": "l1.zmeczenie", "sciezka": {"pl": "zmeczenie", "en": "tiredness"}},
          {"grupa": "l1",
           "sciezka": {"pl": "cialo-i-samopoczucie", "en": "body-and-feeling"}},
-         # Obie sekcje par pocięte 15.09 na pół w kolejności gojūon — decyzja
+         # Obie sekcje par pocięte 13.09 na pół w kolejności gojūon — decyzja
          # Jakuba, bo znaczeniowej osi trzeciej katalog nie unosi. **Pierwsze
          # połówki zachowują dawne adresy**, drugie dostają zakres kana w slugu,
          # żeby adres mówił, gdzie się jest, a nie „część druga".
@@ -1092,7 +1092,7 @@ def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):
     kot = kotwica(jednostka["id"], zajete)
 
     # **Nagłówek zawsze w jednym kształcie: termin, czytanie, nazwa w jednej
-    # linii** — rozstrzygnięcie Jakuba z 14.09, wzorem strony o partykułach.
+    # linii** — rozstrzygnięcie Jakuba z 13.09, wzorem strony o partykułach.
     #
     # Pierwsza wersja miała dwa kształty: sam znak, a nazwa pod nim w osobnym
     # podpisie, i tylko przy terminie powtórzonym nazwa wchodziła do nagłówka.
@@ -1222,7 +1222,7 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
         hasla.append(html_hasla)
 
     # **Spis sekcji zawsze pionowy, jeden odnośnik pod drugim** — rozstrzygnięcie
-    # Jakuba z 14.09, wzorem strony o partykułach. Pierwsza wersja przełączała
+    # Jakuba z 13.09, wzorem strony o partykułach. Pierwsza wersja przełączała
     # kształt długością etykiet: krótkie hasła (本, 〜ている) szły w wiersz, długie
     # w kolumnę. Wyglądało to na oszczędność miejsca, a dawało dwie różne
     # nawigacje na jednej witrynie i kazało czytelnikowi uczyć się ich osobno —
@@ -2670,7 +2670,7 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
     #     swoją grupę, wypycha jej hasła ze strony **bez jednego komunikatu**:
     #     strona nie znika, tylko chudnie, a wszystkie pozostałe bramki świecą
     #     zielono, bo wytwór jest poprawny. Zmierzone przy podziale Onomatope
-    #     15.09: gdyby eksport oddał `l1.bol`, a ten plik o tym kluczu nie wiedział,
+    #     13.09: gdyby eksport oddał `l1.bol`, a ten plik o tym kluczu nie wiedział,
     #     siedem haseł zeszłoby z witryny po cichu.
     #
     #     Błąd, nie uwaga — w odróżnieniu od bramek 12 i 13 nie chodzi o cudze

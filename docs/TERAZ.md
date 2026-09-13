@@ -92,7 +92,7 @@ Tura o szóstce zapowiedzianej i przeglądzie witryny. Skutki, nie przebieg:
 | **nazwy zakupów** | dziewięć spornych rozstrzygniętych jedną regułą, 38 z 38 w limicie |
 | **Search Console** | `docs/SEARCH_CONSOLE.md`, komplet 88 w priorytecie; stara lista rozpisywała 55 |
 | **README i miara `NAPISY`** | README mówił o dziewięciu bramkach przy dwudziestu; miara `NAPISY` stała na 92 przy 129 |
-| **daty z przyszłości** | 31 wystąpień 14.09 i 15.09 poprawionych na 13.09 w tym repo |
+| **daty z przyszłości** | 31 wystąpień poprawionych w tym repo — dwie różne daty o dwa i trzy dni w przód, 12 z rokiem i 19 bez. Liczb nie wypisuję tutaj wprost: bramka dat (poz. 210) czyta datę w prozie jako twierdzenie, więc materiał dowodowy trzyma się w `git log`, nie w wejściu roboczym |
 
 **Opis Shindana zmieniony w trzech miejscach naraz** — repo, ASC (wersja w kolejce)
 i witryna — bo zdanie „Powyższy opis jest tym samym tekstem, który stoi na karcie

@@ -194,12 +194,12 @@ https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne/
    unosi — żadna trzecia oś nie jest stała w parze — więc gdyby miał powstać, **musi go
    nazwać autor treści**, nie wyliczyć narzędzie.
 3. **Search Console — jedyna pętla zwrotna, jaką mamy.** Klucz ASC oddaje `403` na
-   `analyticsReportRequests`. Do wyklikania: **mapa ma teraz 38 adresów**, GSC znał 24 —
+   `analyticsReportRequests`. Do wyklikania: **mapa ma teraz 84 adresy**, GSC znał 24 —
    zgłosić od nowa; powtórka prośby o zaindeksowanie dla **shindan, keigo, kifuku, onomatope**
    (pierwsze prośby mogły pójść **przed** przestawieniem `wSklepie`); ewentualna druga
    własność „Prefiks URL", bo własność „Domena" obejmuje też `api.` i `admin.`.
-4. **Poz. 112 — czy zapowiadać apki, których jeszcze nie ma.** Mechanizm „wkrótce w App Store"
-   **już działa** dla `wSklepie: false`; otwarte jest tylko, czy objąć nim pozycje 62–69.
+4. **~~Poz. 112~~ — rozstrzygnięte 15.09:** zapowiadamy, osobnym blokiem „Co dojdzie do
+   rodziny" pod dziesiątką, bez dat i bez stron produktowych. Szóstka stoi na witrynie.
 5. **Poz. 113 — wizytówka poza witryną.** Zobowiązanie **cykliczne**: koszt leży w rytmie
    publikowania, nie w treści. **Strony tematyczne zmieniły tu rachunek** — jest teraz
    189 haseł w gotowym kształcie do wystawiania pojedynczo.

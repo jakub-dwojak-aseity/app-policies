@@ -9,8 +9,8 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
 ## Od czego zacząć
 
 **Witryna mówi już o japońskim, a nie tylko o aplikacjach.** W nocy z 13 na 14.09.2026 doszło
-**siedem tematów, z czego trzy rozpisane na sekcje** — czterdzieści cztery pliki, mapa
-witryny **26 → 70 adresów**. Wcześniej wszystko, co tu stało, mówiło wyłącznie o dziesiątce apek,
+**osiem tematów, z czego cztery rozpisane na sekcje** — pięćdziesiąt plików, mapa
+witryny **26 → 76 adresów**. Wcześniej wszystko, co tu stało, mówiło wyłącznie o dziesiątce apek,
 a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" albo „は czy が".
 
 | adres | z czego | ile |
@@ -21,13 +21,14 @@ a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" a
 | `/nauka/mowa-potoczna/` + 5 sekcji | Kuzushi | 34 wzorce wg rodzaju skrótu, 61 par zdań |
 | `/nauka/keigo/` + 2 sekcje | Keigo | 13 sytuacji, 19 słów |
 | `/nauka/mylace-pary/` | Kaname | 13 par N5, 22 zdania z sytuacją i powodem |
+| `/nauka/onomatopeje/` + 2 sekcje | Onomatope | 66 haseł, 132 zdania |
 | `/nauka/gramatyka-n5/` + 7 grup | Kaname | 60 punktów N5, 123 zdania |
 | `/nauka/` i `/en/learn/` | rozdroże | żeby strony nie były sierotami |
 
 Poza tym bez zmian: domena przełączona 09.09, dziesięć podstron produktowych w dwóch językach,
 mapa rodziny, spis dokumentów, strona o autorze, własna 404, `robots.txt` z robotami AI
 z nazwy, `llms.txt`, `schema.org`, karty `og:image`, kadry w WebP, poczta na własnej domenie.
-**Bramki generatora: zielone, 76 plików, 10 aplikacji** (pomiar `--sprawdz`, 14.09).
+**Bramki generatora: zielone, 82 pliki, 10 aplikacji** (pomiar `--sprawdz`, 14.09).
 
 **Tor witrynowy jedzie równolegle do wydań** i nie zjada miejsc w turze apek (§12 planu SEO).
 Wchodząc tu, bierzesz albo **pozycję z kolejki niżej**, albo **obowiązkowy powrót po wydaniu
@@ -42,10 +43,9 @@ poprzedniej i następnej, bo kolejność sekcji bywa kolejnością nauki.
 
 Kolejka toru, w kolejności taniości: (1) domknięcie poz. 84 — 16 plików prozy i stare adresy
 w dwóch martwych drzewach, część to historia i **ma zostać**; (2) Search Console (Jakub);
-(3) nazwy i opisy 42 zakupów w ASC; (4) **Onomatope — jedyna siostra, którą da się dziś
-wziąć** (84 jednostki, repo wolne, `review.json` jest; mina: schemat `{"units": …}`).
+(3) nazwy i opisy 42 zakupów w ASC; (4) **nic z sióstr — wszystko, co się dało, jest wzięte.**
 Bunmyaku odpada decyzją Jakuba (318 z 351 haseł to samo znaczenie), Shindan i Kifuku są
-zablokowane — szczegóły w poz. 189.
+zablokowane, Keigo i Kaname mają już swoje — szczegóły w poz. 189.
 
 **`marketingUrl` zszedł z kolejki 14.09 — pomiarem, nie robotą.** `asc-marketing-url.py`
 na sucho oddaje **0 pól do zmiany, 20 już zgodnych**: kolejka mówiła o dwunastu polach na
@@ -73,7 +73,7 @@ krótkiej nazwy nie ma i mieć nie może.
 ## Search Console — co wkleić, w tej kolejności
 
 **Najpierw mapa:** `https://jd-japanese.pl/sitemap.xml` — zgłosić od nowa, ma dziś
-**70 adresów**, a GSC znał 24. Potem „Sprawdzenie adresu URL → Poproś o zaindeksowanie",
+**76 adresów**, a GSC znał 24. Potem „Sprawdzenie adresu URL → Poproś o zaindeksowanie",
 po ok. dziesięć dziennie (limit Google), w tej kolejności:
 
 **Dzień 1 — polskie rozdroża i najmocniejsze frazy**
@@ -134,6 +134,16 @@ https://jd-japanese.pl/en/learn/japanese-n5-grammar/time-and-place/
 https://jd-japanese.pl/en/learn/japanese-n5-grammar/verb-forms/
 https://jd-japanese.pl/en/learn/japanese-n5-grammar/wishes-and-invitations/
 https://jd-japanese.pl/en/learn/keigo/situations/
+```
+
+**Dzień 5 — ósmy temat, dołożony 14.09 po południu**
+```
+https://jd-japanese.pl/en/learn/japanese-mimetics/
+https://jd-japanese.pl/en/learn/japanese-mimetics/body-and-feeling/
+https://jd-japanese.pl/en/learn/japanese-mimetics/voicing-pairs/
+https://jd-japanese.pl/nauka/onomatopeje/
+https://jd-japanese.pl/nauka/onomatopeje/cialo-i-samopoczucie/
+https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne/
 ```
 
 **Osobno, wciąż otwarte z 09.09:** powtórka prośby dla `apps/shindan`, `apps/keigo`,

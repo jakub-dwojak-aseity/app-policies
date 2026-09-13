@@ -1122,10 +1122,13 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
                        n["temat_%s_tytul" % temat["klucz"]])
         tytul = "%s – %s" % (nazwa_g, sufiks)
         opis = opis_grupy(eksport, temat, grupa, jezyk, nazwa_g, sufiks)
-        # **Podtytuł na stronie mówi co innego niż `<title>`.** Opis z głowy jest
-        # pełnym zdaniem dla wyszukiwarki i powtarza nazwę sekcji — pod nagłówkiem,
-        # który tę nazwę właśnie niesie, czytało się to jak zacięcie płyty.
-        podtytul = n["nauka_podtytul_grupy"]
+        # **Podtytuł na stronie mówi co innego niż `<title>` — dopóki opis jest
+        # wspólnym ogonem.** Ogon powtarza nazwę sekcji, a pod nagłówkiem, który tę
+        # nazwę właśnie niesie, czytało się to jak zacięcie płyty. Sekcja z własnym
+        # opisem tej wady nie ma: własne zdanie mówi, o czym ta sekcja jest, więc
+        # stoi i w głowie, i pod nagłówkiem — jedno zdanie zamiast dwóch do pisania.
+        wlasny = n.get("grupa_%s_%s_opis" % (eksport.get("apka", ""), grupa["grupa"]))
+        podtytul = wlasny or n["nauka_podtytul_grupy"]
     else:
         tytul = n["temat_%s_tytul" % temat["klucz"]]
         opis = n["temat_%s_opis" % temat["klucz"]]

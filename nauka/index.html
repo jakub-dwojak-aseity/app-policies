@@ -92,6 +92,8 @@ ul.zwykla li { margin: .3rem 0; }
 /* Strony tematyczne. Pięć reguł i ani jednej więcej: hasło ma wyglądać jak
    sekcja opisu sklepowego, a nie jak inny gatunek strony. Rubin dostaje własny
    rozmiar, bo domyślny w Safari bywa większy niż linia tekstu wokół. */
+.haslo + .haslo { border-top: 1px solid var(--linia); padding-top: .5rem; }
+.haslo h2 { margin-top: 1.75rem; }
 .przyklady { padding-left: 0; list-style: none; margin: .4rem 0 1.25rem; }
 .przyklady li { margin: .6rem 0; }
 .przyklady .pelna { color: var(--cichy); }
@@ -144,6 +146,12 @@ code { font-size: .9em; }
           "position": 6,
           "name": "Keigo – japońska grzeczność w praktyce",
           "url": "https://jd-japanese.pl/nauka/keigo/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Gramatyka japońska N5 – wszystkie punkty z poziomu",
+          "url": "https://jd-japanese.pl/nauka/gramatyka-n5/"
         }
       ]
     },
@@ -171,7 +179,7 @@ code { font-size: .9em; }
 <body>
 <a class="do-tresci" href="#tresc">Przejdź do treści</a>
 <nav class="gora" aria-label="Witryna"><span><a class="znak" href="../index.html" aria-hidden="true" tabindex="-1"><img src="../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../index.html">← Wszystkie aplikacje</a></span><span><a href="https://jd-japanese.pl/en/learn/">English</a></span></nav>
-<main id="tresc"><h1>Nauka japońskiego – partykuły, liczniki, formy, keigo</h1><p class="podtytul">Materiał wyjęty z darmowej części aplikacji rodziny: partykuły, liczniki, formy czasownika, mowa potoczna i keigo.</p><ul class="karty"><li class="karta"><img src="../assets/ikony/joshi.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/partykuly-japonskie/index.html">Partykuły japońskie: は, が, を, に, で, へ</a><p>Partykuły, które niosą zwykłe japońskie zdanie, i role, w jakich stoją – z przykładami i tłumaczeniem.</p></div></li><li class="karta"><img src="../assets/ikony/kaname.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/mylace-pary/index.html">Mylące pary w japońskim: は czy が, もう czy まだ</a><p>Pary, które wyglądają wymiennie i nie są – przy każdym zdaniu sytuacja i powód, dla którego druga forma nie pasuje.</p></div></li><li class="karta"><img src="../assets/ikony/katsuyokei.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/formy-czasownika/index.html">Formy czasownika japońskiego: ます, て, た, ない</a><p>Formy z pierwszych dwóch etapów odmiany – co każda robi i kiedy się jej używa.</p></div></li><li class="karta"><img src="../assets/ikony/kazoekata.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/liczniki-japonskie/index.html">Liczniki japońskie – jak liczyć ludzi, rzeczy i zwierzęta</a><p>Czym liczy się ludzi, cienkie przedmioty, książki i zwierzęta – z czytaniem, notą o wyjątkach i zdaniami przykładowymi.</p></div></li><li class="karta"><img src="../assets/ikony/kuzushi.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/mowa-potoczna/index.html">Japoński potoczny – skróty z anime i rozmowy</a><p>Skróty, które słychać na co dzień, każdy obok pełnej formy, z której powstał.</p></div></li><li class="karta"><img src="../assets/ikony/keigo.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/keigo/index.html">Keigo – japońska grzeczność w praktyce</a><p>Sytuacje z pracy oraz formy czczące i skromne – co powiedzieć i dlaczego akurat to.</p></div></li></ul></main>
+<main id="tresc"><h1>Nauka japońskiego – partykuły, liczniki, formy, keigo</h1><p class="podtytul">Materiał wyjęty z darmowej części aplikacji rodziny: partykuły, liczniki, formy czasownika, mowa potoczna i keigo.</p><ul class="karty"><li class="karta"><img src="../assets/ikony/joshi.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/partykuly-japonskie/index.html">Partykuły japońskie: は, が, を, に, で, へ</a><p>Partykuły, które niosą zwykłe japońskie zdanie, i role, w jakich stoją – z przykładami i tłumaczeniem.</p></div></li><li class="karta"><img src="../assets/ikony/kaname.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/mylace-pary/index.html">Mylące pary w japońskim: は czy が, もう czy まだ</a><p>Pary, które wyglądają wymiennie i nie są – przy każdym zdaniu sytuacja i powód, dla którego druga forma nie pasuje.</p></div></li><li class="karta"><img src="../assets/ikony/katsuyokei.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/formy-czasownika/index.html">Formy czasownika japońskiego: ます, て, た, ない</a><p>Formy z pierwszych dwóch etapów odmiany – co każda robi i kiedy się jej używa.</p></div></li><li class="karta"><img src="../assets/ikony/kazoekata.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/liczniki-japonskie/index.html">Liczniki japońskie – jak liczyć ludzi, rzeczy i zwierzęta</a><p>Czym liczy się ludzi, cienkie przedmioty, książki i zwierzęta – z czytaniem, notą o wyjątkach i zdaniami przykładowymi.</p></div></li><li class="karta"><img src="../assets/ikony/kuzushi.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/mowa-potoczna/index.html">Japoński potoczny – skróty z anime i rozmowy</a><p>Skróty, które słychać na co dzień, każdy obok pełnej formy, z której powstał.</p></div></li><li class="karta"><img src="../assets/ikony/keigo.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/keigo/index.html">Keigo – japońska grzeczność w praktyce</a><p>Sytuacje z pracy oraz formy czczące i skromne – co powiedzieć i dlaczego akurat to.</p></div></li><li class="karta"><img src="../assets/ikony/kaname.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/gramatyka-n5/index.html">Gramatyka japońska N5 – wszystkie punkty z poziomu</a><p>Siedem grup gramatyki N5, od szkieletu zdania po ton wypowiedzi – każdy punkt ze znaczeniem, budową i przykładami.</p></div></li></ul></main>
 <footer>Jakub Dwojak · <a href="../o-autorze/index.html">O autorze</a> · <a href="../dokumenty.html">Spis dokumentów</a></footer>
 </body>
 </html>

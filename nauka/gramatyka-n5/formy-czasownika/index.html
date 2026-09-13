@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>formy czasownika – gramatyka japońska N5</title>
+<meta name="description" content="Punkty gramatyczne N5 z grupy „formy czasownika” – znaczenie, budowa i zdania przykładowe z tłumaczeniem.">
+<link rel="canonical" href="https://jd-japanese.pl/nauka/gramatyka-n5/formy-czasownika/">
+<link rel="alternate" hreflang="pl" href="https://jd-japanese.pl/nauka/gramatyka-n5/formy-czasownika/">
+<link rel="alternate" hreflang="en" href="https://jd-japanese.pl/en/learn/japanese-n5-grammar/verb-forms/">
+<link rel="alternate" hreflang="x-default" href="https://jd-japanese.pl/en/learn/japanese-n5-grammar/verb-forms/">
+<meta property="og:title" content="formy czasownika – gramatyka japońska N5">
+<meta property="og:description" content="Punkty gramatyczne N5 z grupy „formy czasownika” – znaczenie, budowa i zdania przykładowe z tłumaczeniem.">
+<meta property="og:url" content="https://jd-japanese.pl/nauka/gramatyka-n5/formy-czasownika/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Japoński w dziesięciu aplikacjach">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="theme-color" content="#a34f5a">
+<link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
+<link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
+<meta property="og:image" content="https://jd-japanese.pl/assets/karty/kaname-pl.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<style>
+:root { color-scheme: light dark; --tlo:#fff; --tekst:#1c1c1e; --cichy:#6b6b70;
+        --linia:#e3e3e6; --akcent:#a34f5a; --karta:#faf9f9; }
+@media (prefers-color-scheme: dark) {
+  :root { --tlo:#131315; --tekst:#ececef; --cichy:#9a9aa0; --linia:#2c2c30;
+          --akcent:#e08a94; --karta:#1b1b1e; }
+}
+* { box-sizing: border-box; }
+body { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
+       font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       color: var(--tekst); background: var(--tlo); }
+h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 .35rem; }
+h2 { font-size: 1.15rem; margin: 2.5rem 0 .75rem; }
+h3 { font-size: 1rem; margin: 1.75rem 0 .4rem; letter-spacing: .01em; }
+p { margin: .75rem 0; }
+a { color: var(--akcent); }
+.podtytul { color: var(--cichy); margin: 0 0 1rem; font-size: 1.05rem; }
+.lead { border-left: 3px solid var(--akcent); padding: .1rem 0 .1rem 1rem;
+        margin: 1.5rem 0; color: var(--tekst); }
+.gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
+        margin-bottom: 2rem; color: var(--cichy); }
+.gora a { text-decoration: none; }
+.do-tresci { position: absolute; left: -9999px; }
+.do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
+:focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
+footer { overflow-wrap: anywhere; }
+.gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
+.gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
+.szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
+.szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
+.jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
+.karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
+.karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
+         border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
+.karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+.karta { position: relative; }
+.karta .nazwa { font-weight: 600; }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
+   Gramatyka japońska", a nie cały akapit o problemie. */
+.karta .nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
+.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
+.znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
+            border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
+            margin-left: .4rem; vertical-align: .1em; }
+.sklep { display: block; margin: .35rem 0 1.25rem; font-weight: 600; }
+.przycisk { display: inline-block; background: var(--akcent); color: var(--tlo);
+            padding: .55rem 1.1rem; border-radius: 10px; text-decoration: none; }
+.spis-sekcji ul { list-style: none; padding: 0; margin: 0 0 1.75rem;
+                  display: flex; flex-wrap: wrap; gap: .35rem .9rem; font-size: .92rem; }
+.spis-sekcji li { margin: 0; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
+.zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
+          padding-bottom: .5rem; scroll-snap-type: x mandatory; }
+.zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
+.zrzuty img { width: 210px; height: auto; border-radius: 14px;
+              border: 1px solid var(--linia); display: block; }
+.zrzuty figcaption { font-size: .85rem; color: var(--cichy); margin-top: .45rem;
+                     line-height: 1.4; }
+ul.zwykla { padding-left: 1.15rem; }
+ul.zwykla li { margin: .3rem 0; }
+/* Strony tematyczne. Pięć reguł i ani jednej więcej: hasło ma wyglądać jak
+   sekcja opisu sklepowego, a nie jak inny gatunek strony. Rubin dostaje własny
+   rozmiar, bo domyślny w Safari bywa większy niż linia tekstu wokół. */
+.haslo + .haslo { border-top: 1px solid var(--linia); padding-top: .5rem; }
+.haslo h2 { margin-top: 1.75rem; }
+.przyklady { padding-left: 0; list-style: none; margin: .4rem 0 1.25rem; }
+.przyklady li { margin: .6rem 0; }
+.przyklady .pelna { color: var(--cichy); }
+.przyklady .tlum { display: block; color: var(--cichy); font-size: .93rem; }
+ruby rt { font-size: .55em; color: var(--cichy); }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
+         font-size: .88rem; color: var(--cichy); }
+footer a { color: var(--akcent); }
+code { font-size: .9em; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "DefinedTermSet",
+      "name": "formy czasownika – gramatyka japońska N5",
+      "description": "Punkty gramatyczne N5 z grupy „formy czasownika” – znaczenie, budowa i zdania przykładowe z tłumaczeniem.",
+      "url": "https://jd-japanese.pl/nauka/gramatyka-n5/formy-czasownika/",
+      "inLanguage": "pl",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "name": "〜ます",
+          "description": "grzeczna forma czasownika w czasie nieprzeszłym"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "〜ません",
+          "description": "grzeczne zaprzeczenie czynności"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "〜ました",
+          "description": "grzeczna forma czynności już wykonanej"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "〜て",
+          "description": "łączenie czynności w kolejności, w jakiej zaszły"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "〜ています（進行）",
+          "description": "czynność trwająca w chwili mówienia"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "〜ています（結果の状態）",
+          "description": "stan utrzymujący się po zakończonej czynności"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "〜ない",
+          "description": "zaprzeczenie czasownika w rejestrze prostym"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "〜た",
+          "description": "czynność już wykonana, w rejestrze prostym"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "〜てから",
+          "description": "druga czynność zaczyna się po zamknięciu pierwszej"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "もう",
+          "description": "sygnał, że czynność jest już za nami"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "まだ",
+          "description": "sygnał, że stan lub czynność wciąż trwa albo nie nastąpiła"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Japoński w dziesięciu aplikacjach",
+          "item": "https://jd-japanese.pl/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Nauka japońskiego",
+          "item": "https://jd-japanese.pl/nauka/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Gramatyka japońska N5 – wszystkie punkty z poziomu",
+          "item": "https://jd-japanese.pl/nauka/gramatyka-n5/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "formy czasownika – gramatyka japońska N5",
+          "item": "https://jd-japanese.pl/nauka/gramatyka-n5/formy-czasownika/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="do-tresci" href="#tresc">Przejdź do treści</a>
+<nav class="gora" aria-label="Witryna"><span><a class="znak" href="../../../index.html" aria-hidden="true" tabindex="-1"><img src="../../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../../nauka/gramatyka-n5/index.html">← Gramatyka japońska N5 – wszystkie punkty z poziomu</a></span><span><a href="https://jd-japanese.pl/en/learn/japanese-n5-grammar/verb-forms/">English</a></span></nav>
+<main id="tresc"><div class="szyld"><img src="../../../assets/ikony/kaname.webp" alt="" width="72" height="72"><div><h1>formy czasownika – gramatyka japońska N5</h1><p class="podtytul">Punkty gramatyczne N5 z grupy „formy czasownika” – znaczenie, budowa i zdania przykładowe z tłumaczeniem.</p></div></div><nav aria-label="Na tej stronie"><ul class="zwykla"><li><a href="#n5-verb-masu">〜ます · robię, będę robić (forma grzeczna)</a></li><li><a href="#n5-verb-masen">〜ません · nie robię, nie będę robić (forma grzeczna)</a></li><li><a href="#n5-verb-mashita">〜ました · zrobiłem (forma grzeczna)</a></li><li><a href="#n5-verb-te-form">〜て · …, a potem…; forma łącząca</a></li><li><a href="#n5-verb-teimasu-progress">〜ています（進行） · właśnie robię</a></li><li><a href="#n5-verb-teimasu-state">〜ています（結果の状態） · mieszka, jest żonaty — trwa skutek, nie czynność</a></li><li><a href="#n5-verb-nai">〜ない · nie robię (forma prosta)</a></li><li><a href="#n5-verb-ta">〜た · zrobiłem (forma prosta)</a></li><li><a href="#n5-verb-te-kara">〜てから · dopiero po tym, nie wcześniej</a></li><li><a href="#n5-verb-mou">もう · już</a></li><li><a href="#n5-verb-mada">まだ · jeszcze nie; nadal</a></li></ul></nav><section class="haslo"><h2 id="n5-verb-masu"><span lang="ja">〜ます</span> · robię, będę robić (forma grzeczna)</h2><p class="lead">grzeczna forma czasownika w czasie nieprzeszłym</p><p>Domyślna forma w rozmowie z kimś, kogo dobrze nie znamy. Obsługuje naraz teraźniejszość i przyszłość — japoński nie rozdziela ich osobnymi końcówkami, o czasie decyduje kontekst albo określenie czasu w zdaniu.</p><p>temat czasownika + ます (書く → 書きます, 食べる → 食べます, する → します)</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>毎朝<rt>まいあさ</rt></ruby>、<ruby>新聞<rt>しんぶん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>みます。</span><span class="tlum">Codziennie rano czytam gazetę.</span><span class="tlum">Czynność powtarzalna — teraźniejszość.</span></li><li><span lang="ja"><ruby>明日<rt>あした</rt></ruby>、<ruby>友<rt>とも</rt></ruby>だちに<ruby>会<rt>あ</rt></ruby>います。</span><span class="tlum">Jutro spotkam się z przyjacielem.</span><span class="tlum">Ta sama końcówka, a mowa o przyszłości. Rozstrzyga 明日.</span></li></ul></section><section class="haslo"><h2 id="n5-verb-masen"><span lang="ja">〜ません</span> · nie robię, nie będę robić (forma grzeczna)</h2><p class="lead">grzeczne zaprzeczenie czynności</p><p>Zaprzeczenie formy ます. Powstaje przez samą wymianę końcówki, bez żadnego dodatkowego słowa — japoński nie ma odpowiednika polskiego „nie” stawianego przed czasownikiem.</p><p>temat formy ます + ません</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja">お<ruby>酒<rt>さけ</rt></ruby>は<ruby>飲<rt>の</rt></ruby>みません。</span><span class="tlum">Nie piję alkoholu.</span><span class="tlum">Temat z は podkreśla, że mowa akurat o alkoholu.</span></li><li><span lang="ja"><ruby>今日<rt>きょう</rt></ruby>はどこへも<ruby>行<rt>い</rt></ruby>きません。</span><span class="tlum">Dziś nigdzie nie idę.</span><span class="tlum">Przy zaprzeczeniu zaimek pytajny z も daje znaczenie „nigdzie / nic / nikt”.</span></li></ul></section><section class="haslo"><h2 id="n5-verb-mashita"><span lang="ja">〜ました</span> · zrobiłem (forma grzeczna)</h2><p class="lead">grzeczna forma czynności już wykonanej</p><p>Czas przeszły w rejestrze grzecznym. Jedna końcówka obsługuje wszystko, co polski rozdziela na dokonane i niedokonane — 見ました znaczy zarówno „obejrzałem”, jak i „oglądałem”.</p><p>temat formy ます + ました; zaprzeczenie: 〜ませんでした</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>昨日<rt>きのう</rt></ruby>、<ruby>映画<rt>えいが</rt></ruby>を<ruby>見<rt>み</rt></ruby>ました。</span><span class="tlum">Wczoraj obejrzałem film.</span><span class="tlum">Zdarzenie zamknięte w przeszłości.</span></li><li><span lang="ja"><ruby>先週<rt>せんしゅう</rt></ruby>、<ruby>京都<rt>きょうと</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きました。</span><span class="tlum">W zeszłym tygodniu pojechałem do Kioto.</span><span class="tlum">Określenie czasu i końcówka wskazują przeszłość zgodnie.</span></li></ul></section><section class="haslo"><h2 id="n5-verb-te-form"><span lang="ja">〜て</span> · …, a potem…; forma łącząca</h2><p class="lead">łączenie czynności w kolejności, w jakiej zaszły</p><p>Spina zdania w jedną wypowiedź i porządkuje je chronologicznie. Sama nie niesie informacji o czasie ani o grzeczności — rozstrzyga o tym dopiero ostatni czasownik w zdaniu.</p><p>書く → 書いて, 読む → 読んで, 食べる → 食べて, する → して, 来る → 来て</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>朝<rt>あさ</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べて、<ruby>会社<rt>かいしゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。</span><span class="tlum">Jem śniadanie i idę do pracy.</span><span class="tlum">Kolejność zdarzeń jest kolejnością czasowników. Odwrócenie ich zmieniłoby sens.</span></li><li><span lang="ja"><ruby>手<rt>て</rt></ruby>を<ruby>洗<rt>あら</rt></ruby>って、ごはんを<ruby>作<rt>つく</rt></ruby>ります。</span><span class="tlum">Myję ręce i przygotowuję jedzenie.</span><span class="tlum">Czas całej wypowiedzi niesie dopiero 作ります na końcu.</span></li></ul></section><section class="haslo"><h2 id="n5-verb-teimasu-progress"><span lang="ja">〜ています（進行）</span> · właśnie robię</h2><p class="lead">czynność trwająca w chwili mówienia</p><p>Opisuje to, co dzieje się teraz i jeszcze się nie skończyło. Działa z czasownikami oznaczającymi czynność rozciągniętą w czasie — czytanie, jedzenie, oglądanie.</p><p>forma て + います</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>今<rt>いま</rt></ruby>、<ruby>音楽<rt>おんがく</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いています。</span><span class="tlum">Właśnie słucham muzyki.</span><span class="tlum">Słowo 今 przesądza o odczytaniu jako czynności w toku.</span></li><li><span lang="ja"><ruby>弟<rt>おとうと</rt></ruby>は<ruby>部屋<rt>へや</rt></ruby>でゲームをしています。</span><span class="tlum">Brat gra w pokoju.</span><span class="tlum">Czynność trwa i nie została przerwana.</span></li></ul></section><section class="haslo"><h2 id="n5-verb-teimasu-state"><span lang="ja">〜ています（結果の状態）</span> · mieszka, jest żonaty — trwa skutek, nie czynność</h2><p class="lead">stan utrzymujący się po zakończonej czynności</p><p>Ten sam zapis, a zupełnie inne znaczenie. Przy czasownikach oznaczających jednorazową zmianę — zamieszkać, ożenić się, otworzyć — 〜ています mówi nie o trwaniu czynności, tylko o trwaniu jej skutku. 住んでいます nie znaczy „właśnie się wprowadzam”, tylko „mieszkam”. Podział nie jest przy tym sztywny — przy części czasowników, na przykład 着る, oba odczytania są możliwe i rozstrzyga kontekst.</p><p>forma て + います, przy czasownikach jednorazowej zmiany stanu</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>姉<rt>あね</rt></ruby>は<ruby>東京<rt>とうきょう</rt></ruby>に<ruby>住<rt>す</rt></ruby>んでいます。</span><span class="tlum">Moja siostra mieszka w Tokio.</span><span class="tlum">Wprowadzka już się odbyła; trwa jej skutek.</span></li><li><span lang="ja"><ruby>田中<rt>たなか</rt></ruby>さんは<ruby>結婚<rt>けっこん</rt></ruby>しています。</span><span class="tlum">Pan Tanaka jest żonaty.</span><span class="tlum">Odczytanie „właśnie bierze ślub” byłoby błędem — to stan, nie ceremonia.</span></li></ul></section><section class="haslo"><h2 id="n5-verb-nai"><span lang="ja">〜ない</span> · nie robię (forma prosta)</h2><p class="lead">zaprzeczenie czasownika w rejestrze prostym</p><p>Odpowiednik ません w mowie swobodnej, między bliskimi i w tekście pisanym. Poza rejestrem ma drugie zadanie: jest podstawą, na której budują się prośby o zaniechanie i wyrażenia obowiązku.</p><p>書く → 書かない, 食べる → 食べない, する → しない, 来る → 来ない</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>今日<rt>きょう</rt></ruby>は<ruby>何<rt>なに</rt></ruby>も<ruby>食<rt>た</rt></ruby>べない。</span><span class="tlum">Dziś nic nie jem.</span><span class="tlum">Rejestr swobodny — tak mówi się do siebie albo do bliskich.</span></li><li><span lang="ja"><ruby>彼<rt>かれ</rt></ruby>はたばこを<ruby>吸<rt>す</rt></ruby>わない。</span><span class="tlum">On nie pali.</span><span class="tlum">Stała cecha, nie jednorazowa odmowa.</span></li></ul></section><section class="haslo"><h2 id="n5-verb-ta"><span lang="ja">〜た</span> · zrobiłem (forma prosta)</h2><p class="lead">czynność już wykonana, w rejestrze prostym</p><p>Prosty czas przeszły. Odmienia się dokładnie tak jak forma て — wystarczy zamienić końcowe て na た, a で na だ. Kto opanował jedną, ma drugą za darmo.</p><p>z formy て: końcowe て zamienia się na た, a で na だ (書いて → 書いた, 読んで → 読んだ)</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>昨日<rt>きのう</rt></ruby>、<ruby>山<rt>やま</rt></ruby>に<ruby>登<rt>のぼ</rt></ruby>った。</span><span class="tlum">Wczoraj wspiąłem się na górę.</span><span class="tlum">Odpowiednik 登りました w rejestrze swobodnym.</span></li><li><span lang="ja">その<ruby>本<rt>ほん</rt></ruby>はもう<ruby>読<rt>よ</rt></ruby>んだ。</span><span class="tlum">Tę książkę już przeczytałem.</span><span class="tlum">読んで kończy się na で, więc forma przeszła to 読んだ, nie 読んた.</span></li></ul></section><section class="haslo"><h2 id="n5-verb-te-kara"><span lang="ja">〜てから</span> · dopiero po tym, nie wcześniej</h2><p class="lead">druga czynność zaczyna się po zamknięciu pierwszej</p><p>Mocniejsza wersja zwykłego łączenia formą て: zaznacza, że druga czynność zaczyna się dopiero po pierwszej i że ta kolejność ma znaczenie. Bywa też punktem odniesienia, od którego liczy się upływ czasu.</p><p>forma て + から</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>宿題<rt>しゅくだい</rt></ruby>をしてから、<ruby>遊<rt>あそ</rt></ruby>びます。</span><span class="tlum">Pobawię się dopiero po odrobieniu lekcji.</span><span class="tlum">Nacisk pada na to, że zabawa nie zacznie się wcześniej.</span></li><li><span lang="ja"><ruby>日本<rt>にほん</rt></ruby>に<ruby>来<rt>き</rt></ruby>てから、<ruby>三年<rt>さんねん</rt></ruby>たちました。</span><span class="tlum">Minęły trzy lata, odkąd przyjechałem do Japonii.</span><span class="tlum">Tu から wyznacza początek odliczania.</span></li></ul></section><section class="haslo"><h2 id="n5-verb-mou"><span lang="ja">もう</span> · już</h2><p class="lead">sygnał, że czynność jest już za nami</p><p>Mówi, że coś zdążyło się wydarzyć. Idzie w parze z formą ました albo ています, bo obie opisują stan po czynności. W innym kontekście もう znaczy po prostu „już teraz”, bez odnoszenia się do czegoś zakończonego.</p><p>もう + czasownik w formie ました; もう + forma ています</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>昼<rt>ひる</rt></ruby>ごはんはもう<ruby>食<rt>た</rt></ruby>べました。</span><span class="tlum">Obiad już zjadłem.</span><span class="tlum">もう i forma ました chodzą razem — pytanie もう食べましたか oczekuje właśnie takiej odpowiedzi.</span></li><li><span lang="ja">もう<ruby>帰<rt>かえ</rt></ruby>ってもいいですか。</span><span class="tlum">Czy mogę już wracać?</span><span class="tlum">Tu もう znaczy „już teraz”, a nie „już zrobione”.</span></li></ul></section><section class="haslo"><h2 id="n5-verb-mada"><span lang="ja">まだ</span> · jeszcze nie; nadal</h2><p class="lead">sygnał, że stan lub czynność wciąż trwa albo nie nastąpiła</p><p>Para do もう, ale z pułapką w budowie: zaprzeczeniem もう食べました nie jest まだ食べませんでした, tylko まだ食べていません — chodzi o stan trwający do teraz, a nie o przeszłość. Bez zaprzeczenia まだ znaczy „nadal”.</p><p>まだ + forma ていません (jeszcze nie); まだ + forma twierdząca (nadal)</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>宿題<rt>しゅくだい</rt></ruby>はまだ<ruby>終<rt>お</rt></ruby>わっていません。</span><span class="tlum">Zadania jeszcze nie skończyłem.</span><span class="tlum">Forma ていません, nie ませんでした — to jest najczęstszy błąd przy まだ.</span></li><li><span lang="ja"><ruby>父<rt>ちち</rt></ruby>はまだ<ruby>会社<rt>かいしゃ</rt></ruby>にいます。</span><span class="tlum">Tata jest jeszcze w firmie.</span><span class="tlum">Bez zaprzeczenia まだ znaczy „nadal”, a nie „jeszcze nie”.</span></li></ul></section><h2>Skąd ten materiał</h2><p>Wszystko powyżej pochodzi z darmowej części aplikacji Kaname i przeszło jej przegląd treści.</p><ul class="karty"><li class="karta"><img src="../../../assets/ikony/kaname.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../../../apps/kaname/index.html">Kaname: Gramatyka japońska</a><span class="co">Powtórki JLPT: N5 N4 N3 N2 N1</span></div></li></ul><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/id6801993668">App Store →</a><span class="znacznik">Aplikacja darmowa, z zakupem w środku</span></p><h2>Nauka japońskiego</h2><ul class="zwykla"><li><a href="../../../nauka/gramatyka-n5/czas-i-miejsce/index.html">← Poprzednia grupa: czas, miejsce i istnienie</a></li><li><a href="../../../nauka/gramatyka-n5/prosby-i-zakazy/index.html">Następna grupa: prośby, pozwolenia i zakazy →</a></li><li><a href="../../../nauka/gramatyka-n5/index.html">Gramatyka japońska N5 – wszystkie punkty z poziomu</a></li></ul></main>
+<footer>Jakub Dwojak · <a href="../../../o-autorze/index.html">O autorze</a> · <a href="../../../nauka/index.html">Nauka japońskiego</a> · <a href="../../../dokumenty.html">Spis dokumentów</a> · <a href="mailto:kaname@jd-japanese.pl">kaname@jd-japanese.pl</a></footer>
+</body>
+</html>

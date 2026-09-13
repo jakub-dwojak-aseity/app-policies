@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>the sentence skeleton and particles – Japanese N5 grammar</title>
+<meta name="description" content="N5 grammar points from the group “the sentence skeleton and particles” – meaning, formation and example sentences with translations.">
+<link rel="canonical" href="https://jd-japanese.pl/en/learn/japanese-n5-grammar/sentence-skeleton/">
+<link rel="alternate" hreflang="en" href="https://jd-japanese.pl/en/learn/japanese-n5-grammar/sentence-skeleton/">
+<link rel="alternate" hreflang="pl" href="https://jd-japanese.pl/nauka/gramatyka-n5/szkielet-zdania/">
+<link rel="alternate" hreflang="x-default" href="https://jd-japanese.pl/en/learn/japanese-n5-grammar/sentence-skeleton/">
+<meta property="og:title" content="the sentence skeleton and particles – Japanese N5 grammar">
+<meta property="og:description" content="N5 grammar points from the group “the sentence skeleton and particles” – meaning, formation and example sentences with translations.">
+<meta property="og:url" content="https://jd-japanese.pl/en/learn/japanese-n5-grammar/sentence-skeleton/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Japanese in ten apps">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pl_PL">
+<meta name="theme-color" content="#a34f5a">
+<link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
+<link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
+<meta property="og:image" content="https://jd-japanese.pl/assets/karty/kaname-en.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<style>
+:root { color-scheme: light dark; --tlo:#fff; --tekst:#1c1c1e; --cichy:#6b6b70;
+        --linia:#e3e3e6; --akcent:#a34f5a; --karta:#faf9f9; }
+@media (prefers-color-scheme: dark) {
+  :root { --tlo:#131315; --tekst:#ececef; --cichy:#9a9aa0; --linia:#2c2c30;
+          --akcent:#e08a94; --karta:#1b1b1e; }
+}
+* { box-sizing: border-box; }
+body { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
+       font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       color: var(--tekst); background: var(--tlo); }
+h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 .35rem; }
+h2 { font-size: 1.15rem; margin: 2.5rem 0 .75rem; }
+h3 { font-size: 1rem; margin: 1.75rem 0 .4rem; letter-spacing: .01em; }
+p { margin: .75rem 0; }
+a { color: var(--akcent); }
+.podtytul { color: var(--cichy); margin: 0 0 1rem; font-size: 1.05rem; }
+.lead { border-left: 3px solid var(--akcent); padding: .1rem 0 .1rem 1rem;
+        margin: 1.5rem 0; color: var(--tekst); }
+.gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
+        margin-bottom: 2rem; color: var(--cichy); }
+.gora a { text-decoration: none; }
+.do-tresci { position: absolute; left: -9999px; }
+.do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
+:focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
+footer { overflow-wrap: anywhere; }
+.gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
+.gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
+.szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
+.szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
+.jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
+.karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
+.karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
+         border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
+.karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+.karta { position: relative; }
+.karta .nazwa { font-weight: 600; }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
+   Gramatyka japońska", a nie cały akapit o problemie. */
+.karta .nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
+.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
+.znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
+            border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
+            margin-left: .4rem; vertical-align: .1em; }
+.sklep { display: block; margin: .35rem 0 1.25rem; font-weight: 600; }
+.przycisk { display: inline-block; background: var(--akcent); color: var(--tlo);
+            padding: .55rem 1.1rem; border-radius: 10px; text-decoration: none; }
+.spis-sekcji ul { list-style: none; padding: 0; margin: 0 0 1.75rem;
+                  display: flex; flex-wrap: wrap; gap: .35rem .9rem; font-size: .92rem; }
+.spis-sekcji li { margin: 0; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
+.zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
+          padding-bottom: .5rem; scroll-snap-type: x mandatory; }
+.zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
+.zrzuty img { width: 210px; height: auto; border-radius: 14px;
+              border: 1px solid var(--linia); display: block; }
+.zrzuty figcaption { font-size: .85rem; color: var(--cichy); margin-top: .45rem;
+                     line-height: 1.4; }
+ul.zwykla { padding-left: 1.15rem; }
+ul.zwykla li { margin: .3rem 0; }
+/* Strony tematyczne. Pięć reguł i ani jednej więcej: hasło ma wyglądać jak
+   sekcja opisu sklepowego, a nie jak inny gatunek strony. Rubin dostaje własny
+   rozmiar, bo domyślny w Safari bywa większy niż linia tekstu wokół. */
+.haslo + .haslo { border-top: 1px solid var(--linia); padding-top: .5rem; }
+.haslo h2 { margin-top: 1.75rem; }
+.przyklady { padding-left: 0; list-style: none; margin: .4rem 0 1.25rem; }
+.przyklady li { margin: .6rem 0; }
+.przyklady .pelna { color: var(--cichy); }
+.przyklady .tlum { display: block; color: var(--cichy); font-size: .93rem; }
+ruby rt { font-size: .55em; color: var(--cichy); }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
+         font-size: .88rem; color: var(--cichy); }
+footer a { color: var(--akcent); }
+code { font-size: .9em; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "DefinedTermSet",
+      "name": "the sentence skeleton and particles – Japanese N5 grammar",
+      "description": "N5 grammar points from the group “the sentence skeleton and particles” – meaning, formation and example sentences with translations.",
+      "url": "https://jd-japanese.pl/en/learn/japanese-n5-grammar/sentence-skeleton/",
+      "inLanguage": "en",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "name": "は",
+          "description": "the topic — an announcement of what is being talked about"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "が（新情報）",
+          "description": "the subject presented as new information"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "が（排他）",
+          "description": "the subject singled out as the only right one"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "を（対象）",
+          "description": "the thing the action is directed at"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "を（通過・起点）",
+          "description": "the space a motion verb passes through or starts from"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "に（方向・相手）",
+          "description": "the destination of movement or the recipient of an action"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "で（場所）",
+          "description": "the place where an action takes place"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "で（手段）",
+          "description": "a tool, a means of transport or a material"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "と（並列）",
+          "description": "a complete list — nothing beyond what is named"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "と（共同）",
+          "description": "the person the action is done with"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "も",
+          "description": "adding another item on equal footing"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "の",
+          "description": "possession, or a closer description of a noun"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "か",
+          "description": "turning a sentence into a question without reordering it"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "や",
+          "description": "an open list — the items named are only examples"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "だけ",
+          "description": "narrowing to the thing named, with no judgment of amount"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Japanese in ten apps",
+          "item": "https://jd-japanese.pl/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Learning Japanese",
+          "item": "https://jd-japanese.pl/en/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Japanese N5 grammar – every point on the level",
+          "item": "https://jd-japanese.pl/en/learn/japanese-n5-grammar/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "the sentence skeleton and particles – Japanese N5 grammar",
+          "item": "https://jd-japanese.pl/en/learn/japanese-n5-grammar/sentence-skeleton/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="do-tresci" href="#tresc">Skip to content</a>
+<nav class="gora" aria-label="Site"><span><a class="znak" href="../../../../en/index.html" aria-hidden="true" tabindex="-1"><img src="../../../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../../../en/learn/japanese-n5-grammar/index.html">← Japanese N5 grammar – every point on the level</a></span><span><a href="https://jd-japanese.pl/nauka/gramatyka-n5/szkielet-zdania/">Polski</a></span></nav>
+<main id="tresc"><div class="szyld"><img src="../../../../assets/ikony/kaname.webp" alt="" width="72" height="72"><div><h1>the sentence skeleton and particles – Japanese N5 grammar</h1><p class="podtytul">N5 grammar points from the group “the sentence skeleton and particles” – meaning, formation and example sentences with translations.</p></div></div><nav aria-label="On this page"><ul class="zwykla"><li><a href="#n5-part-wa">は · the topic — the rest of the sentence is about it</a></li><li><a href="#n5-part-ga">が（新情報） · who or what: newly introduced</a></li><li><a href="#n5-part-ga-exclusive">が（排他） · this one and no other, out of several</a></li><li><a href="#n5-part-wo">を（対象） · what the action covers: what is eaten, read, bought</a></li><li><a href="#n5-part-wo-path">を（通過・起点） · where the motion goes through or starts from</a></li><li><a href="#n5-part-ni-target">に（方向・相手） · where motion is headed, who receives the thing</a></li><li><a href="#n5-part-de-place">で（場所） · the place of an action — something happens there</a></li><li><a href="#n5-part-de-means">で（手段） · what something is done with: tool, means, material</a></li><li><a href="#n5-part-to-and">と（並列） · and — and that is the whole list</a></li><li><a href="#n5-part-to-with">と（共同） · together with (a person)</a></li><li><a href="#n5-part-mo">も · too, also; not… either</a></li><li><a href="#n5-part-no">の · whose, which, from where — noun beside noun</a></li><li><a href="#n5-part-ka">か · …?; the question particle</a></li><li><a href="#n5-part-ya">や · and, and the like — the list stays open</a></li><li><a href="#n5-part-dake">だけ · only, just</a></li></ul></nav><section class="haslo"><h2 id="n5-part-wa"><span lang="ja">は</span> · the topic — the rest of the sentence is about it</h2><p class="lead">the topic — an announcement of what is being talked about</p><p>Marks what the sentence is about, and hands the rest of the sentence over to saying something about that topic. The topic is usually something the listener already knows. It is not the same as the subject: the topic is often the subject as well, but it can just as easily be the object or a time expression.</p><p>noun + は; written with the character は, but pronounced “wa”</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>母<rt>はは</rt></ruby>は<ruby>元気<rt>げんき</rt></ruby>です。</span><span class="tlum">My mother is well.</span><span class="tlum">Topic and subject coincide — the simplest case.</span></li><li><span lang="ja"><ruby>今日<rt>きょう</rt></ruby>は<ruby>寒<rt>さむ</rt></ruby>いですね。</span><span class="tlum">It is cold today, isn’t it?</span><span class="tlum">The topic is a time expression, not the subject. The sentence does not say “the day is cold”, but “as for today — it is cold”.</span></li><li><span lang="ja">この<ruby>店<rt>みせ</rt></ruby>は<ruby>安<rt>やす</rt></ruby>いです。</span><span class="tlum">This shop is cheap.</span><span class="tlum">We point to a shop both speakers know, and only then say something about it.</span></li></ul></section><section class="haslo"><h2 id="n5-part-ga"><span lang="ja">が（新情報）</span> · who or what: newly introduced</h2><p class="lead">the subject presented as new information</p><p>Introduces a subject the listener does not yet have in mind. That is why the answer to a “who?” question always takes が — the answer itself is the new part. When it singles one item out of several, が does something else and has an entry of its own: が（排他）.</p><p>noun + が</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">あそこに<ruby>猫<rt>ねこ</rt></ruby>がいます。</span><span class="tlum">There is a cat over there.</span><span class="tlum">The cat comes up in the conversation for the first time, so it takes が, not は.</span></li><li><span lang="ja">だれがこの<ruby>絵<rt>え</rt></ruby>をかきましたか。</span><span class="tlum">Who painted this picture?</span><span class="tlum">A question about the subject. は never follows a question word.</span></li></ul></section><section class="haslo"><h2 id="n5-part-ga-exclusive"><span lang="ja">が（排他）</span> · this one and no other, out of several</h2><p class="lead">the subject singled out as the only right one</p><p>Picks one item out of several and says it is this one, not another. It answers “which one?” rather than “what is new?” — which is why 私が行きます means “I am the one who will go”. When it introduces a new subject, が does something else and has an entry of its own: が（新情報）.</p><p>noun + が; when picking one out of several</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>私<rt>わたし</rt></ruby>が<ruby>行<rt>い</rt></ruby>きます。</span><span class="tlum">I’ll be the one to go.</span><span class="tlum">Out of several people, this one — hence が, not は. With は the sentence would only say what I intend to do.</span></li><li><span lang="ja">この<ruby>本<rt>ほん</rt></ruby>がいいです。</span><span class="tlum">I’d like this book.</span><span class="tlum">Out of several books the choice falls on this one — が says which. With は the sentence would be a general opinion about the book.</span></li></ul></section><section class="haslo"><h2 id="n5-part-wo"><span lang="ja">を（対象）</span> · what the action covers: what is eaten, read, bought</h2><p class="lead">the thing the action is directed at</p><p>Marks what the action covers: what is eaten, read, bought. It stands with transitive verbs — the ones that need something to act on. With verbs of motion を does something else and has an entry of its own: を（通過・起点）.</p><p>noun + を; written with its own character を, pronounced “o”</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>毎朝<rt>まいあさ</rt></ruby>コーヒーを<ruby>飲<rt>の</rt></ruby>みます。</span><span class="tlum">I drink coffee every morning.</span><span class="tlum">The coffee is what undergoes the drinking — a textbook direct object.</span></li><li><span lang="ja"><ruby>日本語<rt>にほんご</rt></ruby>の<ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>みました。</span><span class="tlum">I read a book in Japanese.</span><span class="tlum">The whole phrase “book in Japanese” is a single object.</span></li></ul></section><section class="haslo"><h2 id="n5-part-wo-path"><span lang="ja">を（通過・起点）</span> · where the motion goes through or starts from</h2><p class="lead">the space a motion verb passes through or starts from</p><p>With verbs of motion を marks not the thing acted on but the space the motion covers: the one it passes through (道を歩く) or the one it starts from (家を出る, バスを降りる). These verbs are not transitive, so they take no object at all.</p><p>noun (place) + を + verb of motion</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>道<rt>みち</rt></ruby>を<ruby>歩<rt>ある</rt></ruby>きます。</span><span class="tlum">I walk along the street.</span><span class="tlum">The street is not what the action is directed at — を marks the space the motion passes through.</span></li><li><span lang="ja"><ruby>毎朝<rt>まいあさ</rt></ruby><ruby>七時<rt>しちじ</rt></ruby>に<ruby>家<rt>いえ</rt></ruby>を<ruby>出<rt>で</rt></ruby>ます。</span><span class="tlum">I leave the house at seven every morning.</span><span class="tlum">The house is where the motion starts. 出る is not a transitive verb, so there is no object here at all.</span></li></ul></section><section class="haslo"><h2 id="n5-part-ni-target"><span lang="ja">に（方向・相手）</span> · where motion is headed, who receives the thing</h2><p class="lead">the destination of movement or the recipient of an action</p><p>Shows where something is heading or who it is directed at. What matters here is the destination: the place where the movement ends, not the route to it.</p><p>noun + に</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>来月<rt>らいげつ</rt></ruby>、<ruby>京都<rt>きょうと</rt></ruby>に<ruby>行<rt>い</rt></ruby>きます。</span><span class="tlum">Next month I am going to Kyoto.</span><span class="tlum">Kyoto is the point where the journey ends.</span></li><li><span lang="ja"><ruby>友<rt>とも</rt></ruby>だちに<ruby>手紙<rt>てがみ</rt></ruby>を<ruby>書<rt>か</rt></ruby>きました。</span><span class="tlum">I wrote a letter to a friend.</span><span class="tlum">The friend is the recipient, not a place — the same particle handles both cases.</span></li></ul></section><section class="haslo"><h2 id="n5-part-de-place"><span lang="ja">で（場所）</span> · the place of an action — something happens there</h2><p class="lead">the place where an action takes place</p><p>Marks the stage on which something happens. The deciding question is whether something takes place there or someone is simply present — with bare existence (ある, います) に takes over. The same で comes back later in another role, marking the set within which something is the greatest: クラスで一番.</p><p>noun denoting a place + で</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>図書館<rt>としょかん</rt></ruby>で<ruby>勉強<rt>べんきょう</rt></ruby>します。</span><span class="tlum">I study in the library.</span><span class="tlum">The library is where the studying takes place.</span></li><li><span lang="ja"><ruby>公園<rt>こうえん</rt></ruby>で<ruby>子<rt>こ</rt></ruby>どもが<ruby>遊<rt>あそ</rt></ruby>んでいます。</span><span class="tlum">Children are playing in the park.</span><span class="tlum">Playing is an action, so the park takes で, not に.</span></li></ul></section><section class="haslo"><h2 id="n5-part-de-means"><span lang="ja">で（手段）</span> · what something is done with: tool, means, material</h2><p class="lead">a tool, a means of transport or a material</p><p>The same character as with place, but it answers a completely different question: not “where”, but “with what”. It covers tools, means of transport, languages and materials.</p><p>noun + で</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">はしで<ruby>食<rt>た</rt></ruby>べます。</span><span class="tlum">I eat with chopsticks.</span><span class="tlum">The chopsticks are a tool, not a place.</span></li><li><span lang="ja"><ruby>電車<rt>でんしゃ</rt></ruby>で<ruby>会社<rt>かいしゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。</span><span class="tlum">I go to work by train.</span><span class="tlum">A means of transport. This clashes with place: “I read on the train” would be written exactly the same way.</span></li></ul></section><section class="haslo"><h2 id="n5-part-to-and"><span lang="ja">と（並列）</span> · and — and that is the whole list</h2><p class="lead">a complete list — nothing beyond what is named</p><p>Joins nouns and says the list is closed: what is named is everything there is. That is how it differs from や, which leaves the list open. When the noun before と is a person taking part in the action, this is not a list but と（共同）.</p><p>noun + と + noun</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">パンとたまごを<ruby>買<rt>か</rt></ruby>いました。</span><span class="tlum">I bought bread and eggs.</span><span class="tlum">I bought those two things and nothing else — や would say they are only examples.</span></li><li><span lang="ja"><ruby>兄<rt>あに</rt></ruby>と<ruby>姉<rt>あね</rt></ruby>がいます。</span><span class="tlum">I have an older brother and an older sister.</span><span class="tlum">A closed list: と says these are all of them.</span></li></ul></section><section class="haslo"><h2 id="n5-part-to-with"><span lang="ja">と（共同）</span> · together with (a person)</h2><p class="lead">the person the action is done with</p><p>Marks the companion in an action — someone doing it together with the speaker. The shape of the sentence does not settle it: パンとたまごを買いました and 妹と映画を見ました look the same. What settles it is the noun before と — a thing of the same kind as the next one belongs to a list, while a person taking part in the action is a companion. Listing is a separate entry: と（並列）.</p><p>noun for a person + と + verb</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>妹<rt>いもうと</rt></ruby>と<ruby>映画<rt>えいが</rt></ruby>を<ruby>見<rt>み</rt></ruby>ました。</span><span class="tlum">I watched a film with my sister.</span><span class="tlum">My sister was watching it with me, and a film cannot belong to the same list as a person — so here と points to who I was with.</span></li><li><span lang="ja"><ruby>弟<rt>おとうと</rt></ruby>と<ruby>公園<rt>こうえん</rt></ruby>で<ruby>遊<rt>あそ</rt></ruby>びました。</span><span class="tlum">I played with my little brother in the park.</span><span class="tlum">遊ぶ does not take に for a person — only と marks the companion.</span></li></ul></section><section class="haslo"><h2 id="n5-part-mo"><span lang="ja">も</span> · too, also; not… either</h2><p class="lead">adding another item on equal footing</p><p>Says that what was just said about something else applies here as well. It replaces は, が and を — it is not added to them, it takes their place.</p><p>noun + も (replacing は / が / を)</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">わたしも<ruby>行<rt>い</rt></ruby>きます。</span><span class="tlum">I am going too.</span><span class="tlum">We do not say わたしはも — も takes the place of は.</span></li><li><span lang="ja"><ruby>兄<rt>あに</rt></ruby>は<ruby>医者<rt>いしゃ</rt></ruby>です。<ruby>姉<rt>あね</rt></ruby>も<ruby>医者<rt>いしゃ</rt></ruby>です。</span><span class="tlum">My brother is a doctor. My sister is a doctor too.</span><span class="tlum">The second sentence repeats the predicate of the first, so the subject takes も.</span></li></ul></section><section class="haslo"><h2 id="n5-part-no"><span lang="ja">の</span> · whose, which, from where — noun beside noun</h2><p class="lead">possession, or a closer description of a noun</p><p>Subordinates one noun to another. Its range is wider than the English possessive: it covers ownership, origin, material, field and membership of a group. The modifier always stands before what it modifies.</p><p>noun + の + noun</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">これはわたしの<ruby>本<rt>ほん</rt></ruby>です。</span><span class="tlum">This is my book.</span><span class="tlum">The simplest use — ownership.</span></li><li><span lang="ja"><ruby>日本語<rt>にほんご</rt></ruby>の<ruby>先生<rt>せんせい</rt></ruby>に<ruby>聞<rt>き</rt></ruby>きました。</span><span class="tlum">I asked the Japanese teacher.</span><span class="tlum">Here の marks a field, not an owner.</span></li></ul></section><section class="haslo"><h2 id="n5-part-ka"><span lang="ja">か</span> · …?; the question particle</h2><p class="lead">turning a sentence into a question without reordering it</p><p>Japanese does not reorder words to ask a question — it adds か at the end and that is enough. In casual speech か is often dropped and intonation alone carries the question, but in polite speech it stays. The same character has a second job: placed between two nouns it means “or”.</p><p>sentence in ます／です form + か; the word order stays unchanged</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>明日<rt>あした</rt></ruby>は<ruby>休<rt>やす</rt></ruby>みですか。</span><span class="tlum">Is tomorrow a day off?</span><span class="tlum">The word order does not change at all — か at the end does all the work.</span></li><li><span lang="ja"><ruby>何<rt>なに</rt></ruby>を<ruby>食<rt>た</rt></ruby>べますか。</span><span class="tlum">What will you eat?</span><span class="tlum">か is needed with a question word too; 何 on its own is not enough.</span></li><li><span lang="ja">コーヒーか<ruby>紅茶<rt>こうちゃ</rt></ruby>を<ruby>飲<rt>の</rt></ruby>みます。</span><span class="tlum">I will have coffee or tea.</span><span class="tlum">The second job of the same character: between nouns か means “or”. There is no question here.</span></li></ul></section><section class="haslo"><h2 id="n5-part-ya"><span lang="ja">や</span> · and, and the like — the list stays open</h2><p class="lead">an open list — the items named are only examples</p><p>Names two or three things and leaves the list open — the rest is understood. That is what sets it apart from と, which lists everything there is. It joins nouns only, so an activity has to be named as a noun first.</p><p>noun + や + noun; など often comes at the end of the list</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>机<rt>つくえ</rt></ruby>の<ruby>上<rt>うえ</rt></ruby>に<ruby>本<rt>ほん</rt></ruby>やノートがあります。</span><span class="tlum">There are books, notebooks and the like on the desk.</span><span class="tlum">と would say that a book and a notebook are on the desk — and nothing else.</span></li><li><span lang="ja"><ruby>休<rt>やす</rt></ruby>みの<ruby>日<rt>ひ</rt></ruby>は<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>や<ruby>散歩<rt>さんぽ</rt></ruby>をします。</span><span class="tlum">On my days off I do the shopping, go for a walk and so on.</span><span class="tlum">や joins nouns, which is why the activities appear here as 買い物 and 散歩, not as verbs.</span></li></ul></section><section class="haslo"><h2 id="n5-part-dake"><span lang="ja">だけ</span> · only, just</h2><p class="lead">narrowing to the thing named, with no judgment of amount</p><p>Narrows things down to what is named and implies nothing beyond that — it does not say whether that is a lot or a little. A preceding を usually drops out, while は and が can be placed after だけ: 水だけは飲みました. At higher levels しか〜ない restricts in a similar way, but adds a sense of not-enough.</p><p>noun + だけ; number + だけ; verb in dictionary form + だけ</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>水<rt>みず</rt></ruby>だけ<ruby>飲<rt>の</rt></ruby>みました。</span><span class="tlum">I drank only water.</span><span class="tlum">を after 水 drops out — it is usually not placed after だけ.</span></li><li><span lang="ja"><ruby>一人<rt>ひとり</rt></ruby>だけ<ruby>来<rt>き</rt></ruby>ませんでした。</span><span class="tlum">Only one person did not come.</span><span class="tlum">だけ narrows the number: everyone except one person did come.</span></li></ul></section><h2>Where this comes from</h2><p>Everything above comes from the free part of the Kaname app and has passed its content review.</p><ul class="karty"><li class="karta"><img src="../../../../assets/ikony/kaname.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../../../../en/apps/kaname/index.html">Kaname: Japanese Grammar</a><span class="co">JLPT practice: N5 N4 N3 N2 N1</span></div></li></ul><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/id6801993668">App Store →</a><span class="znacznik">Free app with an in-app purchase</span></p><h2>Learning Japanese</h2><ul class="zwykla"><li><a href="../../../../en/learn/japanese-n5-grammar/time-and-place/index.html">Next group: time, place and existence →</a></li><li><a href="../../../../en/learn/japanese-n5-grammar/index.html">Japanese N5 grammar – every point on the level</a></li></ul></main>
+<footer>Jakub Dwojak · <a href="../../../../en/about/index.html">About</a> · <a href="../../../../en/learn/index.html">Learning Japanese</a> · <a href="../../../../en/documents.html">Document index</a> · <a href="mailto:kaname@jd-japanese.pl">kaname@jd-japanese.pl</a></footer>
+</body>
+</html>

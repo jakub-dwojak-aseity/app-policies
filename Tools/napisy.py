@@ -95,6 +95,26 @@ NAPISY = {
         "temat_partykuly_tytul": "Partykuły japońskie: は, が, を, に, で, へ",
         "temat_partykuly_opis": "Partykuły, które niosą zwykłe japońskie zdanie, i role, "
                                 "w jakich stoją – z przykładami i tłumaczeniem.",
+        "temat_n5_tytul": "Gramatyka japońska N5 – wszystkie punkty z poziomu",
+        "temat_n5_opis": "Siedem grup gramatyki N5, od szkieletu zdania po ton wypowiedzi "
+                         "– każdy punkt ze znaczeniem, budową i przykładami.",
+        "nauka_n5_sufiks": "gramatyka japońska N5",
+        "nauka_n5_opis_grupy": "Punkty gramatyczne N5 z grupy „{grupa}” – znaczenie, "
+                               "budowa i zdania przykładowe z tłumaczeniem.",
+        "nauka_budowa": "Jak się to buduje",
+        # Nazwy klas odmiany — etykiety terminologiczne, nie zdania o japońskim.
+        # Brzmienia polskie przepisane z `RULE_GROUP_NAMES` w narzędziu przeglądu
+        # Katsuyokei, żeby strona i aplikacja nazywały to samo tak samo.
+        "klasa_godan": "czasownik godan",
+        "klasa_ichidan": "czasownik ichidan",
+        "klasa_suru": "czasownik złożony z する",
+        "klasa_kuru": "来る",
+        "klasa_iadj": "przymiotnik na い",
+        "klasa_naadj": "przymiotnik na な",
+        "klasa_shared": "wszystkie klasy naraz",
+        "klasa_exception": "pojedyncze hasło nieregularne",
+        "nauka_wstecz": "Poprzednia grupa",
+        "nauka_dalej": "Następna grupa",
         "temat_pary_tytul": "Mylące pary w japońskim: は czy が, もう czy まだ",
         "temat_pary_opis": "Pary, które wyglądają wymiennie i nie są – przy każdym zdaniu "
                            "sytuacja i powód, dla którego druga forma nie pasuje.",
@@ -179,6 +199,23 @@ NAPISY = {
         "temat_partykuly_tytul": "Japanese particles: は, が, を, に, で, へ",
         "temat_partykuly_opis": "The particles that carry an ordinary Japanese sentence, "
                                 "and the roles they stand in – with examples and translations.",
+        "temat_n5_tytul": "Japanese N5 grammar – every point on the level",
+        "temat_n5_opis": "Seven groups of N5 grammar, from the sentence skeleton to tone "
+                         "– each point with its meaning, formation and examples.",
+        "nauka_n5_sufiks": "Japanese N5 grammar",
+        "nauka_n5_opis_grupy": "N5 grammar points from the group “{grupa}” – meaning, "
+                               "formation and example sentences with translations.",
+        "nauka_budowa": "How it is formed",
+        "klasa_godan": "godan verb",
+        "klasa_ichidan": "ichidan verb",
+        "klasa_suru": "する compound verb",
+        "klasa_kuru": "来る",
+        "klasa_iadj": "い-adjective",
+        "klasa_naadj": "な-adjective",
+        "klasa_shared": "every class alike",
+        "klasa_exception": "a single irregular word",
+        "nauka_wstecz": "Previous group",
+        "nauka_dalej": "Next group",
         "temat_pary_tytul": "Confusing pairs in Japanese: は or が, もう or まだ",
         "temat_pary_opis": "Pairs that look interchangeable and are not – each sentence "
                            "comes with the situation and the reason the other form fails.",

@@ -124,6 +124,8 @@ ul.zwykla li { margin: .3rem 0; }
 /* Strony tematyczne. Pięć reguł i ani jednej więcej: hasło ma wyglądać jak
    sekcja opisu sklepowego, a nie jak inny gatunek strony. Rubin dostaje własny
    rozmiar, bo domyślny w Safari bywa większy niż linia tekstu wokół. */
+.haslo + .haslo { border-top: 1px solid var(--linia); padding-top: .5rem; }
+.haslo h2 { margin-top: 1.75rem; }
 .przyklady { padding-left: 0; list-style: none; margin: .4rem 0 1.25rem; }
 .przyklady li { margin: .6rem 0; }
 .przyklady .pelna { color: var(--cichy); }
@@ -335,7 +337,7 @@ def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
     return "\n".join(cz for cz in czesci if cz)
 
 
-def gora(jezyk, glebokosc, alternatywny, manifest, mapa=True):
+def gora(jezyk, glebokosc, alternatywny, manifest, mapa=True, powrot=None):
     """Pasek: znak witryny i powrót po lewej, przełącznik języka po prawej.
 
     Znak jest linkiem do mapy rodziny na podstronach, a na samej mapie zwykłym
@@ -355,7 +357,16 @@ def gora(jezyk, glebokosc, alternatywny, manifest, mapa=True):
 
     znak_html = (f'<a class="znak" href="{dom}" aria-hidden="true" tabindex="-1">{obrazek("")}</a>'
                  if mapa else f'<span class="znak">{obrazek(e(n["tytul_mapy"]))}</span>')
-    powrot = f'<a href="{dom}">← {e(n["wroc"])}</a>' if mapa else ""
+    # **Powrót prowadzi do rodzica, a nie zawsze do mapy aplikacji.** Strona
+    # o licznikach leży pod rozdrożem `/nauka/`, a strona grupy N5 jeszcze piętro
+    # niżej — wyprowadzanie ich obu na mapę dziesiątki kazałoby czytelnikowi
+    # wracać przez korzeń za każdym razem, a przy trzech poziomach to jest
+    # nawigacja, która gubi, zamiast prowadzić.
+    if powrot:
+        cel_powrotu, etykieta_powrotu = powrot
+        powrot = f'<a href="{cel_powrotu}">← {e(etykieta_powrotu)}</a>'
+    else:
+        powrot = f'<a href="{dom}">← {e(n["wroc"])}</a>' if mapa else ""
     prawo = (f'<a href="{manifest["bazaAdresu"]}/{publiczny(alternatywny)}">'
              f'{e(n["inny_jezyk"])}</a>')
     return (f'<nav class="gora" aria-label="{e(n["nawigacja"])}">'
@@ -772,7 +783,10 @@ ROBOTY_AI = ("GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-Use
 TEMATY = (
     {"apka": "joshi", "klucz": "partykuly",
      "sciezka": {"pl": "nauka/partykuly-japonskie", "en": "en/learn/japanese-particles"}},
-    {"apka": "kaname", "klucz": "pary",
+    # `tylko: ""` — z eksportu Kaname na tę stronę idą wyłącznie hasła bez sekcji,
+    # czyli pary kontrastowe. Punkty N5 z tego samego pliku mają sekcje i trafiają
+    # na strony grup niżej.
+    {"apka": "kaname", "klucz": "pary", "tylko": "",
      "sciezka": {"pl": "nauka/mylace-pary", "en": "en/learn/confusing-pairs"}},
     {"apka": "katsuyokei", "klucz": "formy",
      "sciezka": {"pl": "nauka/formy-czasownika", "en": "en/learn/verb-forms"}},
@@ -782,6 +796,29 @@ TEMATY = (
      "sciezka": {"pl": "nauka/mowa-potoczna", "en": "en/learn/casual-japanese"}},
     {"apka": "keigo", "klucz": "keigo",
      "sciezka": {"pl": "nauka/keigo", "en": "en/learn/keigo"}},
+    # Temat z `grupy` nie jest stroną, tylko **rozdrożem drugiego poziomu**:
+    # pod jego adresem stoją karty grup, a treść mieszka piętro niżej. Podział
+    # wzięty z katalogu (`base_n5.json` ma siedem grup), nie wymyślony tutaj —
+    # ale **adresy są wypisane z ręki i to jest decyzja**: slug wyliczony
+    # z tytułu grupy zmieniałby się razem z tytułem, a adres jest obietnicą.
+    {"apka": "kaname", "klucz": "n5",
+     "sciezka": {"pl": "nauka/gramatyka-n5", "en": "en/learn/japanese-n5-grammar"},
+     "grupy": (
+         {"grupa": "n5.g1.particles",
+          "sciezka": {"pl": "szkielet-zdania", "en": "sentence-skeleton"}},
+         {"grupa": "n5.g2.time-place",
+          "sciezka": {"pl": "czas-i-miejsce", "en": "time-and-place"}},
+         {"grupa": "n5.g3.verb-forms",
+          "sciezka": {"pl": "formy-czasownika", "en": "verb-forms"}},
+         {"grupa": "n5.g4.requests",
+          "sciezka": {"pl": "prosby-i-zakazy", "en": "requests-and-prohibitions"}},
+         {"grupa": "n5.g5.adjectives",
+          "sciezka": {"pl": "przymiotniki", "en": "adjectives"}},
+         {"grupa": "n5.g6.wishes",
+          "sciezka": {"pl": "checi-i-zaproszenia", "en": "wishes-and-invitations"}},
+         {"grupa": "n5.g7.tone",
+          "sciezka": {"pl": "powod-i-ton", "en": "reason-and-tone"}},
+     )},
 )
 
 EKSPORT_SCHEMA = 1
@@ -790,9 +827,50 @@ EKSPORT_PLIK = Path("docs") / "www" / "eksport.json"
 ROZDROZE = {"pl": "nauka/index.html", "en": "en/learn/index.html"}
 
 
-def sciezki_tematu(temat, jezyk):
-    sciezka = temat["sciezka"][jezyk] + "/index.html"
+def sciezki_tematu(temat, jezyk, grupa=None):
+    """Adres tematu, a przy `grupa` — adres strony grupy pod nim."""
+    czlony = [temat["sciezka"][jezyk]]
+    if grupa:
+        czlony.append(grupa["sciezka"][jezyk])
+    sciezka = "/".join(czlony) + "/index.html"
     return sciezka, sciezka.count("/")
+
+
+def jednostki_tematu(eksport, temat=None, grupa=None):
+    """Hasła należące do tej strony. **Wybór jest jawny, nie domyślany.**
+
+    Pole `grupa` w eksporcie znaczy „do jakiej sekcji katalogu należy to hasło"
+    i **nie znaczy** „na jaką stronę ma iść". Joshi wpisuje tam partykułę (は, が),
+    choć strona jest jedna; Kaname wpisuje grupę N5, a pary kontrastowe zostawia
+    puste. Reguła „strona płaska bierze to, co grupy nie ma" wyglądała więc na
+    ogólną i **wycięła stronę o partykułach z budowy** — złapane przy pierwszym
+    przebiegu po zmianie, bo mapa witryny zgłosiła brakujący klucz.
+
+    Stąd trzy przypadki, wszystkie deklarowane w `TEMATY`:
+
+    * `grupa` podana — hasła tej grupy (strona grupy pod rozdrożem);
+    * temat z `tylko` — hasła dokładnie tej sekcji (Kaname: pary, czyli `""`);
+    * ani jedno, ani drugie — **wszystkie** hasła eksportu.
+    """
+    if grupa:
+        return [j for j in eksport["jednostki"] if j.get("grupa") == grupa["grupa"]]
+    if temat is not None and "tylko" in temat:
+        return [j for j in eksport["jednostki"]
+                if (j.get("grupa") or "") == temat["tylko"]]
+    return list(eksport["jednostki"])
+
+
+def nazwa_grupy(eksport, grupa, jezyk):
+    for wpis in eksport.get("grupy", ()):
+        if wpis["slug"] == grupa["grupa"]:
+            return wpis["nazwa"][jezyk]
+    return grupa["grupa"]
+
+
+def grupy_zywe(temat, eksport):
+    """Grupy tematu, które mają czym stanąć — w kolejności z `TEMATY`."""
+    return [g for g in temat.get("grupy", ())
+            if jednostki_tematu(eksport, temat, g)]
 
 
 def wczytaj_eksporty(apki):
@@ -828,7 +906,12 @@ def tematy_zywe(apki, eksporty):
     for temat in TEMATY:
         eksport = eksporty.get(temat["apka"])
         apka = po_slugu.get(temat["apka"])
-        if not eksport or not apka or not eksport.get("jednostki"):
+        if not eksport or not apka:
+            continue
+        if temat.get("grupy"):
+            if not grupy_zywe(temat, eksport):
+                continue
+        elif not jednostki_tematu(eksport, temat):
             continue
         zywe.append((temat, apka, eksport))
     return zywe
@@ -862,35 +945,31 @@ def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):
     nazwa = jednostka["nazwa"][jezyk]
     kot = kotwica(jednostka["id"], zajete)
 
-    # **Termin, który na tej stronie nie jest jedyny, sam nie jest nagłówkiem.**
-    # Zmierzone na stronie partykuł: が niesie pięć różnych ról, więc pięć sekcji
-    # miało identyczny nagłówek, a spis sekcji pokazywał „は が が が が を に に
-    # に に に で で へ" — czyli nawigację, po której nie da się nawigować.
-    # Rola dochodzi do nagłówka wyłącznie tam, gdzie sam znak nie wystarcza;
-    # 本 i 〜ている zostają nagłówkiem samym w sobie, bo są jedyne.
-    dwuznaczny = bool(termin) and termin in powtorzone
-    if termin and dwuznaczny and nazwa:
-        naglowek = f'<span lang="ja">{ruby_html(termin)}</span> · {e(nazwa)}'
-        etykieta = f"{termin} · {nazwa}"
-    elif termin:
-        naglowek = ruby_html(termin)
-        etykieta = termin
-    else:
-        naglowek = e(nazwa)
-        etykieta = nazwa
+    # **Nagłówek zawsze w jednym kształcie: termin, czytanie, nazwa w jednej
+    # linii** — rozstrzygnięcie Jakuba z 14.09, wzorem strony o partykułach.
+    #
+    # Pierwsza wersja miała dwa kształty: sam znak, a nazwa pod nim w osobnym
+    # podpisie, i tylko przy terminie powtórzonym nazwa wchodziła do nagłówka.
+    # Powód tamtego wyjątku był realny (が niesie pięć ról, więc pięć sekcji
+    # miało identyczny nagłówek i spis „は が が が が を に に に に に で で へ",
+    # po którym nie da się nawigować) — ale lekarstwo rozjeżdżało wygląd między
+    # stronami. Jeden kształt załatwia oba: nazwa stoi w nagłówku zawsze, więc
+    # żaden nagłówek nie powtarza sąsiada, a spis czyta się tak samo wszędzie.
+    #
+    # Czytanie tylko wtedy, gdy mówi coś ponad sam termin: licznik つ ma czytanie
+    # „つ" i plakietka powtarzałaby to, co stoi tuż obok.
+    czytanie = jednostka.get("czytanie")
+    czlony = []
+    if termin:
+        czlony.append(f'<span lang="ja">{ruby_html(termin)}</span>')
+        if czytanie and czytanie != termin:
+            czlony.append(f'<span class="znacznik" lang="ja">{e(czytanie)}</span>')
+    if nazwa:
+        czlony.append(("· " if termin else "") + e(nazwa))
+    naglowek = " ".join(czlony)
+    etykieta = " · ".join(c for c in (termin, nazwa) if c)
 
-    czesci = [f'<h2 id="{kot}"'
-              + (' lang="ja"' if termin and not dwuznaczny else "")
-              + f">{naglowek}</h2>"]
-
-    if termin and nazwa and not dwuznaczny:
-        podpis = e(nazwa)
-        # Czytanie tylko wtedy, gdy mówi coś ponad sam nagłówek: licznik つ ma
-        # czytanie „つ" i plakietka powtarzałaby wtedy to, co stoi obok niej.
-        if jednostka.get("czytanie") and jednostka["czytanie"] != termin:
-            podpis += (f'<span class="znacznik" lang="ja">'
-                       f'{e(jednostka["czytanie"])}</span>')
-        czesci.append(f'<p class="podtytul">{podpis}</p>')
+    czesci = [f'<h2 id="{kot}">{naglowek}</h2>']
 
     if jednostka["glosa"][jezyk]:
         czesci.append(f'<p class="lead">{ruby_html(jednostka["glosa"][jezyk])}</p>')
@@ -898,6 +977,19 @@ def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):
     for akapit in jednostka["wyjasnienie"][jezyk].split("\n\n"):
         if akapit.strip():
             czesci.append(f"<p>{ruby_html(akapit.strip())}</p>")
+
+    # Budowa formy — po jednej regule na klasę odmiany. Etykieta klasy stoi nad
+    # regułą tą samą szarą linią co sytuacja nad zdaniem: reguła „Odpada る,
+    # dochodzi końcówka grzecznościowa" bez niej nie mówi, czego dotyczy.
+    if jednostka.get("reguly"):
+        czesci.append(f'<p class="podtytul">{e(n["nauka_budowa"])}</p>')
+        wiersze_r = []
+        for regula in jednostka["reguly"]:
+            etykieta_k = n.get("klasa_%s" % regula["klasa"], regula["klasa"])
+            wiersze_r.append(
+                f'<li><span class="tlum">{e(etykieta_k)}</span>'
+                f'{ruby_html(regula["tekst"][jezyk])}</li>')
+        czesci.append(f'<ul class="przyklady">{"".join(wiersze_r)}</ul>')
 
     if jednostka["przyklady"]:
         czesci.append(f'<p class="podtytul">{e(n["nauka_przyklady"])}</p>')
@@ -926,55 +1018,61 @@ def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):
             wiersze.append(f"<li>{wiersz}</li>")
         czesci.append(f'<ul class="przyklady">{"".join(wiersze)}</ul>')
 
-    return kot, etykieta, "".join(czesci)
+    return kot, etykieta, '<section class="haslo">%s</section>' % "".join(czesci)
 
 
-def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=()):
+def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None):
     """Strona tematyczna: hasła z eksportu plus wyjście do aplikacji, z której są.
 
     Układ jest **układem strony produktowej**, celowo co do kolejności: szyld
     z ikoną, zdanie wprowadzające, spis sekcji z kotwicami, treść, wyjście do
     sklepu, stopka. Czytelnik, który przyszedł z podstrony aplikacji, ma nie
     poznać, że to inny typ strony.
+
+    `grupa` robi z tego **stronę grupy** pod rozdrożem tematu: tytuł bierze się
+    wtedy z katalogu (nazwa grupy), a nie z `NAPISY`, i dochodzi przejście do
+    grupy poprzedniej i następnej — bo kolejność grup jest kolejnością nauki.
     """
     n = NAPISY[jezyk]
-    sciezka, glebokosc = sciezki_tematu(temat, jezyk)
-    alternatywny = sciezki_tematu(temat, "en" if jezyk == "pl" else "pl")[0]
+    inny = "en" if jezyk == "pl" else "pl"
+    sciezka, glebokosc = sciezki_tematu(temat, jezyk, grupa)
+    alternatywny = sciezki_tematu(temat, inny, grupa)[0]
     t = a["teksty"][jezyk]
-    tytul = n["temat_%s_tytul" % temat["klucz"]]
-    opis = n["temat_%s_opis" % temat["klucz"]]
+    if grupa:
+        tytul = "%s – %s" % (nazwa_grupy(eksport, grupa, jezyk), n["nauka_n5_sufiks"])
+        opis = n["nauka_n5_opis_grupy"].format(
+            grupa=nazwa_grupy(eksport, grupa, jezyk))
+    else:
+        tytul = n["temat_%s_tytul" % temat["klucz"]]
+        opis = n["temat_%s_opis" % temat["klucz"]]
     ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
 
     # Które terminy powtarzają się na tej stronie — liczone przed składaniem haseł,
     # bo o kształcie nagłówka decyduje to, co stoi obok niego, a nie samo hasło.
+    moje = jednostki_tematu(eksport, temat, grupa)
     liczba = {}
-    for jednostka in eksport["jednostki"]:
+    for jednostka in moje:
         t_j = jednostka.get("termin") or ""
         if t_j:
             liczba[t_j] = liczba.get(t_j, 0) + 1
     powtorzone = frozenset(t_j for t_j, ile in liczba.items() if ile > 1)
 
     zajete, spis, hasla, etykiety = set(), [], [], []
-    for jednostka in eksport["jednostki"]:
+    for jednostka in moje:
         kot, etykieta, html_hasla = haslo_html(jednostka, jezyk, n, zajete, powtorzone)
         spis.append(f'<li><a href="#{kot}">{ruby_html(etykieta)}</a></li>')
         etykiety.append(etykieta)
         hasla.append(html_hasla)
 
-    # Spis sekcji ma dwa kształty i wybiera go DŁUGOŚĆ etykiet, nie temat.
-    # `.spis-sekcji` układa pozycje w wiersz i jest zrobiony pod hasła krótkie
-    # (本, 〜ている); trzynaście zdań w rodzaju „Pierwszy dzień w nowej pracy:
-    # podchodzisz do kolegów przy biurkach" daje w tym samym znaczniku ścianę
-    # tekstu udającą nawigację. Próg wzięty z pomiaru na pięciu tematach:
-    # najdłuższe hasło rzeczownikowe to 人前 i 丁目, najkrótsza sytuacja Keigo
-    # ma 25 znaków.
-    dlugie = any(len(etykieta) > 24 for etykieta in etykiety)
-    if dlugie:
-        spis_sekcji = (f'<nav aria-label="{e(n["nauka_spis"])}">'
-                       f'<ul class="zwykla">{"".join(spis)}</ul></nav>')
-    else:
-        spis_sekcji = (f'<nav class="spis-sekcji" aria-label="{e(n["nauka_spis"])}">'
-                       f'<ul>{"".join(spis)}</ul></nav>')
+    # **Spis sekcji zawsze pionowy, jeden odnośnik pod drugim** — rozstrzygnięcie
+    # Jakuba z 14.09, wzorem strony o partykułach. Pierwsza wersja przełączała
+    # kształt długością etykiet: krótkie hasła (本, 〜ている) szły w wiersz, długie
+    # w kolumnę. Wyglądało to na oszczędność miejsca, a dawało dwie różne
+    # nawigacje na jednej witrynie i kazało czytelnikowi uczyć się ich osobno —
+    # przy dwudziestu dwóch licznikach wiersz i tak zawija się w akapit, tylko
+    # bez możliwości wodzenia okiem w dół.
+    spis_sekcji = (f'<nav aria-label="{e(n["nauka_spis"])}">'
+                   f'<ul class="zwykla">{"".join(spis)}</ul></nav>')
 
     if a["wSklepie"]:
         sklep = (f'<p class="sklep"><a class="przycisk" href="{link_sklepu(a["appId"])}">'
@@ -995,7 +1093,32 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=()):
     # Wyjście na pozostałe tematy. Czytelnik, który przyszedł tu po liczniki, jest
     # najbardziej prawdopodobnym czytelnikiem strony o partykułach — a bez tych
     # linków jedyną drogą dalej jest stopka. Ta sama lista co na mapie rodziny.
-    pozostale = [t for t in zywe if t[0]["klucz"] != temat["klucz"]]
+    # **Poprzednia i następna grupa.** Kolejność grup w katalogu jest kolejnością
+    # nauki, więc czytelnik, który skończył „szkielet zdania", ma jedno kliknięcie
+    # do „czasu i miejsca" — a nie drogę przez rozdroże. Na stronie płaskiej tego
+    # nie ma, bo tematy nie stoją wobec siebie w żadnej kolejności.
+    sasiedzi_html = ""
+    if grupa:
+        wszystkie = grupy_zywe(temat, eksport)
+        gdzie = wszystkie.index(grupa)
+        kroki = []
+        if gdzie > 0:
+            poprz = wszystkie[gdzie - 1]
+            kroki.append(
+                f'<li><a href="{wzgledny(glebokosc, sciezki_tematu(temat, jezyk, poprz)[0])}">'
+                f'← {e(n["nauka_wstecz"])}: {e(nazwa_grupy(eksport, poprz, jezyk))}</a></li>')
+        if gdzie + 1 < len(wszystkie):
+            nast = wszystkie[gdzie + 1]
+            kroki.append(
+                f'<li><a href="{wzgledny(glebokosc, sciezki_tematu(temat, jezyk, nast)[0])}">'
+                f'{e(n["nauka_dalej"])}: {e(nazwa_grupy(eksport, nast, jezyk))} →</a></li>')
+        kroki.append(
+            f'<li><a href="{wzgledny(glebokosc, sciezki_tematu(temat, jezyk)[0])}">'
+            f'{e(n["temat_%s_tytul" % temat["klucz"]])}</a></li>')
+        sasiedzi_html = (f'<h2>{e(n["nauka_link"])}</h2>'
+                         f'<ul class="zwykla">{"".join(kroki)}</ul>')
+
+    pozostale = [] if grupa else [t for t in zywe if t[0]["klucz"] != temat["klucz"]]
     pozostale_html = ""
     if pozostale:
         pozycje_t = []
@@ -1021,6 +1144,7 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=()):
         + f'<p>{e(n["nauka_skad_opis"].format(apka=t["nazwa"].split(":")[0].strip()))}</p>'
         + karta
         + sklep
+        + sasiedzi_html
         + pozostale_html)
 
     baza = manifest["bazaAdresu"]
@@ -1044,7 +1168,7 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=()):
                         "description": (j["glosa"][jezyk]
                                         or j["wyjasnienie"][jezyk].split("\n\n")[0]),
                     }
-                    for j in eksport["jednostki"]
+                    for j in moje
                 ],
             },
             {
@@ -1054,7 +1178,12 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=()):
                      "item": f"{baza}/{publiczny(dom)}"},
                     {"@type": "ListItem", "position": 2, "name": n["nauka_link"],
                      "item": f"{baza}/{publiczny(ROZDROZE[jezyk])}"},
-                    {"@type": "ListItem", "position": 3, "name": tytul,
+                    *([{"@type": "ListItem", "position": 3,
+                        "name": n["temat_%s_tytul" % temat["klucz"]],
+                        "item": f"{baza}/{publiczny(sciezki_tematu(temat, jezyk)[0])}"}]
+                      if grupa else []),
+                    {"@type": "ListItem", "position": 4 if grupa else 3,
+                     "name": tytul,
                      "item": f"{baza}/{publiczny(sciezka)}"},
                 ],
             },
@@ -1071,7 +1200,83 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=()):
         jezyk=jezyk, tytul=tytul, opis=opis, kanoniczny=sciezka,
         alternatywny=alternatywny, tresc=tresc, glebokosc=glebokosc,
         manifest=manifest, jsonld=jsonld, dodatkowa_glowa=dodatkowa,
-        nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
+        nawigacja=gora(jezyk, glebokosc, alternatywny, manifest,
+                       powrot=(wzgledny(glebokosc, sciezki_tematu(temat, jezyk)[0]),
+                               n["temat_%s_tytul" % temat["klucz"]]) if grupa
+                       else (wzgledny(glebokosc, ROZDROZE[jezyk]), n["nauka_link"])),
+        stopka_html=stopka(jezyk, glebokosc, manifest, kontakt=a["kontakt"]))
+
+
+def rozdroze_tematu(temat, a, eksport, jezyk, manifest):
+    """Rozdroże drugiego poziomu: karty grup jednego tematu.
+
+    Istnieje, bo siedem grup N5 dołożonych wprost do `/nauka/` zrobiłoby z niego
+    listę trzynastu pozycji, w której sześć tematów i siedem grup jednego tematu
+    stoi obok siebie jako równe — a nie są równe. Rozdroże trzyma poziomy osobno:
+    `/nauka/` mówi „o czym", a to piętro „w jakiej kolejności".
+    """
+    n = NAPISY[jezyk]
+    inny = "en" if jezyk == "pl" else "pl"
+    sciezka, glebokosc = sciezki_tematu(temat, jezyk)
+    alternatywny = sciezki_tematu(temat, inny)[0]
+    t = a["teksty"][jezyk]
+    tytul = n["temat_%s_tytul" % temat["klucz"]]
+    opis = n["temat_%s_opis" % temat["klucz"]]
+    ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
+    baza = manifest["bazaAdresu"]
+    dom = "index.html" if jezyk == "pl" else "en/index.html"
+
+    karty = []
+    for grupa in grupy_zywe(temat, eksport):
+        cel = wzgledny(glebokosc, sciezki_tematu(temat, jezyk, grupa)[0])
+        nazwa = nazwa_grupy(eksport, grupa, jezyk)
+        # Podpis karty to **terminy z grupy**, nie zdanie o niej: „は, が, を, に…"
+        # mówi czytelnikowi więcej niż każda proza, którą moglibyśmy tu dopisać,
+        # i nie jest ani jednym nowym słowem — stoi w katalogu.
+        terminy = [j["termin"] for j in jednostki_tematu(eksport, temat, grupa)
+                   if j.get("termin")]
+        podpis = ", ".join(terminy[:8]) + ("…" if len(terminy) > 8 else "")
+        karty.append(
+            f'<li class="karta"><img src="{ikona}" alt="" width="52" height="52">'
+            f'<div><a class="nazwa" href="{cel}">{e(nazwa)}</a>'
+            f'<span class="co" lang="ja">{e(podpis)}</span></div></li>')
+
+    tresc = (f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
+             f'<div><h1>{e(tytul)}</h1>'
+             f'<p class="podtytul">{e(opis)}</p></div></div>'
+             f'<ul class="karty">{"".join(karty)}</ul>'
+             f"<h2>{e(n['nauka_skad'])}</h2>"
+             f'<p>{e(n["nauka_skad_opis"].format(apka=t["nazwa"].split(":")[0].strip()))}</p>')
+
+    jsonld = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "ItemList", "itemListElement": [
+                {"@type": "ListItem", "position": i,
+                 "name": nazwa_grupy(eksport, grupa, jezyk),
+                 "url": f"{baza}/{publiczny(sciezki_tematu(temat, jezyk, grupa)[0])}"}
+                for i, grupa in enumerate(grupy_zywe(temat, eksport), start=1)]},
+            {"@type": "BreadcrumbList", "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": n["tytul_mapy"],
+                 "item": f"{baza}/{publiczny(dom)}"},
+                {"@type": "ListItem", "position": 2, "name": n["nauka_link"],
+                 "item": f"{baza}/{publiczny(ROZDROZE[jezyk])}"},
+                {"@type": "ListItem", "position": 3, "name": tytul,
+                 "item": f"{baza}/{publiczny(sciezka)}"}]},
+        ],
+    }
+    dodatkowa = (f'<meta property="og:image" content="{baza}/assets/karty/'
+                 f'{a["slug"]}-{jezyk}.png">'
+                 '<meta property="og:image:width" content="1200">'
+                 '<meta property="og:image:height" content="630">'
+                 '<meta name="twitter:card" content="summary_large_image">')
+
+    return sciezka, strona(
+        jezyk=jezyk, tytul=tytul, opis=opis, kanoniczny=sciezka,
+        alternatywny=alternatywny, tresc=tresc, glebokosc=glebokosc,
+        manifest=manifest, jsonld=jsonld, dodatkowa_glowa=dodatkowa,
+        nawigacja=gora(jezyk, glebokosc, alternatywny, manifest,
+                       powrot=(wzgledny(glebokosc, ROZDROZE[jezyk]), n["nauka_link"])),
         stopka_html=stopka(jezyk, glebokosc, manifest, kontakt=a["kontakt"]))
 
 
@@ -2310,10 +2515,21 @@ def zbuduj(apki, manifest):
     # słownikiem i przy braku wywala `KeyError`, a nie ostrzeżenie.
     for jezyk in JEZYKI:
         for temat, a, eksport in zywe:
+            data_eksportu = data_zrodla(a["repoSciezka"], EKSPORT_PLIK)
+            if temat.get("grupy"):
+                adres, tresc = rozdroze_tematu(temat, a, eksport, jezyk, manifest)
+                pliki[adres] = tresc
+                daty[adres] = data_eksportu
+                for grupa in grupy_zywe(temat, eksport):
+                    adres, tresc = strona_tematu(temat, a, eksport, jezyk, manifest,
+                                                 apki, zywe, grupa)
+                    pliki[adres] = tresc
+                    daty[adres] = data_eksportu
+                continue
             adres, tresc = strona_tematu(temat, a, eksport, jezyk, manifest,
                                          apki, zywe)
             pliki[adres] = tresc
-            daty[adres] = data_zrodla(a["repoSciezka"], EKSPORT_PLIK)
+            daty[adres] = data_eksportu
         if zywe:
             adres, tresc = rozdroze_nauki(zywe, jezyk, manifest)
             pliki[adres] = tresc

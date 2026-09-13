@@ -455,7 +455,11 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=()):
         + f'<p class="podtytul">{e(n["opis_mapy"])}</p>'
         + f"<h2>{e(n['naglowek_wyboru'])}</h2>"
         + '<ul class="karty">' + "".join(karty) + "</ul>"
-        + nauka_html)
+        + nauka_html
+        # Dziedziny bez aplikacji — na dole, zwykłym akapitem. Karta znaczy tu
+        # „aplikacja, którą można mieć"; brakująca umiejętność kartą nie jest.
+        + f"<h2>{e(n['dziedziny_naglowek'])}</h2>"
+        + f'<p>{e(n["dziedziny_opis"])}</p>')
 
     # Pytanie, które model dostaje o rodzinę aplikacji, brzmi „którą wybrać" — i tabela
     # wyżej jest na nie odpowiedzią, tylko zapisaną znacznikami tabeli. Tu ta sama treść

@@ -9,8 +9,8 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
 ## Od czego zacząć
 
 **Witryna mówi już o japońskim, a nie tylko o aplikacjach.** W nocy z 13 na 14.09.2026 doszło
-**sześć stron tematycznych plus rozdroże, w dwóch językach** — czternaście plików, mapa
-witryny **26 → 40 adresów**. Wcześniej wszystko, co tu stało, mówiło wyłącznie o dziesiątce apek,
+**siedem tematów, z czego trzy rozpisane na sekcje** — czterdzieści cztery pliki, mapa
+witryny **26 → 70 adresów**. Wcześniej wszystko, co tu stało, mówiło wyłącznie o dziesiątce apek,
 a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" albo „は czy が".
 
 | adres | z czego | ile |
@@ -18,15 +18,16 @@ a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" a
 | `/nauka/partykuly-japonskie/` | Joshi | 14 ról w 6 partykułach, 56 zdań |
 | `/nauka/formy-czasownika/` | Katsuyokei | 14 form |
 | `/nauka/liczniki-japonskie/` | Kazoekata | 22 liczniki, 44 zdania |
-| `/nauka/mowa-potoczna/` | Kuzushi | 34 wzorce, 61 par zdań |
-| `/nauka/keigo/` | Keigo | 32 pozycje |
+| `/nauka/mowa-potoczna/` + 5 sekcji | Kuzushi | 34 wzorce wg rodzaju skrótu, 61 par zdań |
+| `/nauka/keigo/` + 2 sekcje | Keigo | 13 sytuacji, 19 słów |
 | `/nauka/mylace-pary/` | Kaname | 13 par N5, 22 zdania z sytuacją i powodem |
+| `/nauka/gramatyka-n5/` + 7 grup | Kaname | 60 punktów N5, 123 zdania |
 | `/nauka/` i `/en/learn/` | rozdroże | żeby strony nie były sierotami |
 
 Poza tym bez zmian: domena przełączona 09.09, dziesięć podstron produktowych w dwóch językach,
 mapa rodziny, spis dokumentów, strona o autorze, własna 404, `robots.txt` z robotami AI
 z nazwy, `llms.txt`, `schema.org`, karty `og:image`, kadry w WebP, poczta na własnej domenie.
-**Bramki generatora: zielone, 46 plików, 10 aplikacji** (pomiar `--sprawdz`, 14.09).
+**Bramki generatora: zielone, 76 plików, 10 aplikacji** (pomiar `--sprawdz`, 14.09).
 
 **Tor witrynowy jedzie równolegle do wydań** i nie zjada miejsc w turze apek (§12 planu SEO).
 Wchodząc tu, bierzesz albo **pozycję z kolejki niżej**, albo **obowiązkowy powrót po wydaniu
@@ -34,6 +35,10 @@ apki**: `marketingUrl` (§21.AB) · `wSklepie` przy premierze · przeliczenie st
 metadanych · import kadrów po zmianie zrzutów · **porównanie `<title>` na żywym adresie
 z repo**. Od 14.09 dochodzi szósty: **przeliczenie eksportu po zmianie katalogu** w Joshi,
 Katsuyokei, Kazoekacie, Kuzushim, Keigo albo Kaname.
+
+**Nawigacja ma trzy poziomy** od 14.09: `/nauka/` → temat → sekcja. Powrót w pasku
+prowadzi do **rodzica**, nie do mapy aplikacji; strony sekcji mają przejście do
+poprzedniej i następnej, bo kolejność sekcji bywa kolejnością nauki.
 
 Kolejka toru, w kolejności taniości: (1) domknięcie poz. 84 — 16 plików prozy i stare adresy
 w dwóch martwych drzewach, część to historia i **ma zostać**; (2) Search Console (Jakub);
@@ -66,49 +71,67 @@ krótkiej nazwy nie ma i mieć nie może.
 ## Search Console — co wkleić, w tej kolejności
 
 **Najpierw mapa:** `https://jd-japanese.pl/sitemap.xml` — zgłosić od nowa, ma dziś
-**56 adresów**, a GSC znał 24. Potem „Sprawdzenie adresu URL → Poproś o zaindeksowanie",
+**70 adresów**, a GSC znał 24. Potem „Sprawdzenie adresu URL → Poproś o zaindeksowanie",
 po ok. dziesięć dziennie (limit Google), w tej kolejności:
 
-**Dzień 1 — rozdroża i najmocniejsze frazy**
+**Dzień 1 — polskie rozdroża i najmocniejsze frazy**
 ```
 https://jd-japanese.pl/nauka/
 https://jd-japanese.pl/nauka/gramatyka-n5/
 https://jd-japanese.pl/nauka/partykuly-japonskie/
 https://jd-japanese.pl/nauka/mylace-pary/
 https://jd-japanese.pl/nauka/liczniki-japonskie/
-https://jd-japanese.pl/nauka/gramatyka-n5/szkielet-zdania/
-https://jd-japanese.pl/nauka/mowa-potoczna/
 https://jd-japanese.pl/nauka/keigo/
+https://jd-japanese.pl/nauka/mowa-potoczna/
 https://jd-japanese.pl/nauka/formy-czasownika/
-https://jd-japanese.pl/nauka/gramatyka-n5/formy-czasownika/
+https://jd-japanese.pl/nauka/gramatyka-n5/szkielet-zdania/
+https://jd-japanese.pl/nauka/keigo/slowa/
 ```
 
-**Dzień 2 — reszta grup N5 po polsku i rozdroża angielskie**
+**Dzień 2 — reszta polskich (12)**
 ```
+https://jd-japanese.pl/nauka/gramatyka-n5/checi-i-zaproszenia/
 https://jd-japanese.pl/nauka/gramatyka-n5/czas-i-miejsce/
+https://jd-japanese.pl/nauka/gramatyka-n5/formy-czasownika/
+https://jd-japanese.pl/nauka/gramatyka-n5/powod-i-ton/
 https://jd-japanese.pl/nauka/gramatyka-n5/prosby-i-zakazy/
 https://jd-japanese.pl/nauka/gramatyka-n5/przymiotniki/
-https://jd-japanese.pl/nauka/gramatyka-n5/checi-i-zaproszenia/
-https://jd-japanese.pl/nauka/gramatyka-n5/powod-i-ton/
+https://jd-japanese.pl/nauka/keigo/sytuacje/
+https://jd-japanese.pl/nauka/mowa-potoczna/opuszczenia/
+https://jd-japanese.pl/nauka/mowa-potoczna/sciagniecia/
+https://jd-japanese.pl/nauka/mowa-potoczna/udzwiecznienia/
+https://jd-japanese.pl/nauka/mowa-potoczna/zlania/
+https://jd-japanese.pl/nauka/mowa-potoczna/zlozone/
+```
+
+**Dzień 3 — angielskie rozdroża i najmocniejsze frazy**
+```
 https://jd-japanese.pl/en/learn/
 https://jd-japanese.pl/en/learn/japanese-n5-grammar/
 https://jd-japanese.pl/en/learn/japanese-particles/
 https://jd-japanese.pl/en/learn/confusing-pairs/
 https://jd-japanese.pl/en/learn/japanese-counters/
+https://jd-japanese.pl/en/learn/keigo/
+https://jd-japanese.pl/en/learn/casual-japanese/
+https://jd-japanese.pl/en/learn/verb-forms/
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/sentence-skeleton/
+https://jd-japanese.pl/en/learn/keigo/words/
 ```
 
-**Dzień 3 — reszta angielskich**
+**Dzień 4 i 5 — reszta angielskich (12)**
 ```
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/sentence-skeleton/
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/verb-forms/
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/time-and-place/
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/requests-and-prohibitions/
+https://jd-japanese.pl/en/learn/casual-japanese/contractions/
+https://jd-japanese.pl/en/learn/casual-japanese/fusions/
+https://jd-japanese.pl/en/learn/casual-japanese/layered/
+https://jd-japanese.pl/en/learn/casual-japanese/omissions/
+https://jd-japanese.pl/en/learn/casual-japanese/voicing/
 https://jd-japanese.pl/en/learn/japanese-n5-grammar/adjectives/
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/wishes-and-invitations/
 https://jd-japanese.pl/en/learn/japanese-n5-grammar/reason-and-tone/
-https://jd-japanese.pl/en/learn/casual-japanese/
-https://jd-japanese.pl/en/learn/keigo/
-https://jd-japanese.pl/en/learn/verb-forms/
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/requests-and-prohibitions/
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/time-and-place/
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/verb-forms/
+https://jd-japanese.pl/en/learn/japanese-n5-grammar/wishes-and-invitations/
+https://jd-japanese.pl/en/learn/keigo/situations/
 ```
 
 **Osobno, wciąż otwarte z 09.09:** powtórka prośby dla `apps/shindan`, `apps/keigo`,
@@ -131,7 +154,7 @@ https://jd-japanese.pl/en/learn/verb-forms/
    **już działa** dla `wSklepie: false`; otwarte jest tylko, czy objąć nim pozycje 62–69.
 5. **Poz. 113 — wizytówka poza witryną.** Zobowiązanie **cykliczne**: koszt leży w rytmie
    publikowania, nie w treści. **Strony tematyczne zmieniły tu rachunek** — jest teraz
-   129 haseł w gotowym kształcie do wystawiania pojedynczo.
+   189 haseł w gotowym kształcie do wystawiania pojedynczo.
 6. **Bunmyaku ma pauzę w nazwie** jako jedyna z dziesięciu — decyzja redakcyjna (§21.X).
 7. **Przegląd okiem stron tematycznych.** Rozszerzenie Chrome było w nocy odłączone, więc
    układ sprawdzony w znaczniku, nie na ekranie: jasny i ciemny motyw, szerokość telefonu.
@@ -149,8 +172,9 @@ https://jd-japanese.pl/en/learn/verb-forms/
 - **Bramka 10 świeci dalej 5 rozjazdów** (Bunmyaku `terms.html` i `support.html` wobec
   `bunmyaku-n2/docs/app-store/`) — **nazwane, nieblokujące**, bo kopie leżą w cudzym repo.
   Dokumenty zmienia się **po obu stronach naraz**; podmiana po jednej topi prawdziwy sygnał.
-- **Tekst własny witryny urósł z 42 do 61 kluczy `NAPISY`** — tytuł i jedno zdanie na temat,
-  i nic ponadto. Ta liczba jest miarą: jeśli rośnie dalej, strona zaczęła mówić od siebie.
+- **Tekst własny witryny urósł z 42 do 92 kluczy `NAPISY`** — tytuł i jedno zdanie na temat,
+  plus **nazwy sekcji, których katalog nie nazywa** (rodzaje skrótu, rodzaje pozycji
+  Keigo, klasy odmiany). To najgrubszy skok od początku i ma być zauważony. Ta liczba jest miarą: jeśli rośnie dalej, strona zaczęła mówić od siebie.
 - **Generator nie dotyka dokumentów prawnych.** Piszą w nie tylko `Tools/landmark-main.py`
   i `Tools/glowy_dokumentow.py`. Przestarzałe wersje dostają `noindex, follow`, **nigdy
   `canonical` na nowszą** — to nie jest ta sama treść.

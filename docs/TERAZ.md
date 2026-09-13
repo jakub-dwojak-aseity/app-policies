@@ -9,8 +9,8 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
 ## Od czego zacząć
 
 **Witryna mówi już o japońskim, a nie tylko o aplikacjach.** W nocy z 13 na 14.09.2026 doszło
-**osiem tematów, z czego cztery rozpisane na sekcje** — pięćdziesiąt plików, mapa
-witryny **26 → 76 adresów**. Wcześniej wszystko, co tu stało, mówiło wyłącznie o dziesiątce apek,
+**osiem tematów, z czego cztery rozpisane na sekcje**; 15.09 doszedł podział onomatopei
+i mosty między tematami — mapa witryny **26 → 84 adresy**, dwadzieścia sekcji. Wcześniej wszystko, co tu stało, mówiło wyłącznie o dziesiątce apek,
 a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" albo „は czy が".
 
 | adres | z czego | ile |
@@ -21,14 +21,15 @@ a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" a
 | `/nauka/mowa-potoczna/` + 5 sekcji | Kuzushi | 34 wzorce wg rodzaju skrótu, 61 par zdań |
 | `/nauka/keigo/` + 2 sekcje | Keigo | 13 sytuacji, 19 słów |
 | `/nauka/mylace-pary/` | Kaname | 13 par N5, 22 zdania z sytuacją i powodem |
-| `/nauka/onomatopeje/` + 2 sekcje | Onomatope | 66 haseł, 132 zdania |
+| `/nauka/onomatopeje/` + 6 sekcji | Onomatope | 66 haseł, 132 zdania |
 | `/nauka/gramatyka-n5/` + 7 grup | Kaname | 60 punktów N5, 123 zdania |
 | `/nauka/` i `/en/learn/` | rozdroże | żeby strony nie były sierotami |
 
 Poza tym bez zmian: domena przełączona 09.09, dziesięć podstron produktowych w dwóch językach,
 mapa rodziny, spis dokumentów, strona o autorze, własna 404, `robots.txt` z robotami AI
 z nazwy, `llms.txt`, `schema.org`, karty `og:image`, kadry w WebP, poczta na własnej domenie.
-**Bramki generatora: zielone, 82 pliki, 10 aplikacji** (pomiar `--sprawdz`, 14.09).
+**Bramki generatora: zielone, 90 plików, 10 aplikacji** (pomiar `--sprawdz`, 15.09) —
+bramek jest dziś **dziewiętnaście**, trzy ostatnie doszły przy podziale onomatopei.
 
 **Tor witrynowy jedzie równolegle do wydań** i nie zjada miejsc w turze apek (§12 planu SEO).
 Wchodząc tu, bierzesz albo **pozycję z kolejki niżej**, albo **obowiązkowy powrót po wydaniu
@@ -41,9 +42,19 @@ Katsuyokei, Kazoekacie, Kuzushim, Keigo albo Kaname.
 prowadzi do **rodzica**, nie do mapy aplikacji; strony sekcji mają przejście do
 poprzedniej i następnej, bo kolejność sekcji bywa kolejnością nauki.
 
+**Od 15.09 dochodzi czwarte wyjście: „Zobacz też" — most na inny temat.** Deklarowany
+w `TEMATY` polem `powiazane`, wypisany z ręki tak jak adresy, ze zdaniem mówiącym, czym
+jest strona po drugiej stronie linku. Powód jest zmierzony: **wszystkie 40 stron sekcji
+miało zero linków do innego tematu**, a `szkielet-zdania` i `partykuly-japonskie` to dwie
+strony pełne は・が・を bez powiedzianej hierarchii. Dziś mostów jest pięć (po dziesięć
+stron w dwóch językach); **dokładanie kolejnych to decyzja redakcyjna, nie robota
+mechaniczna** — most bez zdania „po co" jest linkiem do niczego.
+
 Kolejka toru, w kolejności taniości: (1) domknięcie poz. 84 — 16 plików prozy i stare adresy
 w dwóch martwych drzewach, część to historia i **ma zostać**; (2) Search Console (Jakub);
-(3) nazwy i opisy 42 zakupów w ASC; (4) **nic z sióstr — wszystko, co się dało, jest wzięte.**
+(3) **czternaście sekcji bez własnego opisu w głowie** — po jednym zdaniu w dwóch językach,
+bramka 19 wypisuje je z nazwy; (4) nazwy i opisy 42 zakupów w ASC;
+(5) **nic z sióstr — wszystko, co się dało, jest wzięte.**
 Bunmyaku odpada decyzją Jakuba (318 z 351 haseł to samo znaczenie), Shindan i Kifuku są
 zablokowane, Keigo i Kaname mają już swoje — szczegóły w poz. 189.
 
@@ -136,6 +147,21 @@ https://jd-japanese.pl/en/learn/japanese-n5-grammar/wishes-and-invitations/
 https://jd-japanese.pl/en/learn/keigo/situations/
 ```
 
+**Dzień 6 — podział onomatopei, 15.09 (8 nowych adresów)**
+```
+https://jd-japanese.pl/nauka/onomatopeje/bol/
+https://jd-japanese.pl/nauka/onomatopeje/drzenie/
+https://jd-japanese.pl/nauka/onomatopeje/zmeczenie/
+https://jd-japanese.pl/nauka/onomatopeje/pary-dzwiekowe/
+https://jd-japanese.pl/en/learn/japanese-mimetics/pain/
+https://jd-japanese.pl/en/learn/japanese-mimetics/shivering/
+https://jd-japanese.pl/en/learn/japanese-mimetics/tiredness/
+https://jd-japanese.pl/en/learn/japanese-mimetics/sound-pairs/
+```
+**Mapa wymaga ponownego zgłoszenia** — urosła z 76 na 84 adresy. Cztery stare adresy
+onomatopei (`cialo-i-samopoczucie`, `pary-dzwieczne` i ich angielskie odpowiedniki)
+**żyją dalej i niosą treść** — zgłoszone 14.09 kliki nie poszły na marne.
+
 **Dzień 5 — ósmy temat, dołożony 14.09 po południu**
 ```
 https://jd-japanese.pl/en/learn/japanese-mimetics/
@@ -151,8 +177,12 @@ https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne/
 1. **Czy umorzone zastrzeżenie wpuszcza hasło na stronę** (poz. 189). Dziś **nie** — eksport
    wymaga `ok` wprost. Kosztowało to dwie pozycje Keigo, przy których `--stats` pokazuje zero
    zastrzeżeń. Reguła z poz. 82 brzmi dosłownie „wszystkie soczewki mają `ok`".
-2. **Bunmyaku i Onomatope dadzą 351 i 84 hasła** — jedna strona na tyle pozycji jest zła tak
-   samo jak 351 stron po jednym słowie. Grupowanie to decyzja redakcyjna.
+2. **~~Bunmyaku i Onomatope~~ — Onomatope rozstrzygnięte 15.09**: sześć sekcji, oś wybrana
+   pomiarem i opisana w poz. 189. Zostaje Bunmyaku (351 haseł), odłożone decyzją Jakuba.
+   Otwarte przy onomatopejach zostaje jedno: **dwie strony par mają 44,6 i 52,6 KB i są
+   dwiema najcięższymi stronami witryny** (następna ma 33,9 KB). Trójpodziału katalog nie
+   unosi — żadna trzecia oś nie jest stała w parze — więc gdyby miał powstać, **musi go
+   nazwać autor treści**, nie wyliczyć narzędzie.
 3. **Search Console — jedyna pętla zwrotna, jaką mamy.** Klucz ASC oddaje `403` na
    `analyticsReportRequests`. Do wyklikania: **mapa ma teraz 38 adresów**, GSC znał 24 —
    zgłosić od nowa; powtórka prośby o zaindeksowanie dla **shindan, keigo, kifuku, onomatope**
@@ -169,6 +199,13 @@ https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne/
 
 ## Świeże miny
 
+- **Oś podziału mierzona na złym zbiorze wygląda jak oś zła.** Poz. 189 nosiła zapis
+  „oś `script` nie pomaga (47/19)" — liczba prawdziwa, tylko z całego eksportu (66 haseł),
+  a dzieli się **jedną stronę naraz**. Na samej sekcji par ta sama oś daje 9/9 rodzin.
+  Przy następnym podziale: **policz na tym zbiorze, który idzie na stronę.**
+- **Oś, na której zbudowana jest strona, jest ostatnią, po której wolno ją dzielić.**
+  Dźwięczność w sekcji par dzieli 38 haseł równiutko na 19/19 i jest stała tylko
+  w 2 rodzinach na 20 — bo każda para stoi właśnie na tym kontraście.
 - **Strona wyliczana psuje się w ŹRÓDLE, nie w wytworze.** 09.09 metadane zmieniły się
   o 14:15, strony stały przeliczone o 10:35 i **dziesięć stron z dwudziestu czterech niosło
   stare tytuły przez pół dnia**. Od 14.09 pilnuje tego przy eksportach **bramka 13**:
@@ -195,7 +232,7 @@ https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne/
 
 ```sh
 cd ~/aseity/app-policies
-python3 Tools/generuj-strony.py --sprawdz        # czternaście bramek, bez zapisu
+python3 Tools/generuj-strony.py --sprawdz        # dziewiętnaście bramek, bez zapisu
 python3 Tools/generuj-strony.py                  # przelicz
 python3 Tools/generuj-strony.py --powtarzalnie   # dwa przebiegi, bit w bit
 python3 Tools/generuj-strony.py --sprawdz-sklep  # manifest kontra pięć witryn App Store (sieć)

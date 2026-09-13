@@ -469,7 +469,7 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
     # dalej niż do kart aplikacji. Zwykła lista, nie karty: karty na tej stronie
     # znaczą „aplikacja", a to nie są aplikacje.
     # **Co dojdzie do rodziny — osobna sekcja pod dziesiątką, nie karty wmieszane w nią.**
-    # Do 15.09.2026 stał tu akapit „czego rodzina jeszcze nie uczy", wymieniający cztery
+    # Do 13.09.2026 stał tu akapit „czego rodzina jeszcze nie uczy", wymieniający cztery
     # dziedziny bez nazw; teraz te aplikacje mają nazwę, znak i kolor, więc mają czym stanąć.
     #
     # Osobno, bo poz. 112 backlogu notuje ryzyko wprost: sześć „wkrótce" wmieszanych między
@@ -1700,7 +1700,7 @@ def strona_404(apki, manifest, zywe=()):
         f'<li><a href="{baza}/apps/{a["slug"]}/">{e(a["teksty"]["pl"]["nazwa"])}</a> — '
         f'{e(a["teksty"]["pl"]["podtytul"])}</li>' for a in apki)
     # Ta strona obiecuje „poniżej wszystko, co tu jest" i obietnica ma zostać
-    # prawdziwa: od 14.09.2026 witryna ma też strony tematyczne, więc pominięcie
+    # prawdziwa: od 13.09.2026 witryna ma też strony tematyczne, więc pominięcie
     # ich zamieniłoby zdanie wyżej w nieprawdę.
     tematy_html = ""
     if zywe:

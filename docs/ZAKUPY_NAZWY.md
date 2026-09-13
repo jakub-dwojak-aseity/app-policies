@@ -6,7 +6,7 @@ nie stąd — §21.N. Tabela niżej była propozycją i **czekała na rozstrzygn
 nazw**, które nie mieściły się w trzydziestu znakach. **Rozstrzygnięte 13.09.2026 jedną
 regułą** (niżej), więc tabela jest dziś składem do wpisania, nie materiałem do dyskusji.
 
-**Zmierzone 15.09.2026:** produktów jest **38, nie 42**, wszystkie mają komplet nazw
+**Zmierzone 13.09.2026:** produktów jest **38, nie 42**, wszystkie mają komplet nazw
 i opisów w `pl` i `en-US` — to nie jest luka do wypełnienia, tylko przemianowanie.
 Źródłem prawdy jest `Config/<App>.storekit`, nie ASC; zmiana idzie **do obu miejsc**.
 

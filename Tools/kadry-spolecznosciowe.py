@@ -13,7 +13,7 @@ Po co to istnieje
 Poz. 113 backlogu rodziny („wizytówka poza witryną") jest **zobowiązaniem
 cyklicznym**, a nie jednorazowym wystawieniem strony: konto, na które nie ma co
 wrzucać co tydzień, umiera po trzech wpisach i robi to publicznie, obok
-aplikacji. Rozstrzygnięcie Jakuba z 14.09.2026: **konta nie zakładamy, ale potok
+aplikacji. Rozstrzygnięcie Jakuba z 13.09.2026: **konta nie zakładamy, ale potok
 przygotowujemy** — żeby w dniu decyzji materiał na pół roku już był.
 
 **Nie pisze ani jednego nowego zdania.** Kadr składa się z hasła, jego nazwy,

@@ -21,7 +21,7 @@ i cicho się rozjechał, a tablica przestała być miarą czegokolwiek.
 NAPISY = {
     "pl": {
         "html_lang": "pl",
-        # **Bez liczby aplikacji w tytule.** Do 15.09.2026 stało tu „w dziesięciu
+        # **Bez liczby aplikacji w tytule.** Do 13.09.2026 stało tu „w dziesięciu
         # aplikacjach" — liczba prawdziwa w dniu pisania i fałszywa od dnia, w którym
         # rodzina urosła. Tytuł strony głównej jest najdroższym napisem witryny
         # (wchodzi w `<title>`, w okruszek i w `WebSite.name`), więc ma mówić, CZYM
@@ -99,7 +99,7 @@ NAPISY = {
         # i z odciskiem. Jeżeli ten blok zacznie rosnąć poza tytuł i zdanie,
         # to znaczy, że strona tematyczna zaczęła mówić od siebie.
         # --- aplikacje zapowiedziane (poz. 112) ----------------------------
-        # Do 15.09.2026 stał tu akapit „Czego rodzina jeszcze nie uczy" — cztery
+        # Do 13.09.2026 stał tu akapit „Czego rodzina jeszcze nie uczy" — cztery
         # dziedziny wymienione samym japońskim terminem, bez nazw i bez ikon, bo
         # aplikacje nie miały jeszcze tożsamości. Teraz ją mają, więc ta sama rzecz
         # jest kartami. **Sześć, nie cztery:** tamten akapit gubił pismo od zera

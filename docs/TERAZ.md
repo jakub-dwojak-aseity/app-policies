@@ -8,7 +8,7 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
 
 ## Od czego zacząć
 
-**Witryna mówi już o japońskim, a nie tylko o aplikacjach.** W nocy z 13 na 14.09.2026 doszło
+**Witryna mówi już o japońskim, a nie tylko o aplikacjach.** W nocy z 13 na 13.09.2026 doszło
 **osiem tematów, z czego cztery rozpisane na sekcje**; 15.09 doszedł podział onomatopei
 i mosty między tematami — mapa witryny **26 → 84 adresy**, dwadzieścia sekcji. Wcześniej wszystko, co tu stało, mówiło wyłącznie o dziesiątce apek,
 a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" albo „は czy が".
@@ -95,7 +95,7 @@ krótkiej nazwy nie ma i mieć nie może.
 
 ## Search Console — co jeszcze zostało
 
-**Zrobione 14.09.2026 przez Jakuba:** mapa witryny zgłoszona od nowa **oraz** wszystkie
+**Zrobione 13.09.2026 przez Jakuba:** mapa witryny zgłoszona od nowa **oraz** wszystkie
 dziesięć adresów z dnia 1 plus ponowne zaindeksowanie `apps/shindan`.
 
 **Tego stanu nie zmierzy żaden skrypt** — klucz ASC oddaje `403` na
@@ -111,92 +111,14 @@ plik na żywo miał już 88. Sprawdzać zawsze u źródła —
 `curl -sS https://jd-japanese.pl/sitemap.xml | grep -c '<loc>'` — zanim uzna się rozjazd
 za wadę generatora. Ponowne zgłoszenie wymusza pobranie; sam licznik się nie odświeży.
 
-**Zostają trzy strony produktowe do powtórki** (pierwsze prośby mogły pójść, gdy strony
-mówiły jeszcze „wkrótce"):
-```
-https://jd-japanese.pl/apps/keigo/
-https://jd-japanese.pl/apps/kifuku/
-https://jd-japanese.pl/apps/onomatope/
-```
+**Rozpisanie adresów przeniesione do `docs/SEARCH_CONSOLE.md`** (13.09.2026) — tu stała
+lista pięciu dni, czyli **55 adresów, przy mapie liczącej 88**. Trzydzieści trzy strony,
+które doszły po tamtym rozpisaniu, nie były wymienione nigdzie i nikt by ich nie zgłosił.
 
-**Dzień 2 — reszta polskich (12)**
-```
-https://jd-japanese.pl/nauka/gramatyka-n5/checi-i-zaproszenia/
-https://jd-japanese.pl/nauka/gramatyka-n5/czas-i-miejsce/
-https://jd-japanese.pl/nauka/gramatyka-n5/formy-czasownika/
-https://jd-japanese.pl/nauka/gramatyka-n5/powod-i-ton/
-https://jd-japanese.pl/nauka/gramatyka-n5/prosby-i-zakazy/
-https://jd-japanese.pl/nauka/gramatyka-n5/przymiotniki/
-https://jd-japanese.pl/nauka/keigo/sytuacje/
-https://jd-japanese.pl/nauka/mowa-potoczna/opuszczenia/
-https://jd-japanese.pl/nauka/mowa-potoczna/sciagniecia/
-https://jd-japanese.pl/nauka/mowa-potoczna/udzwiecznienia/
-https://jd-japanese.pl/nauka/mowa-potoczna/zlania/
-https://jd-japanese.pl/nauka/mowa-potoczna/zlozone/
-```
+Nowa lista niesie komplet 88, w kolejności, w jakiej mają iść, i jest sprawdzona przed
+wypisaniem: każdy adres oddaje 200, nie przekierowuje i ma własny `canonical`. **Dwóch list
+tego samego nie utrzymujemy** — ta sekcja mówi już tylko, co poszło, nie co wkleić.
 
-**Dzień 3 — angielskie rozdroża i najmocniejsze frazy**
-```
-https://jd-japanese.pl/en/learn/
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/
-https://jd-japanese.pl/en/learn/japanese-particles/
-https://jd-japanese.pl/en/learn/confusing-pairs/
-https://jd-japanese.pl/en/learn/japanese-counters/
-https://jd-japanese.pl/en/learn/keigo/
-https://jd-japanese.pl/en/learn/casual-japanese/
-https://jd-japanese.pl/en/learn/verb-forms/
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/sentence-skeleton/
-https://jd-japanese.pl/en/learn/keigo/words/
-```
-
-**Dzień 4 i 5 — reszta angielskich (12)**
-```
-https://jd-japanese.pl/en/learn/casual-japanese/contractions/
-https://jd-japanese.pl/en/learn/casual-japanese/fusions/
-https://jd-japanese.pl/en/learn/casual-japanese/layered/
-https://jd-japanese.pl/en/learn/casual-japanese/omissions/
-https://jd-japanese.pl/en/learn/casual-japanese/voicing/
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/adjectives/
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/reason-and-tone/
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/requests-and-prohibitions/
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/time-and-place/
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/verb-forms/
-https://jd-japanese.pl/en/learn/japanese-n5-grammar/wishes-and-invitations/
-https://jd-japanese.pl/en/learn/keigo/situations/
-```
-
-**Dzień 7 — druga tura 15.09: połówki par (4 adresy)**
-```
-https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne-ta-ho/
-https://jd-japanese.pl/nauka/onomatopeje/pary-dzwiekowe-ko-to/
-https://jd-japanese.pl/en/learn/japanese-mimetics/voicing-pairs-ta-ho/
-https://jd-japanese.pl/en/learn/japanese-mimetics/sound-pairs-ko-to/
-```
-
-**Dzień 6 — podział onomatopei, 15.09 (8 nowych adresów)**
-```
-https://jd-japanese.pl/nauka/onomatopeje/bol/
-https://jd-japanese.pl/nauka/onomatopeje/drzenie/
-https://jd-japanese.pl/nauka/onomatopeje/zmeczenie/
-https://jd-japanese.pl/nauka/onomatopeje/pary-dzwiekowe/
-https://jd-japanese.pl/en/learn/japanese-mimetics/pain/
-https://jd-japanese.pl/en/learn/japanese-mimetics/shivering/
-https://jd-japanese.pl/en/learn/japanese-mimetics/tiredness/
-https://jd-japanese.pl/en/learn/japanese-mimetics/sound-pairs/
-```
-**Mapa wymaga ponownego zgłoszenia** — urosła z 76 na **88** adresów. Cztery stare adresy
-onomatopei (`cialo-i-samopoczucie`, `pary-dzwieczne` i ich angielskie odpowiedniki)
-**żyją dalej i niosą treść** — zgłoszone 14.09 kliki nie poszły na marne.
-
-**Dzień 5 — ósmy temat, dołożony 14.09 po południu**
-```
-https://jd-japanese.pl/en/learn/japanese-mimetics/
-https://jd-japanese.pl/en/learn/japanese-mimetics/body-and-feeling/
-https://jd-japanese.pl/en/learn/japanese-mimetics/voicing-pairs/
-https://jd-japanese.pl/nauka/onomatopeje/
-https://jd-japanese.pl/nauka/onomatopeje/cialo-i-samopoczucie/
-https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne/
-```
 
 ## Czeka na decyzję Jakuba
 

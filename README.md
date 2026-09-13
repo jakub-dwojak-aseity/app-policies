@@ -84,7 +84,7 @@ commicie**, bo inaczej skłamie po raz trzeci i następny agent policzy ją stą
    **i strony generowane** — te ostatnie trzymały landmark na jednej linii szablonu
    i żadnym teście, więc nowy szablon bez `<main>` przeszedłby bez słowa.
 
-Jedenaście dalszych, dopisanych między 09 a 15.09.2026:
+Jedenaście dalszych, dopisanych między 09 a 13.09.2026:
 
 11. głowa dokumentu prawnego: `canonical` na własny adres i `hreflang` na parę
     językową, a przy dokumencie przestarzałym dodatkowo `noindex`. Adresy pary

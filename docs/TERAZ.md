@@ -9,8 +9,8 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
 ## Od czego zacząć
 
 **Witryna mówi już o japońskim, a nie tylko o aplikacjach.** W nocy z 13 na 14.09.2026 doszło
-**pięć stron tematycznych plus rozdroże, w dwóch językach** — dwanaście plików, mapa witryny
-**26 → 38 adresów**. Wcześniej wszystko, co tu stało, mówiło wyłącznie o dziesiątce apek,
+**sześć stron tematycznych plus rozdroże, w dwóch językach** — czternaście plików, mapa
+witryny **26 → 40 adresów**. Wcześniej wszystko, co tu stało, mówiło wyłącznie o dziesiątce apek,
 a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" albo „は czy が".
 
 | adres | z czego | ile |
@@ -20,23 +20,24 @@ a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" a
 | `/nauka/liczniki-japonskie/` | Kazoekata | 22 liczniki, 44 zdania |
 | `/nauka/mowa-potoczna/` | Kuzushi | 34 wzorce, 61 par zdań |
 | `/nauka/keigo/` | Keigo | 32 pozycje |
+| `/nauka/mylace-pary/` | Kaname | 13 par N5, 22 zdania z sytuacją i powodem |
 | `/nauka/` i `/en/learn/` | rozdroże | żeby strony nie były sierotami |
 
 Poza tym bez zmian: domena przełączona 09.09, dziesięć podstron produktowych w dwóch językach,
 mapa rodziny, spis dokumentów, strona o autorze, własna 404, `robots.txt` z robotami AI
 z nazwy, `llms.txt`, `schema.org`, karty `og:image`, kadry w WebP, poczta na własnej domenie.
-**Bramki generatora: zielone, 44 pliki, 10 aplikacji** (pomiar `--sprawdz`, 14.09).
+**Bramki generatora: zielone, 46 plików, 10 aplikacji** (pomiar `--sprawdz`, 14.09).
 
 **Tor witrynowy jedzie równolegle do wydań** i nie zjada miejsc w turze apek (§12 planu SEO).
 Wchodząc tu, bierzesz albo **pozycję z kolejki niżej**, albo **obowiązkowy powrót po wydaniu
 apki**: `marketingUrl` (§21.AB) · `wSklepie` przy premierze · przeliczenie stron po zmianie
 metadanych · import kadrów po zmianie zrzutów · **porównanie `<title>` na żywym adresie
 z repo**. Od 14.09 dochodzi szósty: **przeliczenie eksportu po zmianie katalogu** w Joshi,
-Katsuyokei, Kazoekacie, Kuzushim albo Keigo.
+Katsuyokei, Kazoekacie, Kuzushim, Keigo albo Kaname.
 
 Kolejka toru, w kolejności taniości: (1) domknięcie poz. 84 — 16 plików prozy i stare adresy
 w dwóch martwych drzewach, część to historia i **ma zostać**; (2) Search Console (Jakub);
-(3) nazwy i opisy 42 zakupów w ASC; (4) **strony tematyczne dla pozostałej piątki —
+(3) nazwy i opisy 42 zakupów w ASC; (4) **strony tematyczne dla pozostałej czwórki plus 60 punktów N5 Kaname —
 poz. 189**, gdzie stoi, co blokuje którą.
 
 **`marketingUrl` zszedł z kolejki 14.09 — pomiarem, nie robotą.** `asc-marketing-url.py`
@@ -54,9 +55,13 @@ plik. Odwrotność — pięć kopii cudzej logiki hashowania po tej stronie — 
 pierwszej zmianie u siostry i zrobiła to **cicho**: strona by nie zniknęła, tylko przestała
 odpadać przy rozjeździe.
 
-Format eksportu jest wspólny dla wszystkich pięciu: `schemaVersion`, `zrodlo`
+Format eksportu jest wspólny dla wszystkich sześciu: `schemaVersion`, `zrodlo`
 (ścieżka katalogu + jego commit), `grupy`, `jednostki` z `nazwa`/`glosa`/`wyjasnienie`
 w obu językach, `przyklady` i `odciski`. Wyjaśnienie wieloakapitowe rozdziela pusta linia.
+Przykład ma cztery pola opcjonalne: `jpPelne` (forma pełna przed skrótem, Kuzushi),
+`kontekst` i `uwaga` (sytuacja nad zdaniem i powód pod nim, Kaname) oraz `pl`/`en`
+(tłumaczenie). Nagłówkiem hasła jest `termin` **albo** `nazwa` — para kontrastowa
+krótkiej nazwy nie ma i mieć nie może.
 
 ## Czeka na decyzję Jakuba
 
@@ -74,7 +79,7 @@ w obu językach, `przyklady` i `odciski`. Wyjaśnienie wieloakapitowe rozdziela 
    **już działa** dla `wSklepie: false`; otwarte jest tylko, czy objąć nim pozycje 62–69.
 5. **Poz. 113 — wizytówka poza witryną.** Zobowiązanie **cykliczne**: koszt leży w rytmie
    publikowania, nie w treści. **Strony tematyczne zmieniły tu rachunek** — jest teraz
-   116 haseł w gotowym kształcie do wystawiania pojedynczo.
+   129 haseł w gotowym kształcie do wystawiania pojedynczo.
 6. **Bunmyaku ma pauzę w nazwie** jako jedyna z dziesięciu — decyzja redakcyjna (§21.X).
 7. **Przegląd okiem stron tematycznych.** Rozszerzenie Chrome było w nocy odłączone, więc
    układ sprawdzony w znaczniku, nie na ekranie: jasny i ciemny motyw, szerokość telefonu.
@@ -92,7 +97,7 @@ w obu językach, `przyklady` i `odciski`. Wyjaśnienie wieloakapitowe rozdziela 
 - **Bramka 10 świeci dalej 5 rozjazdów** (Bunmyaku `terms.html` i `support.html` wobec
   `bunmyaku-n2/docs/app-store/`) — **nazwane, nieblokujące**, bo kopie leżą w cudzym repo.
   Dokumenty zmienia się **po obu stronach naraz**; podmiana po jednej topi prawdziwy sygnał.
-- **Tekst własny witryny urósł z 42 do 59 kluczy `NAPISY`** — tytuł i jedno zdanie na temat,
+- **Tekst własny witryny urósł z 42 do 61 kluczy `NAPISY`** — tytuł i jedno zdanie na temat,
   i nic ponadto. Ta liczba jest miarą: jeśli rośnie dalej, strona zaczęła mówić od siebie.
 - **Generator nie dotyka dokumentów prawnych.** Piszą w nie tylko `Tools/landmark-main.py`
   i `Tools/glowy_dokumentow.py`. Przestarzałe wersje dostają `noindex, follow`, **nigdy
@@ -115,14 +120,14 @@ python3 Tools/glowy_dokumentow.py --sprawdz      # canonical i noindex w dokumen
 python3 Tools/asc-marketing-url.py --apka <slug> # bez --zapisz: przebieg na sucho
 
 # eksport przejrzanej treści — w repozytorium siostry, nie tutaj:
-cd ~/aseity/<joshi-ios|katsuyokei-ios|kazoekata-ios|kuzushi-ios|keigo-ios>
+cd ~/aseity/<joshi-ios|katsuyokei-ios|kazoekata-ios|kuzushi-ios|keigo-ios|jp-grammar-1.2.5>
 python3 Tools/review-content.py --eksport-www
 
 # ZAWSZE po przeliczeniu — pomiar na żywym adresie, nie na plikach:
 for u in kaname bunmyaku katsuyokei joshi kazoekata kuzushi shindan keigo kifuku onomatope; do
   curl -sS -L "https://jd-japanese.pl/apps/$u/" | grep -o '<title>[^<]*'
 done
-for t in partykuly-japonskie formy-czasownika liczniki-japonskie mowa-potoczna keigo; do
+for t in partykuly-japonskie mylace-pary formy-czasownika liczniki-japonskie mowa-potoczna keigo; do
   curl -sS -L "https://jd-japanese.pl/nauka/$t/" | grep -o '<title>[^<]*'
 done
 ```

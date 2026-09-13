@@ -1,6 +1,6 @@
-# Japoński w dziesięciu aplikacjach
+# Japoński w osobnych aplikacjach
 
-> Dziesięć aplikacji do nauki japońskiego, każda o jednej rzeczy: gramatyka, czytanie, odmiana, partykuły, liczniki, mowa potoczna, keigo, akcent i onomatopeje.
+> Aplikacje do nauki japońskiego, każda o jednej rzeczy: gramatyka, czytanie, odmiana, partykuły, liczniki, mowa potoczna, keigo, akcent i onomatopeje.
 
 Autor: Jakub Dwojak. Aplikacje na iPhone'a, po polsku i po angielsku. Każdy opis niżej jest tym samym tekstem, który stoi na karcie aplikacji w App Store.
 

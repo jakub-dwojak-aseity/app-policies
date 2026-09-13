@@ -21,8 +21,13 @@ i cicho się rozjechał, a tablica przestała być miarą czegokolwiek.
 NAPISY = {
     "pl": {
         "html_lang": "pl",
-        "tytul_mapy": "Japoński w dziesięciu aplikacjach",
-        "opis_mapy": "Dziesięć aplikacji do nauki japońskiego, każda o jednej rzeczy: "
+        # **Bez liczby aplikacji w tytule.** Do 15.09.2026 stało tu „w dziesięciu
+        # aplikacjach" — liczba prawdziwa w dniu pisania i fałszywa od dnia, w którym
+        # rodzina urosła. Tytuł strony głównej jest najdroższym napisem witryny
+        # (wchodzi w `<title>`, w okruszek i w `WebSite.name`), więc ma mówić, CZYM
+        # ta rodzina jest, a nie ile jej jest.
+        "tytul_mapy": "Japoński w osobnych aplikacjach",
+        "opis_mapy": "Aplikacje do nauki japońskiego, każda o jednej rzeczy: "
                      "gramatyka, czytanie, odmiana, partykuły, liczniki, mowa potoczna, "
                      "keigo, akcent i onomatopeje.",
         "naglowek_wyboru": "Którą aplikację wybrać",
@@ -55,19 +60,19 @@ NAPISY = {
         "spis_link": "Spis dokumentów",
         "autor_link": "O autorze",
         "autor_tytul": "O autorze",
-        "autor_opis": "Kto pisze te aplikacje i dlaczego jest ich dziesięć, a nie jedna.",
+        "autor_opis": "Kto pisze te aplikacje i dlaczego jest ich tyle, a nie jedna.",
         "autor_kim": "Nazywam się Jakub Dwojak i piszę te aplikacje sam – kod, treść "
                      "i wszystko, co widać na ekranie.",
-        "autor_naglowek_dlaczego": "Dlaczego dziesięć aplikacji, a nie jedna",
-        "autor_dlaczego_1": "Bo to, czego uczą, to dziesięć osobnych umiejętności, "
-                            "a nie dziesięć zakładek jednego programu. Gramatyka, odmiana, "
+        "autor_naglowek_dlaczego": "Dlaczego osobne aplikacje, a nie jedna",
+        "autor_dlaczego_1": "Bo to, czego uczą, to osobne umiejętności, "
+                            "a nie zakładki jednego programu. Gramatyka, odmiana, "
                             "partykuły, liczniki, czytanie w kontekście, mowa potoczna, keigo, "
                             "akcent i onomatopeje ćwiczą się inaczej, mierzą się inaczej "
                             "i przydają się w innym momencie nauki.",
         "autor_dlaczego_2": "Aplikacja, która robi to wszystko naraz, zaczyna się od ekranu "
                             "z wyborem i każdą z tych rzeczy robi trochę gorzej. Osobne "
-                            "aplikacje kosztują dziesięć razy więcej wydań i dziesięć "
-                            "kompletów dokumentów – ale ten koszt płacę ja, nie Ty.",
+                            "aplikacje kosztują tyle kompletów wydań i dokumentów, ile "
+                            "jest aplikacji – ale ten koszt płacę ja, nie Ty.",
         "autor_naglowek_jak": "Jak są zrobione",
         "autor_jak": "Wszystkie działają bez konta, bez reklam i bez śledzenia, a nauka "
                      "i powtórki nie potrzebują internetu. Nie jest to obietnica na tej "
@@ -83,14 +88,7 @@ NAPISY = {
         # i zdania przykładowe przychodzą z eksportów aplikacji, przejrzane
         # i z odciskiem. Jeżeli ten blok zacznie rosnąć poza tytuł i zdanie,
         # to znaczy, że strona tematyczna zaczęła mówić od siebie.
-        # --- dziedziny jeszcze bez aplikacji (poz. 112) --------------------
-        # **Dziedziny, nie zapowiedzi.** Rozstrzygnięcie Jakuba z 14.09: bez dat
-        # i bez kart. Karta znaczy na tej witrynie „aplikacja, którą można mieć",
-        # a zdanie o brakującej umiejętności nie obiecuje terminu ani nawet tego,
-        # że aplikacja powstanie. Wchodzą tu **cztery umiejętności**, których
-        # dziesiątka nie uczy wcale; kana i kanji zostają poza, bo w backlogu
-        # stoją jako parkowane z warunkiem wejścia, a parkowana rzecz na
-        # publicznej stronie czyta się jak plan.
+        # --- aplikacje zapowiedziane (poz. 112) ----------------------------
         # Do 15.09.2026 stał tu akapit „Czego rodzina jeszcze nie uczy" — cztery
         # dziedziny wymienione samym japońskim terminem, bez nazw i bez ikon, bo
         # aplikacje nie miały jeszcze tożsamości. Teraz ją mają, więc ta sama rzecz
@@ -148,8 +146,6 @@ NAPISY = {
         "grupa_onomatope_l1.drzenie": "Drżenie, dreszcze i zawroty",
         "grupa_onomatope_l1.zmeczenie": "Zmęczenie i sen",
         "grupa_onomatope_l1": "Ciało i samopoczucie",
-        "grupa_onomatope_l2": "Pary dźwięczne",
-        "grupa_onomatope_l2.dzwiek": "Pary dźwiękonaśladowcze",
         "grupa_onomatope_l1.bol_opis": "Jak po japońsku powiedzieć, że boli: "
                                        "ずきずき, きりきり, がんがん i cztery inne "
                                        "słowa na ból, każde o innym bólu.",
@@ -162,12 +158,28 @@ NAPISY = {
         "grupa_onomatope_l1_opis": "Ciepło, głód, mdłości i swędzenie – japońskie "
                                    "słowa o tym, co czuje ciało, z przykładami "
                                    "i tłumaczeniem.",
-        "grupa_onomatope_l2_opis": "Pary takie jak さらさら i ざらざら: to samo słowo "
-                                   "bez 濁点 i z 濁点, i różnica stanu, którą robi "
-                                   "sam znak dźwięczności.",
-        "grupa_onomatope_l2.dzwiek_opis": "Pary, które są też dźwiękiem: からから, "
-                                          "とんとん, かちゃかちゃ – jak 濁点 robi ten "
-                                          "sam odgłos większym i cięższym.",
+        "grupa_onomatope_l2": "Pary dźwięczne: き–し",
+        "grupa_onomatope_l2.b": "Pary dźwięczne: た–ほ",
+        "grupa_onomatope_l2.dzwiek": "Pary dźwiękonaśladowcze: wiersz か",
+        "grupa_onomatope_l2.dzwiek.b": "Pary dźwiękonaśladowcze: こ–と",
+        "grupa_onomatope_l2_opis": "さらさら i ざらざら, きらきら i ぎらぎら – pięć par od き do し, w których 濁点 zmienia stan rzeczy, nie dźwięk.",
+        "grupa_onomatope_l2.b_opis": "とろとろ i どろどろ, はらはら i ばらばら – cztery pary od た do ほ, gdzie znak dźwięczności robi rzecz gęstszą i cięższą.",
+        "grupa_onomatope_l2.dzwiek_opis": "からから, かちかち, かりかり – pary z wiersza か, które są jednocześnie odgłosem i stanem; 濁点 pogrubia sam dźwięk.",
+        "grupa_onomatope_l2.dzwiek.b_opis": "ころころ i ごろごろ, とんとん i どんどん – pary od こ do と, w których słychać, co puka, toczy się albo szeleści.",
+        "grupa_contraction_opis": "〜ている → 〜てる, 〜なければ → 〜なきゃ – piętnaście skrótów, które powstają przez wypadnięcie głoski ze środka formy.",
+        "grupa_fusion_opis": "では → じゃ, という → って, のです → んです – dziewięć miejsc, w których dwie sylaby zlewają się w jedną.",
+        "grupa_voicing_opis": "〜でいる → 〜でる i dwa inne skróty po dźwięcznym 〜で – ten sam mechanizm co przy 〜ている, tylko po 濁点.",
+        "grupa_layered_opis": "なければならない → なきゃ – cztery powinności ścinane dwa razy, aż z całego zdania zostaje jedno słowo.",
+        "grupa_omission_opis": "ないといけない → ないと – trzy formy, w których druga połowa zdania po prostu nie pada, a znaczenie zostaje.",
+        "grupa_relation_opis": "Pierwszy dzień w pracy, kelner, wykładowca, telefon w firmie – czternaście sytuacji i forma, której każda z nich wymaga.",
+        "grupa_lexeme_opis": "いらっしゃる, 召し上がる, 伺う – dwadzieścia słów czczących i skromnych, każde z czasownikiem zwykłym obok i zdaniem, w którym stoi.",
+        "grupa_n5.g1.particles_opis": "は, が, を, に, で, と, も, の, か – piętnaście ról partykuł, z których składa się zwykłe japońskie zdanie.",
+        "grupa_n5.g2.time-place_opis": "に, から〜まで, ごろ, ぐらい, へ, あります i います – dziewięć punktów o tym, kiedy, gdzie i czy coś w ogóle jest.",
+        "grupa_n5.g3.verb-forms_opis": "〜ます, 〜て, 〜ています, 〜ない, 〜た – jedenaście form czasownika N5, z różnicą między czynnością w toku a jej skutkiem.",
+        "grupa_n5.g4.requests_opis": "〜てください, 〜てもいいです, 〜てはいけません – siedem sposobów na prośbę, pozwolenie i zakaz, od najgrzeczniejszego.",
+        "grupa_n5.g5.adjectives_opis": "い形容詞 i な形容詞, 〜くないです, 〜より, いちばん – siedem punktów o odmianie przymiotnika i o porównywaniu.",
+        "grupa_n5.g6.wishes_opis": "〜たい, 〜がほしい, 〜ませんか, 〜ましょう – sześć form, którymi mówi się, czego się chce i do czego się zaprasza.",
+        "grupa_n5.g7.tone_opis": "から, あまり〜ない, ぜんぜん〜ない, ね, よ – pięć punktów o powodzie, natężeniu i o tym, co partykuła końcowa robi z tonem.",
         "grupa_relation": "Sytuacje",
         "grupa_lexeme": "Słowa czczące i skromne",
         "grupa_contraction": "Ściągnięcia",
@@ -207,8 +219,8 @@ NAPISY = {
     },
     "en": {
         "html_lang": "en",
-        "tytul_mapy": "Japanese in ten apps",
-        "opis_mapy": "Ten apps for learning Japanese, each about one thing: grammar, "
+        "tytul_mapy": "Japanese in separate apps",
+        "opis_mapy": "Apps for learning Japanese, each about one thing: grammar, "
                      "reading, conjugation, particles, counters, casual speech, "
                      "keigo, pitch accent and mimetics.",
         "naglowek_wyboru": "Which app do you need",
@@ -240,18 +252,18 @@ NAPISY = {
         "spis_link": "Document index",
         "autor_link": "About",
         "autor_tytul": "About the author",
-        "autor_opis": "Who writes these apps, and why there are ten of them rather than one.",
+        "autor_opis": "Who writes these apps, and why there are several rather than one.",
         "autor_kim": "I am Jakub Dwojak and I write these apps myself – the code, the content "
                      "and everything you see on screen.",
-        "autor_naglowek_dlaczego": "Why ten apps rather than one",
-        "autor_dlaczego_1": "Because what they teach is ten separate skills, not ten tabs of "
+        "autor_naglowek_dlaczego": "Why separate apps rather than one",
+        "autor_dlaczego_1": "Because what they teach is separate skills, not tabs of "
                             "one program. Grammar, conjugation, particles, counters, reading "
                             "in context, casual speech, keigo, pitch accent and mimetics are "
                             "drilled differently, measured differently, and each becomes "
                             "useful at a different point.",
         "autor_dlaczego_2": "An app that does all of it at once opens on a menu and does each "
-                            "of those things slightly worse. Separate apps cost ten times the "
-                            "releases and ten sets of documents – but that cost is mine, "
+                            "of those things slightly worse. Separate apps cost one set of "
+                            "releases and documents per app – but that cost is mine, "
                             "not yours.",
         "autor_naglowek_jak": "How they are built",
         "autor_jak": "All of them work without an account, without ads and without tracking, "
@@ -308,8 +320,6 @@ NAPISY = {
         "grupa_onomatope_l1.drzenie": "Shivering, trembling and dizziness",
         "grupa_onomatope_l1.zmeczenie": "Tiredness and sleep",
         "grupa_onomatope_l1": "Body and feeling",
-        "grupa_onomatope_l2": "Voicing pairs",
-        "grupa_onomatope_l2.dzwiek": "Sound pairs",
         "grupa_onomatope_l1.bol_opis": "How to say it hurts in Japanese: ずきずき, "
                                        "きりきり, がんがん and four more words for "
                                        "pain, each for a different kind of it.",
@@ -322,12 +332,28 @@ NAPISY = {
         "grupa_onomatope_l1_opis": "Warmth, hunger, nausea and itching – Japanese "
                                    "words for what the body feels, with examples "
                                    "and translations.",
-        "grupa_onomatope_l2_opis": "Pairs such as さらさら and ざらざら: the same word "
-                                   "without 濁点 and with it, and the change of state "
-                                   "the voicing mark alone makes.",
-        "grupa_onomatope_l2.dzwiek_opis": "Pairs that are also a sound: からから, "
-                                          "とんとん, かちゃかちゃ – how 濁点 makes the "
-                                          "same noise bigger and heavier.",
+        "grupa_onomatope_l2": "Voicing pairs: き–し",
+        "grupa_onomatope_l2.b": "Voicing pairs: た–ほ",
+        "grupa_onomatope_l2.dzwiek": "Sound pairs: the か row",
+        "grupa_onomatope_l2.dzwiek.b": "Sound pairs: こ–と",
+        "grupa_onomatope_l2_opis": "さらさら and ざらざら, きらきら and ぎらぎら – five pairs from き to し where 濁点 changes the state of things, not the sound.",
+        "grupa_onomatope_l2.b_opis": "とろとろ and どろどろ, はらはら and ばらばら – four pairs from た to ほ, where the voicing mark makes things thicker and heavier.",
+        "grupa_onomatope_l2.dzwiek_opis": "からから, かちかち, かりかり – pairs from the か row that are a noise and a state at once; 濁点 thickens the sound itself.",
+        "grupa_onomatope_l2.dzwiek.b_opis": "ころころ and ごろごろ, とんとん and どんどん – pairs from こ to と where you hear what knocks, rolls or rustles.",
+        "grupa_contraction_opis": "〜ている → 〜てる, 〜なければ → 〜なきゃ – fifteen contractions made by dropping a sound from the middle of a form.",
+        "grupa_fusion_opis": "では → じゃ, という → って, のです → んです – nine places where two syllables melt into one.",
+        "grupa_voicing_opis": "〜でいる → 〜でる and two more contractions after a voiced 〜で – the same mechanism as 〜ている, only past the 濁点.",
+        "grupa_layered_opis": "なければならない → なきゃ – four obligations cut twice over, until a whole clause is one word.",
+        "grupa_omission_opis": "ないといけない → ないと – three forms where the second half of the sentence is simply never said, and the meaning stays.",
+        "grupa_relation_opis": "First day at work, a waiter, a professor, the office phone – fourteen situations and the form each of them asks for.",
+        "grupa_lexeme_opis": "いらっしゃる, 召し上がる, 伺う – twenty honorific and humble words, each beside its plain verb and inside a sentence.",
+        "grupa_n5.g1.particles_opis": "は, が, を, に, で, と, も, の, か – fifteen particle roles that an ordinary Japanese sentence is built from.",
+        "grupa_n5.g2.time-place_opis": "に, から〜まで, ごろ, ぐらい, へ, あります and います – nine points about when, where, and whether something is there at all.",
+        "grupa_n5.g3.verb-forms_opis": "〜ます, 〜て, 〜ています, 〜ない, 〜た – eleven N5 verb forms, with the difference between an action in progress and its result.",
+        "grupa_n5.g4.requests_opis": "〜てください, 〜てもいいです, 〜てはいけません – seven ways to ask, to permit and to forbid, from the most polite down.",
+        "grupa_n5.g5.adjectives_opis": "い and な adjectives, 〜くないです, 〜より, いちばん – seven points on adjective inflection and on comparing things.",
+        "grupa_n5.g6.wishes_opis": "〜たい, 〜がほしい, 〜ませんか, 〜ましょう – six forms for saying what you want and for inviting someone along.",
+        "grupa_n5.g7.tone_opis": "から, あまり〜ない, ぜんぜん〜ない, ね, よ – five points on reason, degree, and what a final particle does to the tone.",
         "grupa_relation": "Situations",
         "grupa_lexeme": "Honorific and humble words",
         "grupa_contraction": "Contractions",

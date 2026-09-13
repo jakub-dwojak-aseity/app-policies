@@ -882,10 +882,20 @@ TEMATY = (
          {"grupa": "l1.zmeczenie", "sciezka": {"pl": "zmeczenie", "en": "tiredness"}},
          {"grupa": "l1",
           "sciezka": {"pl": "cialo-i-samopoczucie", "en": "body-and-feeling"}},
+         # Obie sekcje par pocięte 15.09 na pół w kolejności gojūon — decyzja
+         # Jakuba, bo znaczeniowej osi trzeciej katalog nie unosi. **Pierwsze
+         # połówki zachowują dawne adresy**, drugie dostają zakres kana w slugu,
+         # żeby adres mówił, gdzie się jest, a nie „część druga".
          {"grupa": "l2", "sciezka": {"pl": "pary-dzwieczne", "en": "voicing-pairs"},
+          "powiazane": ({"klucz": "potoczny", "grupa": "voicing"},)},
+         {"grupa": "l2.b",
+          "sciezka": {"pl": "pary-dzwieczne-ta-ho", "en": "voicing-pairs-ta-ho"},
           "powiazane": ({"klucz": "potoczny", "grupa": "voicing"},)},
          {"grupa": "l2.dzwiek",
           "sciezka": {"pl": "pary-dzwiekowe", "en": "sound-pairs"},
+          "powiazane": ({"klucz": "potoczny", "grupa": "voicing"},)},
+         {"grupa": "l2.dzwiek.b",
+          "sciezka": {"pl": "pary-dzwiekowe-ko-to", "en": "sound-pairs-ko-to"},
           "powiazane": ({"klucz": "potoczny", "grupa": "voicing"},)},
      )},
     # Temat z `grupy` nie jest stroną, tylko **rozdrożem drugiego poziomu**:
@@ -984,7 +994,14 @@ def opis_grupy(eksport, temat, grupa, jezyk, nazwa_g, sufiks):
     Które sekcje jeszcze stoją na ogonie, wypisuje bramka 19.
     """
     n = NAPISY[jezyk]
-    wlasny = n.get("grupa_%s_%s_opis" % (eksport.get("apka", ""), grupa["grupa"]))
+    # Ten sam odwrót co w `nazwa_grupy`: klucz z nazwą aplikacji ma pierwszeństwo,
+    # bo `l2` w Onomatope znaczy co innego niż `l2` gdziekolwiek indziej; klucz ogólny
+    # wystarcza tam, gdzie nazwa grupy jest sama w sobie jednoznaczna (`contraction`,
+    # `relation`, `n5.g1.particles`). Brak tego odwrotu kosztował czternaście sekcji,
+    # które **miały napisane opisy i dalej stały na wspólnym ogonie** — bramka 19
+    # świeciła na nie, choć tekst istniał.
+    wlasny = (n.get("grupa_%s_%s_opis" % (eksport.get("apka", ""), grupa["grupa"]))
+              or n.get("grupa_%s_opis" % grupa["grupa"]))
     if wlasny:
         return wlasny
     return n["nauka_opis_grupy"].format(grupa=nazwa_g, sufiks=sufiks)
@@ -1172,7 +1189,8 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
         # nazwę właśnie niesie, czytało się to jak zacięcie płyty. Sekcja z własnym
         # opisem tej wady nie ma: własne zdanie mówi, o czym ta sekcja jest, więc
         # stoi i w głowie, i pod nagłówkiem — jedno zdanie zamiast dwóch do pisania.
-        wlasny = n.get("grupa_%s_%s_opis" % (eksport.get("apka", ""), grupa["grupa"]))
+        wlasny = (n.get("grupa_%s_%s_opis" % (eksport.get("apka", ""), grupa["grupa"]))
+                  or n.get("grupa_%s_opis" % grupa["grupa"]))
         podtytul = wlasny or n["nauka_podtytul_grupy"]
     else:
         tytul = n["temat_%s_tytul" % temat["klucz"]]
@@ -2703,8 +2721,9 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
         for g in temat.get("grupy", ()):
             if not jednostki_tematu(eksport, temat, g):
                 continue
-            klucz = "grupa_%s_%s_opis" % (eksport.get("apka", ""), g["grupa"])
-            if not all(NAPISY[jezyk].get(klucz) for jezyk in JEZYKI):
+            klucze = ("grupa_%s_%s_opis" % (eksport.get("apka", ""), g["grupa"]),
+                      "grupa_%s_opis" % g["grupa"])
+            if not all(any(NAPISY[jezyk].get(k) for k in klucze) for jezyk in JEZYKI):
                 bez_opisu.append("%s/%s" % (temat["klucz"], g["grupa"]))
     if bez_opisu:
         uwagi.append("sekcje bez własnego opisu w głowie (%d z %d): %s"

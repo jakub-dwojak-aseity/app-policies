@@ -105,6 +105,19 @@ NAPISY = {
         "nauka_spis": "Na tej stronie",
         "nauka_przyklady": "Przykłady",
         "nauka_skad": "Skąd ten materiał",
+        "nauka_powiazane": "Zobacz też",
+        # Zdania mostów między tematami. Każde mówi, **czym jest strona po drugiej
+        # stronie linku** – bo to jest cała robota tego bloku: powiedzieć wprost,
+        # która z dwóch stron o partykułach jest tą pełną.
+        "powiazane_partykuly": "pełny przewodnik po sześciu partykułach i ich rolach",
+        "powiazane_formy": "wszystkie czternaście form czasownika w jednym miejscu",
+        "powiazane_n5_n5.g1.particles": "te same partykuły w kursie N5, po kolei "
+                                        "z resztą gramatyki poziomu",
+        "powiazane_n5_n5.g3.verb-forms": "formy czasownika jako punkt kursu N5",
+        "powiazane_potoczny_voicing": "udźwięcznienia w mowie potocznej – ten sam "
+                                      "znak 濁点 w skrótach, nie w onomatopejach",
+        "powiazane_onomatopeje_l2": "pary onomatopei – 濁点 zmieniający nie skrót, "
+                                    "tylko stan rzeczy",
         "nauka_skad_opis": "Wszystko powyżej pochodzi z darmowej części aplikacji {apka} "
                            "i przeszło jej przegląd treści.",
         "temat_partykuly_tytul": "Partykuły japońskie: は, が, を, に, で, へ",
@@ -126,8 +139,32 @@ NAPISY = {
         "temat_onomatopeje_opis": "Słowa, które naśladują dźwięk i stan – co znaczą "
                                   "i co robi z nimi 濁点.",
         "temat_onomatopeje_sufiks": "onomatopeje japońskie",
+        # Sześć sekcji onomatopei. Cztery pierwsze dzielą ciało wg doznania,
+        # dwie ostatnie dzielą pary wg tego, czy słowo umie być też dźwiękiem.
+        "grupa_onomatope_l1.bol": "Ból",
+        "grupa_onomatope_l1.drzenie": "Drżenie, dreszcze i zawroty",
+        "grupa_onomatope_l1.zmeczenie": "Zmęczenie i sen",
         "grupa_onomatope_l1": "Ciało i samopoczucie",
         "grupa_onomatope_l2": "Pary dźwięczne",
+        "grupa_onomatope_l2.dzwiek": "Pary dźwiękonaśladowcze",
+        "grupa_onomatope_l1.bol_opis": "Jak po japońsku powiedzieć, że boli: "
+                                       "ずきずき, きりきり, がんがん i cztery inne "
+                                       "słowa na ból, każde o innym bólu.",
+        "grupa_onomatope_l1.drzenie_opis": "Osiem słów o trzęsieniu się i kręceniu "
+                                           "w głowie: ぶるぶる, ぞくぞく, くらくら "
+                                           "– z czego bierze się drżenie w każdym.",
+        "grupa_onomatope_l1.zmeczenie_opis": "へとへと, くたくた, うとうと – sześć "
+                                             "japońskich słów o zmęczeniu i zasypianiu, "
+                                             "ze zdaniami przykładowymi.",
+        "grupa_onomatope_l1_opis": "Ciepło, głód, mdłości i swędzenie – japońskie "
+                                   "słowa o tym, co czuje ciało, z przykładami "
+                                   "i tłumaczeniem.",
+        "grupa_onomatope_l2_opis": "Pary takie jak さらさら i ざらざら: to samo słowo "
+                                   "bez 濁点 i z 濁点, i różnica stanu, którą robi "
+                                   "sam znak dźwięczności.",
+        "grupa_onomatope_l2.dzwiek_opis": "Pary, które są też dźwiękiem: からから, "
+                                          "とんとん, かちゃかちゃ – jak 濁点 robi ten "
+                                          "sam odgłos większym i cięższym.",
         "grupa_relation": "Sytuacje",
         "grupa_lexeme": "Słowa czczące i skromne",
         "grupa_contraction": "Ściągnięcia",
@@ -235,6 +272,16 @@ NAPISY = {
         "nauka_spis": "On this page",
         "nauka_przyklady": "Examples",
         "nauka_skad": "Where this comes from",
+        "nauka_powiazane": "See also",
+        "powiazane_partykuly": "the full guide to six particles and the roles they take",
+        "powiazane_formy": "all fourteen verb forms in one place",
+        "powiazane_n5_n5.g1.particles": "the same particles inside the N5 course, "
+                                        "in order with the rest of the level",
+        "powiazane_n5_n5.g3.verb-forms": "verb forms as a point of the N5 course",
+        "powiazane_potoczny_voicing": "voicing in casual speech – the same 濁点, "
+                                      "in contractions rather than in mimetics",
+        "powiazane_onomatopeje_l2": "mimetic pairs – 濁点 changing not a contraction "
+                                    "but the state of things",
         "nauka_skad_opis": "Everything above comes from the free part of the {apka} app "
                            "and has passed its content review.",
         "temat_partykuly_tytul": "Japanese particles: は, が, を, に, で, へ",
@@ -254,8 +301,30 @@ NAPISY = {
         "temat_onomatopeje_opis": "Words that imitate sound and state – what they mean "
                                   "and what 濁点 does to them.",
         "temat_onomatopeje_sufiks": "Japanese mimetics",
+        "grupa_onomatope_l1.bol": "Pain",
+        "grupa_onomatope_l1.drzenie": "Shivering, trembling and dizziness",
+        "grupa_onomatope_l1.zmeczenie": "Tiredness and sleep",
         "grupa_onomatope_l1": "Body and feeling",
         "grupa_onomatope_l2": "Voicing pairs",
+        "grupa_onomatope_l2.dzwiek": "Sound pairs",
+        "grupa_onomatope_l1.bol_opis": "How to say it hurts in Japanese: ずきずき, "
+                                       "きりきり, がんがん and four more words for "
+                                       "pain, each for a different kind of it.",
+        "grupa_onomatope_l1.drzenie_opis": "Eight words for shaking and for the room "
+                                           "spinning: ぶるぶる, ぞくぞく, くらくら – "
+                                           "and what makes each one tremble.",
+        "grupa_onomatope_l1.zmeczenie_opis": "へとへと, くたくた, うとうと – six "
+                                             "Japanese words for being worn out and "
+                                             "for dozing off, with example sentences.",
+        "grupa_onomatope_l1_opis": "Warmth, hunger, nausea and itching – Japanese "
+                                   "words for what the body feels, with examples "
+                                   "and translations.",
+        "grupa_onomatope_l2_opis": "Pairs such as さらさら and ざらざら: the same word "
+                                   "without 濁点 and with it, and the change of state "
+                                   "the voicing mark alone makes.",
+        "grupa_onomatope_l2.dzwiek_opis": "Pairs that are also a sound: からから, "
+                                          "とんとん, かちゃかちゃ – how 濁点 makes the "
+                                          "same noise bigger and heavier.",
         "grupa_relation": "Situations",
         "grupa_lexeme": "Honorific and humble words",
         "grupa_contraction": "Contractions",

@@ -785,15 +785,23 @@ ROBOTY_AI = ("GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-Use
 # formy je odmieniają, liczniki wchodzą wszędzie, a mowa potoczna i keigo są
 # dwoma końcami tej samej skali rejestru.
 TEMATY = (
+    # `powiazane` — **wyjście na stronę o tej samej rzeczy widzianej z innej
+    # strony**. Wypisane z ręki, tak jak adresy, i z tego samego powodu: para
+    # „partykuły" i „szkielet zdania N5" to dwie strony pełne は・が・を, a bez
+    # powiedzianej hierarchii wyszukiwarka sama zgaduje, która jest tą właściwą
+    # na „japanese particles". Zmierzone 15.09: wszystkie 32 strony sekcji miały
+    # zero linków do innego tematu.
     {"apka": "joshi", "klucz": "partykuly",
-     "sciezka": {"pl": "nauka/partykuly-japonskie", "en": "en/learn/japanese-particles"}},
+     "sciezka": {"pl": "nauka/partykuly-japonskie", "en": "en/learn/japanese-particles"},
+     "powiazane": ({"klucz": "n5", "grupa": "n5.g1.particles"},)},
     # `tylko: ""` — z eksportu Kaname na tę stronę idą wyłącznie hasła bez sekcji,
     # czyli pary kontrastowe. Punkty N5 z tego samego pliku mają sekcje i trafiają
     # na strony grup niżej.
     {"apka": "kaname", "klucz": "pary", "tylko": "",
      "sciezka": {"pl": "nauka/mylace-pary", "en": "en/learn/confusing-pairs"}},
     {"apka": "katsuyokei", "klucz": "formy",
-     "sciezka": {"pl": "nauka/formy-czasownika", "en": "en/learn/verb-forms"}},
+     "sciezka": {"pl": "nauka/formy-czasownika", "en": "en/learn/verb-forms"},
+     "powiazane": ({"klucz": "n5", "grupa": "n5.g3.verb-forms"},)},
     {"apka": "kazoekata", "klucz": "liczniki",
      "sciezka": {"pl": "nauka/liczniki-japonskie", "en": "en/learn/japanese-counters"}},
     {"apka": "kuzushi", "klucz": "potoczny",
@@ -803,7 +811,8 @@ TEMATY = (
           "sciezka": {"pl": "sciagniecia", "en": "contractions"}},
          {"grupa": "fusion", "sciezka": {"pl": "zlania", "en": "fusions"}},
          {"grupa": "voicing",
-          "sciezka": {"pl": "udzwiecznienia", "en": "voicing"}},
+          "sciezka": {"pl": "udzwiecznienia", "en": "voicing"},
+          "powiazane": ({"klucz": "onomatopeje", "grupa": "l2"},)},
          {"grupa": "layered", "sciezka": {"pl": "zlozone", "en": "layered"}},
          {"grupa": "omission",
           "sciezka": {"pl": "opuszczenia", "en": "omissions"}},
@@ -814,12 +823,25 @@ TEMATY = (
          {"grupa": "relation", "sciezka": {"pl": "sytuacje", "en": "situations"}},
          {"grupa": "lexeme", "sciezka": {"pl": "slowa", "en": "words"}},
      )},
+    # Sześć sekcji, nie dwie — i **oba stare adresy zostają**. Podział zapadł
+    # 15.09, bo `pary-dzwieczne` i `cialo-i-samopoczucie` były najcięższymi
+    # plikami witryny (86 i 60 KB przy 33 KB największej pozostałej). Oś wybiera
+    # siostra w `review-content.py`, tutaj stoją tylko adresy; kubełki `l1` i `l2`
+    # zachowały dawny klucz właśnie po to, żeby te dwa adresy nie zginęły —
+    # poszły do Search Console 14.09.
     {"apka": "onomatope", "klucz": "onomatopeje",
      "sciezka": {"pl": "nauka/onomatopeje", "en": "en/learn/japanese-mimetics"},
      "grupy": (
+         {"grupa": "l1.bol", "sciezka": {"pl": "bol", "en": "pain"}},
+         {"grupa": "l1.drzenie", "sciezka": {"pl": "drzenie", "en": "shivering"}},
+         {"grupa": "l1.zmeczenie", "sciezka": {"pl": "zmeczenie", "en": "tiredness"}},
          {"grupa": "l1",
           "sciezka": {"pl": "cialo-i-samopoczucie", "en": "body-and-feeling"}},
-         {"grupa": "l2", "sciezka": {"pl": "pary-dzwieczne", "en": "voicing-pairs"}},
+         {"grupa": "l2", "sciezka": {"pl": "pary-dzwieczne", "en": "voicing-pairs"},
+          "powiazane": ({"klucz": "potoczny", "grupa": "voicing"},)},
+         {"grupa": "l2.dzwiek",
+          "sciezka": {"pl": "pary-dzwiekowe", "en": "sound-pairs"},
+          "powiazane": ({"klucz": "potoczny", "grupa": "voicing"},)},
      )},
     # Temat z `grupy` nie jest stroną, tylko **rozdrożem drugiego poziomu**:
     # pod jego adresem stoją karty grup, a treść mieszka piętro niżej. Podział
@@ -830,11 +852,13 @@ TEMATY = (
      "sciezka": {"pl": "nauka/gramatyka-n5", "en": "en/learn/japanese-n5-grammar"},
      "grupy": (
          {"grupa": "n5.g1.particles",
-          "sciezka": {"pl": "szkielet-zdania", "en": "sentence-skeleton"}},
+          "sciezka": {"pl": "szkielet-zdania", "en": "sentence-skeleton"},
+          "powiazane": ({"klucz": "partykuly"},)},
          {"grupa": "n5.g2.time-place",
           "sciezka": {"pl": "czas-i-miejsce", "en": "time-and-place"}},
          {"grupa": "n5.g3.verb-forms",
-          "sciezka": {"pl": "formy-czasownika", "en": "verb-forms"}},
+          "sciezka": {"pl": "formy-czasownika", "en": "verb-forms"},
+          "powiazane": ({"klucz": "formy"},)},
          {"grupa": "n5.g4.requests",
           "sciezka": {"pl": "prosby-i-zakazy", "en": "requests-and-prohibitions"}},
          {"grupa": "n5.g5.adjectives",
@@ -902,6 +926,23 @@ def nazwa_grupy(eksport, grupa, jezyk):
     n = NAPISY[jezyk]
     return (n.get("grupa_%s_%s" % (eksport.get("apka", ""), grupa["grupa"]))
             or n.get("grupa_%s" % grupa["grupa"], grupa["grupa"]))
+
+
+def opis_grupy(eksport, temat, grupa, jezyk, nazwa_g, sufiks):
+    """Opis sekcji do głowy strony: **własny, jeśli ktoś go napisał**.
+
+    Domyślnie każda sekcja dostaje ten sam ogon („Znaczenie, wyjaśnienie i zdania
+    przykładowe z tłumaczeniem"), co przy dwudziestu sekcjach w dwóch językach
+    daje czterdzieści stron z jednym opisem — a opis jest tym, co wyszukiwarka
+    pokazuje pod tytułem. Klucz jest **opcjonalny z rozmysłu**: zdania pisze się
+    po jednym, a nie hurtem, więc brak klucza nie może wstrzymywać przeliczenia.
+    Które sekcje jeszcze stoją na ogonie, wypisuje bramka 19.
+    """
+    n = NAPISY[jezyk]
+    wlasny = n.get("grupa_%s_%s_opis" % (eksport.get("apka", ""), grupa["grupa"]))
+    if wlasny:
+        return wlasny
+    return n["nauka_opis_grupy"].format(grupa=nazwa_g, sufiks=sufiks)
 
 
 def grupy_zywe(temat, eksport):
@@ -1080,7 +1121,7 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
         sufiks = n.get("temat_%s_sufiks" % temat["klucz"],
                        n["temat_%s_tytul" % temat["klucz"]])
         tytul = "%s – %s" % (nazwa_g, sufiks)
-        opis = n["nauka_opis_grupy"].format(grupa=nazwa_g, sufiks=sufiks)
+        opis = opis_grupy(eksport, temat, grupa, jezyk, nazwa_g, sufiks)
         # **Podtytuł na stronie mówi co innego niż `<title>`.** Opis z głowy jest
         # pełnym zdaniem dla wyszukiwarki i powtarza nazwę sekcji — pod nagłówkiem,
         # który tę nazwę właśnie niesie, czytało się to jak zacięcie płyty.
@@ -1162,6 +1203,44 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
         sasiedzi_html = (f'<h2>{e(n["nauka_link"])}</h2>'
                          f'<ul class="zwykla">{"".join(kroki)}</ul>')
 
+    # **Wyjście na stronę o tej samej rzeczy, widzianej z innej strony.** Nie to
+    # samo co sąsiedzi: sąsiad jest krokiem w tym samym temacie, a to jest most
+    # między tematami. Powiązania są **zadeklarowane w `TEMATY`, nie domyślane** —
+    # podobieństwo treści wyliczone tutaj byłoby zgadywaniem, a chodzi o zdanie,
+    # które mówi czytelnikowi (i wyszukiwarce), która z dwóch stron o partykułach
+    # jest tą pełną. Cel nieżywy pomija się w ciszy na stronie i głośno w bramce 18:
+    # eksport siostry może zniknąć w środku jej własnej roboty i nie jest to powód,
+    # żeby witryna przestała się przeliczać.
+    powiazane_html = ""
+    cele = (grupa or temat).get("powiazane", ())
+    if cele:
+        pozycje_p = []
+        for cel in cele:
+            wpis = next((z for z in zywe if z[0]["klucz"] == cel["klucz"]), None)
+            if wpis is None:
+                continue
+            inny_t, _, inny_e = wpis
+            inna_g = None
+            if cel.get("grupa"):
+                inna_g = next((g for g in grupy_zywe(inny_t, inny_e)
+                               if g["grupa"] == cel["grupa"]), None)
+                if inna_g is None:
+                    continue
+            sufiks_i = n.get("temat_%s_sufiks" % inny_t["klucz"],
+                             n["temat_%s_tytul" % inny_t["klucz"]])
+            if inna_g:
+                napis = "%s – %s" % (nazwa_grupy(inny_e, inna_g, jezyk), sufiks_i)
+                powod = n.get("powiazane_%s_%s" % (cel["klucz"], cel["grupa"]), "")
+            else:
+                napis = n["temat_%s_tytul" % inny_t["klucz"]]
+                powod = n.get("powiazane_%s" % cel["klucz"], "")
+            cel_p = wzgledny(glebokosc, sciezki_tematu(inny_t, jezyk, inna_g)[0])
+            pozycje_p.append(f'<li><a href="{cel_p}">{e(napis)}</a>'
+                             + (f" – {e(powod)}" if powod else "") + "</li>")
+        if pozycje_p:
+            powiazane_html = (f'<h2>{e(n["nauka_powiazane"])}</h2>'
+                              f'<ul class="zwykla">{"".join(pozycje_p)}</ul>')
+
     pozostale = [] if grupa else [t for t in zywe if t[0]["klucz"] != temat["klucz"]]
     pozostale_html = ""
     if pozostale:
@@ -1188,6 +1267,7 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
         + f'<p>{e(n["nauka_skad_opis"].format(apka=t["nazwa"].split(":")[0].strip()))}</p>'
         + karta
         + sklep
+        + powiazane_html
         + sasiedzi_html
         + pozostale_html)
 
@@ -2482,6 +2562,96 @@ def bramki(apki, pliki, manifest):
                 f"{a['slug']}: apps.json wskazuje teksty wersji {a['wersja']}, "
                 f"a {plik.name} ma nowszy blok z polami sklepowymi: "
                 f"{', '.join(nowsze)} — strona niesie poprzednie brzmienie")
+
+    # 17. Każdy klucz grupy z eksportu musi być zadeklarowany w `TEMATY`.
+    #
+    #     Bramka na cichą utratę treści. `jednostki_tematu()` wybiera hasła po
+    #     **dokładnym** kluczu grupy, więc siostra, która przemianuje albo rozbije
+    #     swoją grupę, wypycha jej hasła ze strony **bez jednego komunikatu**:
+    #     strona nie znika, tylko chudnie, a wszystkie pozostałe bramki świecą
+    #     zielono, bo wytwór jest poprawny. Zmierzone przy podziale Onomatope
+    #     15.09: gdyby eksport oddał `l1.bol`, a ten plik o tym kluczu nie wiedział,
+    #     siedem haseł zeszłoby z witryny po cichu.
+    #
+    #     Błąd, nie uwaga — w odróżnieniu od bramek 12 i 13 nie chodzi o cudze
+    #     repozytorium w środku roboty, tylko o to, że wytwór **już** jest niepełny.
+    #     Klucze zbiera się **per aplikacja, nie per temat**: Kaname stoi w `TEMATY`
+    #     dwa razy (pary kontrastowe i kurs N5) i dzieli jeden eksport na dwa
+    #     tematy, więc liczone per temat każdy z nich uznałby grupy drugiego za
+    #     nieznane. Złapane własną bramką przy pierwszym przebiegu.
+    braki = {}
+    for temat in TEMATY:
+        eksport = eksporty.get(temat["apka"])
+        if not eksport or eksport.get("schemaVersion") != EKSPORT_SCHEMA:
+            continue
+        znane, wszystko = braki.setdefault(temat["apka"], (set(), False))
+        if temat.get("grupy"):
+            znane |= {g["grupa"] for g in temat["grupy"]}
+        elif "tylko" in temat:
+            znane.add(temat["tylko"])
+        else:
+            # Temat bez grup i bez `tylko` bierze **wszystkie** hasła eksportu,
+            # więc żaden klucz nie może z niego wypaść.
+            wszystko = True
+        braki[temat["apka"]] = (znane, wszystko)
+    for apka, (znane, wszystko) in braki.items():
+        if wszystko:
+            continue
+        jednostki = eksporty[apka].get("jednostki", [])
+        widziane = {(j.get("grupa") or "") for j in jednostki}
+        for klucz in sorted(widziane - znane):
+            ile = sum(1 for j in jednostki if (j.get("grupa") or "") == klucz)
+            bledy.append(
+                f"{apka}: eksport ma grupę {klucz!r} ({ile} haseł), "
+                f"której TEMATY nie zna — te hasła nie stanęłyby na żadnej stronie")
+
+    # 18. Powiązanie między tematami musi mieć dokąd prowadzić.
+    #
+    #     `powiazane` wypisuje się z ręki, więc literówka w kluczu nie ma jak
+    #     wyjść inaczej: strona po prostu nie pokazuje mostu i wygląda dokładnie
+    #     tak, jak wyglądała przedtem. Uwaga, nie błąd — cel przestaje być żywy
+    #     także wtedy, gdy siostra chwilowo nie ma eksportu, a to stan roboczy.
+    zywe_b = tematy_zywe(apki, eksporty)
+    klucze_zywe = {t["klucz"]: (t, e_) for t, _, e_ in zywe_b}
+    for temat in TEMATY:
+        zrodla = [(temat["klucz"], temat)]
+        zrodla += [("%s/%s" % (temat["klucz"], g["grupa"]), g)
+                   for g in temat.get("grupy", ())]
+        for skad, wpis in zrodla:
+            for cel in wpis.get("powiazane", ()):
+                para = klucze_zywe.get(cel["klucz"])
+                if para is None:
+                    uwagi.append(f"{skad}: powiązanie wskazuje temat "
+                                 f"{cel['klucz']!r}, którego nie ma wśród żywych")
+                    continue
+                if cel.get("grupa") and not any(
+                        g["grupa"] == cel["grupa"]
+                        for g in grupy_zywe(para[0], para[1])):
+                    uwagi.append(f"{skad}: powiązanie wskazuje grupę "
+                                 f"{cel['grupa']!r} tematu {cel['klucz']!r}, "
+                                 f"której nie ma wśród żywych")
+
+    # 19. Które sekcje stoją jeszcze na wspólnym ogonie opisu.
+    #
+    #     Opis jest tym, co wyszukiwarka pokazuje pod tytułem, a domyślny ogon jest
+    #     jeden dla wszystkich sekcji witryny. To nie jest wada wytworu, więc nie
+    #     błąd — ale dług policzony, a nie pamiętany, bo pamiętany nie wraca.
+    bez_opisu = []
+    for temat in TEMATY:
+        eksport = eksporty.get(temat["apka"])
+        if not eksport or eksport.get("schemaVersion") != EKSPORT_SCHEMA:
+            continue
+        for g in temat.get("grupy", ()):
+            if not jednostki_tematu(eksport, temat, g):
+                continue
+            klucz = "grupa_%s_%s_opis" % (eksport.get("apka", ""), g["grupa"])
+            if not all(NAPISY[jezyk].get(klucz) for jezyk in JEZYKI):
+                bez_opisu.append("%s/%s" % (temat["klucz"], g["grupa"]))
+    if bez_opisu:
+        uwagi.append("sekcje bez własnego opisu w głowie (%d z %d): %s"
+                     % (len(bez_opisu),
+                        sum(len(grupy_zywe(t, e_)) for t, _, e_ in zywe_b),
+                        ", ".join(bez_opisu)))
 
     return bledy, uwagi
 

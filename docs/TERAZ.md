@@ -42,8 +42,10 @@ poprzedniej i następnej, bo kolejność sekcji bywa kolejnością nauki.
 
 Kolejka toru, w kolejności taniości: (1) domknięcie poz. 84 — 16 plików prozy i stare adresy
 w dwóch martwych drzewach, część to historia i **ma zostać**; (2) Search Console (Jakub);
-(3) nazwy i opisy 42 zakupów w ASC; (4) **strony tematyczne dla pozostałej czwórki plus 60 punktów N5 Kaname —
-poz. 189**, gdzie stoi, co blokuje którą.
+(3) nazwy i opisy 42 zakupów w ASC; (4) **Onomatope — jedyna siostra, którą da się dziś
+wziąć** (84 jednostki, repo wolne, `review.json` jest; mina: schemat `{"units": …}`).
+Bunmyaku odpada decyzją Jakuba (318 z 351 haseł to samo znaczenie), Shindan i Kifuku są
+zablokowane — szczegóły w poz. 189.
 
 **`marketingUrl` zszedł z kolejki 14.09 — pomiarem, nie robotą.** `asc-marketing-url.py`
 na sucho oddaje **0 pól do zmiany, 20 już zgodnych**: kolejka mówiła o dwunastu polach na

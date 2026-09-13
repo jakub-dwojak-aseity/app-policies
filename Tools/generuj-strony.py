@@ -814,6 +814,13 @@ TEMATY = (
          {"grupa": "relation", "sciezka": {"pl": "sytuacje", "en": "situations"}},
          {"grupa": "lexeme", "sciezka": {"pl": "slowa", "en": "words"}},
      )},
+    {"apka": "onomatope", "klucz": "onomatopeje",
+     "sciezka": {"pl": "nauka/onomatopeje", "en": "en/learn/japanese-mimetics"},
+     "grupy": (
+         {"grupa": "l1",
+          "sciezka": {"pl": "cialo-i-samopoczucie", "en": "body-and-feeling"}},
+         {"grupa": "l2", "sciezka": {"pl": "pary-dzwieczne", "en": "voicing-pairs"}},
+     )},
     # Temat z `grupy` nie jest stroną, tylko **rozdrożem drugiego poziomu**:
     # pod jego adresem stoją karty grup, a treść mieszka piętro niżej. Podział
     # wzięty z katalogu (`base_n5.json` ma siedem grup), nie wymyślony tutaj —
@@ -889,7 +896,12 @@ def nazwa_grupy(eksport, grupa, jezyk):
     for wpis in eksport.get("grupy", ()):
         if wpis["slug"] == grupa["grupa"] and (wpis.get("nazwa") or {}).get(jezyk):
             return wpis["nazwa"][jezyk]
-    return NAPISY[jezyk].get("grupa_%s" % grupa["grupa"], grupa["grupa"])
+    # Klucz z nazwą aplikacji ma pierwszeństwo: `l1` w Onomatope znaczy co innego
+    # niż `l1` gdziekolwiek indziej, a klucz ogólny podpisałby obie sekcje tak samo
+    # i zrobiłby to po cichu.
+    n = NAPISY[jezyk]
+    return (n.get("grupa_%s_%s" % (eksport.get("apka", ""), grupa["grupa"]))
+            or n.get("grupa_%s" % grupa["grupa"], grupa["grupa"]))
 
 
 def grupy_zywe(temat, eksport):

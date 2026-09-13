@@ -122,6 +122,12 @@ NAPISY = {
         # Rodzaje skrótu w mowie potocznej. Katalog niesie je jako klucze
         # techniczne (`contraction`, `fusion`), bez brzmień dla czytelnika.
         "temat_keigo_sufiks": "keigo",
+        "temat_onomatopeje_tytul": "Onomatopeje japońskie – dźwięki z mangi i anime",
+        "temat_onomatopeje_opis": "Słowa, które naśladują dźwięk i stan – co znaczą "
+                                  "i co robi z nimi 濁点.",
+        "temat_onomatopeje_sufiks": "onomatopeje japońskie",
+        "grupa_onomatope_l1": "Ciało i samopoczucie",
+        "grupa_onomatope_l2": "Pary dźwięczne",
         "grupa_relation": "Sytuacje",
         "grupa_lexeme": "Słowa czczące i skromne",
         "grupa_contraction": "Ściągnięcia",
@@ -244,6 +250,12 @@ NAPISY = {
         "nauka_podtytul_grupy": "Meaning, explanation and example sentences "
                                 "with translations.",
         "temat_keigo_sufiks": "keigo",
+        "temat_onomatopeje_tytul": "Japanese mimetics – the sounds in manga and anime",
+        "temat_onomatopeje_opis": "Words that imitate sound and state – what they mean "
+                                  "and what 濁点 does to them.",
+        "temat_onomatopeje_sufiks": "Japanese mimetics",
+        "grupa_onomatope_l1": "Body and feeling",
+        "grupa_onomatope_l2": "Voicing pairs",
         "grupa_relation": "Situations",
         "grupa_lexeme": "Honorific and humble words",
         "grupa_contraction": "Contractions",

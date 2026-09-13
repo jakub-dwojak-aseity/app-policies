@@ -56,9 +56,17 @@ kopii tekstu**. Każde pole jest zmierzone, a źródło pomiaru stoi w komentarz
 
 ### Bramki
 
-Generator nie zapisuje niczego, dopóki nie przejdzie wszystkich dziewięciu. Lista
-poniżej **miała wcześniej sześć pozycji przy ośmiu bramkach w kodzie** — dwie
-dopisane później nie trafiły do dokumentu; są tu jako 6 i 7.
+Generator nie zapisuje niczego, dopóki nie przejdzie wszystkich **blokujących**.
+Bramek jest dziś **dwadzieścia**; policz je poleceniem, nie z tego zdania:
+
+```
+grep -cE '^\s+# [0-9]+\. ' Tools/generuj-strony.py
+```
+
+**Ta lista skłamała już dwa razy** — najpierw miała sześć pozycji przy ośmiu bramkach
+w kodzie (dwie dopisane później nie trafiły do dokumentu; są tu jako 6 i 7), potem
+dziewięć przy dwudziestu. Jeśli dopisujesz bramkę, **dopisz ją tutaj w tym samym
+commicie**, bo inaczej skłamie po raz trzeci i następny agent policzy ją stąd.
 
 1. każdy dokument prawny, do którego strona linkuje, **istnieje na dysku**;
 2. każdy link wewnętrzny prowadzi do pliku, który istnieje albo powstanie;
@@ -75,6 +83,24 @@ dopisane później nie trafiły do dokumentu; są tu jako 6 i 7.
    **i dokumenty prawne** (pisane ręcznie, więc bez szablonu, który by ich pilnował),
    **i strony generowane** — te ostatnie trzymały landmark na jednej linii szablonu
    i żadnym teście, więc nowy szablon bez `<main>` przeszedłby bez słowa.
+
+Jedenaście dalszych, dopisanych między 09 a 15.09.2026:
+
+11. głowa dokumentu prawnego: `canonical` na własny adres i `hreflang` na parę
+    językową, a przy dokumencie przestarzałym dodatkowo `noindex`. Adresy pary
+    mierzone **osobno** — dokument wskazujący siebie jako obie wersje przechodzi
+    każdą bramkę pytającą „czy jest hreflang”;
+12. eksport przejrzanej treści: schemat, komplet obu języków, poręczenie;
+13. czy eksport nie zwietrzał wobec katalogu siostry, z którego powstał;
+14. żadnej cudzej treści na stronie tematycznej;
+15. przeciek języka w eksporcie — polska nakładka wpisana w pole angielskie;
+16. manifest wskazuje **najświeższy** blok tekstów sklepowych, a nie dowolny;
+17. każdy klucz grupy z eksportu jest zadeklarowany w `TEMATY`;
+18. powiązanie między tematami ma dokąd prowadzić;
+19. które sekcje stoją jeszcze na wspólnym ogonie opisu (**uwaga, nie błąd**);
+20. **aplikacja zapowiedziana jest kartą, a nie stroną** — w obie strony: błąd, gdy
+    zapowiedziana ma stronę produktową albo wpis w mapie witryny, i błąd, gdy nie ma
+    nazwy, podtytułu w obu językach albo ikony.
 
 Dziesiąta jest **nazwana, ale nie blokuje**: dokumenty prawne mają bliźniaki
 w `<repo>/docs/app-store/**` i bramka mówi, które się rozjechały, parując je

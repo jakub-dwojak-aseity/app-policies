@@ -243,9 +243,13 @@ https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne/
 - **Bramka 10 świeci dalej 5 rozjazdów** (Bunmyaku `terms.html` i `support.html` wobec
   `bunmyaku-n2/docs/app-store/`) — **nazwane, nieblokujące**, bo kopie leżą w cudzym repo.
   Dokumenty zmienia się **po obu stronach naraz**; podmiana po jednej topi prawdziwy sygnał.
-- **Tekst własny witryny urósł z 42 do 92 kluczy `NAPISY`** — tytuł i jedno zdanie na temat,
-  plus **nazwy sekcji, których katalog nie nazywa** (rodzaje skrótu, rodzaje pozycji
-  Keigo, klasy odmiany). To najgrubszy skok od początku i ma być zauważony. Ta liczba jest miarą: jeśli rośnie dalej, strona zaczęła mówić od siebie.
+- **Tekst własny witryny urósł z 42 przez 92 do 129 kluczy `NAPISY`** (pomiar 13.09.2026,
+  tyle samo w obu językach) — tytuł i jedno zdanie na temat, plus **nazwy sekcji, których
+  katalog nie nazywa** (rodzaje skrótu, rodzaje pozycji Keigo, klasy odmiany). Ta liczba
+  jest miarą: jeśli rośnie dalej, strona zaczęła mówić od siebie. **Sama miara też się
+  starzeje** — wpis stał na „92" jeszcze po trzydziestu siedmiu kolejnych kluczach, czyli
+  dokładnie wtedy, gdy miał ostrzegać. Mierz poleceniem, nie tym zdaniem:
+  `python3 -c "import sys; sys.path.insert(0,'Tools'); from napisy import NAPISY; print(len(NAPISY['pl']))"`
 - **Generator nie dotyka dokumentów prawnych.** Piszą w nie tylko `Tools/landmark-main.py`
   i `Tools/glowy_dokumentow.py`. Przestarzałe wersje dostają `noindex, follow`, **nigdy
   `canonical` na nowszą** — to nie jest ta sama treść.

@@ -59,8 +59,14 @@ footer { overflow-wrap: anywhere; }
 .karta .nazwa { font-weight: 600; }
 /* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
    rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
-   Gramatyka japońska", a nie cały akapit o problemie. */
-.karta .nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+   Gramatyka japońska", a nie cały akapit o problemie.
+   **Tylko tam, gdzie nazwa jest linkiem.** Karta aplikacji zapowiedzianej ma nazwę
+   w `<span>`, a selektor `.karta .nazwa` łapał i ją — więc kafelek bez dokąd pójścia
+   dostawał niewidzialny cel dotknięcia na całej powierzchni, identyczny z tym
+   w dziesięciu kartach nad nim. Zmierzone okiem 13.09.2026 na telefonie: ten sam
+   kształt, ten sam rozmiar celu, jedna reaguje, druga nie. §15 konwencji mówi o tym
+   wprost: co wygląda na dotykalne, musi być dotykalne. */
+a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
 .karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
 .karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
 .znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;

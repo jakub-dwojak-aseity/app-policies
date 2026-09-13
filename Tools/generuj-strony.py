@@ -793,9 +793,23 @@ TEMATY = (
     {"apka": "kazoekata", "klucz": "liczniki",
      "sciezka": {"pl": "nauka/liczniki-japonskie", "en": "en/learn/japanese-counters"}},
     {"apka": "kuzushi", "klucz": "potoczny",
-     "sciezka": {"pl": "nauka/mowa-potoczna", "en": "en/learn/casual-japanese"}},
+     "sciezka": {"pl": "nauka/mowa-potoczna", "en": "en/learn/casual-japanese"},
+     "grupy": (
+         {"grupa": "contraction",
+          "sciezka": {"pl": "sciagniecia", "en": "contractions"}},
+         {"grupa": "fusion", "sciezka": {"pl": "zlania", "en": "fusions"}},
+         {"grupa": "voicing",
+          "sciezka": {"pl": "udzwiecznienia", "en": "voicing"}},
+         {"grupa": "layered", "sciezka": {"pl": "zlozone", "en": "layered"}},
+         {"grupa": "omission",
+          "sciezka": {"pl": "opuszczenia", "en": "omissions"}},
+     )},
     {"apka": "keigo", "klucz": "keigo",
-     "sciezka": {"pl": "nauka/keigo", "en": "en/learn/keigo"}},
+     "sciezka": {"pl": "nauka/keigo", "en": "en/learn/keigo"},
+     "grupy": (
+         {"grupa": "relation", "sciezka": {"pl": "sytuacje", "en": "situations"}},
+         {"grupa": "lexeme", "sciezka": {"pl": "slowa", "en": "words"}},
+     )},
     # Temat z `grupy` nie jest stroną, tylko **rozdrożem drugiego poziomu**:
     # pod jego adresem stoją karty grup, a treść mieszka piętro niżej. Podział
     # wzięty z katalogu (`base_n5.json` ma siedem grup), nie wymyślony tutaj —
@@ -861,10 +875,17 @@ def jednostki_tematu(eksport, temat=None, grupa=None):
 
 
 def nazwa_grupy(eksport, grupa, jezyk):
+    """Nazwa sekcji: **z katalogu, jeśli ją ma; z `NAPISY`, jeśli nie ma**.
+
+    Grupy N5 niosą tytuł w katalogu i są przejrzane razem z punktami, więc nazwa
+    przyjeżdża w eksporcie. Rodzaje skrótu w Kuzushim to klucze techniczne
+    (`contraction`, `fusion`) bez brzmienia dla czytelnika — tam nazwa jest
+    tekstem własnym witryny i stoi tam, gdzie stoi cały taki tekst.
+    """
     for wpis in eksport.get("grupy", ()):
-        if wpis["slug"] == grupa["grupa"]:
+        if wpis["slug"] == grupa["grupa"] and (wpis.get("nazwa") or {}).get(jezyk):
             return wpis["nazwa"][jezyk]
-    return grupa["grupa"]
+    return NAPISY[jezyk].get("grupa_%s" % grupa["grupa"], grupa["grupa"])
 
 
 def grupy_zywe(temat, eksport):
@@ -1039,9 +1060,11 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
     alternatywny = sciezki_tematu(temat, inny, grupa)[0]
     t = a["teksty"][jezyk]
     if grupa:
-        tytul = "%s – %s" % (nazwa_grupy(eksport, grupa, jezyk), n["nauka_n5_sufiks"])
-        opis = n["nauka_n5_opis_grupy"].format(
-            grupa=nazwa_grupy(eksport, grupa, jezyk))
+        nazwa_g = nazwa_grupy(eksport, grupa, jezyk)
+        sufiks = n.get("temat_%s_sufiks" % temat["klucz"],
+                       n["temat_%s_tytul" % temat["klucz"]])
+        tytul = "%s – %s" % (nazwa_g, sufiks)
+        opis = n["nauka_opis_grupy"].format(grupa=nazwa_g, sufiks=sufiks)
     else:
         tytul = n["temat_%s_tytul" % temat["klucz"]]
         opis = n["temat_%s_opis" % temat["klucz"]]

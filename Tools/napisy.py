@@ -102,6 +102,8 @@ NAPISY = {
         "temat_potoczny_sufiks": "japoński potoczny",
         "nauka_opis_grupy": "{grupa} – {sufiks}. Znaczenie, wyjaśnienie "
                              "i zdania przykładowe z tłumaczeniem.",
+        "nauka_podtytul_grupy": "Znaczenie, wyjaśnienie i zdania przykładowe "
+                                "z tłumaczeniem.",
         # Rodzaje skrótu w mowie potocznej. Katalog niesie je jako klucze
         # techniczne (`contraction`, `fusion`), bez brzmień dla czytelnika.
         "temat_keigo_sufiks": "keigo",
@@ -217,6 +219,8 @@ NAPISY = {
         "temat_potoczny_sufiks": "casual Japanese",
         "nauka_opis_grupy": "{grupa} – {sufiks}. Meaning, explanation and example "
                              "sentences with translations.",
+        "nauka_podtytul_grupy": "Meaning, explanation and example sentences "
+                                "with translations.",
         "temat_keigo_sufiks": "keigo",
         "grupa_relation": "Situations",
         "grupa_lexeme": "Honorific and humble words",

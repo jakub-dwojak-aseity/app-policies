@@ -1065,9 +1065,14 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
                        n["temat_%s_tytul" % temat["klucz"]])
         tytul = "%s – %s" % (nazwa_g, sufiks)
         opis = n["nauka_opis_grupy"].format(grupa=nazwa_g, sufiks=sufiks)
+        # **Podtytuł na stronie mówi co innego niż `<title>`.** Opis z głowy jest
+        # pełnym zdaniem dla wyszukiwarki i powtarza nazwę sekcji — pod nagłówkiem,
+        # który tę nazwę właśnie niesie, czytało się to jak zacięcie płyty.
+        podtytul = n["nauka_podtytul_grupy"]
     else:
         tytul = n["temat_%s_tytul" % temat["klucz"]]
         opis = n["temat_%s_opis" % temat["klucz"]]
+        podtytul = opis
     ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
 
     # Które terminy powtarzają się na tej stronie — liczone przed składaniem haseł,
@@ -1157,7 +1162,7 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
     tresc = (
         f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
         f'<div><h1>{e(tytul)}</h1>'
-        f'<p class="podtytul">{e(opis)}</p></div></div>'
+        f'<p class="podtytul">{e(podtytul)}</p></div></div>'
         + spis_sekcji
         + "".join(hasla)
         + f"<h2>{e(n['nauka_skad'])}</h2>"
@@ -1225,7 +1230,8 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
         manifest=manifest, jsonld=jsonld, dodatkowa_glowa=dodatkowa,
         nawigacja=gora(jezyk, glebokosc, alternatywny, manifest,
                        powrot=(wzgledny(glebokosc, sciezki_tematu(temat, jezyk)[0]),
-                               n["temat_%s_tytul" % temat["klucz"]]) if grupa
+                               n.get("temat_%s_sufiks" % temat["klucz"],
+                                     n["temat_%s_tytul" % temat["klucz"]])) if grupa
                        else (wzgledny(glebokosc, ROZDROZE[jezyk]), n["nauka_link"])),
         stopka_html=stopka(jezyk, glebokosc, manifest, kontakt=a["kontakt"]))
 

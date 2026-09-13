@@ -72,6 +72,19 @@ krótkiej nazwy nie ma i mieć nie może.
 
 ## Search Console — co wkleić, w tej kolejności
 
+**Zrobione 14.09.2026 przez Jakuba:** wszystkie **dziesięć adresów z dnia 1** poszło do
+zaindeksowania, plus **ponowne zgłoszenie `apps/shindan`**. Zostają dnie 2–5 niżej oraz
+trzy strony produktowe do powtórki: `apps/keigo`, `apps/kifuku`, `apps/onomatope`.
+
+**Tego stanu nie da się zmierzyć skryptem** — klucz ASC oddaje `403` na
+`analyticsReportRequests`, a Search Console nie ma tu API w naszym zasięgu. **Ta notatka
+jest jedynym źródłem** i dlatego ma być dopisywana w tej samej chwili, w której klik zajdzie;
+inaczej za tydzień nikt nie będzie wiedział, co poszło, i pójdzie drugi raz.
+
+**Do potwierdzenia:** czy mapa witryny została zgłoszona od nowa. Ma dziś **76 adresów**
+(doszedł ósmy temat po południu), a Search Console znał 24 — bez powtórnego zgłoszenia
+sześć nowych adresów Onomatope nie trafi do indeksu tą drogą.
+
 **Najpierw mapa:** `https://jd-japanese.pl/sitemap.xml` — zgłosić od nowa, ma dziś
 **76 adresów**, a GSC znał 24. Potem „Sprawdzenie adresu URL → Poproś o zaindeksowanie",
 po ok. dziesięć dziennie (limit Google), w tej kolejności:

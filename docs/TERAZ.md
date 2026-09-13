@@ -70,37 +70,24 @@ Przykład ma cztery pola opcjonalne: `jpPelne` (forma pełna przed skrótem, Kuz
 (tłumaczenie). Nagłówkiem hasła jest `termin` **albo** `nazwa` — para kontrastowa
 krótkiej nazwy nie ma i mieć nie może.
 
-## Search Console — co wkleić, w tej kolejności
+## Search Console — co jeszcze zostało
 
-**Zrobione 14.09.2026 przez Jakuba:** wszystkie **dziesięć adresów z dnia 1** poszło do
-zaindeksowania, plus **ponowne zgłoszenie `apps/shindan`**. Zostają dnie 2–5 niżej oraz
-trzy strony produktowe do powtórki: `apps/keigo`, `apps/kifuku`, `apps/onomatope`.
+**Zrobione 14.09.2026 przez Jakuba:** mapa witryny zgłoszona od nowa **oraz** wszystkie
+dziesięć adresów z dnia 1 plus ponowne zaindeksowanie `apps/shindan`.
 
-**Tego stanu nie da się zmierzyć skryptem** — klucz ASC oddaje `403` na
-`analyticsReportRequests`, a Search Console nie ma tu API w naszym zasięgu. **Ta notatka
-jest jedynym źródłem** i dlatego ma być dopisywana w tej samej chwili, w której klik zajdzie;
-inaczej za tydzień nikt nie będzie wiedział, co poszło, i pójdzie drugi raz.
+**Tego stanu nie zmierzy żaden skrypt** — klucz ASC oddaje `403` na
+`analyticsReportRequests`, a Search Console nie ma tu API w naszym zasięgu. **Ta sekcja jest
+jedynym źródłem prawdy o tym, co poszło**, więc odhacza się ją w chwili kliku, nie po tygodniu.
 
-**Do potwierdzenia:** czy mapa witryny została zgłoszona od nowa. Ma dziś **76 adresów**
-(doszedł ósmy temat po południu), a Search Console znał 24 — bez powtórnego zgłoszenia
-sześć nowych adresów Onomatope nie trafi do indeksu tą drogą.
+**Uwaga przy najbliższym zgłoszeniu mapy:** jeśli doszły nowe strony po 14.09, mapa wymaga
+powtórnego zgłoszenia — sama się nie odświeży w indeksie.
 
-**Najpierw mapa:** `https://jd-japanese.pl/sitemap.xml` — zgłosić od nowa, ma dziś
-**76 adresów**, a GSC znał 24. Potem „Sprawdzenie adresu URL → Poproś o zaindeksowanie",
-po ok. dziesięć dziennie (limit Google), w tej kolejności:
-
-**Dzień 1 — polskie rozdroża i najmocniejsze frazy**
+**Zostają trzy strony produktowe do powtórki** (pierwsze prośby mogły pójść, gdy strony
+mówiły jeszcze „wkrótce"):
 ```
-https://jd-japanese.pl/nauka/
-https://jd-japanese.pl/nauka/gramatyka-n5/
-https://jd-japanese.pl/nauka/partykuly-japonskie/
-https://jd-japanese.pl/nauka/mylace-pary/
-https://jd-japanese.pl/nauka/liczniki-japonskie/
-https://jd-japanese.pl/nauka/keigo/
-https://jd-japanese.pl/nauka/mowa-potoczna/
-https://jd-japanese.pl/nauka/formy-czasownika/
-https://jd-japanese.pl/nauka/gramatyka-n5/szkielet-zdania/
-https://jd-japanese.pl/nauka/keigo/slowa/
+https://jd-japanese.pl/apps/keigo/
+https://jd-japanese.pl/apps/kifuku/
+https://jd-japanese.pl/apps/onomatope/
 ```
 
 **Dzień 2 — reszta polskich (12)**
@@ -158,10 +145,6 @@ https://jd-japanese.pl/nauka/onomatopeje/
 https://jd-japanese.pl/nauka/onomatopeje/cialo-i-samopoczucie/
 https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne/
 ```
-
-**Osobno, wciąż otwarte z 09.09:** powtórka prośby dla `apps/shindan`, `apps/keigo`,
-`apps/kifuku`, `apps/onomatope` — pierwsze prośby mogły pójść **przed** przestawieniem
-`wSklepie`, czyli Google ma wersję ze znacznikiem „wkrótce" nad apką do kupienia.
 
 ## Czeka na decyzję Jakuba
 

@@ -27,9 +27,19 @@ NAPISY = {
         # (wchodzi w `<title>`, w okruszek i w `WebSite.name`), więc ma mówić, CZYM
         # ta rodzina jest, a nie ile jej jest.
         "tytul_mapy": "Japoński w osobnych aplikacjach",
+        # **Bez spójnika zamykającego listę.** Do 13.09.2026 kończyło się to zdanie
+        # słowami „i onomatopeje" — i to „i" było całą wadą: spójnik zamykający
+        # deklaruje komplet, więc lista musi być pełna. Nie była. Wyliczenie miało
+        # dziewięć dziedzin przy dziesięciu aplikacjach: **wypadł Shindan**, a z nim
+        # fraza „test poziomu", po której trafia tu ktoś, kto nie wie, od czego zacząć.
+        # Ten sam błąd komentarz nad `tytul_mapy` naprawił już raz, o dwie linijki
+        # wyżej — liczba prawdziwa w dniu pisania i fałszywa nazajutrz.
+        # Lista bez klamry niesie frazy i nie obiecuje kompletu, więc jedenasta
+        # aplikacja jej nie unieważni. To pole idzie w `meta description`,
+        # `og:description` i na ekran — najdroższy napis tej witryny.
         "opis_mapy": "Aplikacje do nauki japońskiego, każda o jednej rzeczy: "
-                     "gramatyka, czytanie, odmiana, partykuły, liczniki, mowa potoczna, "
-                     "keigo, akcent i onomatopeje.",
+                     "gramatyka, kanji, odmiana, partykuły, keigo, akcent. "
+                     "Jest też test poziomu, od którego można zacząć.",
         "naglowek_wyboru": "Którą aplikację wybrać",
         "naglowek_kart": "Wszystkie aplikacje",
         "w_sklepie": "App Store",
@@ -220,9 +230,10 @@ NAPISY = {
     "en": {
         "html_lang": "en",
         "tytul_mapy": "Japanese in separate apps",
-        "opis_mapy": "Apps for learning Japanese, each about one thing: grammar, "
-                     "reading, conjugation, particles, counters, casual speech, "
-                     "keigo, pitch accent and mimetics.",
+        # Patrz komentarz przy polskim `opis_mapy`: lista bez spójnika zamykającego.
+        "opis_mapy": "Apps for learning Japanese, each about one thing: "
+                     "grammar, kanji, conjugation, particles, keigo, pitch. "
+                     "There is a level test to start from as well.",
         "naglowek_wyboru": "Which app do you need",
         "naglowek_kart": "All apps",
         "w_sklepie": "App Store",

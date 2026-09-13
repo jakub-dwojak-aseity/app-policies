@@ -63,7 +63,7 @@
     "Nazwa i podtytuł idą z `docs/app-store/APP_STORE_METADATA_{PL,EN}.md` repozytorium",
     "aplikacji, tak samo jak u dziesiątki — manifest trzyma fakty, nie kopie tekstu.",
     "`appId` jest, bo rekordy w ASC powstały 15.09.2026 — ale link do sklepu z niego NIE powstaje:",
-    "rekord bez builda nie ma strony w App Store. `zarezerwowana` to data założenia rekordu — rekord bez wgranego builda ma w ASC termin ważności i po tej dacie liczy się go ręcznie.",
+    "rekord bez builda nie ma strony w App Store. `zarezerwowana` to data założenia rekordu, **odczytana z API** (`createdDate` wersji 1.0, pomiar 13.09.2026), a nie przepisana z przekazania: stało tu `2026-09-15`, czyli data o dwa dni późniejsza niż dzień, w którym rekordy faktycznie powstały. Sześć rekordów założono 13.09.2026 między 12:38 a 12:40 czasu polskiego, w odstępach po trzydzieści sekund. Ta sama data 15.09 stoi jeszcze w `AGENTS.md`, w backlogu i w §5 konwencji. Ma to znaczenie, bo **od tej daty liczy się okno ważności rezerwacji** — a samego okna API nie oddaje: rekord aplikacji ma dwanaście pól i ani jednego z datą wygaśnięcia, rekord wersji ma wyłącznie `createdDate`. Długość okna jest więc do odczytania w panelu ASC, nie stąd, i dopóki nikt jej nie odczytał, nie wpisujemy liczby.",
     "",
     "Nazwy zmierzone w App Store 15.09.2026 (`itunes.apple.com/search`, cztery witryny).",
     "Próg jest MYLENIEM SIĘ W OBRĘBIE NAUKI JAPOŃSKIEGO, nie obecnością słowa w sklepie:",
@@ -80,7 +80,7 @@
       "ikona": "docs/ikona/icon-1024.png",
       "kolejnosc": 1,
       "appId": "6811569814",
-      "zarezerwowana": "2026-09-15"
+      "zarezerwowana": "2026-09-13"
     },
     {
       "slug": "danraku",
@@ -91,7 +91,7 @@
       "ikona": "docs/ikona/icon-1024.png",
       "kolejnosc": 2,
       "appId": "6811569672",
-      "zarezerwowana": "2026-09-15"
+      "zarezerwowana": "2026-09-13"
     },
     {
       "slug": "sakubun",
@@ -102,7 +102,7 @@
       "ikona": "docs/ikona/icon-1024.png",
       "kolejnosc": 3,
       "appId": "6811570249",
-      "zarezerwowana": "2026-09-15"
+      "zarezerwowana": "2026-09-13"
     },
     {
       "slug": "hatsuwa",
@@ -113,7 +113,7 @@
       "ikona": "docs/ikona/icon-1024.png",
       "kolejnosc": 4,
       "appId": "6811570171",
-      "zarezerwowana": "2026-09-15"
+      "zarezerwowana": "2026-09-13"
     },
     {
       "slug": "hitsujun",
@@ -124,7 +124,7 @@
       "ikona": "docs/ikona/icon-1024.png",
       "kolejnosc": 5,
       "appId": "6811570035",
-      "zarezerwowana": "2026-09-15"
+      "zarezerwowana": "2026-09-13"
     },
     {
       "slug": "bushu",
@@ -135,7 +135,7 @@
       "ikona": "docs/ikona/icon-1024.png",
       "kolejnosc": 6,
       "appId": "6811570369",
-      "zarezerwowana": "2026-09-15"
+      "zarezerwowana": "2026-09-13"
     }
   ],
   "aplikacje": [

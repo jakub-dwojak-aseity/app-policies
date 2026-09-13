@@ -36,8 +36,14 @@ Katsuyokei, Kazoekacie, Kuzushim albo Keigo.
 
 Kolejka toru, w kolejności taniości: (1) domknięcie poz. 84 — 16 plików prozy i stare adresy
 w dwóch martwych drzewach, część to historia i **ma zostać**; (2) Search Console (Jakub);
-(3) nazwy i opisy 42 zakupów w ASC; (4) 12 pól `marketingUrl`, łapanych przy składaniu apek;
-(5) **strony tematyczne dla pozostałej piątki — poz. 189**, gdzie stoi, co blokuje którą.
+(3) nazwy i opisy 42 zakupów w ASC; (4) **strony tematyczne dla pozostałej piątki —
+poz. 189**, gdzie stoi, co blokuje którą.
+
+**`marketingUrl` zszedł z kolejki 14.09 — pomiarem, nie robotą.** `asc-marketing-url.py`
+na sucho oddaje **0 pól do zmiany, 20 już zgodnych**: kolejka mówiła o dwunastu polach na
+starym adresie albo pustych, a stan ASC temu przeczy. Zostaje **odruch, nie pozycja**:
+przebieg na sucho przy każdym składaniu, bo okno zapisu to `WAITING_FOR_REVIEW` i zamyka
+się samo (§21.AB).
 
 ## Jak działają strony tematyczne — w trzech zdaniach
 

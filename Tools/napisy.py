@@ -91,13 +91,16 @@ NAPISY = {
         # dziesiątka nie uczy wcale; kana i kanji zostają poza, bo w backlogu
         # stoją jako parkowane z warunkiem wejścia, a parkowana rzecz na
         # publicznej stronie czyta się jak plan.
-        "dziedziny_naglowek": "Czego rodzina jeszcze nie uczy",
-        "dziedziny_opis": "Dziesiątka bierze gramatykę, słownictwo, odmianę, partykuły, "
-                          "liczniki, mowę potoczną, keigo, akcent i onomatopeje. "
-                          "Poza nią zostają na razie cztery umiejętności: słuchanie "
-                          "(聞き取り), czytanie dłuższych tekstów (読解), pisanie (作文) "
-                          "i mówienie (会話). Bez dat – kiedy powstaną, staną na tej liście "
-                          "jako aplikacje.",
+        # Do 15.09.2026 stał tu akapit „Czego rodzina jeszcze nie uczy" — cztery
+        # dziedziny wymienione samym japońskim terminem, bez nazw i bez ikon, bo
+        # aplikacje nie miały jeszcze tożsamości. Teraz ją mają, więc ta sama rzecz
+        # jest kartami. **Sześć, nie cztery:** tamten akapit gubił pismo od zera
+        # i kanji, a mówił 会話 tam, gdzie dziś stoi 発話.
+        "dojdzie_naglowek": "Co dojdzie do rodziny",
+        "dojdzie_opis": "Seria domyka się na szesnastu aplikacjach. Sześć poniżej ma już "
+                        "nazwę, znak i zakres, ale nie ma jeszcze kodu – i dlatego nie mają "
+                        "dat. Kiedy powstaną, staną wyżej, wśród tamtych.",
+        "w_przygotowaniu": "W przygotowaniu",
         "nauka_tytul": "Nauka japońskiego – partykuły, liczniki, formy, keigo",
         "nauka_opis": "Materiał wyjęty z darmowej części aplikacji rodziny: partykuły, "
                       "liczniki, formy czasownika, mowa potoczna i keigo.",
@@ -259,12 +262,12 @@ NAPISY = {
                          "on its page and in its documents.",
         # --- strony tematyczne ---------------------------------------------
         # --- dziedziny jeszcze bez aplikacji (poz. 112) --------------------
-        "dziedziny_naglowek": "What the family does not teach yet",
-        "dziedziny_opis": "The ten cover grammar, vocabulary, conjugation, particles, "
-                          "counters, casual speech, keigo, pitch accent and mimetics. "
-                          "Four skills stay outside for now: listening (聞き取り), reading "
-                          "longer texts (読解), writing (作文) and speaking (会話). No dates "
-                          "– when they exist, they will stand on this list as apps.",
+        "dojdzie_naglowek": "What is coming to the family",
+        "dojdzie_opis": "The series closes at sixteen apps. The six below already have "
+                        "a name, a character and a scope, but no code yet – which is why "
+                        "they carry no dates. When they exist, they will stand above, "
+                        "among the others.",
+        "w_przygotowaniu": "In the works",
         "nauka_tytul": "Learning Japanese – particles, counters, forms, keigo",
         "nauka_opis": "Material taken from the free part of the family's apps: particles, "
                       "counters, verb forms, casual speech and keigo.",

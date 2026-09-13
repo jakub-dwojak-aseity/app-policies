@@ -59,6 +59,17 @@ pleasant – understand that and you can guess a word you have never seen.
 - [Japanese mimetics – the sounds in manga and anime](https://jd-japanese.pl/en/learn/japanese-mimetics/): Words that imitate sound and state – what they mean and what 濁点 does to them.
 - [Japanese N5 grammar – every point on the level](https://jd-japanese.pl/en/learn/japanese-n5-grammar/): Seven groups of N5 grammar, from the sentence skeleton to tone – each point with its meaning, formation and examples.
 
+## Co dojdzie do rodziny
+
+Seria domyka się na szesnastu aplikacjach. Sześć poniżej ma już nazwę, znak i zakres, ale nie ma jeszcze kodu – i dlatego nie mają dat. Kiedy powstaną, staną wyżej, wśród tamtych.
+
+- Kikitori: Japoński ze słuchu (聞き取り): Rozumienie ze słuchu — w przygotowaniu, bez daty
+- Danraku: Japoński w akapicie (段落): Czytanie dłuższego tekstu — w przygotowaniu, bez daty
+- Sakubun: Układanie zdań (作文): Budowanie zdań od zera — w przygotowaniu, bez daty
+- Hatsuwa: Japoński mówiony (発話): Mówienie, nie tylko wymowa — w przygotowaniu, bez daty
+- Hitsujun: Kolejność kresek (筆順): Hiragana i katakana od zera — w przygotowaniu, bez daty
+- Bushu: Klucze kanji (部首): Z czego zbudowany jest znak — w przygotowaniu, bez daty
+
 ## Pozostałe strony
 
 - [Rozdroże stron tematycznych](https://jd-japanese.pl/nauka/)

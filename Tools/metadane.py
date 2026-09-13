@@ -88,6 +88,34 @@ def z_markdown(repo: Path, jezyk: str) -> dict:
     return dane
 
 
+ZAPOWIEDZ = ("nazwa", "podtytul")
+
+
+def zapowiedz(repo: Path, jezyk: str) -> dict:
+    """Nazwa i podtytuł aplikacji, której jeszcze nie ma — z tego samego pliku.
+
+    **Osobna funkcja, a nie flaga w `teksty()`, i to jest decyzja.** Aplikacja
+    zapowiedziana nie ma promo, opisu ani tagów, bo nie ma produktu, który dałoby
+    się opisać — a `WYMAGANE` przerywa przebieg przy ich braku i **ma przerywać**:
+    strona produktowa bez opisu byłaby pustą obietnicą. Poluzowanie tamtej stałej
+    zdjęłoby tę bramkę **wszystkim dziesięciu** aplikacjom naraz, żeby obsłużyć
+    sześć, które produktowych stron w ogóle nie dostają.
+
+    Plik jest ten sam co u sióstr, więc gdy aplikacja wejdzie w budowę, dorastają
+    w nim kolejne sekcje i wpis przenosi się z `zapowiedziane` do `aplikacje`
+    w manifeście — bez przepisywania czegokolwiek.
+    """
+    plik = repo / "docs" / "app-store" / f"APP_STORE_METADATA_{jezyk.upper()}.md"
+    if not plik.exists():
+        raise SystemExit(f"brak pliku metadanych: {plik}")
+    dane = bloki(plik)
+    brakuje = [p for p in ZAPOWIEDZ if not dane.get(p)]
+    if brakuje:
+        raise SystemExit(f"{plik}: brak pól {', '.join(brakuje)} — "
+                         f"zapowiedź potrzebuje nazwy i podtytułu")
+    return {p: dane[p] for p in ZAPOWIEDZ} | {"_zrodlo": str(plik)}
+
+
 def teksty(repo: Path, wpis: dict, jezyk: str) -> dict:
     """Teksty sklepowe jednej aplikacji, niezależnie od tego, gdzie je trzyma.
 

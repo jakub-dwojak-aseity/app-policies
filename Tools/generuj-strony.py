@@ -175,6 +175,29 @@ def zbierz(manifest):
     return apki
 
 
+def zbierz_zapowiedziane(manifest):
+    """Aplikacje, których jeszcze nie ma — nazwa i podtytuł, i nic więcej.
+
+    **Trzeci stan, nie odmiana `wSklepie: false`.** Tamta flaga znaczy „złożona,
+    czeka na recenzję Apple": buduje pełną stronę produktową i wymaga kompletu
+    metadanych oraz dokumentów prawnych. Aplikacja bez produktu nie ma czym tego
+    wypełnić — a wymyślenie opisu byłoby wymyśleniem treści.
+
+    Zapowiedziana dostaje **wyłącznie kartę** w sekcji „Co dojdzie do rodziny" na
+    mapie rodziny. Brak sekcji w manifeście nie jest błędem: rodzina bez planów
+    po prostu nie ma czego zapowiadać.
+    """
+    wpisy = manifest.get("zapowiedziane") or []
+    out = []
+    for wpis in sorted(wpisy, key=lambda a: a["kolejnosc"]):
+        repo = ZRODLA / wpis["repo"]
+        if not repo.exists():
+            raise SystemExit(f"{wpis['slug']}: brak drzewa {repo}")
+        teksty = {j: metadane.zapowiedz(repo, j) for j in JEZYKI}
+        out.append({**wpis, "teksty": teksty, "repoSciezka": repo})
+    return out
+
+
 # ---------------------------------------------------------------- HTML
 
 def e(tekst: str) -> str:
@@ -411,7 +434,7 @@ def link_sklepu(appId):
     return f"https://apps.apple.com/app/id{appId}"
 
 
-def mapa_rodziny(apki, jezyk, manifest, zywe=()):
+def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
     n = NAPISY[jezyk]
     kanoniczny = "index.html" if jezyk == "pl" else "en/index.html"
     alternatywny = "en/index.html" if jezyk == "pl" else "index.html"
@@ -439,6 +462,31 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=()):
     # witryny, na którą ktoś trafia sam, więc linki stąd są jedynym, co prowadzi
     # dalej niż do kart aplikacji. Zwykła lista, nie karty: karty na tej stronie
     # znaczą „aplikacja", a to nie są aplikacje.
+    # **Co dojdzie do rodziny — osobna sekcja pod dziesiątką, nie karty wmieszane w nią.**
+    # Do 15.09.2026 stał tu akapit „czego rodzina jeszcze nie uczy", wymieniający cztery
+    # dziedziny bez nazw; teraz te aplikacje mają nazwę, znak i kolor, więc mają czym stanąć.
+    #
+    # Osobno, bo poz. 112 backlogu notuje ryzyko wprost: sześć „wkrótce" wmieszanych między
+    # dziesięć gotowych czyta się jak rodzina niedokończona, a nie rosnąca. Dziesiątka
+    # zostaje nietknięta u góry, a to, czego nie ma, stoi poniżej i jest nazwane tym, czym
+    # jest. **Plakietka mówi „w przygotowaniu", nie „wkrótce w App Store"** — ta druga
+    # znaczy w tej witrynie „złożona, czeka na recenzję" i byłaby obietnicą terminu.
+    dojdzie_html = ""
+    if zapowiedziane:
+        karty_z = []
+        for z in zapowiedziane:
+            t = z["teksty"][jezyk]
+            ikona = wzgledny(glebokosc, f"assets/ikony/{z['slug']}.webp")
+            karty_z.append(
+                f'<li class="karta"><img src="{ikona}" alt="" width="52" height="52" loading="lazy">'
+                f'<div><span class="nazwa">{e(t["nazwa"])}</span>'
+                f'<span class="jp" lang="ja">{e(z["japonska"])}</span>'
+                f'<span class="znacznik">{e(n["w_przygotowaniu"])}</span>'
+                f'<span class="co">{e(t["podtytul"])}</span></div></li>')
+        dojdzie_html = (f"<h2>{e(n['dojdzie_naglowek'])}</h2>"
+                        f'<p>{e(n["dojdzie_opis"])}</p>'
+                        f'<ul class="karty">{"".join(karty_z)}</ul>')
+
     nauka_html = ""
     if zywe:
         pozycje = []
@@ -456,10 +504,7 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=()):
         + f"<h2>{e(n['naglowek_wyboru'])}</h2>"
         + '<ul class="karty">' + "".join(karty) + "</ul>"
         + nauka_html
-        # Dziedziny bez aplikacji — na dole, zwykłym akapitem. Karta znaczy tu
-        # „aplikacja, którą można mieć"; brakująca umiejętność kartą nie jest.
-        + f"<h2>{e(n['dziedziny_naglowek'])}</h2>"
-        + f'<p>{e(n["dziedziny_opis"])}</p>')
+        + dojdzie_html)
 
     # Pytanie, które model dostaje o rodzinę aplikacji, brzmi „którą wybrać" — i tabela
     # wyżej jest na nie odpowiedzią, tylko zapisaną znacznikami tabeli. Tu ta sama treść
@@ -1502,7 +1547,7 @@ def robots(manifest):
     return "\n".join(wiersze)
 
 
-def llms_txt(apki, manifest, zywe=()):
+def llms_txt(apki, manifest, zywe=(), zapowiedziane=()):
     """`llms.txt` — indeks strony w markdownie, pisany pod modele językowe.
 
     Model, który dostaje HTML, musi z niego wyłuskać treść; `llms.txt` podaje mu to
@@ -1548,6 +1593,17 @@ def llms_txt(apki, manifest, zywe=()):
                 opis_t = n_j["temat_%s_opis" % temat["klucz"]]
                 adres = publiczny(sciezki_tematu(temat, jezyk)[0])
                 wiersze.append(f"- [{tytul}]({baza}/{adres}): {opis_t}")
+
+    # Sekcja bez adresów, bo zapowiedziane nie mają dokąd prowadzić — a jednak stoi
+    # tu z nazwy. Model pytany „ile jest tych aplikacji" ma wiedzieć, że rodzina rośnie
+    # do szesnastu, i nie ma skąd tego wyczytać z dziesięciu kart.
+    if zapowiedziane:
+        wiersze += ["", "## " + NAPISY["pl"]["dojdzie_naglowek"], "",
+                    NAPISY["pl"]["dojdzie_opis"], ""]
+        for z in zapowiedziane:
+            t = z["teksty"]["pl"]
+            wiersze.append(f"- {t['nazwa']} ({z['japonska']}): {t['podtytul']} — "
+                           f"{NAPISY['pl']['w_przygotowaniu'].lower()}, bez daty")
 
     wiersze += ["", "## Pozostałe strony", "",
                 f"- [Rozdroże stron tematycznych]({baza}/nauka/)",
@@ -2179,7 +2235,7 @@ def kopie_zrodlowe(a):
              for p in sorted(katalog.rglob("*.html"))}, katalog)
 
 
-def bramki(apki, pliki, manifest):
+def bramki(apki, pliki, manifest, zapowiedziane=()):
     """Wszystko, co musi być prawdą, zanim strony pojadą na serwer.
 
     Bramka mierzy **wytwór**, a nie zamiar: patrzy w wygenerowany HTML i w pliki
@@ -2656,6 +2712,46 @@ def bramki(apki, pliki, manifest):
                         sum(len(grupy_zywe(t, e_)) for t, _, e_ in zywe_b),
                         ", ".join(bez_opisu)))
 
+    # 20. Aplikacja zapowiedziana ma być kartą, a nie stroną.
+    #
+    #     Bramka na obie strony tej granicy. **W dół:** zapowiedziana nie może mieć
+    #     strony produktowej ani wpisu w mapie witryny — sześć stron po jednym zdaniu
+    #     to cienka treść, a nie obecność w wyszukiwarce, i dokładnie ten ruch odrzucono
+    #     świadomie przy stronach long-tail. **W górę:** musi mieć nazwę i podtytuł
+    #     w obu językach oraz ikonę, bo karta bez nich byłaby pustym miejscem.
+    #
+    #     Nazwa i podtytuł muszą być **unikalne wobec dziesiątki** z tego samego powodu
+    #     co w bramce 5: dwie karty o tym samym napisie na jednej stronie są wadą, a nie
+    #     dwiema aplikacjami.
+    adresy_stron = set(pliki)
+    for z in zapowiedziane:
+        for jezyk in JEZYKI:
+            strona_z = f"apps/{z['slug']}/index.html" if jezyk == "pl" \
+                else f"en/apps/{z['slug']}/index.html"
+            if strona_z in adresy_stron:
+                bledy.append(f"{z['slug']}: zapowiedziana aplikacja ma stronę produktową "
+                             f"{strona_z} — zapowiedź jest kartą, nie stroną")
+            t = z["teksty"].get(jezyk) or {}
+            for pole in ("nazwa", "podtytul"):
+                if not (t.get(pole) or "").strip():
+                    bledy.append(f"{z['slug']} {jezyk}: zapowiedź bez pola {pole}")
+        zrodlo_ikony = z["repoSciezka"] / z["ikona"]
+        if not zrodlo_ikony.exists():
+            bledy.append(f"{z['slug']}: brak ikony {zrodlo_ikony}")
+
+    wszystkie_napisy = {}
+    for a_ in list(apki) + list(zapowiedziane):
+        for jezyk in JEZYKI:
+            t = a_["teksty"][jezyk]
+            for pole in ("nazwa", "podtytul"):
+                klucz = (jezyk, pole, (t.get(pole) or "").strip().lower())
+                if not klucz[2]:
+                    continue
+                if klucz in wszystkie_napisy:
+                    bledy.append(f"{a_['slug']} {jezyk}: {pole} „{t[pole]}” powtarza "
+                                 f"{wszystkie_napisy[klucz]}")
+                wszystkie_napisy[klucz] = a_["slug"]
+
     return bledy, uwagi
 
 
@@ -2702,7 +2798,7 @@ def sprawdz_sklep(apki):
 
 # ---------------------------------------------------------------- przebieg
 
-def zbuduj(apki, manifest):
+def zbuduj(apki, manifest, zapowiedziane=()):
     pliki = {}
     daty = {}
     # Liczone raz i przed pętlą, bo potrzebuje tego i strona tematyczna, i podstrona
@@ -2711,7 +2807,7 @@ def zbuduj(apki, manifest):
     zywe = tematy_zywe(apki, wczytaj_eksporty(apki))
     temat_apki = {temat["apka"]: temat for temat, _, _ in zywe}
     for jezyk in JEZYKI:
-        adres, tresc = mapa_rodziny(apki, jezyk, manifest, zywe)
+        adres, tresc = mapa_rodziny(apki, jezyk, manifest, zywe, zapowiedziane)
         pliki[adres] = tresc
         daty[adres] = max(a["data"] for a in apki)
         adres, tresc = spis_dokumentow(apki, jezyk, manifest)
@@ -2767,7 +2863,7 @@ def zbuduj(apki, manifest):
         pliki[adres] = tresc
 
     pliki["robots.txt"] = robots(manifest)
-    pliki["llms.txt"] = llms_txt(apki, manifest, zywe)
+    pliki["llms.txt"] = llms_txt(apki, manifest, zywe, zapowiedziane)
     pliki["404.html"] = strona_404(apki, manifest, zywe)
     pliki["README.md"] = readme(apki, manifest,
                                 (KORZEN / "README.md").read_text(encoding="utf-8"))
@@ -2792,6 +2888,7 @@ def main():
 
     manifest = wczytaj_manifest()
     apki = zbierz(manifest)
+    zapowiedziane = zbierz_zapowiedziane(manifest)
 
     if args.sprawdz_sklep:
         rozjazdy = sprawdz_sklep(apki)
@@ -2808,15 +2905,15 @@ def main():
         print("teraz puść generator bez flagi, żeby galerie weszły na strony")
         return 0
 
-    pliki = zbuduj(apki, manifest)
+    pliki = zbuduj(apki, manifest, zapowiedziane)
 
     if args.powtarzalnie:
-        drugie = zbuduj(zbierz(manifest), manifest)
+        drugie = zbuduj(zbierz(manifest), manifest, zbierz_zapowiedziane(manifest))
         rozne = [a for a in pliki if pliki[a] != drugie.get(a)]
         print("powtarzalność:", "ten sam wynik bit w bit" if not rozne else f"ROZJAZD {rozne}")
         return 1 if rozne else 0
 
-    bledy, uwagi = bramki(apki, pliki, manifest)
+    bledy, uwagi = bramki(apki, pliki, manifest, zapowiedziane)
     for uwaga in uwagi:
         print("  ⚠", uwaga)
     if uwagi:
@@ -2827,12 +2924,13 @@ def main():
         print(f"bramki: {len(bledy)} błędów — nic nie zapisano")
         return 1
 
-    zrobione_ikony = (ikony(apki, zapisuj=not args.sprawdz)
+    zrobione_ikony = (ikony(list(apki) + list(zapowiedziane), zapisuj=not args.sprawdz)
                       + karty_og(apki, zapisuj=not args.sprawdz)
                       + karta_rodziny(zapisuj=not args.sprawdz)
                       + znak(zapisuj=not args.sprawdz))
     if args.sprawdz:
-        print(f"bramki: zielone ({len(pliki)} plików, {len(apki)} aplikacji)")
+        print(f"bramki: zielone ({len(pliki)} plików, {len(apki)} aplikacji"
+              + (f" + {len(zapowiedziane)} zapowiedzianych)" if zapowiedziane else ")"))
         if zrobione_ikony:
             print(f"  ikony do przeskalowania: {', '.join(zrobione_ikony)}")
         return 0

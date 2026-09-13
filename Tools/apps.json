@@ -48,6 +48,84 @@
       }
     }
   ],
+  "_zapowiedziane": [
+    "Sześć aplikacji, których jeszcze nie ma — pozycje 62–67 backlogu rodziny.",
+    "",
+    "TRZECI STAN, nie odmiana `wSklepie: false`. Tamta ścieżka znaczy „złożona, czeka",
+    "na recenzję Apple”: buduje pełną stronę produktową z opisem, FAQ i galerią, i wymaga",
+    "kompletu metadanych oraz dokumentów prawnych. Aplikacja bez produktu nie ma czym tego",
+    "wypełnić, a wymyślenie opisu byłoby wymyśleniem treści — czego ten generator nie robi.",
+    "",
+    "Zapowiedziane dostają WYŁĄCZNIE kartę w sekcji „Co dojdzie do rodziny” na mapie",
+    "rodziny. Bez stron produktowych, bez wpisów w mapie witryny, bez kart OG — sześć",
+    "stron po jednym zdaniu to cienka treść, a nie obecność w wyszukiwarce.",
+    "",
+    "Nazwa i podtytuł idą z `docs/app-store/APP_STORE_METADATA_{PL,EN}.md` repozytorium",
+    "aplikacji, tak samo jak u dziesiątki — manifest trzyma fakty, nie kopie tekstu.",
+    "`appId` nie ma, bo w dniu zakładania tej sekcji rekordy w ASC dopiero powstawały;",
+    "dopisuje się go tutaj razem z przeniesieniem wpisu do `aplikacje` przy pierwszym wydaniu.",
+    "",
+    "Nazwy zmierzone w App Store 15.09.2026 (`itunes.apple.com/search`, cztery witryny).",
+    "Próg jest MYLENIEM SIĘ W OBRĘBIE NAUKI JAPOŃSKIEGO, nie obecnością słowa w sklepie:",
+    "Kuzushi stoi obok „KUZUSHI: Real Spoken Japanese”, Onomatope obok dokładnego",
+    "„Onomatope”, Shindan obok „Shindan” — i cała dziesiątka przeszła recenzję."
+  ],
+  "zapowiedziane": [
+    {
+      "slug": "kikitori",
+      "japonska": "聞き取り",
+      "znak": "聞",
+      "repo": "kikitori-ios",
+      "poz": 62,
+      "ikona": "docs/ikona/icon-1024.png",
+      "kolejnosc": 1
+    },
+    {
+      "slug": "danraku",
+      "japonska": "段落",
+      "znak": "段",
+      "repo": "danraku-ios",
+      "poz": 63,
+      "ikona": "docs/ikona/icon-1024.png",
+      "kolejnosc": 2
+    },
+    {
+      "slug": "sakubun",
+      "japonska": "作文",
+      "znak": "作",
+      "repo": "sakubun-ios",
+      "poz": 64,
+      "ikona": "docs/ikona/icon-1024.png",
+      "kolejnosc": 3
+    },
+    {
+      "slug": "hatsuwa",
+      "japonska": "発話",
+      "znak": "発",
+      "repo": "hatsuwa-ios",
+      "poz": 65,
+      "ikona": "docs/ikona/icon-1024.png",
+      "kolejnosc": 4
+    },
+    {
+      "slug": "hitsujun",
+      "japonska": "筆順",
+      "znak": "筆",
+      "repo": "hitsujun-ios",
+      "poz": 66,
+      "ikona": "docs/ikona/icon-1024.png",
+      "kolejnosc": 5
+    },
+    {
+      "slug": "bushu",
+      "japonska": "部首",
+      "znak": "部",
+      "repo": "bushu-ios",
+      "poz": 67,
+      "ikona": "docs/ikona/icon-1024.png",
+      "kolejnosc": 6
+    }
+  ],
   "aplikacje": [
     {
       "slug": "kaname",

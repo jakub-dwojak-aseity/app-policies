@@ -28,7 +28,7 @@ a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" a
 Poza tym bez zmian: domena przełączona 09.09, dziesięć podstron produktowych w dwóch językach,
 mapa rodziny, spis dokumentów, strona o autorze, własna 404, `robots.txt` z robotami AI
 z nazwy, `llms.txt`, `schema.org`, karty `og:image`, kadry w WebP, poczta na własnej domenie.
-**Bramki generatora: zielone, 90 plików, 10 aplikacji** (pomiar `--sprawdz`, 15.09) —
+**Bramki generatora: zielone, 94 pliki, 10 aplikacji + 6 zapowiedzianych** (pomiar 15.09) —
 bramek jest dziś **dwadzieścia**: trzy doszły przy podziale onomatopei, dwudziesta
 przy zapowiedzianych.
 
@@ -62,8 +62,10 @@ mechaniczna** — most bez zdania „po co" jest linkiem do niczego.
 
 Kolejka toru, w kolejności taniości: (1) domknięcie poz. 84 — 16 plików prozy i stare adresy
 w dwóch martwych drzewach, część to historia i **ma zostać**; (2) Search Console (Jakub);
-(3) **czternaście sekcji bez własnego opisu w głowie** — po jednym zdaniu w dwóch językach,
-bramka 19 wypisuje je z nazwy; (4) nazwy i opisy 42 zakupów w ASC;
+(3) ~~sekcje bez własnego opisu~~ — **zrobione 15.09, 22 z 22, bramka 19 milczy**;
+(4) **przemianowanie 38 zakupów w ASC** — nie 42 i nie „wpisanie brakujących": wszystkie
+mają komplet nazw i opisów, a wzorzec z planu mieści się w 30 znakach w 6 nazwach z 38
+(propozycja i dziewięć spornych: przekazane Jakubowi 15.09);
 (5) **nic z sióstr — wszystko, co się dało, jest wzięte.**
 Bunmyaku odpada decyzją Jakuba (318 z 351 haseł to samo znaczenie), Shindan i Kifuku są
 zablokowane, Keigo i Kaname mają już swoje — szczegóły w poz. 189.
@@ -157,6 +159,14 @@ https://jd-japanese.pl/en/learn/japanese-n5-grammar/wishes-and-invitations/
 https://jd-japanese.pl/en/learn/keigo/situations/
 ```
 
+**Dzień 7 — druga tura 15.09: połówki par (4 adresy)**
+```
+https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne-ta-ho/
+https://jd-japanese.pl/nauka/onomatopeje/pary-dzwiekowe-ko-to/
+https://jd-japanese.pl/en/learn/japanese-mimetics/voicing-pairs-ta-ho/
+https://jd-japanese.pl/en/learn/japanese-mimetics/sound-pairs-ko-to/
+```
+
 **Dzień 6 — podział onomatopei, 15.09 (8 nowych adresów)**
 ```
 https://jd-japanese.pl/nauka/onomatopeje/bol/
@@ -168,7 +178,7 @@ https://jd-japanese.pl/en/learn/japanese-mimetics/shivering/
 https://jd-japanese.pl/en/learn/japanese-mimetics/tiredness/
 https://jd-japanese.pl/en/learn/japanese-mimetics/sound-pairs/
 ```
-**Mapa wymaga ponownego zgłoszenia** — urosła z 76 na 84 adresy. Cztery stare adresy
+**Mapa wymaga ponownego zgłoszenia** — urosła z 76 na **88** adresów. Cztery stare adresy
 onomatopei (`cialo-i-samopoczucie`, `pary-dzwieczne` i ich angielskie odpowiedniki)
 **żyją dalej i niosą treść** — zgłoszone 14.09 kliki nie poszły na marne.
 
@@ -194,7 +204,7 @@ https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne/
    unosi — żadna trzecia oś nie jest stała w parze — więc gdyby miał powstać, **musi go
    nazwać autor treści**, nie wyliczyć narzędzie.
 3. **Search Console — jedyna pętla zwrotna, jaką mamy.** Klucz ASC oddaje `403` na
-   `analyticsReportRequests`. Do wyklikania: **mapa ma teraz 84 adresy**, GSC znał 24 —
+   `analyticsReportRequests`. Do wyklikania: **mapa ma teraz 88 adresów**, GSC znał 24 —
    zgłosić od nowa; powtórka prośby o zaindeksowanie dla **shindan, keigo, kifuku, onomatope**
    (pierwsze prośby mogły pójść **przed** przestawieniem `wSklepie`); ewentualna druga
    własność „Prefiks URL", bo własność „Domena" obejmuje też `api.` i `admin.`.

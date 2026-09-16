@@ -183,34 +183,72 @@ def wczytaj_manifest():
     return json.loads((NARZEDZIA / "apps.json").read_text(encoding="utf-8"))
 
 
-def data_zrodla(repo: Path, plik: Path) -> str:
-    """Data ostatniej zmiany pliku metadanych, z gita.
+def data_zrodla(repo: Path, plik: Path, ref: str = "HEAD") -> str:
+    """Data ostatniej zmiany pliku metadanych **na nazwanym stanie**.
 
     `lastmod` w mapie witryny ma mówić, kiedy zmieniła się TREŚĆ, a nie kiedy
     ktoś uruchomił generator. Data z zegara psułaby jedno i drugie: nie niosłaby
     informacji i odbierała wynikowi powtarzalność bit w bit.
+
+    **Domyślne `HEAD` było wadą i kosztowało cofniętą datę na żywo.** 16.09.2026
+    ta sama komenda dała 12.09 na Macu (gałąź wydaniowa) i 09.09 na maszynie
+    windowsowej (`main`) — czyli dane strukturalne ogłosiły, że strona jest
+    starsza, niż była dzień wcześniej. Stan podaje wołający, ze znacznika
+    `sklep/<wersja>`.
     """
-    wynik = subprocess.run(["git", "-C", str(repo), "log", "-1", "--format=%cs", "--", str(plik)],
-                           capture_output=True, text=True)
+    wynik = subprocess.run(["git", "-C", str(repo), "log", "-1", "--format=%cs", ref,
+                            "--", str(plik)], capture_output=True, text=True)
     return (wynik.stdout or "").strip() or "2026-09-08"
 
 
+def stan_sklepowy(repo: Path, wpis: dict) -> str:
+    """Znacznik `sklep/<wersja>` — jedyne źródło treści karty produktu.
+
+    **Witryna mówi to, co kupujący naprawdę zobaczy w App Store**, czyli wersję
+    `READY_FOR_SALE` — nie tę, która czeka w recenzji, i nie tę, nad którą ktoś
+    właśnie pracuje. Rozstrzygnięcie Jakuba 16.09.2026, po dniu, w którym
+    przeliczenie z drugiej maszyny cofnęło treść na żywo: generator czytał
+    „cokolwiek jest wymeldowane", więc to samo polecenie dawało inny wynik
+    na Macu i na Windowsie, a oba wyglądały poprawnie.
+
+    **Brak znacznika jest awarią, nie cichym powrotem do dysku.** Milczący odwrót
+    przywróciłby dokładnie tę wadę — tylko rzadziej i trudniej do złapania.
+    Znacznik zakłada droga wydania, w chwili gdy wersja wchodzi do sklepu.
+    """
+    wersja = wpis.get("wersja")
+    if not wersja:
+        raise SystemExit(f"{wpis['slug']}: manifest nie podaje wersji sklepowej "
+                         f"(pole `wersja` w Tools/apps.json)")
+    ref = f"sklep/{wersja}"
+    if subprocess.run(["git", "-C", str(repo), "rev-parse", "-q", "--verify",
+                       f"refs/tags/{ref}"], capture_output=True).returncode != 0:
+        raise SystemExit(
+            f"{wpis['slug']}: brak znacznika {ref} w {repo.name}.\n"
+            f"  Strona produktowa bierze treść ze stanu wersji stojącej w sklepie.\n"
+            f"  Znacznik zakłada się na commicie podbicia numeru:\n"
+            f"    git -C {repo} tag -a {ref} <commit> -m 'Wersja {wersja} w sklepie'\n"
+            f"  Numer w manifeście sprawdzisz: python3 Tools/generuj-strony.py --sprawdz-sklep")
+    return ref
+
+
 def zbierz(manifest):
-    """Metadane wszystkich aplikacji w obu językach, plus daty z gita."""
+    """Metadane wszystkich aplikacji w obu językach, ze stanu wersji ze sklepu."""
     apki = []
     for wpis in sorted(manifest["aplikacje"], key=lambda a: a["kolejnosc"]):
         repo = ZRODLA / wpis["repo"]
         if not repo.exists():
             raise SystemExit(f"{wpis['slug']}: brak drzewa {repo}")
+        ref = stan_sklepowy(repo, wpis)
         teksty = {}
         for jezyk in JEZYKI:
-            teksty[jezyk] = metadane.teksty(repo, wpis, jezyk)
+            teksty[jezyk] = metadane.teksty(repo, wpis, jezyk, ref)
             plik = (Path("docs/app-store/version-texts.json") if wpis["zrodlo"] == "kaname"
                     else Path(f"docs/app-store/APP_STORE_METADATA_{jezyk.upper()}.md"))
-        podpisy = {j: podpisy_kadrow(ZRODLA / wpis.get("repoZrzuty", wpis["repo"]), j)
-                   for j in JEZYKI}
+        repo_zrzutow = ZRODLA / wpis.get("repoZrzuty", wpis["repo"])
+        ref_zrzutow = ref if repo_zrzutow == repo else stan_sklepowy(repo_zrzutow, wpis)
+        podpisy = {j: podpisy_kadrow(repo_zrzutow, j, ref_zrzutow) for j in JEZYKI}
         apki.append({**wpis, "teksty": teksty, "repoSciezka": repo, "podpisy": podpisy,
-                     "data": data_zrodla(repo, plik)})
+                     "stanSklepowy": ref, "data": data_zrodla(repo, plik, ref)})
     return apki
 
 
@@ -244,7 +282,23 @@ def e(tekst: str) -> str:
 
 
 def wzgledny(z_glebokosci: int, cel: str) -> str:
-    return ("../" * z_glebokosci) + cel
+    """Odsyłacz wewnętrzny — w tej samej postaci, co `canonical` i mapa witryny.
+
+    **Postać katalogowa, nie `…/index.html`**, i to jest naprawa z pomiaru
+    16.09.2026: **1013 odsyłaczy wewnętrznych kończyło się na `index.html`,
+    zero miało postać katalogową** — a `canonical`, `hreflang` i `sitemap.xml`
+    mówiły wyłącznie katalogiem. Obie postacie oddają 200 (GitHub Pages nie
+    przekierowuje), więc nic nie ginęło z indeksu, ale całe przechodzenie robota
+    wewnątrz witryny biegło po adresach, które strona sama nazywa niekanonicznymi.
+
+    `publiczny()` stało tu obok od początku, z tym samym uzasadnieniem — tylko
+    używane było na zewnątrz, a nie w odsyłaczach.
+
+    Pusty wynik znaczy „ta sama strona, korzeń": `index.html` z głębokości zero.
+    Musi zostać `./`, bo `href=""` przeglądarka czyta jako adres bieżący RAZEM
+    z zapytaniem i kotwicą — czyli coś innego niż korzeń witryny.
+    """
+    return (("../" * z_glebokosci) + publiczny(cel)) or "./"
 
 
 def akapit_html(akapit: str) -> str:
@@ -1891,9 +1945,38 @@ def strona_co_dalej(jezyk, manifest):
              + blok("dalej_otwarte", TEMATY_MAILA[jezyk]["otwarte"])
              + f'<p class="podtytul">{e(n["dalej_bez_licznika"])}</p>')
 
-    return kanoniczny, strona(jezyk=jezyk, tytul=n["dalej_tytul"], opis=n["dalej_opis"],
+    # Głowa tej strony wypadła z wzorca, bo powstała jako KOPIA strony o autorze —
+    # git widzi ją jako `C071`. Kopia wzięła układ i zgubiła dwie rzeczy, które
+    # wzorzec ma; zmierzone 16.09.2026, dzień po postawieniu strony.
+    #
+    # `og:image`: wzorzec (`o-autorze`) go NIE ma i mimo to tutaj wchodzi — bo to
+    # jedyna strona witryny pisana DO PODANIA DALEJ. Bez karty jest w każdym
+    # komunikatorze szarym prostokątem, czyli traci dokładnie to, po co powstała.
+    # Bierze kartę rodziny, a nie własną: mówi o całej rodzinie, nie o aplikacji.
+    obrazek = f'{manifest["bazaAdresu"]}/assets/karty/rodzina-{jezyk}.png'
+    # Tytuł z marką po myślniku. Frazy dokładać nie ma po co — nikt nie wpisuje
+    # „co dalej" w wyszukiwarkę i ta strona nie ma tam czego szukać. Marka kosztuje
+    # zero znaków uwagi i odróżnia zakładkę od dziesięciu innych „Co dalej".
+    tytul = f'{n["dalej_tytul"]} — {n["tytul_mapy"]}'
+    strona_ld = {"@context": "https://schema.org", "@type": "WebPage",
+                 "name": n["dalej_tytul"],
+                 "url": f'{manifest["bazaAdresu"]}/{publiczny(kanoniczny)}',
+                 "description": n["dalej_opis"],
+                 "inLanguage": "pl-PL" if jezyk == "pl" else "en-US",
+                 "isPartOf": {"@type": "WebSite",
+                              "name": n["tytul_mapy"],
+                              "url": manifest["bazaAdresu"]},
+                 "author": {"@type": "Person", "name": manifest["autor"],
+                            "url": f'{manifest["bazaAdresu"]}/'
+                                   f'{publiczny("o-autorze/index.html" if jezyk == "pl" else "en/about/index.html")}'}}
+    return kanoniczny, strona(jezyk=jezyk, tytul=tytul, opis=n["dalej_opis"],
                               kanoniczny=kanoniczny, alternatywny=alternatywny,
                               tresc=tresc, glebokosc=glebokosc, manifest=manifest,
+                              jsonld=strona_ld,
+                              dodatkowa_glowa=(f'<meta property="og:image" content="{obrazek}">'
+                                               '<meta property="og:image:width" content="1200">'
+                                               '<meta property="og:image:height" content="630">'
+                                               '<meta name="twitter:card" content="summary_large_image">'),
                               nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
                               stopka_html=stopka(jezyk, glebokosc, manifest,
                                                  co_dalej=False))
@@ -2113,7 +2196,7 @@ def do_webp(zrodlo: Path, cel: Path, dluzszy_bok: int):
     posrednie.unlink()
 
 
-def podpisy_kadrow(repo: Path, jezyk: str) -> dict:
+def podpisy_kadrow(repo: Path, jezyk: str, ref: str | None = None) -> dict:
     """Podpisy kadrów z `docs/app-store/screenshots.json` — po identyfikatorze kadru.
 
     **To jest źródło, a nie kopia.** Ten sam plik składa kadry (`screenshots.sh`),
@@ -2131,12 +2214,21 @@ def podpisy_kadrow(repo: Path, jezyk: str) -> dict:
     kolejność kadrów w sklepie już raz się przesunęła (Joshi, „kadry 2–6 to dawne
     1–5"), a identyfikator to przetrwał.
     """
-    plik = repo / "docs" / "app-store" / "screenshots.json"
-    if not plik.exists():
-        return {}
+    if ref is None:
+        plik = repo / "docs" / "app-store" / "screenshots.json"
+        if not plik.exists():
+            return {}
+        tresc = plik.read_text(encoding="utf-8")
+    else:
+        wynik = subprocess.run(["git", "-C", str(repo), "show",
+                                "%s:docs/app-store/screenshots.json" % ref],
+                               capture_output=True, text=True)
+        if wynik.returncode != 0:
+            return {}
+        tresc = wynik.stdout
     lokalizacja = {"pl": "pl", "en": "en-US"}[jezyk]
     podpisy = {}
-    for kadr in json.loads(plik.read_text(encoding="utf-8")).get("shots", []):
+    for kadr in json.loads(tresc).get("shots", []):
         tresc = (kadr.get("copy") or {}).get(lokalizacja) or {}
         naglowek = (tresc.get("headline") or "").strip()
         podtytul = (tresc.get("subtitle") or "").strip()
@@ -2174,7 +2266,7 @@ def importuj_zrzuty(apki, manifest, zapisuj):
     katalog = KORZEN / "assets" / "zrzuty"
     rejestr = katalog / "zrodla.json"
     stare = json.loads(rejestr.read_text(encoding="utf-8")) if rejestr.exists() else {}
-    nowe, zrobione, brakujace = dict(stare), [], []
+    nowe, zrobione, brakujace, usuniete = dict(stare), [], [], []
     for a in apki:
         repo = ZRODLA / a.get("repoZrzuty", a["repo"])
         for jezyk, katalog_jezyka in KATALOGI_JEZYKA.items():
@@ -2184,6 +2276,22 @@ def importuj_zrzuty(apki, manifest, zapisuj):
                 continue
             kadry = sorted(zrodlo.glob("*.png"))[:ZRZUTOW_NA_STRONE]
             cel_katalog = katalog / a["slug"] / jezyk
+            # Sprzątanie po ZMIANIE NUMERACJI, a nie po zmianie pliku — i to jest
+            # cała ta pętla. Kadry mają w nazwie pozycję (`03-dlaczego`), więc
+            # dołożenie jednego przesuwa wszystkie następne; import dokładał wtedy
+            # nowe nazwy i ZOSTAWIAŁ stare obok. Galeria brała je razem (`sorted`
+            # po nazwie), a bramka podpisów czerwieniła się na plik, którego
+            # w źródle już nie ma — i tym samym BLOKOWAŁA CAŁY GENERATOR, bo
+            # `bledy` zatrzymują zapis. Zmierzone 16.09.2026 na Keigo: trzy pliki
+            # z 09.09 przeżyły dołożenie kadru `03-dlaczego` ([poz. 279]).
+            oczekiwane = {kadr.stem + ".webp" for kadr in kadry}
+            for zbedny in sorted(cel_katalog.glob("*.webp")) if cel_katalog.exists() else []:
+                if zbedny.name in oczekiwane:
+                    continue
+                usuniete.append(f"{a['slug']}/{jezyk}/{zbedny.stem}")
+                nowe.pop(f"{a['slug']}/{jezyk}/{zbedny.stem}", None)
+                if zapisuj:
+                    zbedny.unlink()
             for kadr in kadry:
                 klucz = f"{a['slug']}/{jezyk}/{kadr.stem}"
                 skrot = hashlib.sha256(kadr.read_bytes()).hexdigest()[:16]
@@ -2200,7 +2308,7 @@ def importuj_zrzuty(apki, manifest, zapisuj):
         katalog.mkdir(parents=True, exist_ok=True)
         rejestr.write_text(json.dumps(nowe, ensure_ascii=False, indent=2,
                                       sort_keys=True) + "\n", encoding="utf-8")
-    return zrobione, brakujace
+    return zrobione, brakujace, usuniete
 
 
 # ---------------------------------------------------------------- karty do podglądu
@@ -2552,6 +2660,13 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
                 elif czesc != ".":
                     czesci.append(czesc)
             docelowy = "/".join(czesci)
+            # Odsyłacze mają od 16.09.2026 postać KATALOGOWĄ (`apps/kaname/`),
+            # zgodną z `canonical` i mapą witryny — a ta bramka pyta o PLIK.
+            # Rozwijamy więc katalog na jego `index.html`; pusty odsyłacz `./`
+            # znaczy korzeń. Bez tego bramka czerwieniła się 1013 razy nad
+            # stanem poprawnym, czyli dokładnie tyle, ile witryna ma odsyłaczy.
+            if docelowy == "" or link.endswith("/"):
+                docelowy = (docelowy + "/index.html").lstrip("/")
             if docelowy not in powstana:
                 bledy.append(f"{adres}: link do nieistniejącego {docelowy}")
 
@@ -3255,11 +3370,20 @@ def main():
         return 1 if rozjazdy else 0
 
     if args.zrzuty:
-        zrobione, brakujace = importuj_zrzuty(apki, manifest, zapisuj=True)
-        print(f"zrzuty: {len(zrobione)} przeskalowanych")
+        # `--zrzuty --sprawdz` to przebieg próbny: kasowanie plików jest
+        # nieodwracalne, a §21.T mówi, że takie narzędzie ma mieć tryb próbny.
+        zrobione, brakujace, usuniete = importuj_zrzuty(apki, manifest,
+                                                        zapisuj=not args.sprawdz)
+        czasownik = "do przeskalowania" if args.sprawdz else "przeskalowanych"
+        print(f"zrzuty: {len(zrobione)} {czasownik}")
+        for u in usuniete:
+            print(f"  − {'do usunięcia' if args.sprawdz else 'usunięty'} (nie ma go w źródle): {u}")
         for b in brakujace:
             print(f"  ⚠ brak kadrów: {b}")
-        print("teraz puść generator bez flagi, żeby galerie weszły na strony")
+        if args.sprawdz:
+            print("to był przebieg próbny — nic nie zapisano ani nie skasowano")
+        else:
+            print("teraz puść generator bez flagi, żeby galerie weszły na strony")
         return 0
 
     pliki = zbuduj(apki, manifest, zapowiedziane)

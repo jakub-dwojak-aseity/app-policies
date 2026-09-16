@@ -21,6 +21,7 @@ czyta te nazwy (`asc-metadata.py:407`). Stąd tablica aliasów zamiast założen
 """
 
 import json
+import subprocess
 import re
 from pathlib import Path
 
@@ -60,9 +61,33 @@ WYMAGANE = ("nazwa", "podtytul", "promo", "opis", "tagi")
 BLOK = re.compile(r"```\n(.*?)\n```", re.S)
 
 
-def bloki(sciezka: Path) -> dict:
+def czytaj(repo: Path, wzgledna: str, ref: str | None = None) -> str:
+    """Treść pliku z NAZWANEGO STANU, a nie z tego, co akurat jest wymeldowane.
+
+    Bez `ref` czyta drzewo robocze — i to jest zachowanie, które 16.09.2026 cofnęło
+    treść sklepową na żywo: na Macu wymeldowana jest gałąź wydaniowa, na maszynie
+    windowsowej `main`, więc to samo polecenie brało inne źródło i nikt tego nie
+    widział, bo wynik wyglądał poprawnie w obu przypadkach.
+
+    Z `ref` (znacznik `sklep/<wersja>`) źródło przestaje zależeć od maszyny.
+    Brak stanu jest AWARIĄ, nie cichym powrotem do dysku: milczący odwrót
+    przywróciłby dokładnie tę wadę, tylko rzadziej i trudniej do złapania.
+    """
+    if ref is None:
+        sciezka = repo / wzgledna
+        if not sciezka.exists():
+            raise SystemExit(f"brak pliku metadanych: {sciezka}")
+        return sciezka.read_text(encoding="utf-8")
+    wynik = subprocess.run(["git", "-C", str(repo), "show", f"{ref}:{wzgledna}"],
+                           capture_output=True, text=True)
+    if wynik.returncode != 0:
+        raise SystemExit("%s: nie ma %s na stanie %s — %s"
+                         % (repo.name, wzgledna, ref, (wynik.stderr or "").strip()))
+    return wynik.stdout
+
+
+def bloki_z_tekstu(tekst: str) -> dict:
     """Bloki ``` przypisane do nagłówków `## Nazwa`, po nazwach kanonicznych."""
-    tekst = sciezka.read_text(encoding="utf-8")
     out = {}
     for naglowek, pole in ALIASY.items():
         wzorzec = re.compile(r"^## " + re.escape(naglowek) + r"(?![\wąćęłńóśźż])[^\n]*\n(.*?)(?=^## |\Z)",
@@ -76,15 +101,19 @@ def bloki(sciezka: Path) -> dict:
     return out
 
 
-def z_markdown(repo: Path, jezyk: str) -> dict:
-    plik = repo / "docs" / "app-store" / f"APP_STORE_METADATA_{jezyk.upper()}.md"
-    if not plik.exists():
-        raise SystemExit(f"brak pliku metadanych: {plik}")
-    dane = bloki(plik)
+def bloki(sciezka: Path) -> dict:
+    """Zgodność wsteczna: te same bloki, czytane wprost z dysku."""
+    return bloki_z_tekstu(sciezka.read_text(encoding="utf-8"))
+
+
+def z_markdown(repo: Path, jezyk: str, ref: str | None = None) -> dict:
+    wzgledna = f"docs/app-store/APP_STORE_METADATA_{jezyk.upper()}.md"
+    plik = repo / wzgledna
+    dane = bloki_z_tekstu(czytaj(repo, wzgledna, ref))
     brakuje = [p for p in WYMAGANE if p not in dane]
     if brakuje:
         raise SystemExit(f"{plik}: brak pól {', '.join(brakuje)}")
-    dane["_zrodlo"] = str(plik)
+    dane["_zrodlo"] = str(plik) + (f" ({ref})" if ref else "")
     return dane
 
 
@@ -116,7 +145,7 @@ def zapowiedz(repo: Path, jezyk: str) -> dict:
     return {p: dane[p] for p in ZAPOWIEDZ} | {"_zrodlo": str(plik)}
 
 
-def teksty(repo: Path, wpis: dict, jezyk: str) -> dict:
+def teksty(repo: Path, wpis: dict, jezyk: str, ref: str | None = None) -> dict:
     """Teksty sklepowe jednej aplikacji, niezależnie od tego, gdzie je trzyma.
 
     Dziewięć sióstr trzyma je w `APP_STORE_METADATA_{PL,EN}.md`, Kaname
@@ -127,18 +156,18 @@ def teksty(repo: Path, wpis: dict, jezyk: str) -> dict:
     działające, tylko mówiłyby co innego.
     """
     if wpis["zrodlo"] == "kaname":
-        return z_json(repo, jezyk, wpis["wersja"])
-    return z_markdown(repo, jezyk)
+        return z_json(repo, jezyk, wpis["wersja"], ref)
+    return z_markdown(repo, jezyk, ref)
 
 
-def wersje_kaname(repo: Path) -> list:
+def wersje_kaname(repo: Path, ref: str | None = None) -> list:
     """Numery wersji z `version-texts.json`, od najnowszej."""
-    dane = json.loads((repo / "docs" / "app-store" / "version-texts.json").read_text(encoding="utf-8"))
+    dane = json.loads(czytaj(repo, "docs/app-store/version-texts.json", ref))
     numery = [k for k in dane if re.fullmatch(r"\d+\.\d+\.\d+", k)]
     return sorted(numery, key=lambda v: [int(x) for x in v.split(".")], reverse=True)
 
 
-def z_json(repo: Path, jezyk: str, wersja: str) -> dict:
+def z_json(repo: Path, jezyk: str, wersja: str, ref: str | None = None) -> dict:
     """Teksty Kaname dla podanej wersji.
 
     **Pole `name` jest tylko przy najnowszych wersjach** — nazwa zmieniła się
@@ -147,7 +176,7 @@ def z_json(repo: Path, jezyk: str, wersja: str) -> dict:
     manifest ma trzymać fakty o aplikacji, nie kopie tekstu.
     """
     plik = repo / "docs" / "app-store" / "version-texts.json"
-    dane = json.loads(plik.read_text(encoding="utf-8"))
+    dane = json.loads(czytaj(repo, "docs/app-store/version-texts.json", ref))
     if wersja not in dane:
         raise SystemExit(f"{plik}: brak wersji {wersja}")
     lokalizacja = {"pl": "pl", "en": "en-US"}[jezyk]
@@ -156,19 +185,33 @@ def z_json(repo: Path, jezyk: str, wersja: str) -> dict:
         blok = dane[od_wersji or wersja].get(nazwa) or {}
         return (blok.get(lokalizacja) or "").strip()
 
-    nazwa = pole("name")
-    if not nazwa:
-        for kandydat in wersje_kaname(repo):
-            nazwa = pole("name", kandydat)
-            if nazwa:
+    # **Wpis wersji niesie TYLKO to, co się w niej zmieniło** — i tak samo działa
+    # App Store: tekst raz ustawiony stoi, dopóki ktoś go nie nadpisze. Wydanie
+    # poprawkowe ma więc często sam `whatsNew`, a reszta pól jest pusta.
+    #
+    # Pierwsza wersja tej funkcji schodziła w dół tylko po `name` i wyglądała na
+    # działającą, bo manifest wskazywał akurat wersję z kompletem pól (1.3.2).
+    # Gdy 16.09.2026 wskazał wersję STOJĄCĄ W SKLEPIE (1.3.5, poprawkową),
+    # generator padł na „brak pól podtytul, promo, opis, tagi". Wada była w
+    # odczycie, nie w danych: pusto znaczy tu „bez zmian", a nie „nie ma".
+    starsze = [k for k in wersje_kaname(repo, ref)
+               if [int(x) for x in k.split(".")] < [int(x) for x in wersja.split(".")]]
+
+    def pole_z_historia(nazwa):
+        wartosc = pole(nazwa)
+        for kandydat in starsze:
+            if wartosc:
                 break
+            wartosc = pole(nazwa, kandydat)
+        return wartosc
+
     out = {
-        "nazwa": nazwa,
-        "podtytul": pole("subtitle"),
-        "promo": pole("promotionalText"),
-        "opis": pole("description"),
-        "tagi": pole("keywords"),
-        "_zrodlo": f"{plik} (wersja {wersja})",
+        "nazwa": pole_z_historia("name"),
+        "podtytul": pole_z_historia("subtitle"),
+        "promo": pole_z_historia("promotionalText"),
+        "opis": pole_z_historia("description"),
+        "tagi": pole_z_historia("keywords"),
+        "_zrodlo": f"{plik} (wersja {wersja}{', ' + ref if ref else ''})",
     }
     brakuje = [p for p in WYMAGANE if not out[p]]
     if brakuje:

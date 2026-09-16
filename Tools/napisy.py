@@ -51,6 +51,18 @@ NAPISY = {
         # więcej niż jedna — przy jednej byłyby szumem nad rzeczą oczywistą.
         "urzadzenie_ios": "iPhone i iPad",
         "urzadzenie_android": "Android",
+        # Nazwa systemu dla CZYTNIKA EKRANU przy ikonce platformy. Osobna od
+        # `urzadzenie_*`, bo tamto jest nagłówkiem nad galerią („iPhone i iPad"),
+        # a tu ma paść nazwa systemu w jednym słowie, w toku odczytu karty:
+        # „Kaname: Gramatyka japońska, 要, iOS, Powtórki JLPT…".
+        "platforma_ios": "iOS",
+        "platforma_android": "Android",
+        # Nota licencyjna robota Androida. Znak jest na CC BY 3.0 i adnotacji
+        # WYMAGA — stoi w stopce tylko tych stron, na których robot naprawdę
+        # się pojawił, bo nota nad stroną bez znaku jest szumem prawnym.
+        "android_cc_by": "Znak robota Androida pochodzi z pracy udostępnionej przez "
+                         "Google i użytej na warunkach licencji Creative Commons "
+                         "Attribution 3.0. Android jest znakiem towarowym Google LLC.",
         "wkrotce": "Wkrótce w App Store",
         "wkrotce_opis": "Aplikacja czeka na recenzję Apple. Strona opisuje wersję złożoną do sklepu.",
         "przed_premiera": "przed premierą",
@@ -294,6 +306,12 @@ NAPISY = {
         "w_sklepie_google": "Google Play",
         "urzadzenie_ios": "iPhone and iPad",
         "urzadzenie_android": "Android",
+        "platforma_ios": "iOS",
+        "platforma_android": "Android",
+        "android_cc_by": "The Android robot is reproduced from work created and "
+                         "shared by Google and used according to terms described in "
+                         "the Creative Commons 3.0 Attribution License. Android is a "
+                         "trademark of Google LLC.",
         "wkrotce": "Coming to the App Store",
         "wkrotce_opis": "Waiting for Apple review. This page describes the version submitted.",
         "przed_premiera": "not yet released",

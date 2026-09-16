@@ -137,7 +137,21 @@ a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px;
 .znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
+/* Ikonki platform. Kolor z `currentColor` przez `--cichy`, więc tryb ciemny działa
+   bez osobnej reguły — i to jest jedyny powód, dla którego znak jest rysowany, a nie
+   wstawiony plikiem: `<img>` koloru nie dziedziczy i w ciemnym znika.
+   Rozmiar w `em`, żeby znak skalował się razem z tytułem karty, a nie obok niego.
+   Znak leży POD niewidzialną warstwą linku karty (`a.nazwa::after`) i nie dostaje
+   ani `position`, ani własnego odsyłacza — inaczej rozciąłby cel dotknięcia na dwa. */
+.platformy { display: inline-flex; gap: .3em; margin-left: .4rem;
+             vertical-align: .02em; color: var(--cichy); }
+.platforma { display: inline-flex; }
+.platformy svg { width: .85em; height: .85em; display: block; }
+/* Tekst wyłącznie dla czytnika ekranu — ten sam idiom, co skip-link wyżej, bez
+   reguły `:focus`, bo ten element nie jest ogniskowalny. */
+.czytnik { position: absolute; left: -9999px; }
 .sklep { display: block; margin: .35rem 0 1.25rem; font-weight: 600; }
+.nota { font-size: .8rem; margin-top: 2rem; }
 .przycisk { display: inline-block; background: var(--akcent); color: var(--tlo);
             padding: .55rem 1.1rem; border-radius: 10px; text-decoration: none; }
 .spis-sekcji ul { list-style: none; padding: 0; margin: 0 0 1.75rem;
@@ -447,8 +461,19 @@ def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
     # mechanizmem — „przejdź do treści" ma omijać nawigację — a samego linku
     # nie było na żadnej stronie. Widoczny dopiero po dojściu do niego klawiszem.
     do_tresci = f'<a class="do-tresci" href="#tresc">{e(n["do_tresci"])}</a>'
+    # Nota licencyjna znaku Androida — **tylko na stronach, na których ten znak
+    # naprawdę stanął**. CC BY 3.0 adnotacji wymaga, a nota nad stroną bez znaku
+    # jest szumem prawnym: mówi o rzeczy, której czytelnik tam nie widzi.
+    #
+    # Liczona z WYTWORU (`tresc`), nie z zamiaru — bo o tym, czy znak padł,
+    # rozstrzyga `sklepy()` per aplikacja, a nie ustawienie strony. Dziś ta linia
+    # nie zapala się nigdzie: żadna apka nie stoi na Play. Zapali się w dniu portu,
+    # sama, bez pamiętania o niej.
+    nota = ""
+    if ZNAKI_PLATFORM == "logo" and 'data-platforma="android"' in tresc:
+        nota = f'<p class="podtytul nota">{e(n["android_cc_by"])}</p>'
     czesci += ["</head>", "<body>", do_tresci, nawigacja,
-               f'<main id="tresc">{tresc}</main>', stopka_html,
+               f'<main id="tresc">{tresc}</main>', nota, stopka_html,
                "</body>", "</html>", ""]
     return "\n".join(cz for cz in czesci if cz)
 
@@ -552,6 +577,90 @@ ADRES_SKLEPU = {
     "android": lambda i: f"https://play.google.com/store/apps/details?id={i}",
 }
 
+#: Klucz w `NAPISY` z nazwą systemu dla czytnika ekranu przy ikonce platformy.
+PLATFORMA_NAZWA = {"ios": "platforma_ios", "android": "platforma_android"}
+
+#: **Którym znakiem oznaczamy platformę.** Rozstrzygnięcie Jakuba 16.09.2026: logo
+#: systemów. Stała istnieje, bo ten wybór ma cenę, którą trzeba dało się cofnąć bez
+#: przerabiania układu — wszystkie warianty oddają ten sam `<span class="platformy">`
+#: o tym samym pudełku, różni się wyłącznie zawartość `<svg>`.
+#:
+#: **Cena wariantu „logo", nazwana, a nie obejdzona:** znak Apple nie jest udostępniony
+#: jako znacznik zgodności (Apple przewiduje do tego plakietkę „Download on the App
+#: Store"), a jego wytyczne zabraniają przebarwiania — podczas gdy cała ta konstrukcja
+#: stoi na `currentColor`, czyli na przebarwianiu, bo inaczej znak znika w trybie
+#: ciemnym. Robot Androida jest na CC BY 3.0 i adnotacji wymaga; tę generator dokłada
+#: sam, na stronach, na których robot faktycznie stanął.
+#:
+#: `"glif"` to ta sama informacja bez cudzych znaków: własny rysunek urządzenia.
+ZNAKI_PLATFORM = "logo"          # "logo" | "glif"
+
+#: Znaki platform. Rysowane w kodzie, nie plikiem w `assets/`, i to jest decyzja
+#: z trzech pomiarów: `<img src=".svg">` **nie dziedziczy `currentColor`**, więc w trybie
+#: ciemnym znak znika i trzeba by dwóch plików plus `<picture>`; plik wchodzi pod bramkę
+#: odsyłaczy i pod maszynerię skrótów, bo `rsvg-convert` nie daje powtarzalnego bajtu;
+#: a dziesięć osadzeń po ~200 bajtów jest tańsze niż dziesięć żądań HTTP na stronie,
+#: która nie ma dziś ANI JEDNEGO zewnętrznego zasobu.
+#:
+#: Bez `width`/`height` w znaczniku — rozmiar idzie z CSS w `em`, żeby znak skalował się
+#: razem z tytułem karty.
+GLIFY = {
+    "logo": {
+        "ios": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" '
+               'focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7'
+               '-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9'
+               '.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3'
+               ' 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6'
+               '-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg>',
+        "android": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" '
+                   'focusable="false"><path d="M17.5 9.3c-.5 0-.9.4-.9.9v4.4c0 .5.4.9.9.9s.9-.4'
+                   '.9-.9V10.2c0-.5-.4-.9-.9-.9zM6.5 9.3c-.5 0-.9.4-.9.9v4.4c0 .5.4.9.9.9s.9-.4'
+                   '.9-.9V10.2c0-.5-.4-.9-.9-.9zM7.4 15.6c0 .5.4.9.9.9h.7v2.2c0 .5.4.9.9.9s.9-.4'
+                   '.9-.9v-2.2h1.4v2.2c0 .5.4.9.9.9s.9-.4.9-.9v-2.2h.7c.5 0 .9-.4.9-.9V9.7H7.4v5.9z'
+                   'M14.6 6.3l.8-1.3c.1-.1 0-.3-.1-.3-.1-.1-.3 0-.3.1l-.8 1.3c-.7-.3-1.4-.4-2.2-.4'
+                   's-1.5.1-2.2.4l-.8-1.3c-.1-.1-.2-.2-.3-.1-.1.1-.2.2-.1.3l.8 1.3C7.9 7 6.9 8.3 6.8 9.8'
+                   'h10.4c-.1-1.5-1.1-2.8-2.6-3.5zM9.7 8.4c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4z'
+                   'm4.6 0c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4z"/></svg>',
+    },
+    "glif": {
+        "ios": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
+               'aria-hidden="true" focusable="false"><rect x="6.5" y="2.5" width="11" height="19" '
+               'rx="3"/><path d="M10 5.2h4"/></svg>',
+        "android": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
+                   'aria-hidden="true" focusable="false"><rect x="6.5" y="2.5" width="11" '
+                   'height="19" rx="1.5"/><path d="M10 18.6h4"/></svg>',
+    },
+}
+
+
+def znaczki_platform(a, jezyk):
+    """Ikonki platform, na których aplikacja STOI — jeden `<span>` na kartę.
+
+    **Jeden wrapper z dwoma glifami, nie dwa wrappery**, żeby bramka mogła liczyć
+    jedno i drugie osobno i złapać różnicę.
+
+    Źródłem prawdy jest `sklepy()` — ta funkcja nie dokłada własnej wiedzy o sklepach
+    i nie czyta manifestu. Dzięki temu w dniu portu wystarczy blok `sklepy` w jednym
+    wpisie: karta dostaje drugi znak sama, bramka sama przelicza oczekiwanie.
+
+    **Nazwa systemu dla czytnika ekranu stoi obok znaku**, tekstem poza ekranem —
+    tym samym idiomem, co skip-link (`.do-tresci`). Ikona bez tekstu jest dla czytnika
+    niewidzialna, a `aria-label` na `<svg>` bywa przez czytniki pomijany; tekst jest.
+    """
+    gdzie = [p for p in PLATFORMY if w_sklepie(a, p)]
+    if not gdzie:
+        return ""
+    znaki = "".join(
+        f'<span class="platforma" data-platforma="{p}">{GLIFY[ZNAKI_PLATFORM][p]}'
+        f'<span class="czytnik">{e(NAPISY[jezyk][PLATFORMA_NAZWA[p]])}</span></span>'
+        for p in gdzie)
+    return f'<span class="platformy">{znaki}</span>'
+
+
+def platformy_na_stronie(apki):
+    """Ile znaków której platformy ma paść na mapie — oczekiwanie dla bramki 23."""
+    return {p: sum(1 for a in apki if w_sklepie(a, p)) for p in PLATFORMY}
+
 
 def link_sklepu(a, platforma="ios"):
     return ADRES_SKLEPU[platforma](sklepy(a)[platforma]["id"])
@@ -628,23 +737,28 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
         ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
         # Znacznik na karcie niesie DWIE różne rzeczy i kolejność jest tu istotna.
         #
-        # „Wkrótce w App Store" mówi o stanie w sklepie i wygrywa, bo aplikacji, której
+        # „Wkrótce w App Store" mówi o stanie w sklepie i **wygrywa**, bo aplikacji, której
         # jeszcze nie ma, nie opisuje się listą platform.
         #
-        # Lista platform pojawia się **dopiero, gdy jest co wyliczać** — czyli gdy sklepów
-        # jest więcej niż jeden. Przy jednym byłaby szumem: dziś wszystkie dziesięć kart
-        # niosłoby ten sam napis, a po pierwszej fali portu dziewięć mówiłoby „nie u ciebie".
-        # To jest to samo ryzyko, które [poz. 112] nazwała przy sześciu „wkrótce"
-        # wmieszanych między dziesięć gotowych.
-        gdzie = [p_ for p_ in PLATFORMY if w_sklepie(a, p_)]
+        # **ODWRÓCONE 16.09.2026 rozstrzygnięciem Jakuba — i to jest zapis powodu, żeby
+        # nie żył wyłącznie w git logu.** Do tego dnia znacznik platformy pojawiał się
+        # dopiero przy drugim sklepie ([poz. 307]), z uzasadnieniem: „przy jednym byłby
+        # szumem, dziś wszystkie dziesięć kart niosłoby ten sam napis, a po porcie
+        # dziewięć mówiłoby »nie u ciebie«".
+        #
+        # Tamten argument był policzony dla NAPISU w ramce („App Store · Google Play",
+        # ~90 px na każdej z dziesięciu kart) i na napis się trzyma. Na ikonę nie:
+        # znak ~14 px czyta się jak atrybut, nie jak zdanie. Druga połowa argumentu —
+        # „dziewięć powie »nie u ciebie«" — jest po porcie **prawdą, którą czytelnik
+        # chce znać PRZED kliknięciem**, a nie wadą; zgłoszenie Jakuba brzmiało
+        # dokładnie „nie widzę niczego takiego".
+        #
+        # Napis o dwóch sklepach zniknął razem z tym: dwa komunikaty o tej samej rzeczy
+        # obok siebie byłyby wadą, a ikona mówi to samo w jednej linii tytułu.
         if not a["wSklepie"]:
             znacznik = f'<span class="znacznik">{e(n["wkrotce"])}</span>'
-        elif len(gdzie) > 1:
-            znacznik = ('<span class="znacznik">'
-                        + e(" · ".join(NAPISY[jezyk][NAZWA_SKLEPU[p_]] for p_ in gdzie))
-                        + "</span>")
         else:
-            znacznik = ""
+            znacznik = znaczki_platform(a, jezyk)
         karty.append(
             f'<li class="karta"><img src="{ikona}" alt="" width="52" height="52" loading="lazy">'
             f'<div><a class="nazwa" href="{cel}">{e(t["nazwa"])}</a>'
@@ -764,7 +878,13 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
     ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
 
     if a["wSklepie"]:
+        # Ikonka platformy stoi MIĘDZY przyciskiem a ceną, bo w tej kolejności pada
+        # pytanie: gdzie to kupić, na czym to działa, ile kosztuje. Na stronę produktową
+        # trafia się wprost z wyszukiwarki, z pominięciem mapy rodziny — a do 16.09.2026
+        # nie padało tu ani razu słowo „iOS", „iPhone" ani „Android" (zmierzone: zero
+        # trafień w wytworze). Jedynym sygnałem był napis na przycisku.
         sklep = (f'<p class="sklep">{przyciski_sklepow(a, n)}'
+                 f'{znaczki_platform(a, jezyk)}'
                  f'<span class="znacznik">{e(n["darmowa"])}</span></p>')
     else:
         sklep = (f'<p class="sklep"><span class="znacznik">{e(n["wkrotce"])}</span></p>'
@@ -3230,6 +3350,80 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
                 bledy.append(f"{a_['slug']}: nieznana platforma „{platforma}” w sklepy")
             elif wpis.get("stan") not in ("brak", "zlozona", "w-sklepie"):
                 bledy.append(f"{a_['slug']} {platforma}: nieznany stan „{wpis.get('stan')}”")
+
+    # 23. Ikonka platformy stoi dokładnie tam, gdzie ma, i tyle razy, ile ma.
+    #
+    #     Liczona na WYTWORZE i porównywana z `sklepy()` — jedynym miejscem, które wie
+    #     o sklepach. Bramka, która liczyłaby manifest na własną rękę, byłaby drugą
+    #     prawdą o tym samym i rozjechałaby się z pierwszą w dniu portu.
+    #
+    #     Niezmiennik strony produktowej jest **liczbowy, nie wpisany**: blok sklepu
+    #     stoi na niej DWA razy (nad opisem i pod nim, bo opis ma 2200–4100 znaków),
+    #     więc „ma być jedna ikonka" byłoby nieprawdą. Prawdą jest:
+    #     `liczba opakowań × liczba platform == liczba przycisków sklepu`.
+    #     Ten kształt przeżyje zarówno trzeci blok sklepu, jak i drugą platformę.
+    oczekiwane = platformy_na_stronie(apki)
+    mapy = {"index.html", "en/index.html"}
+    for adres_, tresc in pliki.items():
+        if not adres_.endswith(".html"):
+            continue
+        opakowan = tresc.count('class="platformy"')
+        czytnikow = tresc.count('class="czytnik"')
+        per_platforma = {p: tresc.count(f'data-platforma="{p}"') for p in PLATFORMY}
+        if adres_ in mapy:
+            for p, ile in oczekiwane.items():
+                if per_platforma[p] != ile:
+                    bledy.append(f"{adres_}: ikonek platformy „{p}” jest {per_platforma[p]}, "
+                                 f"a aplikacji stojących w tym sklepie {ile}")
+            if opakowan != sum(1 for a_ in apki if w_sklepie(a_)):
+                bledy.append(f"{adres_}: opakowań ikonek {opakowan}, a aplikacji w sklepie "
+                             f"{sum(1 for a_ in apki if w_sklepie(a_))} — po jednym na kartę")
+        elif re.search(r'rel="canonical" href="[^"]*/(en/)?apps/[^"]+"', tresc):
+            # Rozpoznanie po ADRESIE KANONICZNYM, nie po ścieżce i nie po kształcie.
+            #
+            # Po ścieżce — bo `kuzushi/index.html` to stara strona produktowa leżąca
+            # w korzeniu; dopasowanie do `apps/` wzięłoby ją za wyciek.
+            #
+            # Po kształcie („ma przycisk sklepu") — bo **strona tematyczna ma dokładnie
+            # ten sam kształt**: też niesie blok sklepu z przyciskiem. Pierwsza wersja
+            # tej bramki rozpoznawała właśnie tak i kontrpróba B (ikonka wstawiona na
+            # stronę tematyczną) przeszła przez nią NA ZIELONO. Złapane przebiegiem,
+            # nie czytaniem — i to jest cały powód, dla którego kontrpróby idą przed
+            # commitem, a nie po nim.
+            # Porównanie WEWNĄTRZ każdego bloku sklepu, nie sumami na stronie.
+            #
+            # Suma przepuszczała stan „zero ikonek": warunek zaczynał się od
+            # `if opakowan`, więc strona bez ani jednej ikonki przechodziła cicho —
+            # złapane kontrpróbą E (ikonka tylko po polsku), nie czytaniem kodu.
+            # Blok sklepu stoi na stronie produktowej dwa razy i **każdy** ma nieść
+            # tyle znaków, ile ma przycisków.
+            for blok in re.findall(r'<p class="sklep">.*?</p>', tresc, re.S):
+                przyciskow = blok.count('class="przycisk"')
+                znakow = sum(blok.count(f'data-platforma="{p}"') for p in PLATFORMY)
+                if przyciskow != znakow:
+                    bledy.append(f"{adres_}: blok sklepu ma {przyciskow} przycisków "
+                                 f"i {znakow} ikonek platformy — po jednej na przycisk")
+        elif opakowan:
+            # Wyciek. Ikonka ma stać na mapie rodziny i na stronie produktowej —
+            # nigdzie indziej. Strona tematyczna ma kartę apki świadomie uboższą,
+            # a karta zapowiedzianej aplikacji nie ma platformy, bo nie ma aplikacji.
+            bledy.append(f"{adres_}: ikonka platformy poza mapą rodziny i stroną "
+                         f"produktową ({opakowan})")
+        if czytnikow != sum(per_platforma.values()):
+            bledy.append(f"{adres_}: ikonek platformy {sum(per_platforma.values())}, "
+                         f"a nazw dla czytnika ekranu {czytnikow} — ikona bez tekstu "
+                         f"jest dla czytnika niewidzialna")
+
+    # Nota licencyjna robota Androida: wymagana przez CC BY 3.0 i tylko tam, gdzie
+    # robot faktycznie stanął. Dziś żadna apka nie stoi na Play, więc ta bramka jest
+    # bezczynna — stoi po to, żeby dzień portu nie wypuścił znaku bez adnotacji.
+    if ZNAKI_PLATFORM == "logo":
+        for adres_, tresc in pliki.items():
+            if adres_.endswith(".html") and tresc.count('data-platforma="android"'):
+                jezyk_ = "pl" if '<html lang="pl">' in tresc else "en"
+                if NAPISY[jezyk_]["android_cc_by"][:40] not in tresc:
+                    bledy.append(f"{adres_}: stoi znak Androida bez noty CC BY — "
+                                 f"licencja znaku jej WYMAGA")
 
     return bledy, uwagi
 

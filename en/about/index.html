@@ -71,7 +71,21 @@ a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px;
 .znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
             border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
             margin-left: .4rem; vertical-align: .1em; }
+/* Ikonki platform. Kolor z `currentColor` przez `--cichy`, więc tryb ciemny działa
+   bez osobnej reguły — i to jest jedyny powód, dla którego znak jest rysowany, a nie
+   wstawiony plikiem: `<img>` koloru nie dziedziczy i w ciemnym znika.
+   Rozmiar w `em`, żeby znak skalował się razem z tytułem karty, a nie obok niego.
+   Znak leży POD niewidzialną warstwą linku karty (`a.nazwa::after`) i nie dostaje
+   ani `position`, ani własnego odsyłacza — inaczej rozciąłby cel dotknięcia na dwa. */
+.platformy { display: inline-flex; gap: .3em; margin-left: .4rem;
+             vertical-align: .02em; color: var(--cichy); }
+.platforma { display: inline-flex; }
+.platformy svg { width: .85em; height: .85em; display: block; }
+/* Tekst wyłącznie dla czytnika ekranu — ten sam idiom, co skip-link wyżej, bez
+   reguły `:focus`, bo ten element nie jest ogniskowalny. */
+.czytnik { position: absolute; left: -9999px; }
 .sklep { display: block; margin: .35rem 0 1.25rem; font-weight: 600; }
+.nota { font-size: .8rem; margin-top: 2rem; }
 .przycisk { display: inline-block; background: var(--akcent); color: var(--tlo);
             padding: .55rem 1.1rem; border-radius: 10px; text-decoration: none; }
 .spis-sekcji ul { list-style: none; padding: 0; margin: 0 0 1.75rem;

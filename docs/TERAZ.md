@@ -12,8 +12,15 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
 
 **Rozstrzygnięcie Jakuba: strona mówi to, co kupujący naprawdę zobaczy w App Store**, czyli
 wersję `READY_FOR_SALE`. Generator czyta znacznik **`sklep/<wersja>`** (stoi w dziesięciu repo,
-wypchnięty na `origin`), a numer sklepowy niesie `Tools/apps.json` — **wszystkie dziesięć**,
-odświeżane przy wydaniu. Brak znacznika to **awaria z instrukcją**, nie ciche czytanie dysku.
+wypchnięty na `origin`), a numer sklepowy niesie `Tools/apps.json` — **wszystkie dziesięć**.
+Brak znacznika to **awaria z instrukcją**, nie ciche czytanie dysku.
+
+> **NIEDOKOŃCZONE, i to jest pierwsza rzecz do wzięcia w tym torze:** znacznik i numer
+> w manifeście zakłada dziś **ręka**. Droga wydania ma to robić w chwili, gdy wersja wchodzi
+> do sklepu (nie przy złożeniu — wtedy stoi dopiero w recenzji). Do tego czasu pierwszy agent,
+> który wyda apkę, zobaczy przy przeliczaniu witryny komunikat „brak znacznika sklep/<wersja>"
+> z gotową komendą. To jest wybrane zachowanie — głośna odmowa zamiast cichego wzięcia
+> nie tej treści — ale robotę i tak trzeba domknąć.
 
 **Skąd to się wzięło:** przeliczenie z maszyny windowsowej cofnęło treść na żywo, bo tam drzewa
 sióstr stoją na `main`, a na Macu na gałęziach wydaniowych. To samo polecenie, inne źródło,

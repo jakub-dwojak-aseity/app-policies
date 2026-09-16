@@ -2960,20 +2960,26 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
                         f"angielskim — nakładka jest niedokończona, a nie pusta")
                     break
 
-    # 16. Manifest wskazuje NAJŚWIEŻSZY blok tekstów sklepowych, a nie dowolny.
+    # 16. Manifest wskazuje wersję STOJĄCĄ W SKLEPIE — nie najświeższą, jaką ma repo.
     #
-    #     Dotyczy wyłącznie Kaname, bo tylko ona trzyma teksty per wersja
-    #     (`version-texts.json`); dziewięć sióstr ma jeden plik markdown bez osi
-    #     wersji i zestarzeć się nie może. Pole `wersja` w `apps.json` wpisuje się
-    #     RĘKĄ i **nic dotąd nie pytało, czy nie zostało w tyle** — a wystarczy
-    #     wydanie, które zmienia podtytuł albo opis, żeby strona cicho niosła
-    #     poprzednie brzmienie. Dokładnie ta klasa błędu, co 09.09.2026: strona
-    #     wyliczana psuje się w źródle, nie w wytworze.
+    #     **Ta bramka została odwrócona 16.09.2026 i to jest rozstrzygnięcie, nie
+    #     złagodzenie.** Do tego dnia pilnowała reguły „manifest ma wskazywać
+    #     NAJŚWIEŻSZY blok" i czerwieniła się, gdy repo miało nowszy. Reguła jest
+    #     dziś inna: witryna mówi to, co kupujący naprawdę zobaczy w App Store,
+    #     czyli wersję `READY_FOR_SALE`. Nowszy blok w repo to **stan normalny**
+    #     przez cały czas, gdy wydanie czeka w recenzji — czerwień nad nim byłaby
+    #     czerwienią nad stanem poprawnym, a taka bramka uczy pomijania siebie.
+    #
+    #     Co ZOSTAJE błędem: numer, którego w pliku nie ma wcale, i numer, który
+    #     nie jest `x.y.z`. Jedno i drugie znaczy, że strona nie ma z czego powstać.
+    #
+    #     Czego ta bramka **nie umie** i trzeba o tym wiedzieć: nie widzi sieci,
+    #     więc nie powie, czy numer w manifeście naprawdę stoi w sklepie. Od tego
+    #     jest `--sprawdz-sklep` i znacznik `sklep/<wersja>`, bez którego przebieg
+    #     odmawia startu.
     #
     #     Liczą się wyłącznie bloki z polami INDEKSOWANYMI. Wersje niosące samo
-    #     `whatsNew` (dziś 1.3.3 i 1.3.4) nowszym blokiem nie są: `z_json` bierze
-    #     z nich podtytuł i opis wprost, bez schodzenia w dół, więc wskazanie ich
-    #     w manifeście nie dałoby świeższej strony, tylko przerwany przebieg.
+    #     `whatsNew` nowszym blokiem nie są.
     POLA_SKLEPOWE = ("subtitle", "description", "keywords", "promotionalText")
 
     def _wersja_klucz(tekst):
@@ -2998,11 +3004,15 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
             if isinstance(blok, dict)
             and any(blok.get(pole) for pole in POLA_SKLEPOWE)
             and (_wersja_klucz(k) or (0, 0, 0)) > wskazana)
-        if nowsze:
+        if wskazana not in {_wersja_klucz(k) for k in dane if _wersja_klucz(k)}:
             bledy.append(
-                f"{a['slug']}: apps.json wskazuje teksty wersji {a['wersja']}, "
-                f"a {plik.name} ma nowszy blok z polami sklepowymi: "
-                f"{', '.join(nowsze)} — strona niesie poprzednie brzmienie")
+                f"{a['slug']}: apps.json wskazuje wersję {a['wersja']}, a {plik.name} "
+                f"nie ma takiego bloku — strona nie ma z czego powstać")
+        elif nowsze:
+            uwagi.append(
+                f"{a['slug']}: w repo czekają nowsze teksty ({', '.join(nowsze)}) niż wersja "
+                f"sklepowa {a['wersja']} — i tak ma być, dopóki tamta wersja nie wejdzie do "
+                f"sklepu. Wtedy odśwież `wersja` w apps.json i załóż znacznik sklep/<wersja>")
 
     # 17. Każdy klucz grupy z eksportu musi być zadeklarowany w `TEMATY`.
     #

@@ -1,4 +1,4 @@
-# Search Console — 88 adresów, w kolejności, w jakiej mają iść
+# Search Console — 90 adresów, w kolejności, w jakiej mają iść
 
 **Sprawdzone przed wypisaniem:** każdy z 88 adresów oddaje **200**, **nie przekierowuje**
 i ma **własny `canonical`**. Zgłoszenie adresu, który przekierowuje, marnuje dzienny
@@ -21,6 +21,23 @@ których mamy pewność, że nikt ich nie zgłaszał.
 Wklejaj po **dziesięć dziennie**: Sprawdzenie URL → Poproś o zindeksowanie.
 
 ---
+
+## Dzień 0  ·  2 z 2 na pewno niezgłoszonych — doszły 16.09.2026
+
+Strona „Co dalej" i jej angielska bliźniaczka. Powstały **po** wypisaniu tej listy, więc
+nie ma ich w żadnym z dni niżej. Idą pierwsze, bo są jedynymi adresami, o których wiadomo
+na pewno, że nigdy nie poszły — i bo są kanałem zwrotnym z [poz. 295], czyli im szybciej
+w indeksie, tym wcześniej zaczną zbierać odpowiedzi.
+
+```
+https://jd-japanese.pl/co-dalej/
+https://jd-japanese.pl/en/whats-next/
+```
+
+**Mapa witryny wymaga ponownego zgłoszenia** — urosła z 88 na 90 adresów i sama się
+nie odświeży. Sprawdzone przed wypisaniem, tą samą miarą co reszta listy: oba adresy
+oddają **200**, **nie przekierowują**, mają **własny `canonical`** i **wzajemne `hreflang`**.
+Sprawdzone też, że **wszystkie 90 adresów mapy oddaje dziś 200** — zero wyjątków.
 
 ## Dzień 1  ·  7 z 10 na pewno niezgłoszonych
 

@@ -115,10 +115,14 @@ NAPISY = {
                       "jest dla Ciebie ważna, napisz – to jedyny sposób, w jaki się o tym "
                       "dowiem.",
         "dalej_android_naglowek": "Wersja na Androida",
-        "dalej_android": "Kierunek jest rozstrzygnięty: Kotlin i jeden wspólny rdzeń dla "
-                         "wszystkich aplikacji, a nie dziesięć osobnych przepisań. Daty nie "
-                         "ma i nie będzie, dopóki nie będę wiedział, ile osób tego potrzebuje. "
-                         "Jeśli jesteś jedną z nich, napisz – wystarczy pusty mail.",
+        # **Bez ani jednego słowa o tym, JAK to jest zrobione.** Stało tu „Kotlin i jeden
+        # wspólny rdzeń" — prawda, i zupełnie nie do tego czytelnika: wchodzącego na tę
+        # stronę obchodzi, czy dostanie aplikację na swój telefon, a nie w czym jest
+        # napisana. Rozstrzygnięcia techniczne mieszkają w `ANDROID_KIERUNEK.md`.
+        "dalej_android": "Dziś te aplikacje są tylko na iPhone'a i iPada. Wersja na Androida "
+                         "jest możliwa, ale nie ma daty i nie będzie, dopóki nie będę wiedział, "
+                         "ile osób jej potrzebuje. Jeśli jesteś jedną z nich, napisz – "
+                         "wystarczy pusty mail.",
         "dalej_jezyki_naglowek": "Języki interfejsu",
         "dalej_jezyki": "Aplikacje mówią po polsku i po angielsku. Niemiecki, hiszpański "
                         "i francuski są możliwe, ale każdy z nich to kilka tysięcy pól do "
@@ -340,10 +344,10 @@ NAPISY = {
                       "and says what I already know about each. If one of them matters to "
                       "you, write – that is the only way I will find out.",
         "dalej_android_naglowek": "An Android version",
-        "dalej_android": "The direction is settled: Kotlin and one shared core for every app, "
-                         "not ten separate rewrites. There is no date, and there will not be "
-                         "one until I know how many people need it. If you are one of them, "
-                         "write – an empty email is enough.",
+        "dalej_android": "Today these apps are on iPhone and iPad only. An Android version is "
+                         "possible, but there is no date and there will not be one until I know "
+                         "how many people need it. If you are one of them, write – an empty "
+                         "email is enough.",
         "dalej_jezyki_naglowek": "Interface languages",
         "dalej_jezyki": "The apps speak Polish and English. German, Spanish and French are "
                         "possible, but each of them is a few thousand fields to translate and "

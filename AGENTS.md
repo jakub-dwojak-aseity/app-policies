@@ -6,16 +6,16 @@ plus polityki, warunki i wsparcie, na które wskazuje ASC. GitHub Pages z `main`
 
 ## Mapa rodziny jest gdzie indziej
 
-**`/Users/jakub/aseity/jp-grammar/AGENTS.md`** — mapa dziesiątki: które drzewo żywe, gdzie papiery,
+**`~/aseity/jp-grammar/AGENTS.md`** — mapa dziesiątki: które drzewo żywe, gdzie papiery,
 co robi które narzędzie, siedem reguł twardych. **Przeczytaj ją, zanim cokolwiek tu ruszysz.**
 
 | czego szukasz | gdzie |
 |---|---|
 | **stan witryny/SEO** | **`docs/TERAZ.md`** (tu — tor witryny jedzie osobno od wydań) |
-| od czego zacząć dziś | `/Users/jakub/aseity/jp-grammar/docs/TERAZ.md` |
-| co zostało do zrobienia | `/Users/jakub/aseity/jp-grammar/docs/BACKLOG_UI_RODZINA.md` (poz. 82, 84, 112, 113) |
-| co ma być takie samo w dziesiątce | `/Users/jakub/aseity/jp-grammar/docs/FAMILY_CONVENTIONS.md` |
-| pomiary SEO/AEO i kolejka toru | `/Users/jakub/aseity/jp-grammar/docs/PLAN_SEO_AEO.md` §11–§12 |
+| od czego zacząć dziś | `~/aseity/jp-grammar/docs/TERAZ.md` |
+| co zostało do zrobienia | `~/aseity/jp-grammar/docs/BACKLOG_UI_RODZINA.md` (poz. 82, 84, 112, 113) |
+| co ma być takie samo w dziesiątce | `~/aseity/jp-grammar/docs/FAMILY_CONVENTIONS.md` |
+| pomiary SEO/AEO i kolejka toru | `~/aseity/jp-grammar/docs/PLAN_SEO_AEO.md` §11–§12 |
 
 **Papiery rodziny pisze się w hubie, nie tutaj.** Dokumentów z datą w nazwie nie zakładamy
 (§23) — bramka je odbija. Co przestało obowiązywać, idzie do `docs/archiwum/`.

@@ -8,6 +8,35 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
 
 ## Od czego zacząć
 
+### 16.09.2026 — witryna czyta NAZWANY STAN, nie „to, co akurat wymeldowane"
+
+**Rozstrzygnięcie Jakuba: strona mówi to, co kupujący naprawdę zobaczy w App Store**, czyli
+wersję `READY_FOR_SALE`. Generator czyta znacznik **`sklep/<wersja>`** (stoi w dziesięciu repo,
+wypchnięty na `origin`), a numer sklepowy niesie `Tools/apps.json` — **wszystkie dziesięć**,
+odświeżane przy wydaniu. Brak znacznika to **awaria z instrukcją**, nie ciche czytanie dysku.
+
+**Skąd to się wzięło:** przeliczenie z maszyny windowsowej cofnęło treść na żywo, bo tam drzewa
+sióstr stoją na `main`, a na Macu na gałęziach wydaniowych. To samo polecenie, inne źródło,
+oba wyniki wyglądały poprawnie. Cofnięty był tekst promocyjny Shindana i `dateModified`
+na pięciu stronach. **Naprawione i sprawdzone na żywo.**
+
+**Ta sama zmiana odblokowała generator**, który oddawał kod 1 i nie zapisywał nic: sześć
+błędów o kadrach Keigo bez podpisu było skutkiem tej samej wady — podpisy czytane z gałęzi
+w recenzji, kadry ze sklepu. Ani jeden kadr nie został przeliczony.
+
+**Przy okazji, w tym samym przebiegu:** odsyłacze wewnętrzne mają postać katalogową
+(**1013** celowało w `index.html`, canonical mówił katalogiem); strony „Co dalej"/„What is next"
+dostały JSON-LD, `og:image` i markę w tytule; `--zrzuty` ma tryb próbny i sprząta kadry, których
+nie ma w źródle. Pozycje: **[324]**, **[325]**, **[326]** w backlogu rodziny.
+
+**Świadoma granica, żeby nie wyszła jako niespodzianka:** strony tematyczne czytają
+`docs/www/eksport.json` z **drzewa** siostry, nie ze znacznika. Karta produktu mówi o sklepie,
+strona tematyczna o katalogu — to dwie jednostki i tak zostaje. Dlatego **eksport Joshiego
+przeliczony** (rola `ga.spontaneous`, 14 → 15; jego katalog mieści się w `sklep/1.3.0`),
+a **Keigo świadomie NIE** — tam katalog jest nowszy niż `sklep/1.1.2`, więc przeliczenie
+wciągnęłoby treść wydania stojącego w recenzji. Wraca, gdy 1.2.0 wejdzie do sklepu.
+
+
 **Witryna mówi już o japońskim, a nie tylko o aplikacjach.** 13.09.2026 doszło
 **osiem tematów, z czego cztery rozpisane na sekcje**; 13.09 doszedł podział onomatopei
 i mosty między tematami — mapa witryny **26 → 88 adresów**, dwadzieścia sekcji. Wcześniej wszystko, co tu stało, mówiło wyłącznie o dziesiątce apek,
@@ -15,7 +44,7 @@ a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" a
 
 | adres | z czego | ile |
 |---|---|---|
-| `/nauka/partykuly-japonskie/` | Joshi | 14 ról w 6 partykułach, 56 zdań |
+| `/nauka/partykuly-japonskie/` | Joshi | **15 ról** w 6 partykułach, 56 zdań |
 | `/nauka/formy-czasownika/` | Katsuyokei | 14 form |
 | `/nauka/liczniki-japonskie/` | Kazoekata | 22 liczniki, 44 zdania |
 | `/nauka/mowa-potoczna/` + 5 sekcji | Kuzushi | 34 wzorce wg rodzaju skrótu, 61 par zdań |

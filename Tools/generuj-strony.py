@@ -795,14 +795,41 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
                         f'<p>{e(n["dojdzie_opis"])}</p>'
                         f'<ul class="karty">{"".join(karty_z)}</ul>')
 
+    # **Sekcje tematu stoją tutaj, a nie tylko na stronie tematu** — i to jest
+    # naprawa z pomiaru 16.09.2026, nie ozdoba. Search Console zgłosił wtedy
+    # 44 strony poza indeksem i były to **co do sztuki** wszystkie strony grup,
+    # czyli wszystko, co leżało dwa kliknięcia od korzenia. Kontrpróba trzyma wiek
+    # na stałe: strony tematów i strony grup powstały tego samego dnia, 13.09,
+    # w tych samych commitach — 18 stron na głębokości 1 weszło do indeksu,
+    # 44 na głębokości 2 nie weszły.
+    #
+    # Trzy inne tłumaczenia obalono pomiarem, żeby nikt tu nie wracał: objętość
+    # treści (mediana 5988 znaków wobec 5849), podobieństwo sióstr (3–8% przy tle
+    # 1,4%, a najwyższe miały strony ZAINDEKSOWANE) i liczba wejść — ta wyglądała
+    # na miarę, dopóki nie zawęziło się porównania do samych stron z głębokości 2,
+    # gdzie rozkłady są identyczne.
+    #
+    # Rozdroże ani spis treści tego nie załatwią: **same leżą na głębokości 1**,
+    # więc to, co linkują, ląduje na 2. Odsyłacz musi wyjść z korzenia i innego
+    # miejsca nie ma. `<details>` zamiast gołej listy, bo 62 pozycje rozbiłyby
+    # mapę rodziny na czytanie, a robot czyta treść zwiniętą tak samo jak otwartą.
     nauka_html = ""
     if zywe:
         pozycje = []
-        for temat, _, _ in zywe:
+        for temat, _, eksport in zywe:
             cel = wzgledny(glebokosc, sciezki_tematu(temat, jezyk)[0])
             tytul_t = e(n["temat_%s_tytul" % temat["klucz"]])
             opis_t = e(n["temat_%s_opis" % temat["klucz"]])
-            pozycje.append(f'<li><a href="{cel}">{tytul_t}</a> – {opis_t}</li>')
+            grupy = grupy_zywe(temat, eksport)
+            sekcje = ""
+            if grupy:
+                wiersze_g = "".join(
+                    f'<li><a href="{wzgledny(glebokosc, sciezki_tematu(temat, jezyk, g)[0])}">'
+                    f'{e(nazwa_grupy(eksport, g, jezyk))}</a></li>'
+                    for g in grupy)
+                sekcje = (f'<details><summary>{e(n["nauka_sekcje"])} ({len(grupy)})</summary>'
+                          f'<ul class="zwykla">{wiersze_g}</ul></details>')
+            pozycje.append(f'<li><a href="{cel}">{tytul_t}</a> – {opis_t}{sekcje}</li>')
         nauka_html = (f"<h2>{e(n['nauka_link'])}</h2>"
                       f'<ul class="zwykla">{"".join(pozycje)}</ul>')
 

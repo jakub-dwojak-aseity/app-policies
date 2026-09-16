@@ -1,5 +1,66 @@
 # Search Console — 90 adresów, w kolejności, w jakiej mają iść
 
+## Stan indeksu — odczyt 16.09.2026
+
+**Pierwszy odczyt pokrycia w papierach rodziny.** Wcześniej mierzono wyłącznie, ile adresów
+Search Console zna z mapy witryny — nigdy, ile z nich siedzi w indeksie. Właściwość jest typu
+**Domena**, więc obejmuje też `http://` i `www`; dane GSC z 14.09.
+
+| | strony |
+|---|---|
+| **zaindeksowane** | **74** |
+| niezaindeksowane | **56**, w czterech powodach |
+
+| powód | `Source` | ile | co to jest |
+|---|---|---|---|
+| Alternate page with proper canonical tag | Website | 11 | **same warianty `…/index.html`** (`/index.html`, `/en/index.html`, `/en/apps/<slug>/index.html`). Pierwsze wykrycie 15.09 |
+| Page with redirect | Website | 1 | **jeden adres: `http://jd-japanese.pl/`** — przekierowanie na `https://` |
+| Discovered – currently not indexed | Google systems | 25 | strony tematyczne **2. piętra**, wykryte, `Last crawled: N/A` |
+| Crawled – currently not indexed | Google systems | 19 | strony tematyczne **2. piętra**, pobrane 15.09, odłożone bez indeksu |
+
+### Dwa powody z kolumny „Website" są ZAMIERZONE — nie klikamy „Zweryfikuj poprawkę"
+
+Kolumna `Source` mówi, **czyja jest przyczyna**, a nie **jak bardzo boli**. Walidacja poprawki,
+której nie ma, kończy się porażką i kosztuje tydzień.
+
+Jedenaście adresów `index.html` to echo [poz. 326] — 1013 odsyłaczy wewnętrznych celowało
+w postać plikową do 16.09.2026. Adresy dalej oddają 200, bo **GitHub Pages nie umie przekierowań**,
+i poprawnie wskazują kanonikal na postać katalogową, która **jest w indeksie**. Zdjąć się ich
+nie da: `noindex` siedziałby w **tym samym pliku** co postać katalogowa i zabrałby z indeksu
+także ją. Zmierzone 16.09: w całym `~/aseity` **zero** miejsc budujących adres z `index.html`,
+a `Tools/asc-marketing-url.py` celuje w postać katalogową z ukośnikiem — czyli **nic ich już
+nie karmi** i licznik osunie się sam, powoli.
+
+`http://jd-japanese.pl/` to „Enforce HTTPS" robiące swoje. Widać go wyłącznie dlatego, że
+właściwość jest typu Domena.
+
+**Trzeci adres dołączy do „Alternate page" i to też jest w porządku:** `/kuzushi/` kanonizuje się
+na `/en/apps/kuzushi/` świadomie ([poz. 325]) — to adres historyczny pod Marketing URL Kuzushi.
+Zniknie dopiero, gdy `Tools/asc-marketing-url.py --zapisz` przestawi pole w ASC.
+
+### Groźne jest to, czego w mejlu Google nie ma
+
+**44 strony tematyczne stoją poza indeksem.** Ze **62 stron 2. piętra**
+(`/nauka/<temat>/<grupa>/`, `/en/learn/<topic>/<group>/`) w zgłoszeniu jest 44,
+a ze stron 1. piętra i wyżej — **zero**.
+
+Dwie hipotezy obalone pomiarem 16.09, obie w minutę:
+
+```
+„są chude"      mediana znaków:  niezaindeksowane 5988  ·  reszta 5849
+„to szablon"    nakładanie treści między siostrami: 3,0–7,9%   (tło: 1,4%)
+                a najwyższe mają strony ZAINDEKSOWANE: produktowe 11,6%, rozdroża 18,6%
+```
+
+Treść jest osobna i zdrowa. Zostaje wiek domeny (treść stoi od 09.09) i priorytet pobierania —
+a jedyną dźwignią w GitHub Pages jest **linkowanie wewnętrzne**: dziś każda strona grupy wisi
+na **jednym** odsyłaczu ze swojego tematu.
+
+**Czego to nie obiecuje:** „Discovered/Crawled – currently not indexed" nie ma przycisku „napraw".
+Linkowanie podnosi priorytet częściowo i przez tygodnie. Gwarancji zaindeksowania nie daje nic.
+
+---
+
 **Sprawdzone przed wypisaniem:** każdy z 88 adresów oddaje **200**, **nie przekierowuje**
 i ma **własny `canonical`**. Zgłoszenie adresu, który przekierowuje, marnuje dzienny
 limit, więc ta kontrola idzie przed listą, a nie po niej.
@@ -34,10 +95,11 @@ https://jd-japanese.pl/co-dalej/
 https://jd-japanese.pl/en/whats-next/
 ```
 
-**Mapa witryny wymaga ponownego zgłoszenia** — urosła z 88 na 90 adresów i sama się
-nie odświeży. Sprawdzone przed wypisaniem, tą samą miarą co reszta listy: oba adresy
-oddają **200**, **nie przekierowują**, mają **własny `canonical`** i **wzajemne `hreflang`**.
-Sprawdzone też, że **wszystkie 90 adresów mapy oddaje dziś 200** — zero wyjątków.
+**Mapa witryny jest już zgłoszona i odczytana** — 16.09.2026, `Success`, **90 adresów**
+(odczytane w GSC → Mapy witryny, nie z prozy). Sprawdzone przed wypisaniem, tą samą miarą
+co reszta listy: oba adresy oddają **200**, **nie przekierowują**, mają **własny `canonical`**
+i **wzajemne `hreflang`**. Sprawdzone też, że **wszystkie 90 adresów mapy oddaje dziś 200**,
+**żaden nie przekierowuje** i **każdy ma kanonikal na siebie co do znaku** — zero wyjątków.
 
 ## Dzień 1  ·  7 z 10 na pewno niezgłoszonych
 

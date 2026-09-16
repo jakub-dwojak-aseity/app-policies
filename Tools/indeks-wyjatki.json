@@ -1,0 +1,33 @@
+{
+  "_po-co-ten-plik": [
+    "Rejestr świadomych odstępstw dla Tools/indeks-witryny.py. Wyjątek zapisany w kodzie",
+    "staje się cudzym założeniem i nie widać go w diffie — ten plik jest po to, żeby zdjęcie",
+    "albo dopisanie wyjątku było zmianą, którą ktoś przeczyta. Sprawdzenie `wyjatki` pilnuje,",
+    "żeby wpis, który przestał się do czegokolwiek odnosić, wyleciał: uzasadnienie starzeje",
+    "się osobno od reguły, a nieprawdziwy powód jest gorszy niż brak wpisu.",
+    "Klucze zaczynające się od podkreślenia są notatkami i bramka ich nie sprawdza."
+  ],
+
+  "poza-mapa-swiadomie": [
+    {
+      "wzorzec": "^[a-z0-9-]+/(\\d+\\.\\d+/)?(pl/|en/)?(privacy|terms|support)\\.html$",
+      "powod": "Dokumenty prawne są podlinkowane ze spisu i indeksowalne, ale do mapy witryny nie należą — ich adresy siedzą w `privacyPolicyUrl` w App Store Connect i są wersjonowane per wydanie, więc mapa niosłaby historię zamiast stanu. Nieobecność jest decyzją, nie luką: Tools/glowy_dokumentow.py:8-12.",
+      "pozycja": "§8 konwencji"
+    }
+  ],
+
+  "_wyjatki-ktorych-tu-nie-ma-i-dlaczego": {
+    "kuzushi/index.html": [
+      "Adres historyczny pod Marketing URL Kuzushi, kanonikal na /en/apps/kuzushi/ ([poz. 325]).",
+      "Wpisu nie potrzebuje: bramka sama przepuszcza stronę, która oddaje się cudzemu",
+      "kanonikalowi, bo taka już się z indeksu wyłączyła. Zniknie, gdy",
+      "Tools/asc-marketing-url.py --zapisz przestawi pole w ASC i da się usunąć",
+      "`adresHistoryczny` z Tools/apps.json."
+    ],
+    "404.html oraz sześć przestarzałych dokumentów Kaname i Bunmyaku": [
+      "Mają `noindex, follow`, więc bramka przepuszcza je tą samą drogą co wyżej.",
+      "`noindex`, a nie kanonikal na nowszą wersję, bo to nie ta sama treść — różnice",
+      "34 i 273 linie (Tools/glowy_dokumentow.py:19-26)."
+    ]
+  }
+}

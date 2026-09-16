@@ -31,6 +31,14 @@
   ],
   "bazaAdresu": "https://jd-japanese.pl",
   "autor": "Jakub Dwojak",
+  "_kontaktOgolny": [
+    "Adres zwrotny witryny — ogolny, nieprzypisany do zadnej aplikacji, w odroznieniu od pola `kontakt` przy kazdej z dziesiatki. Stad bierze go strona Co dalej (poz. 295).",
+    "",
+    "Stoi TUTAJ, a nie tylko w generatorze, z jednego powodu: bramka porownujaca strone z wartoscia z generatora porownywalaby stala sama ze soba i nie zapalilaby sie nigdy. Zmierzone mutacja 16.09.2026 — literowka suport@ przeszla przez bramke zielono.",
+    "",
+    "Dwa miejsca, jedna prawda: rozjazd miedzy nimi jest wada i bramka go widzi."
+  ],
+  "kontaktOgolny": "support@jd-japanese.pl",
   "_pozostale": [
     "Aplikacje spoza rodziny japońskiej. Nie mają stron produktowych ani metadanych",
     "w formacie rodziny — są tu wyłącznie po to, żeby spis dokumentów nie zgubił",

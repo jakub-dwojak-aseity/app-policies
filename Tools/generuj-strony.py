@@ -39,6 +39,7 @@ import re
 import subprocess
 import unicodedata
 import sys
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -58,6 +59,29 @@ import metadane  # noqa: E402
 #: już w `japanese-tools/lib/rodzina.py`, które liczy korzeń jako `Path.home()/"aseity"`.
 ZRODLA = Path(os.environ.get("ASEITY_ROOT") or Path.home() / "aseity")
 JEZYKI = ("pl", "en")
+
+#: Adres, pod który idzie kanał zwrotny z „Co dalej" ([poz. 295]).
+#:
+#: `support@` istnieje od 09.09.2026 w catch-allu na własnej domenie i jest **ogólny,
+#: nieprzypisany do żadnej aplikacji** ([poz. 84]) — w odróżnieniu od `kaname@`, `joshi@`
+#: i reszty, które odbierają zgłoszenia z konkretnej apki. [poz. 295] zostawia otwarte,
+#: czy zamiast niego założyć własny `pomysly@`: liczyłby się trywialnie, ale mnożyłby
+#: skrzynki. Decyzja Jakuba, zmiana jednej stałej.
+ADRES_ZWROTNY = "support@jd-japanese.pl"
+
+#: Temat maila per oś pytania. **Osobny dla każdej**, żeby filtr w skrzynce liczył bez
+#: czytania treści — to jest jedyny licznik, jaki ta witryna ma mieć ([poz. 295]:
+#: „kanał TAK, publiczny licznik NIE").
+TEMATY_MAILA = {
+    "pl": {"android": "Co dalej: Android",
+           "jezyki": "Co dalej: języki",
+           "szostka": "Co dalej: zapowiedziane",
+           "otwarte": "Co dalej: czego brakuje"},
+    "en": {"android": "What is next: Android",
+           "jezyki": "What is next: languages",
+           "szostka": "What is next: announced apps",
+           "otwarte": "What is next: what is missing"},
+}
 
 from napisy import NAPISY  # noqa: E402
 
@@ -413,7 +437,7 @@ def gora(jezyk, glebokosc, alternatywny, manifest, mapa=True, powrot=None):
 
 
 def stopka(jezyk, glebokosc, manifest, kontakt=None, spis_dokumentow=False,
-           nauka=True):
+           nauka=True, co_dalej=True):
     """Stopka. `spis_dokumentow=True` na stronie spisu — żeby nie linkowała sama
     do siebie, tak jak `gora()` nie linkuje do mapy, stojąc na mapie.
 
@@ -421,15 +445,23 @@ def stopka(jezyk, glebokosc, manifest, kontakt=None, spis_dokumentow=False,
     na to rozdroże stoi w stopce **każdej** strony z rozmysłu: strona bez
     wejścia jest stroną, której nie ma, a 09.09.2026 sześćdziesiąt dziewięć
     dokumentów prawnych stało dokładnie w takim stanie.
+
+    `co_dalej=False` na samej stronie „Co dalej", z tego samego powodu co dwa wyżej.
+    Poza nią link stoi wszędzie i to jest **jedyne** wejście na tę stronę ([poz. 295]):
+    mapa rodziny mówi o dziesięciu rzeczach, które są, i nie zaczyna mówić o czymś,
+    czego nie ma, tuż obok nich.
     """
     n = NAPISY[jezyk]
     spis = "dokumenty.html" if jezyk == "pl" else "en/documents.html"
     autor = "o-autorze/index.html" if jezyk == "pl" else "en/about/index.html"
+    dalej = "co-dalej/index.html" if jezyk == "pl" else "en/whats-next/index.html"
     linki = ([] if spis_dokumentow
              else [f'<a href="{wzgledny(glebokosc, spis)}">{e(n["spis_link"])}</a>'])
     if nauka:
         linki.insert(0, f'<a href="{wzgledny(glebokosc, ROZDROZE[jezyk])}">'
                         f'{e(n["nauka_link"])}</a>')
+    if co_dalej:
+        linki.insert(0, f'<a href="{wzgledny(glebokosc, dalej)}">{e(n["dalej_link"])}</a>')
     linki.insert(0, f'<a href="{wzgledny(glebokosc, autor)}">{e(n["autor_link"])}</a>')
     if kontakt:
         linki.append(f'<a href="mailto:{kontakt}">{e(kontakt)}</a>')
@@ -1644,7 +1676,12 @@ def llms_txt(apki, manifest, zywe=(), zapowiedziane=()):
                 f"- [Mapa rodziny: tabela problem → aplikacja]({baza}/)",
                 f"- [Family map, English]({baza}/en/)",
                 f"- [Dokumenty prawne wszystkich aplikacji]({baza}/dokumenty.html)",
-                f"- [Legal documents, English]({baza}/en/documents.html)", ""]
+                f"- [Legal documents, English]({baza}/en/documents.html)",
+                # Kanał zwrotny [poz. 295]. Wiersz mówi wprost „bez daty", bo czytnik
+                # maszynowy dostaje tu samą nazwę strony i nie widzi jej treści —
+                # a nazwa „Co dalej" bez tego ogona czyta się jak zapowiedź terminu.
+                f"- [Co dalej: cztery pytania, bez daty]({baza}/co-dalej/)",
+                f"- [What is next, English]({baza}/en/whats-next/)", ""]
     return "\n".join(wiersze)
 
 
@@ -1691,6 +1728,58 @@ def strona_autora(apki, jezyk, manifest):
                               jsonld=osoba,
                               nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
                               stopka_html=stopka(jezyk, glebokosc, manifest))
+
+
+def strona_co_dalej(jezyk, manifest):
+    """Kanał zwrotny — [poz. 295]. Drugi i ostatni wyjątek od reguły `NAPISY`.
+
+    **Ta strona mówi o tym, co Jakub postanowił, a nie o tym, co dostanie produkt** —
+    i to jest dokładnie ta sama furtka, którą wchodzi strona o autorze. Obietnicy
+    o aplikacji nie ma tu ani jednej: jest kierunek, jest brak daty i jest prośba
+    o zdanie.
+
+    Czego tu nie ma i mieć nie może, wszystko z [poz. 295]:
+
+    - **licznika** — witryna nie ma czym zapisać (GitHub Pages), własny backend
+      wymagałby CORS-u, którego brak w `japanese-be` **jest decyzją bezpieczeństwa**,
+      a usługa trzecia wciągnęłaby obcy JS i podmiot przetwarzający na stronę bez
+      własnej polityki prywatności;
+    - **progu liczbowego** — „tysiąc i robię" jest warunkiem wewnętrznym; wypisany
+      publicznie staje się obietnicą i stoi w poprzek sąsiedniej sekcji, która
+      świadomie mówi „bez dat";
+    - **słowa „wkrótce"** — na tej witrynie znaczy ono „złożona, czeka na recenzję
+      Apple", więc użyte tutaj rozmyłoby jedyny stan, który dziś coś znaczy.
+
+    Kanał to `mailto:` i nic więcej. **Każda oś ma własny temat**, żeby filtr
+    w skrzynce liczył bez czytania treści.
+    """
+    n = NAPISY[jezyk]
+    kanoniczny = "co-dalej/index.html" if jezyk == "pl" else "en/whats-next/index.html"
+    alternatywny = "en/whats-next/index.html" if jezyk == "pl" else "co-dalej/index.html"
+    glebokosc = 1 if jezyk == "pl" else 2
+
+    adres_zwrotny = manifest["kontaktOgolny"]
+
+    def blok(klucz, temat):
+        adres = f"mailto:{adres_zwrotny}?subject={urllib.parse.quote(temat)}"
+        return (f"<h2>{e(n[klucz + '_naglowek'])}</h2>"
+                f"<p>{e(n[klucz])}</p>"
+                f'<p><a href="{adres}">{e(n["dalej_napisz"])} →</a></p>')
+
+    tresc = (f"<h1>{e(n['dalej_tytul'])}</h1>"
+             + f'<p class="lead">{e(n["dalej_lead"])}</p>'
+             + blok("dalej_android", TEMATY_MAILA[jezyk]["android"])
+             + blok("dalej_jezyki", TEMATY_MAILA[jezyk]["jezyki"])
+             + blok("dalej_szostka", TEMATY_MAILA[jezyk]["szostka"])
+             + blok("dalej_otwarte", TEMATY_MAILA[jezyk]["otwarte"])
+             + f'<p class="podtytul">{e(n["dalej_bez_licznika"])}</p>')
+
+    return kanoniczny, strona(jezyk=jezyk, tytul=n["dalej_tytul"], opis=n["dalej_opis"],
+                              kanoniczny=kanoniczny, alternatywny=alternatywny,
+                              tresc=tresc, glebokosc=glebokosc, manifest=manifest,
+                              nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
+                              stopka_html=stopka(jezyk, glebokosc, manifest,
+                                                 co_dalej=False))
 
 
 def strona_404(apki, manifest, zywe=()):
@@ -2803,6 +2892,65 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
                                  f"{wszystkie_napisy[klucz]}")
                 wszystkie_napisy[klucz] = a_["slug"]
 
+    # 21. „Co dalej" pyta, a nie obiecuje — i mówi to w obu językach.
+    #
+    #     Bramka na trzy rzeczy naraz, bo każda z nich osobno wygląda niewinnie:
+    #
+    #     **Strona istnieje w obu językach i ma wejście.** Strona bez wejścia jest
+    #     stroną, której nie ma — 09.09.2026 stało tak sześćdziesiąt dziewięć dokumentów
+    #     prawnych naraz.
+    #
+    #     **Adres zwrotny zgadza się ze stałą.** Literówka w `mailto:` daje stronę, która
+    #     wygląda poprawnie i **cicho gubi każdą odpowiedź** — a odpowiedzi są tu jedynym
+    #     licznikiem, jaki ta witryna ma ([poz. 295]: „kanał TAK, publiczny licznik NIE").
+    #
+    #     **Treść nie niesie daty, progu ani słowa „wkrótce".** Próg „tysiąc i robię" jest
+    #     warunkiem wewnętrznym z §6 `ANDROID_KIERUNEK.md`; wypisany publicznie staje się
+    #     obietnicą. „Wkrótce" znaczy na tej witrynie „złożona, czeka na recenzję Apple",
+    #     więc użyte tutaj rozmyłoby jedyny stan, który dziś coś znaczy.
+    zakazane = re.compile(r"wkrótce|\bsoon\b|\b(19|20)\d\d\b|\b\d{3,}\b", re.IGNORECASE)
+    for jezyk in JEZYKI:
+        adres = "co-dalej/index.html" if jezyk == "pl" else "en/whats-next/index.html"
+        tresc_strony = pliki.get(adres)
+        if not tresc_strony:
+            bledy.append(f"„Co dalej” {jezyk}: brak strony {adres}")
+            continue
+        klucze = ["dalej_tytul", "dalej_lead", "dalej_napisz", "dalej_bez_licznika"]
+        for os_ in ("android", "jezyki", "szostka", "otwarte"):
+            klucze += [f"dalej_{os_}", f"dalej_{os_}_naglowek"]
+        for klucz in klucze:
+            if not (NAPISY[jezyk].get(klucz) or "").strip():
+                bledy.append(f"„Co dalej” {jezyk}: pusty napis {klucz}")
+        # Adres bierze się z MANIFESTU, a `ADRES_ZWROTNY` jest drugą, niezależną prawdą.
+        # Porównanie strony ze stałą, z której ta strona powstała, mierzyłoby własne
+        # wejście i nie zapaliłoby się nigdy — zmierzone mutacją 16.09.2026.
+        if manifest["kontaktOgolny"] != ADRES_ZWROTNY:
+            bledy.append(f"adres zwrotny rozjechał się: manifest ma "
+                         f"„{manifest['kontaktOgolny']}”, generator „{ADRES_ZWROTNY}”")
+        for temat in TEMATY_MAILA[jezyk].values():
+            oczekiwany = f"mailto:{ADRES_ZWROTNY}?subject={urllib.parse.quote(temat)}"
+            if oczekiwany not in tresc_strony:
+                bledy.append(f"„Co dalej” {jezyk}: brak odnośnika o temacie „{temat}”")
+        # Mierzy się **treść**, a nie cały plik: `<style>` jest wpisany w stronę i niesie
+        # dziesiątki liczb, więc sito puszczone na całości łapie CSS zamiast obietnicy.
+        # Zmierzone przy pierwszym przebiegu tej bramki — zapaliła się na „131315”.
+        srodek = re.search(r"<main\b[^>]*>(.*?)</main>", tresc_strony, re.S)
+        widoczny = re.sub(r"<[^>]+>", " ", srodek.group(1) if srodek else "")
+        trafienie = zakazane.search(widoczny)
+        if trafienie:
+            bledy.append(f"„Co dalej” {jezyk}: treść niesie „{trafienie.group(0)}” — "
+                         f"ta strona nie podaje dat, progów ani terminów")
+        # Wejście z każdej innej strony. Liczone na WYTWORZE, nie na wywołaniu `stopka()`:
+        # parametr można ustawić i nie użyć, a link albo w HTML-u stoi, albo nie.
+        cel = "co-dalej/" if jezyk == "pl" else "en/whats-next/"
+        bez_wejscia = [a for a, t in pliki.items()
+                       if a.endswith(".html") and a not in (adres, "404.html")
+                       and f'<html lang="{NAPISY[jezyk]["html_lang"]}">' in t
+                       and cel not in t]
+        if bez_wejscia:
+            bledy.append(f"„Co dalej” {jezyk}: {len(bez_wejscia)} stron bez wejścia "
+                         f"w stopce, m.in. {bez_wejscia[0]}")
+
     return bledy, uwagi
 
 
@@ -2865,6 +3013,9 @@ def zbuduj(apki, manifest, zapowiedziane=()):
         pliki[adres] = tresc
         daty[adres] = max(a["data"] for a in apki)
         adres, tresc = strona_autora(apki, jezyk, manifest)
+        pliki[adres] = tresc
+        daty[adres] = max(a["data"] for a in apki)
+        adres, tresc = strona_co_dalej(jezyk, manifest)
         pliki[adres] = tresc
         daty[adres] = max(a["data"] for a in apki)
         for a in apki:

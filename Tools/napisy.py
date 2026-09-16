@@ -88,6 +88,45 @@ NAPISY = {
                      "i powtórki nie potrzebują internetu. Nie jest to obietnica na tej "
                      "stronie – stoi to w polityce prywatności każdej z nich.",
         "autor_naglowek_kontakt": "Kontakt",
+        # --- „Co dalej" — kanał zwrotny (poz. 295) --------------------------
+        # Czternaście napisów na język, i to jest wzrost nazwany: do tej pory witryna
+        # mówiła od siebie wyłącznie nawigacją i jednym akapitem o autorze. Ta strona
+        # dokłada drugi wyjątek i ma tę samą podstawę co tamten: **mówi o tym, co Jakub
+        # postanowił, a nie o tym, co dostanie produkt.** Obietnicy o aplikacji nadal
+        # nie ma tu ani jednej.
+        #
+        # Czego w tych napisach nie ma i mieć nie może: daty, progu liczbowego
+        # („1000 i robię" jest warunkiem wewnętrznym, nie zapowiedzią) oraz słowa
+        # „wkrótce" — ono na tej witrynie znaczy „złożona, czeka na recenzję Apple".
+        "dalej_link": "Co dalej",
+        "dalej_tytul": "Co dalej",
+        "dalej_opis": "Cztery rzeczy, nad którymi się zastanawiam – i sposób, żeby "
+                      "powiedzieć, która z nich przyda się Tobie.",
+        "dalej_lead": "Ta strona nie zapowiada terminów. Wymienia cztery rzeczy, nad którymi "
+                      "się zastanawiam, i mówi, co o każdej z nich już wiem. Jeśli któraś "
+                      "jest dla Ciebie ważna, napisz – to jedyny sposób, w jaki się o tym "
+                      "dowiem.",
+        "dalej_android_naglowek": "Wersja na Androida",
+        "dalej_android": "Kierunek jest rozstrzygnięty: Kotlin i jeden wspólny rdzeń dla "
+                         "wszystkich aplikacji, a nie dziesięć osobnych przepisań. Daty nie "
+                         "ma i nie będzie, dopóki nie będę wiedział, ile osób tego potrzebuje. "
+                         "Jeśli jesteś jedną z nich, napisz – wystarczy pusty mail.",
+        "dalej_jezyki_naglowek": "Języki interfejsu",
+        "dalej_jezyki": "Aplikacje mówią po polsku i po angielsku. Niemiecki, hiszpański "
+                        "i francuski są możliwe, ale każdy z nich to kilka tysięcy pól do "
+                        "przetłumaczenia i sprawdzenia. Jeden mail z prośbą jest wart więcej "
+                        "niż moje domysły o tym, czy ktoś tego chce.",
+        "dalej_szostka_naglowek": "Która z zapowiedzianych pierwsza",
+        "dalej_szostka": "Sześć aplikacji ma już nazwę, znak i zakres, a nie ma jeszcze kodu "
+                         "– stoją niżej na mapie rodziny. Kolejność, w jakiej powstaną, nie "
+                         "jest przesądzona. Jeśli któraś jest Ci potrzebna wcześniej niż "
+                         "reszta, powiedz która.",
+        "dalej_otwarte_naglowek": "Czego brakuje",
+        "dalej_otwarte": "Pole otwarte na to, czego nie przewidziałem. Błąd w treści, "
+                         "brakująca funkcja, coś, co przeszkadza codziennie – wszystko jedno.",
+        "dalej_napisz": "Napisz",
+        "dalej_bez_licznika": "Nie ma tu licznika ani żadnego śledzenia – ta witryna nie "
+                              "zapisuje niczego o odwiedzających. Liczę maile, i tyle.",
         "autor_kontakt": "Najszybciej mailem. Każda aplikacja ma własny adres – znajdziesz "
                          "go na jej stronie i w jej dokumentach.",
         "do_tresci": "Przejdź do treści",
@@ -281,6 +320,37 @@ NAPISY = {
                      "and studying works offline. That is not a promise made on this page – "
                      "it is written in each app's privacy policy.",
         "autor_naglowek_kontakt": "Contact",
+        # --- „Co dalej" — kanał zwrotny (poz. 295) --------------------------
+        "dalej_link": "What is next",
+        "dalej_tytul": "What is next",
+        "dalej_opis": "Four things I am weighing up – and a way to tell me which of them "
+                      "would help you.",
+        "dalej_lead": "This page announces no dates. It lists four things I am weighing up "
+                      "and says what I already know about each. If one of them matters to "
+                      "you, write – that is the only way I will find out.",
+        "dalej_android_naglowek": "An Android version",
+        "dalej_android": "The direction is settled: Kotlin and one shared core for every app, "
+                         "not ten separate rewrites. There is no date, and there will not be "
+                         "one until I know how many people need it. If you are one of them, "
+                         "write – an empty email is enough.",
+        "dalej_jezyki_naglowek": "Interface languages",
+        "dalej_jezyki": "The apps speak Polish and English. German, Spanish and French are "
+                        "possible, but each of them is a few thousand fields to translate and "
+                        "check. One email asking for it is worth more than my guesses about "
+                        "whether anyone wants it.",
+        "dalej_szostka_naglowek": "Which of the announced apps first",
+        "dalej_szostka": "Six apps already have a name, a character and a scope, but no code "
+                         "yet – they stand lower on the family map. The order in which they "
+                         "appear is not settled. If you need one of them earlier than the "
+                         "rest, say which.",
+        "dalej_otwarte_naglowek": "What is missing",
+        "dalej_otwarte": "An open field for what I did not think of. A mistake in the content, "
+                         "a missing feature, something that gets in the way every day – "
+                         "anything.",
+        "dalej_napisz": "Write",
+        "dalej_bez_licznika": "There is no counter here and no tracking of any kind – this "
+                              "site records nothing about its visitors. I count emails, and "
+                              "that is all.",
         "autor_kontakt": "Email is fastest. Each app has its own address – you will find it "
                          "on its page and in its documents.",
         # --- strony tematyczne ---------------------------------------------

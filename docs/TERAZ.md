@@ -4,9 +4,46 @@
 nie zakładaj `PRZEKAZANIE_<data>.md` ani „TERAZ_2" — osusz ten plik, historia zostaje w `git log`.
 Pomiary i uzasadnienia: `jp-grammar/docs/PLAN_SEO_AEO.md` §11–§12. Otwarte pozycje backlogu
 rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontaktowy),
-**112** (zapowiadanie apek), **113** (wizytówka poza witryną), **189** (strony tematyczne).
+**112** (zapowiadanie apek), **113** (wizytówka poza witryną), **189** (strony tematyczne),
+**330** (indeksowanie stron tematycznych).
 
 ## Od czego zacząć
+
+### 16.09.2026 — 44 strony tematyczne poza indeksem Google [330]
+
+**Pierwsza rzecz do wzięcia w tym torze, i jest to POMIAR, nie robota kodowa.**
+
+Mejl z Search Console wymieniał dwa powody niezaindeksowania. **W raporcie są cztery**, a te
+dwa z mejla są jedynymi nieszkodliwymi. Odczyt 16.09.2026 (dane GSC z 14.09), właściwość
+typu **Domena**: **74 strony w indeksie, 56 poza nim**. To pierwszy odczyt pokrycia w papierach
+rodziny — wcześniej mierzono wyłącznie, ile adresów GSC zna z mapy.
+
+| powód | `Source` | ile | werdykt |
+|---|---|---|---|
+| Alternate page with proper canonical tag | Website | 11 | **zamierzone** — same warianty `index.html`, echo [326] |
+| Page with redirect | Website | 1 | **zamierzone** — `http://jd-japanese.pl/`, czyli „Enforce HTTPS" |
+| Discovered – currently not indexed | Google systems | 25 | **to jest problem** — strony grup, `Last crawled: N/A` |
+| Crawled – currently not indexed | Google systems | 19 | **to jest problem** — strony grup, pobrane 15.09 |
+
+**Przy obu powodach z kolumny „Website" NIE klikamy „Zweryfikuj poprawkę".** Nie ma czego
+weryfikować, a nieudana walidacja kosztuje tydzień. Kolumna `Source` mówi, **czyja jest
+przyczyna**, a nie **jak bardzo boli**.
+
+**ZROBIONE:** sekcje tematów wchodzą na mapę rodziny w `<details>`, po 22 na język — bo zbiór
+44 niezaindeksowanych pokrywał się **co do sztuki** ze zbiorem stron leżących dwa kliknięcia
+od korzenia, a rozdroże ani spis treści tego nie załatwią (same leżą na głębokości 1, więc to,
+co linkują, ląduje na 2). Dotknięte **2 pliki z 96**, powtarzalność bit w bit. Na żywo:
+wszystkie 88 stron mapy leżą teraz **jedno kliknięcie** od korzenia.
+
+**ZOSTAJE — i bez tego [330] się nie zamyka:**
+
+1. **Odczyt kontrolny w GSC za 2–3 tygodnie** od 16.09.2026. Wpisz go z datą do
+   `docs/SEARCH_CONSOLE.md`. **„Discovered/Crawled – not indexed" nie ma przycisku „napraw"** —
+   to werdykt Google o ważności adresu. Uczciwe oczekiwanie: **część z 44 wejdzie, nie
+   wszystkie**, i gwarancji nie daje nic.
+2. **Zgłoszenie stron grup po dziesięć dziennie** — dopiero teraz, po wdrożeniu. Zgłoszenie
+   adresu bez zmiany marnuje dzienny limit.
+3. **`Tools/asc-marketing-url.py --zapisz` dla Kuzushiego** — czeka na Jakuba, bo dotyka ASC.
 
 ### 16.09.2026 — ikonki platform stoją przy aplikacjach [329]
 
@@ -205,8 +242,16 @@ dziesięć adresów z dnia 1 plus ponowne zaindeksowanie `apps/shindan`.
 `analyticsReportRequests`, a Search Console nie ma tu API w naszym zasięgu. **Ta sekcja jest
 jedynym źródłem prawdy o tym, co poszło**, więc odhacza się ją w chwili kliku, nie po tygodniu.
 
-**Uwaga przy najbliższym zgłoszeniu mapy:** jeśli doszły nowe strony, mapa wymaga
-powtórnego zgłoszenia — sama się nie odświeży w indeksie.
+**Mapa jest zgłoszona i odczytana: 16.09.2026, `Success`, 90 adresów** — sprawdzone w GSC →
+Mapy witryny, nie w prozie. Przy następnym przyroście stron wymaga powtórnego zgłoszenia,
+bo sama się nie odświeży.
+
+**Search Console DA SIĘ odczytać, mimo zdania niżej.** Skryptem nie, ale raport otwiera się
+w przeglądarce w zalogowanej sesji Jakuba:
+`search.google.com/search-console/index?resource_id=sc-domain%3Ajd-japanese.pl`, a klik
+w wiersz powodu otwiera listę adresów. **Czytaj cały raport, nie mejl** — 16.09 mejl wymieniał
+dwa powody z czterech i oba były nieszkodliwe. Klikać wolno nawigację; **nigdy „Zweryfikuj
+poprawkę"**.
 
 **Liczba adresów w Search Console to stan z chwili POBRANIA mapy, nie z teraz.** Zmierzone
 13.09: Jakub zgłosił mapę między dwoma wdrożeniami tego samego dnia i GSC pokazał 84, choć
@@ -218,9 +263,10 @@ za wadę generatora. Ponowne zgłoszenie wymusza pobranie; sam licznik się nie 
 lista pięciu dni, czyli **55 adresów, przy mapie liczącej 88**. Trzydzieści trzy strony,
 które doszły po tamtym rozpisaniu, nie były wymienione nigdzie i nikt by ich nie zgłosił.
 
-Nowa lista niesie komplet 88, w kolejności, w jakiej mają iść, i jest sprawdzona przed
+Nowa lista niesie komplet **90**, w kolejności, w jakiej mają iść, i jest sprawdzona przed
 wypisaniem: każdy adres oddaje 200, nie przekierowuje i ma własny `canonical`. **Dwóch list
 tego samego nie utrzymujemy** — ta sekcja mówi już tylko, co poszło, nie co wkleić.
+`docs/SEARCH_CONSOLE.md` niesie od 16.09 także **sekcję „Stan indeksu"** z odczytem pokrycia.
 
 
 ## Czeka na decyzję Jakuba
@@ -237,8 +283,13 @@ tego samego nie utrzymujemy** — ta sekcja mówi już tylko, co poszło, nie co
 3. **Search Console — jedyna pętla zwrotna, jaką mamy.** Klucz ASC oddaje `403` na
    `analyticsReportRequests`. **Lista do wklejenia jest gotowa: `docs/SEARCH_CONSOLE.md`** —
    komplet 88 adresów w kolejności priorytetu, po dziesięć dziennie, sprawdzone przed
-   wypisaniem (88 × 200, zero przekierowań, każdy z własnym `canonical`). Zostaje ewentualna
+   wypisaniem (90 × 200, zero przekierowań, każdy z własnym `canonical`). Zostaje ewentualna
    druga własność „Prefiks URL", bo własność „Domena" obejmuje też `api.` i `admin.`.
+8. **Czy przestawiamy Marketing URL Kuzushiego** (`Tools/asc-marketing-url.py --zapisz`).
+   Dotyka pola w App Store Connect, więc czeka na Jakuba. **Nie naprawia żadnego z 11
+   dzisiejszych wierszy „Alternate page"** — zdejmuje **przyszły dwunasty**, bo `/kuzushi/`
+   prędzej czy później tam wejdzie ([325]), i dopiero wtedy da się usunąć `adresHistoryczny`
+   z `Tools/apps.json`. Bez `--zapisz` narzędzie chodzi na sucho.
 4. **~~Poz. 112~~ — rozstrzygnięte 13.09:** zapowiadamy, osobnym blokiem „Co dojdzie do
    rodziny" pod dziesiątką, bez dat i bez stron produktowych. Szóstka stoi na witrynie.
 5. **Poz. 113 — wizytówka poza witryną.** Zobowiązanie **cykliczne**: koszt leży w rytmie
@@ -260,6 +311,19 @@ tego samego nie utrzymujemy** — ta sekcja mówi już tylko, co poszło, nie co
 
 ## Świeże miny
 
+- **Miara, która wygląda na pomiar, dopóki nie postawi się obok niej klasy, która pada.**
+  Szukając, czym różnią się strony niezaindeksowane, **liczba wejść** dawała czysty rozdział
+  (zgłoszone: mediana 4, reszta mapy: 12) i **bramka była już na niej napisana**. Po zawężeniu
+  porównania do samych stron z głębokości 2 rozkłady okazały się identyczne — tamta różnica
+  była różnicą **między piętrami**, nie między zaindeksowanymi a nie. Obalone tą samą drogą:
+  objętość treści (5988 wobec 5849 znaków) i podobieństwo sióstr (3–8% przy tle 1,4%,
+  a **najwyższe miały strony ZAINDEKSOWANE**). Zostaje głębokość, z kontrpróbą trzymającą wiek
+  na stałe: te same commity z 13.09 dały 18 stron na głębokości 1 w indeksie i 44 na
+  głębokości 2 poza nim.
+- **`Source: Website` w Search Console nie znaczy „twoja wina, napraw".** Znaczy „przyczyna
+  leży po stronie witryny" — a przyczyną bywa stan poprawny. Dla wariantów `index.html`
+  **każde dostępne działanie pogarsza sprawę**: `noindex` siedziałby w tym samym pliku co
+  postać katalogowa i zabrałby z indeksu także ją, a przekierowań GitHub Pages nie umie.
 - **Oś podziału mierzona na złym zbiorze wygląda jak oś zła.** Poz. 189 nosiła zapis
   „oś `script` nie pomaga (47/19)" — liczba prawdziwa, tylko z całego eksportu (66 haseł),
   a dzieli się **jedną stronę naraz**. Na samej sekcji par ta sama oś daje 9/9 rodzin.
@@ -295,6 +359,14 @@ tego samego nie utrzymujemy** — ta sekcja mówi już tylko, co poszło, nie co
 
 ## Kto tu był ostatnio
 
+**Sesja z 16.09.2026, wieczór — tor indeksowania [330].** Odczyt Search Console przez
+przeglądarkę, naprawa głębokości stron tematycznych, nowa bramka `Tools/indeks-witryny.py`
+z rejestrem wyjątków. Równolegle pracowała sesja `shindan-1-2-0-release-pack` — backlog
+rodziny jest wspólny, więc numer pozycji był z nią uzgodniony przed zapisem (ona trzyma 328).
+**Uprzedziła o czymś, co wejdzie tu za kilka dni:** Shindan schodzi z „Data Not Collected",
+więc dojdzie katalog `shindan/1.2/` w PL i EN. Nowy katalog, **nie zmiana istniejących
+adresów** — stawiać dopiero na jej sygnał, że build jest w recenzji.
+
 Sesja z 13.09.2026 po południu: szóstka zapowiedziana w narzędziach i papierach rodziny,
 przegląd witryny, cztery rozstrzygnięcia Jakuba. **Papiery rodziny (`jp-grammar/docs/`,
 `AGENTS.md`, konwencje) pisała wtedy druga sesja** — tu obowiązywał podział: tor witryny
@@ -312,6 +384,8 @@ python3 Tools/generuj-strony.py --powtarzalnie   # dwa przebiegi, bit w bit
 python3 Tools/generuj-strony.py --sprawdz-sklep  # manifest kontra pięć witryn App Store (sieć)
 python3 Tools/generuj-strony.py --zrzuty         # import kadrów z repo apek
 python3 Tools/glowy_dokumentow.py --sprawdz      # canonical, hreflang i noindex w dokumentach
+python3 Tools/indeks-witryny.py                  # bramka indeksowania NA ŻYWEJ witrynie
+python3 Tools/indeks-witryny.py --tylko glebokosc # samo piętro; --baza dla atrapy lokalnej
 python3 Tools/asc-marketing-url.py --apka <slug> # bez --zapisz: przebieg na sucho
 
 # eksport przejrzanej treści — w repozytorium siostry, nie tutaj:
@@ -331,3 +405,8 @@ done
 
 **Zielony komunikat narzędzia nie jest dowodem, że czynność zaszła.** Publikacja idzie z `main`
 przez GitHub Pages i zajmuje około minuty — dopóki nie odpowie żywy adres, nic nie jest wydane.
+Dlatego `indeks-witryny.py` **nie otwiera repozytorium w ogóle**: pobiera `sitemap.xml` z sieci
+i chodzi po tym, co oddaje serwer. Kody **0 / 1 / 2**, gdzie **2 znaczy „nie sprawdziłem"** —
+bramka, która nad nieosiągalną witryną świeci zielono, mówi „sprawdzone" o czymś, czego nie
+otworzyła. Kontrpróba na atrapie z sześcioma wadami przeszła: każde sprawdzenie zapaliło się
+osobno, wszystkie trzy kody potwierdzone wprost.

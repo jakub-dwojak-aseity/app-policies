@@ -8,6 +8,25 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
 
 ## Od czego zacząć
 
+### 16.09.2026 — ikonki platform stoją przy aplikacjach [329]
+
+Na kartach mapy rodziny i w bloku sklepu stron produktowych stoi **znak systemu**: dziś Apple
+przy dziesięciu, po porcie dodatkowo robot Androida przy tych, które staną na Play. Przy każdym
+znaku **nazwa systemu tekstem dla czytnika ekranu** — ikona bez tekstu jest dla niego niewidzialna.
+
+**To odwraca regułę z [307]** („znacznik dopiero przy drugim sklepie”), która żyła wyłącznie
+w komentarzu kodu. Powód odwrócenia stoi teraz w tym samym miejscu: tamten argument policzono
+dla **napisu w ramce**, a nie dla ikony ~14 px.
+
+**Cena wariantu jest nazwana przy stałej `ZNAKI_PLATFORM`** i nie wolno jej zgubić: znak Apple
+nie jest udostępniony jako znacznik zgodności, a jego wytyczne zabraniają przebarwiania —
+podczas gdy konstrukcja stoi na `currentColor`. Wariant `"glif"` (własny rysunek urządzenia,
+zero cudzych znaków) przełącza się **jednym słowem** i nie rusza układu. Nota CC BY dla robota
+Androida wypisuje się sama, **z wytworu**, tylko na stronach, na których robot stanął.
+
+**Dzień portu nie wymaga pracy nad układem** — wystarczy blok `sklepy` w `Tools/apps.json`:
+karta dostaje drugi znak, strona drugi przycisk, nota zapala się sama. Sprawdzone symulacją.
+
 ### 16.09.2026 — witryna czyta NAZWANY STAN, nie „to, co akurat wymeldowane"
 
 **Rozstrzygnięcie Jakuba: strona mówi to, co kupujący naprawdę zobaczy w App Store**, czyli

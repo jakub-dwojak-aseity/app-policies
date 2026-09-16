@@ -477,8 +477,83 @@ def sciezki(slug, jezyk):
     return f"en/apps/{slug}/index.html", 3
 
 
-def link_sklepu(appId):
-    return f"https://apps.apple.com/app/id{appId}"
+#: Kolejność platform na stronie. **Stała, nie z manifestu** — kolejność przycisków ma
+#: być ta sama na każdej podstronie, a wynik generatora powtarzalny bit w bit.
+PLATFORMY = ("ios", "android")
+
+#: Klucz w `NAPISY` z nazwą sklepu danej platformy.
+NAZWA_SKLEPU = {"ios": "w_sklepie", "android": "w_sklepie_google"}
+
+#: Nazwa systemu w danych strukturalnych `SoftwareApplication`.
+SYSTEM = {"ios": "iOS", "android": "Android"}
+
+#: Klucz w `NAPISY` z nazwą urządzenia nad galerią kadrów.
+URZADZENIE = {"ios": "urzadzenie_ios", "android": "urzadzenie_android"}
+
+#: Adres w sklepie, per platforma. Apple identyfikuje aplikację **liczbą**, Google
+#: **identyfikatorem pakietu** — to nie jest ten sam rodzaj wartości i dlatego nie stoją
+#: w jednym polu.
+ADRES_SKLEPU = {
+    "ios": lambda i: f"https://apps.apple.com/app/id{i}",
+    "android": lambda i: f"https://play.google.com/store/apps/details?id={i}",
+}
+
+
+def link_sklepu(a, platforma="ios"):
+    return ADRES_SKLEPU[platforma](sklepy(a)[platforma]["id"])
+
+
+def sklepy(a):
+    """Sklepy, w których aplikacja stoi albo ma stanąć — **jedyne miejsce, które o tym wie**.
+
+    Dziś manifest opisuje jeden sklep dwoma polami: `appId` (liczba ASC) i `wSklepie`
+    (bool). [poz. 307] mówi, czemu to nie wystarcza: **bool nie opisuje trzech stanów**
+    („nie ma", „złożona, czeka na recenzję", „stoi"), a jedno `appId` nie ma miejsca na
+    `applicationId` z Play.
+
+    **Pola nie zmieniają kształtu i to jest decyzja, nie odkładanie.** Czyta je
+    `japanese-tools/lib/rodzina.py` (obie), `jp-grammar/Tools/stan-rodziny.py` (`appId`)
+    i `asc-marketing-url.py` (`appId`) — narzędzia, których z maszyny windowsowej nie da
+    się uruchomić, więc zmiana kształtu byłaby zmianą niesprawdzoną w trzech miejscach naraz.
+
+    Zamiast tego: **widok iOS wyprowadza się z dzisiejszych pól**, a blok `sklepy` pojawia
+    się w manifeście dopiero wtedy, gdy aplikacja faktycznie wchodzi do drugiego sklepu.
+    Dzięki temu dziś nie ma ani jednej wartości zapisanej dwa razy — a w dniu, w którym
+    jakaś aplikacja stanie na Play, dwie prawdy o iOS zaczną istnieć obok siebie i **wtedy
+    dopiero** bramka zaczyna pilnować ich zgody.
+
+        "sklepy": {
+          "ios":     {"id": "6802813564", "stan": "w-sklepie"},
+          "android": {"id": "pl.jdjapanese.katsuyokei", "stan": "zlozona"}
+        }
+
+    Stany: `brak` · `zlozona` (czeka na recenzję) · `w-sklepie`.
+    """
+    jawne = a.get("sklepy")
+    if jawne:
+        return {p: jawne[p] for p in PLATFORMY if p in jawne}
+    return {"ios": {"id": a["appId"],
+                    "stan": "w-sklepie" if a.get("wSklepie") else "zlozona"}}
+
+
+def w_sklepie(a, platforma=None):
+    """Czy aplikacja stoi w sklepie — w tym konkretnym albo w którymkolwiek."""
+    s = sklepy(a)
+    if platforma:
+        return s.get(platforma, {}).get("stan") == "w-sklepie"
+    return any(w.get("stan") == "w-sklepie" for w in s.values())
+
+
+def przyciski_sklepow(a, n):
+    """Przyciski sklepów, po jednym na platformę, w stałej kolejności `PLATFORMY`.
+
+    **Przy jednym sklepie wynik jest znak w znak taki jak przed [poz. 307]** — i to jest
+    bramka tej zmiany, nie jej efekt uboczny: dziesięć dzisiejszych stron nie ma prawa
+    drgnąć, bo model nauczył się drugiej platformy.
+    """
+    return "".join(
+        f'<a class="przycisk" href="{link_sklepu(a, p)}">{e(n[NAZWA_SKLEPU[p]])} →</a>'
+        for p in PLATFORMY if w_sklepie(a, p))
 
 
 def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
@@ -497,7 +572,25 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
         t = a["teksty"][jezyk]
         cel = wzgledny(glebokosc, sciezki(a["slug"], jezyk)[0])
         ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
-        znacznik = "" if a["wSklepie"] else f'<span class="znacznik">{e(n["wkrotce"])}</span>'
+        # Znacznik na karcie niesie DWIE różne rzeczy i kolejność jest tu istotna.
+        #
+        # „Wkrótce w App Store" mówi o stanie w sklepie i wygrywa, bo aplikacji, której
+        # jeszcze nie ma, nie opisuje się listą platform.
+        #
+        # Lista platform pojawia się **dopiero, gdy jest co wyliczać** — czyli gdy sklepów
+        # jest więcej niż jeden. Przy jednym byłaby szumem: dziś wszystkie dziesięć kart
+        # niosłoby ten sam napis, a po pierwszej fali portu dziewięć mówiłoby „nie u ciebie".
+        # To jest to samo ryzyko, które [poz. 112] nazwała przy sześciu „wkrótce"
+        # wmieszanych między dziesięć gotowych.
+        gdzie = [p_ for p_ in PLATFORMY if w_sklepie(a, p_)]
+        if not a["wSklepie"]:
+            znacznik = f'<span class="znacznik">{e(n["wkrotce"])}</span>'
+        elif len(gdzie) > 1:
+            znacznik = ('<span class="znacznik">'
+                        + e(" · ".join(NAPISY[jezyk][NAZWA_SKLEPU[p_]] for p_ in gdzie))
+                        + "</span>")
+        else:
+            znacznik = ""
         karty.append(
             f'<li class="karta"><img src="{ikona}" alt="" width="52" height="52" loading="lazy">'
             f'<div><a class="nazwa" href="{cel}">{e(t["nazwa"])}</a>'
@@ -617,8 +710,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
     ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
 
     if a["wSklepie"]:
-        sklep = (f'<p class="sklep"><a class="przycisk" href="{link_sklepu(a["appId"])}">'
-                 f'{e(n["w_sklepie"])} →</a>'
+        sklep = (f'<p class="sklep">{przyciski_sklepow(a, n)}'
                  f'<span class="znacznik">{e(n["darmowa"])}</span></p>')
     else:
         sklep = (f'<p class="sklep"><span class="znacznik">{e(n["wkrotce"])}</span></p>'
@@ -662,7 +754,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
         + f'<p class="podtytul">{e(t["podtytul"])}</p></div></div>'
         + sklep
         + f'<p class="lead">{e(t["promo"])}</p>'
-        + galeria(a, jezyk, glebokosc)
+        + galerie(a, jezyk, glebokosc)
         + f"<h2>{e(n['opis_naglowek'])}</h2>"
         + spis_sekcji
         + opis
@@ -682,7 +774,10 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
         "name": t["nazwa"],
         "alternateName": a["japonska"],
         "applicationCategory": "EducationalApplication",
-        "operatingSystem": "iOS",
+        # Z listy sklepów, nie z literału. Przy jednym sklepie wychodzi "iOS",
+        # czyli dokładnie to, co stało tu wpisane ([poz. 307]).
+        "operatingSystem": ", ".join(SYSTEM[p] for p in PLATFORMY
+                                     if w_sklepie(a, p)),
         "url": f"{manifest['bazaAdresu']}/{publiczny(kanoniczny)}",
         "description": metadane.pierwsze_zdanie(t["opis"]),
         "inLanguage": ["pl", "en"],
@@ -690,8 +785,12 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
         "offers": {"@type": "Offer", "price": "0", "priceCurrency": "PLN"},
     }
     if a["wSklepie"]:
-        jsonld["sameAs"] = link_sklepu(a["appId"])
-        jsonld["installUrl"] = link_sklepu(a["appId"])
+        adresy = [link_sklepu(a, p) for p in PLATFORMY if w_sklepie(a, p)]
+        # Tablica nawet przy jednym adresie? Nie: schema.org przyjmuje oba
+        # kształty, a skalar przy jednym sklepie zostawia dzisiejszy wytwór
+        # nietknięty. Tablica pojawia się dopiero, gdy jest co wyliczać.
+        jsonld["sameAs"] = adresy[0] if len(adresy) == 1 else adresy
+        jsonld["installUrl"] = jsonld["sameAs"]
 
     # Kadry sklepowe w danych strukturalnych. Leżą na dysku od 09.09.2026, a nie
     # deklarowaliśmy ani jednego — to najmocniejsze z pól, których tu brakowało.
@@ -739,7 +838,25 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
                                             '<meta name="twitter:card" content="summary_large_image">'))
 
 
-def galeria(a, jezyk, glebokosc):
+def galerie(a, jezyk, glebokosc):
+    """Galeria na platformę — i **nagłówek tylko wtedy, gdy platform jest więcej niż jedna**.
+
+    To jest cała odpowiedź na „wersje będą się różnić, więc i kadry będą inne".
+    Przy jednej platformie wynik jest znak w znak dzisiejszy: żadnego `<h3>`, żadnej
+    zmiany w dziesięciu stojących stronach. Przy dwóch czytelnik widzi, na co patrzy,
+    zamiast zgadywać, czy zrzut z iPhone'a opisuje jego telefon.
+    """
+    maja = [p for p in PLATFORMY if zrzuty_apki(a["slug"], jezyk, p)]
+    if not maja:
+        return ""
+    if len(maja) == 1:
+        return galeria(a, jezyk, glebokosc, maja[0])
+    n = NAPISY[jezyk]
+    return "".join(f"<h3>{e(n[URZADZENIE[p]])}</h3>" + galeria(a, jezyk, glebokosc, p)
+                   for p in maja)
+
+
+def galeria(a, jezyk, glebokosc, platforma="ios"):
     """Kadry sklepowe na stronie — te same, które widać w App Store.
 
     Podstrona była do 09.09.2026 ścianą tekstu: opis ze sklepu i nic więcej.
@@ -749,7 +866,7 @@ def galeria(a, jezyk, glebokosc):
     Pusta, gdy zrzutów nie zaimportowano: aplikacja bez galerii ma wyglądać jak
     strona bez galerii, a nie jak strona z dziurą.
     """
-    pliki = zrzuty_apki(a["slug"], jezyk)
+    pliki = zrzuty_apki(a["slug"], jezyk, platforma)
     if not pliki:
         return ""
     n = NAPISY[jezyk]
@@ -758,7 +875,8 @@ def galeria(a, jezyk, glebokosc):
     for plik in pliki:
         naglowek, podtytul = podpisy.get(Path(plik).stem,
                                          (f'{a["teksty"][jezyk]["nazwa"]} – {n["zrzut"]}', ""))
-        sciezka = wzgledny(glebokosc, f"assets/zrzuty/{a['slug']}/{jezyk}/{plik}")
+        pod = jezyk if platforma == "ios" else f"{platforma}/{jezyk}"
+        sciezka = wzgledny(glebokosc, f"assets/zrzuty/{a['slug']}/{pod}/{plik}")
         podpis = f"<strong>{e(naglowek)}</strong>"
         if podtytul:
             podpis += f"<br>{e(podtytul)}"
@@ -1273,8 +1391,7 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
                    f'<ul class="zwykla">{"".join(spis)}</ul></nav>')
 
     if a["wSklepie"]:
-        sklep = (f'<p class="sklep"><a class="przycisk" href="{link_sklepu(a["appId"])}">'
-                 f'{e(n["w_sklepie"])} →</a>'
+        sklep = (f'<p class="sklep">{przyciski_sklepow(a, n)}'
                  f'<span class="znacznik">{e(n["darmowa"])}</span></p>')
     else:
         sklep = f'<p class="sklep"><span class="znacznik">{e(n["wkrotce"])}</span></p>'
@@ -2028,9 +2145,17 @@ def podpisy_kadrow(repo: Path, jezyk: str) -> dict:
     return podpisy
 
 
-def zrzuty_apki(slug: str, jezyk: str) -> list:
-    """Zrzuty już zaimportowane do repozytorium stron, po kolei."""
-    katalog = KORZEN / "assets" / "zrzuty" / slug / jezyk
+def zrzuty_apki(slug: str, jezyk: str, platforma: str = "ios") -> list:
+    """Zrzuty już zaimportowane do repozytorium stron, po kolei.
+
+    **iOS zostaje pod dzisiejszą ścieżką bez poziomu platformy** i to jest decyzja, nie
+    niedokończenie: przeniesienie stu kilkudziesięciu plików po to, żeby ścieżka wyglądała
+    symetrycznie, zmieniłoby wytwór dziesięciu stron i zamazało jedyną bramkę tej zmiany
+    — że wytwór nie drgnął. Android dostaje własny poziom od razu, bo tam nie ma czego
+    przenosić.
+    """
+    katalog = (KORZEN / "assets" / "zrzuty" / slug / jezyk if platforma == "ios"
+               else KORZEN / "assets" / "zrzuty" / slug / platforma / jezyk)
     if not katalog.exists():
         return []
     return sorted(p.name for p in katalog.glob("*.webp"))
@@ -2405,8 +2530,11 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
     powstana |= {f"assets/karty/{a['slug']}-{j}.png" for a in apki for j in JEZYKI}
     powstana |= {f"assets/znak-{bok}.png" for bok in ZNAK_ROZMIARY}
     powstana |= {f"assets/karty/rodzina-{j}.png" for j in JEZYKI}
-    powstana |= {f"assets/zrzuty/{a['slug']}/{j}/{p}"
-                 for a in apki for j in JEZYKI for p in zrzuty_apki(a["slug"], j)}
+    # Kadry per platforma. iOS stoi bez poziomu platformy (patrz `zrzuty_apki`),
+    # więc ścieżkę składa się tak samo jak tam — z jednego miejsca, nie z dwóch.
+    powstana |= {f"assets/zrzuty/{a['slug']}/{j if pl == 'ios' else pl + '/' + j}/{p}"
+                 for a in apki for j in JEZYKI for pl in PLATFORMY
+                 for p in zrzuty_apki(a["slug"], j, pl)}
     for adres, tresc in pliki.items():
         if not adres.endswith(".html"):
             continue
@@ -2950,6 +3078,33 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
         if bez_wejscia:
             bledy.append(f"„Co dalej” {jezyk}: {len(bez_wejscia)} stron bez wejścia "
                          f"w stopce, m.in. {bez_wejscia[0]}")
+
+    # 22. Jawny blok `sklepy` nie rozjeżdża się z polami, które czyta reszta rodziny.
+    #
+    #     Dopóki aplikacja stoi w jednym sklepie, `sklepy` wyprowadza się z `appId`
+    #     i `wSklepie` i **żadna wartość nie jest zapisana dwa razy** — bramka nie ma
+    #     wtedy czego pilnować i słusznie milczy.
+    #
+    #     Blok jawny pojawia się dopiero przy drugim sklepie i **od tego momentu dwie
+    #     prawdy o iOS istnieją obok siebie**. `appId` czyta jeszcze `stan-rodziny.py`
+    #     i `asc-marketing-url.py`, a `wSklepie` — `japanese-tools/lib/rodzina.py`;
+    #     rozjazd między manifestem a blokiem byłby wadą widoczną dopiero po stronie
+    #     Apple, czyli najpóźniej jak się da.
+    for a_ in apki:
+        jawne = a_.get("sklepy")
+        if not jawne or "ios" not in jawne:
+            continue
+        if jawne["ios"].get("id") != a_.get("appId"):
+            bledy.append(f"{a_['slug']}: sklepy.ios.id „{jawne['ios'].get('id')}” "
+                         f"rozjeżdża się z appId „{a_.get('appId')}”")
+        if (jawne["ios"].get("stan") == "w-sklepie") != bool(a_.get("wSklepie")):
+            bledy.append(f"{a_['slug']}: sklepy.ios.stan „{jawne['ios'].get('stan')}” "
+                         f"rozjeżdża się z wSklepie={a_.get('wSklepie')}")
+        for platforma, wpis in jawne.items():
+            if platforma not in PLATFORMY:
+                bledy.append(f"{a_['slug']}: nieznana platforma „{platforma}” w sklepy")
+            elif wpis.get("stan") not in ("brak", "zlozona", "w-sklepie"):
+                bledy.append(f"{a_['slug']} {platforma}: nieznany stan „{wpis.get('stan')}”")
 
     return bledy, uwagi
 

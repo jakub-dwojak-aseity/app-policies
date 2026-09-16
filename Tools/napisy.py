@@ -43,6 +43,14 @@ NAPISY = {
         "naglowek_wyboru": "Którą aplikację wybrać",
         "naglowek_kart": "Wszystkie aplikacje",
         "w_sklepie": "App Store",
+        # Drugi sklep. Napis istnieje, zanim stanie w nim pierwsza aplikacja —
+        # inaczej [poz. 307] dokładałaby model i napisy w dwóch osobnych turach,
+        # a ta druga wypadłaby w dniu wydania, czyli w najgorszym możliwym momencie.
+        "w_sklepie_google": "Google Play",
+        # Nagłówki nad galeriami. Stoją nad kadrami tylko wtedy, gdy platform jest
+        # więcej niż jedna — przy jednej byłyby szumem nad rzeczą oczywistą.
+        "urzadzenie_ios": "iPhone i iPad",
+        "urzadzenie_android": "Android",
         "wkrotce": "Wkrótce w App Store",
         "wkrotce_opis": "Aplikacja czeka na recenzję Apple. Strona opisuje wersję złożoną do sklepu.",
         "przed_premiera": "przed premierą",
@@ -276,6 +284,9 @@ NAPISY = {
         "naglowek_wyboru": "Which app do you need",
         "naglowek_kart": "All apps",
         "w_sklepie": "App Store",
+        "w_sklepie_google": "Google Play",
+        "urzadzenie_ios": "iPhone and iPad",
+        "urzadzenie_android": "Android",
         "wkrotce": "Coming to the App Store",
         "wkrotce_opis": "Waiting for Apple review. This page describes the version submitted.",
         "przed_premiera": "not yet released",

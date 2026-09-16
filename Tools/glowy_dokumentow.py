@@ -63,6 +63,7 @@ Kod wyjścia: 0, gdy wszystko przeszło; 1, gdy któryś plik został odrzucony 
 import argparse
 import html
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -72,7 +73,11 @@ import metadane  # noqa: E402
 from napisy import NAPISY  # noqa: E402
 
 KORZEN = Path(__file__).resolve().parent.parent
-ZRODLA = Path("/Users/jakub/aseity")
+#: Korzeń drzew rodziny. Na Macu rozwija się dokładnie w to, co stało tu wpisane
+#: na sztywno, więc zmiana jest bezobjawowa po tamtej stronie. Absolut macowy czynił
+#: to narzędzie nieuruchamialnym na maszynie windowsowej — a jest ono neutralne
+#: platformowo. Ten sam kształt stoi w `japanese-tools/lib/rodzina.py`.
+ZRODLA = Path(os.environ.get("ASEITY_ROOT") or Path.home() / "aseity")
 PLIKI_DOKUMENTU = ("privacy.html", "terms.html", "support.html")
 CANONICAL = '<link rel="canonical" href="{adres}">'
 NOINDEX = '<meta name="robots" content="noindex, follow">'

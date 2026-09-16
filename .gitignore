@@ -1,3 +1,7 @@
 
 # Kadry do wystawiania haseł poza witryną — wytwór narzędzia, nie część strony.
 kadry-social/
+
+# Wytwór importu Pythona. Pojawia się przy pierwszym uruchomieniu narzędzi z `Tools/`
+# i nie jest częścią witryny.
+Tools/__pycache__/

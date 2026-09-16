@@ -34,6 +34,7 @@ import base64
 import hashlib
 import html
 import json
+import os
 import re
 import subprocess
 import unicodedata
@@ -47,7 +48,15 @@ sys.path.insert(0, str(NARZEDZIA))
 import glowy_dokumentow  # noqa: E402
 import metadane  # noqa: E402
 
-ZRODLA = Path("/Users/jakub/aseity")
+#: Korzeń drzew rodziny. **Na Macu rozwija się dokładnie w to, co stało tu wpisane
+#: na sztywno** (`/Users/jakub/aseity`), więc zmiana jest bezobjawowa po tamtej stronie.
+#:
+#: Powód: od 16.09.2026 papiery rodziny są edytowane z dwóch maszyn (§5
+#: `jp-grammar/docs/ANDROID_KIERUNEK.md`), a absolut macowy czyni ten generator
+#: **nieuruchamialnym** na drugiej — zatrzymywał się na pierwszej aplikacji
+#: komunikatem „brak drzewa \\Users\\jakub\\aseity\\...". To samo rozwiązanie stoi
+#: już w `japanese-tools/lib/rodzina.py`, które liczy korzeń jako `Path.home()/"aseity"`.
+ZRODLA = Path(os.environ.get("ASEITY_ROOT") or Path.home() / "aseity")
 JEZYKI = ("pl", "en")
 
 from napisy import NAPISY  # noqa: E402

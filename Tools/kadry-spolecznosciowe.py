@@ -39,6 +39,7 @@ katalogu, czyli w kolejności nauki.
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -46,7 +47,11 @@ from pathlib import Path
 
 NARZEDZIA = Path(__file__).resolve().parent
 KORZEN = NARZEDZIA.parent
-ZRODLA = Path("/Users/jakub/aseity")
+#: Korzeń drzew rodziny. Na Macu rozwija się dokładnie w to, co stało tu wpisane
+#: na sztywno, więc zmiana jest bezobjawowa po tamtej stronie. Absolut macowy czynił
+#: to narzędzie nieuruchamialnym na maszynie windowsowej — a jest ono neutralne
+#: platformowo. Ten sam kształt stoi w `japanese-tools/lib/rodzina.py`.
+ZRODLA = Path(os.environ.get("ASEITY_ROOT") or Path.home() / "aseity")
 sys.path.insert(0, str(NARZEDZIA))
 
 from napisy import NAPISY  # noqa: E402

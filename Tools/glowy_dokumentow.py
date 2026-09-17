@@ -347,6 +347,27 @@ def main() -> int:
         if not ma_hreflang and (para := pary.get(wzgledna)):
             potrzebne.extend(wzor.format(**para) for wzor in HREFLANG)
 
+        # **Odjęcie `hreflang`, nie tylko dopisanie — dopisane 17.09.2026.**
+        #
+        # Do dziś to narzędzie umiało głowę wyłącznie uzupełniać, a bramka w
+        # `generuj-strony.py` pytała też o kierunek odwrotny: `noindex` obok
+        # `hreflang` to polecenie sprzeczne — raz „nie pokazuj tej strony", raz
+        # „to jest wersja językowa tamtej". Dopóki żaden dokument nie przechodził
+        # z bieżącego w przestarzały, ten kierunek nie miał jak wystąpić.
+        #
+        # **Wystąpił przy Shindanie 1.2**, i to w trzecim stanie, którego ten plik
+        # nie znał: dokument **przyszły** — napisany, stojący pod swoim adresem,
+        # wskazywany przez binarkę w recenzji, ale jeszcze nie ten, który opisuje
+        # wersję w sklepie. Wygląda dla bramki jak przestarzały i ma być
+        # `noindex`; parę językową dostanie z powrotem sam, przy najbliższym
+        # przebiegu po tym, jak `apps.json` wskaże go jako bieżący.
+        odjete = []
+        if przestarzaly and ma_hreflang:
+            odjete = [l for l in tresc.splitlines(keepends=True)
+                      if 'hreflang=' in l and 'rel="alternate"' in l]
+            for wiersz in odjete:
+                tresc = tresc.replace(wiersz, "", 1)
+
         wpis = ctx["apka"].get(wzgledna)
         zajawka = opis_dokumentu(tresc) if not (ma_opis and ma_og) else ""
         if not ma_opis and zajawka:
@@ -374,7 +395,7 @@ def main() -> int:
                 mapa=f"{baza}/{przedrostek}",
                 witryna=html.escape(NAPISY[jezyk]["tytul_mapy"]))
 
-        if not potrzebne and not wyjscie:
+        if not potrzebne and not wyjscie and not odjete:
             pominiete += 1
             continue
 

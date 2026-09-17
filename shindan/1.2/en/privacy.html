@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shindan 診断 — Privacy Policy</title>
+<meta name="robots" content="noindex, follow">
+<meta name="description" content="Shindan 診断 measures your Japanese: one sheet under a clock, then your level and the one thing worth studying next.">
+<meta property="og:title" content="Shindan 診断 — Privacy Policy">
+<meta property="og:description" content="Shindan 診断 measures your Japanese: one sheet under a clock, then your level and the one thing worth studying next.">
+<meta property="og:url" content="https://jd-japanese.pl/shindan/1.2/en/privacy.html">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://jd-japanese.pl/assets/karty/shindan-en.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
+<link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
+<link rel="canonical" href="https://jd-japanese.pl/shindan/1.2/en/privacy.html">
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 42rem; margin: 0 auto; padding: 2rem 1.25rem 4rem;
+    font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #1c1c1e; background: #fff; }
+  h1 { font-size: 1.75rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2.25rem; }
+  .updated { color: #6b6b70; font-size: .9rem; margin-top: 0; }
+  ul { padding-left: 1.25rem; } li { margin: .4rem 0; }
+  a { color: #7a5a12; }
+  .note { border-left: 3px solid #C8931E; padding: .1rem 0 .1rem 1rem; margin: 1.5rem 0; color: #45454a; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e3e3e6; font-size: .9rem; color: #6b6b70; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #ececef; background: #131315; }
+    .updated, footer { color: #9a9aa0; } .note { color: #c8c8ce; }
+    footer { border-top-color: #2c2c30; } a { color: #e0b33c; }
+  }
+</style>
+</head>
+<body>
+<main>
+<h1>Privacy Policy</h1>
+<p class="updated"><strong>Shindan 診断</strong> · version 1.2 · last updated: 17 September 2026</p>
+
+<p>Shindan 診断 measures your Japanese: one sheet under a clock, then your level and the one
+thing worth studying next. <strong>The measurement itself happens entirely on your device, with no
+internet connection.</strong> From version 1.2 there is one optional feature that does use it —
+the result debrief. A section below describes it, and it is <strong>the only place where anything
+leaves your phone</strong>.</p>
+
+<div class="note">In short: no account, no analytics, no advertising, no tracking. Apart from the
+result debrief, which you start yourself, the app makes no network request — the rest of the traffic
+is the App Store handling a purchase.</div>
+
+<h2>Your account</h2>
+<p>There isn't one. Shindan never asks you to register, sign in or give an email address, and has
+no way of recognising you.</p>
+
+<h2>Where your results go</h2>
+<p>They stay on your device. Your answers, your results and your sheet history are not sent
+anywhere, do not sync with iCloud and are not accessible to me — there is no account, so there is
+nothing to sync. The one exception is named plainly and you start it yourself: the result debrief,
+described below. Deleting the app deletes this data with it.</p>
+
+<h2>Other apps of mine</h2>
+<p>Shindan can point you at another of my Japanese-learning apps when it finds a weak spot, and it
+opens that app if you have it. <strong>It reads nothing from those apps and writes nothing to
+them.</strong> The recommendation is worked out from your answers in this app alone.</p>
+
+<h2>Where the questions come from</h2>
+<p>The questions are built from the content catalogs of my other Japanese-learning apps. That
+material is written by me and ships inside the app file, so <strong>nothing is downloaded and
+nothing is streamed</strong>.</p>
+
+<h2>The debrief — the only thing that leaves your phone</h2>
+<p>From version 1.2, a finished sheet can get you <strong>a sentence about what your mistakes
+have in common</strong> — the thread running through them, rather than just a ranking of
+sections. A language model writes it, and this is <strong>the only feature in the app that uses
+the network</strong>. It runs only when you open it yourself; never in the background and never
+on its own.</p>
+
+<p><strong>What goes out:</strong> the measurement. Your level, and for each section its mark
+(助詞, 活用), how many questions were asked, how many you got right, and at most four
+<strong>confused pairs</strong> — the option you picked next to the correct one. Plus your
+interface language and a sheet identifier, which is how the server knows this is a second tap on
+the same result rather than a new question.</p>
+
+<p><strong>What does not go out:</strong> question text, sentences from the catalog, or anything
+written by you. The last one has no way out — <strong>this app has no text field at all</strong>
+and never will, because answers here are picked from ready options.</p>
+
+<p>The request goes to my server at <code>api.jd-japanese.pl</code> and from there to the model.
+The answer comes back to the app and stays on your device. <strong>Neither your result nor the
+model's answer is stored</strong> — there is no column they could sit in.</p>
+
+<p>Three technical things are kept on the server, because the feature cannot work without them:
+a hash of your App Store transaction identifier (so it knows this device owns the purchase), an
+App Attest key identifier with its public key (it confirms the request comes from a genuine copy
+of this app — it is created on your device, is unique to this one app, and is created afresh
+after every reinstall), and usage counters. Kept more briefly, for 90 days: request diagnostics —
+number, function name, model, status, token count, response time. IP addresses are not kept. None
+of this is tied to your name, address or account — the app does not know them.</p>
+
+<p>A sheet too thin to produce a result gets no debrief and sends nothing: if too much ran out on
+the clock, there is nothing to discuss.</p>
+
+<h2>Tracking and advertising</h2>
+<p>None. The app contains no analytics library, no advertising library, no crash reporting and no
+tracking identifier.</p>
+
+<h2>Purchases</h2>
+<p>The first sheet is free. Further sheets are a one-time purchase handled entirely by Apple.
+Shindan never sees your payment details — it only asks StoreKit whether the purchase exists.</p>
+
+<h2>Notifications</h2>
+<p>There are none. Shindan measures once; it has nothing to remind you about.</p>
+
+<h2>Children</h2>
+<p>The app is rated 4+ and collects nothing that identifies anyone, a child included: there is no
+account, and it never asks for a name, an age or an address. What the server keeps for the debrief is
+described in the section above, and it is technical identifiers and counters only.</p>
+
+<h2>Changes</h2>
+<p>If this policy ever changes, the date at the top changes with it. This page's address carries
+the app version, so older releases always point at the document that actually described them.</p>
+</main>
+<footer>Shindan 診断 · Jakub Dwojak · <a href="mailto:shindan@jd-japanese.pl">shindan@jd-japanese.pl</a><br>
+<a href="../privacy.html">Polski</a><br><a href="https://jd-japanese.pl/en/apps/shindan/">Shindan: Japanese Level Test</a> · <a href="https://jd-japanese.pl/en/">Japanese in ten apps</a></footer>
+</body>
+</html>

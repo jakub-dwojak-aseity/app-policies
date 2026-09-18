@@ -3489,7 +3489,7 @@ def sprawdz_sklep(apki):
         # Pętla niżej przerywa na pierwszej odpowiadającej i to jest poprawne dla
         # pytania „czy aplikacja jest": obecna w którejkolwiek znaczy obecna.
         # Dla pytania „która wersja" ten sam skrót daje FAŁSZ, i to zmierzony:
-        # 19.09.2026 Shindan oddawał `1.1.2` z `pl` i `1.2.0` z `us`, `gb`, `de`
+        # 18.09.2026 Shindan oddawał `1.1.2` z `pl` i `1.2.0` z `us`, `gb`, `de`
         # i `jp` — indeks polskiej witryny spóźniał się o dobę. Porównanie z samym
         # `pl` zapaliłoby czerwień nad poprawnym manifestem albo zieleń nad złym,
         # zależnie od tego, w którą stronę akurat kłamie indeks.
@@ -3516,7 +3516,7 @@ def sprawdz_sklep(apki):
             if nazwa != a["teksty"]["en"]["nazwa"] and nazwa != a["teksty"]["pl"]["nazwa"]:
                 rozjazdy.append(f"{a['slug']}: w sklepie „{nazwa}”, w repo "
                                 f"„{a['teksty']['pl']['nazwa']}” / „{a['teksty']['en']['nazwa']}”")
-            # **Numer wersji — dołożone 19.09.2026, [poz. 356].**
+            # **Numer wersji — dołożone 18.09.2026, [poz. 356].**
             #
             # Do tego dnia ta bramka porównywała OBECNOŚĆ i NAZWĘ, i nic więcej.
             # Zdanie „App Store: 0 rozjazdów na 10 aplikacji" czytało się jak

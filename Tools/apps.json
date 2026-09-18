@@ -259,7 +259,7 @@
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 7,
-      "wersja": "1.1.2"
+      "wersja": "1.2.0"
     },
     {
       "slug": "keigo",
@@ -275,7 +275,7 @@
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 8,
-      "wersja": "1.2.0"
+      "wersja": "1.2.1"
     },
     {
       "slug": "kifuku",
@@ -291,7 +291,7 @@
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 9,
-      "wersja": "1.2.0"
+      "wersja": "1.2.1"
     },
     {
       "slug": "onomatope",

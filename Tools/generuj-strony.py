@@ -3458,6 +3458,17 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
 SKLEPY = ("pl", "us", "gb", "de", "jp")
 
 
+def _numer_wersji(tekst):
+    """`1.2.0` → `(1, 2, 0)`. Porównanie napisami dałoby `1.10.0 < 1.2.0`."""
+    czlony = []
+    for czlon in str(tekst).split("."):
+        try:
+            czlony.append(int(czlon))
+        except ValueError:
+            czlony.append(0)
+    return tuple(czlony)
+
+
 def sprawdz_sklep(apki):
     """Porównuje manifest z tym, co App Store oddaje publicznie. Wymaga sieci.
 
@@ -3474,6 +3485,15 @@ def sprawdz_sklep(apki):
     rozjazdy = []
     for a in apki:
         dane = {"resultCount": 0}
+        # **Wersje zbieramy ze WSZYSTKICH witryn, nie z pierwszej — [poz. 356].**
+        # Pętla niżej przerywa na pierwszej odpowiadającej i to jest poprawne dla
+        # pytania „czy aplikacja jest": obecna w którejkolwiek znaczy obecna.
+        # Dla pytania „która wersja" ten sam skrót daje FAŁSZ, i to zmierzony:
+        # 19.09.2026 Shindan oddawał `1.1.2` z `pl` i `1.2.0` z `us`, `gb`, `de`
+        # i `jp` — indeks polskiej witryny spóźniał się o dobę. Porównanie z samym
+        # `pl` zapaliłoby czerwień nad poprawnym manifestem albo zieleń nad złym,
+        # zależnie od tego, w którą stronę akurat kłamie indeks.
+        wersje = {}
         for kraj in SKLEPY:
             adres = f"https://itunes.apple.com/lookup?id={a['appId']}&country={kraj}"
             try:
@@ -3482,8 +3502,11 @@ def sprawdz_sklep(apki):
             except (urllib.error.URLError, json.JSONDecodeError):
                 continue
             if odczyt["resultCount"] > 0:
-                dane = odczyt
-                break
+                if dane["resultCount"] == 0:
+                    dane = odczyt
+                wersja_sklepu = odczyt["results"][0].get("version")
+                if wersja_sklepu:
+                    wersje[kraj] = wersja_sklepu
         zywa = dane["resultCount"] > 0
         if zywa != a["wSklepie"]:
             rozjazdy.append(f"{a['slug']}: manifest mówi wSklepie={a['wSklepie']}, "
@@ -3493,6 +3516,33 @@ def sprawdz_sklep(apki):
             if nazwa != a["teksty"]["en"]["nazwa"] and nazwa != a["teksty"]["pl"]["nazwa"]:
                 rozjazdy.append(f"{a['slug']}: w sklepie „{nazwa}”, w repo "
                                 f"„{a['teksty']['pl']['nazwa']}” / „{a['teksty']['en']['nazwa']}”")
+            # **Numer wersji — dołożone 19.09.2026, [poz. 356].**
+            #
+            # Do tego dnia ta bramka porównywała OBECNOŚĆ i NAZWĘ, i nic więcej.
+            # Zdanie „App Store: 0 rozjazdów na 10 aplikacji" czytało się jak
+            # „manifest zgadza się ze sklepem", a pole `wersja` — to, po którym
+            # strona wybiera znacznik `sklep/<wersja>` i którego dotyczy cała
+            # [poz. 324] — nie było porównywane z niczym. Zmierzone tego dnia:
+            # Shindan stał w manifeście na 1.1.2 przy 1.2.0 w czterech witrynach,
+            # a bramka świeciła zielono.
+            #
+            # **Czerwień zapala się tylko wtedy, gdy manifest jest STARSZY** od
+            # najnowszej wersji widzianej w którejkolwiek witrynie. Kierunek jest
+            # tu treścią: manifest starszy znaczy, że strona reklamuje wydanie,
+            # którego już nie ma; manifest nowszy zdarza się w trakcie rozjazdu
+            # indeksów i mija sam, więc jest uwagą, nie błędem.
+            najnowsza = max(wersje.values(), key=_numer_wersji, default=None)
+            if najnowsza and a.get("wersja"):
+                moja, ich = _numer_wersji(a["wersja"]), _numer_wersji(najnowsza)
+                gdzie = ", ".join(f"{k}={w}" for k, w in sorted(wersje.items()))
+                if moja < ich:
+                    rozjazdy.append(
+                        f"{a['slug']}: manifest mówi wersja={a['wersja']}, a w sklepie "
+                        f"stoi {najnowsza} — strona reklamuje wydanie, którego już nie ma "
+                        f"({gdzie})")
+                elif moja > ich:
+                    print(f"  uwaga  {a['slug']}: manifest {a['wersja']} wyprzedza sklep "
+                          f"({gdzie}) — jeśli wydanie właśnie wychodzi, mija samo")
     return rozjazdy
 
 

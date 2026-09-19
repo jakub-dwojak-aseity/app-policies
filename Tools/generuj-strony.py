@@ -1228,11 +1228,19 @@ TEMATY = (
          {"grupa": "omission",
           "sciezka": {"pl": "opuszczenia", "en": "omissions"}},
      )},
+    # Sekcja `relation` (sytuacje) ZESZŁA 19.09.2026 z [poz. 376]: przebudowa
+    # drabiny [poz. 372] przeniosła wszystkie 27 scenek na poziom piąty, czyli
+    # płatny, a na stronę idzie wyłącznie materiał darmowy. W jej miejsce weszły
+    # wzorce, które ta sama tura uczyniła darmowymi. Oba stare adresy nie znikają
+    # — stoją dalej jako przekierowania, patrz `PRZEKIEROWANIA`.
+    #
+    # Kolejność kart jest kolejnością nauki: najpierw dwadzieścia słów do
+    # zapamiętania (poziom 1), potem ramy, które nakłada się na dowolne słowo.
     {"apka": "keigo", "klucz": "keigo",
      "sciezka": {"pl": "nauka/keigo", "en": "en/learn/keigo"},
      "grupy": (
-         {"grupa": "relation", "sciezka": {"pl": "sytuacje", "en": "situations"}},
          {"grupa": "lexeme", "sciezka": {"pl": "slowa", "en": "words"}},
+         {"grupa": "pattern", "sciezka": {"pl": "wzorce", "en": "patterns"}},
      )},
     # Sześć sekcji, nie dwie — i **oba stare adresy zostają**. Podział zapadł
     # 13.09, bo `pary-dzwieczne` i `cialo-i-samopoczucie` były najcięższymi
@@ -1289,6 +1297,25 @@ TEMATY = (
          {"grupa": "n5.g7.tone",
           "sciezka": {"pl": "powod-i-ton", "en": "reason-and-tone"}},
      )},
+)
+
+# Adresy ZDJĘTE, które mają dalej odpowiadać. Wypisane z ręki, tak jak adresy
+# tematów, i z tego samego powodu: adres jest obietnicą, a te dwa stoją
+# w `sitemap.xml` i w Search Console od 13.09.2026.
+#
+# **GitHub Pages nie umie 301** i to jest cały powód, dla którego ten mechanizm
+# wygląda tak, a nie inaczej. Repertuar jest dwuelementowy: `canonical` na cudzy
+# adres albo `noindex`. Bierzemy `canonical` plus odświeżenie META, bo `noindex`
+# kazałby wyszukiwarce **zapomnieć** stronę, a nam zależy na czymś odwrotnym —
+# żeby to, co ten adres uzbierał, przeszło na adres docelowy. Obu tych kształtów
+# bramka indeksowania nie zaczepia (`indeks-witryny.py`, `spr_mapa_vs_linki`),
+# więc wpisu w `Tools/indeks-wyjatki.json` dopisywać **nie wolno**: `spr_wyjatki`
+# zgłosiłby go jako powód, który do niczego nie pasuje.
+PRZEKIEROWANIA = (
+    {"z": {"pl": "nauka/keigo/sytuacje", "en": "en/learn/keigo/situations"},
+     "do": "keigo",
+     "powod": "[poz. 376] — wszystkie 27 sytuacji przeszło przy [poz. 372] "
+              "na poziom piąty, czyli płatny, a na stronę idzie tylko materiał darmowy"},
 )
 
 EKSPORT_SCHEMA = 1
@@ -1471,7 +1498,15 @@ def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):
         if czytanie and czytanie != termin:
             czlony.append(f'<span class="znacznik" lang="ja">{e(czytanie)}</span>')
     if nazwa:
-        czlony.append(("· " if termin else "") + e(nazwa))
+        # `ruby_html`, nie `e` — bo spis tuż niżej renderuje tę samą etykietę
+        # przez `ruby_html(etykieta)`, więc nagłówek eskejpujący ją na płasko
+        # pokazywał notację zamiast czytania. Wyszło 19.09.2026 przy wzorcach
+        # Keigo: `お茶[ちゃ]` stało w `<h2>` z nawiasami, a w spisie nad nim
+        # poprawnie. Zasięg zmierzony na wytworze: **dwa nagłówki na całej
+        # witrynie** — dotąd żadna `nazwa` nie niosła czytań, bo tytuły sytuacji
+        # i glosy leksemów są prozą. Bez notacji `ruby_html` zwraca to samo,
+        # co `e`, więc pozostałe 88 stron nie drgnie.
+        czlony.append(("· " if termin else "") + ruby_html(nazwa))
     naglowek = " ".join(czlony)
     etykieta = " · ".join(c for c in (termin, nazwa) if c)
 
@@ -1899,6 +1934,43 @@ def rozdroze_nauki(zywe, jezyk, manifest):
         stopka_html=stopka(jezyk, glebokosc, manifest, nauka=False))
 
 
+def strona_przekierowania(wpis, jezyk, manifest):
+    """Zdjęty adres, który dalej odpowiada i mówi, dokąd poszła treść.
+
+    Trzy rzeczy naraz, bo każda łapie kogo innego: `canonical` mówi wyszukiwarce,
+    który adres jest dziś tym właściwym, odświeżenie META przenosi przeglądarkę,
+    a widoczne zdanie z odsyłaczem ratuje kogoś, komu odświeżenie nie zadziała
+    (czytnik ekranu, robot, przeglądarka z wyłączonym przenoszeniem).
+
+    **Zdania nie ma jak pominąć i to jest celowe.** Strona bez treści, która tylko
+    przerzuca dalej, wygląda w oczach wyszukiwarki jak pusta — a ta ma przekazać
+    dalej to, co adres uzbierał, nie zostać skasowana.
+    """
+    n = NAPISY[jezyk]
+    temat = next(t for t in TEMATY if t["klucz"] == wpis["do"])
+    cel, _ = sciezki_tematu(temat, jezyk)
+    skad = wpis["z"][jezyk] + "/index.html"
+    glebokosc = skad.count("/")
+    inny = "en" if jezyk == "pl" else "pl"
+    baza = manifest["bazaAdresu"]
+    tytul_celu = n[f"temat_{temat['klucz']}_tytul"]
+
+    tresc = (f'<h1>{e(n["przeniesione_tytul"])}</h1>'
+             f'<p class="podtytul">{e(n["przeniesione_opis"])}</p>'
+             f'<p><a href="{"../" * glebokosc}{publiczny(cel)}">{e(tytul_celu)}</a></p>')
+
+    return skad, strona(
+        jezyk=jezyk, tytul=n["przeniesione_tytul"],
+        opis=n["przeniesione_opis"],
+        # Kanonicznym jest CEL, nie ten adres — o to w tym całym pliku chodzi.
+        kanoniczny=cel,
+        alternatywny=wpis["z"][inny] + "/index.html",
+        tresc=tresc, glebokosc=glebokosc, manifest=manifest,
+        nawigacja=gora(jezyk, glebokosc, wpis["z"][inny] + "/index.html", manifest),
+        stopka_html=stopka(jezyk, glebokosc, manifest),
+        dodatkowa_glowa=f'<meta http-equiv="refresh" content="0; url={baza}/{publiczny(cel)}">')
+
+
 def poza_mapa(apki):
     """Strony, które powstają, ale do mapy witryny nie należą.
 
@@ -1911,7 +1983,9 @@ def poza_mapa(apki):
     pierwszym dopisanym pliku: mapa pomijała `404.html`, a bramka pilnująca zgodności
     mapy ze stronami już nie.
     """
-    return {a["adresHistoryczny"] for a in apki if a.get("adresHistoryczny")} | {"404.html"}
+    return ({a["adresHistoryczny"] for a in apki if a.get("adresHistoryczny")}
+            | {"404.html"}
+            | {w["z"][j] + "/index.html" for w in PRZEKIEROWANIA for j in JEZYKI})
 
 
 def robots(manifest):
@@ -3614,6 +3688,12 @@ def zbuduj(apki, manifest, zapowiedziane=()):
                                  kanoniczny=sciezki(a["slug"], "en")[0],
                                  sciezka=a["adresHistoryczny"], glebokosc=1)
         pliki[adres] = tresc
+
+    # Zdjęte adresy tematów — **po stronach tematycznych**, bo czytają ich adresy.
+    for jezyk in JEZYKI:
+        for wpis in PRZEKIEROWANIA:
+            adres, tresc = strona_przekierowania(wpis, jezyk, manifest)
+            pliki[adres] = tresc
 
     pliki["robots.txt"] = robots(manifest)
     pliki["llms.txt"] = llms_txt(apki, manifest, zywe, zapowiedziane)

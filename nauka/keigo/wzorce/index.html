@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wzorce grzecznościowe – keigo</title>
+<meta name="description" content="です/ます, お〜になる, 美化語 – jedenaście ram, które nakłada się na dowolne słowo, każda ze zdaniem, w którym stoi.">
+<link rel="canonical" href="https://jd-japanese.pl/nauka/keigo/wzorce/">
+<link rel="alternate" hreflang="pl" href="https://jd-japanese.pl/nauka/keigo/wzorce/">
+<link rel="alternate" hreflang="en" href="https://jd-japanese.pl/en/learn/keigo/patterns/">
+<link rel="alternate" hreflang="x-default" href="https://jd-japanese.pl/en/learn/keigo/patterns/">
+<meta property="og:title" content="Wzorce grzecznościowe – keigo">
+<meta property="og:description" content="です/ます, お〜になる, 美化語 – jedenaście ram, które nakłada się na dowolne słowo, każda ze zdaniem, w którym stoi.">
+<meta property="og:url" content="https://jd-japanese.pl/nauka/keigo/wzorce/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Japoński w osobnych aplikacjach">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="theme-color" content="#a34f5a">
+<link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
+<link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
+<meta property="og:image" content="https://jd-japanese.pl/assets/karty/keigo-pl.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<style>
+:root { color-scheme: light dark; --tlo:#fff; --tekst:#1c1c1e; --cichy:#6b6b70;
+        --linia:#e3e3e6; --akcent:#a34f5a; --karta:#faf9f9; }
+@media (prefers-color-scheme: dark) {
+  :root { --tlo:#131315; --tekst:#ececef; --cichy:#9a9aa0; --linia:#2c2c30;
+          --akcent:#e08a94; --karta:#1b1b1e; }
+}
+* { box-sizing: border-box; }
+body { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
+       font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       color: var(--tekst); background: var(--tlo); }
+h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 .35rem; }
+h2 { font-size: 1.15rem; margin: 2.5rem 0 .75rem; }
+h3 { font-size: 1rem; margin: 1.75rem 0 .4rem; letter-spacing: .01em; }
+p { margin: .75rem 0; }
+a { color: var(--akcent); }
+.podtytul { color: var(--cichy); margin: 0 0 1rem; font-size: 1.05rem; }
+.lead { border-left: 3px solid var(--akcent); padding: .1rem 0 .1rem 1rem;
+        margin: 1.5rem 0; color: var(--tekst); }
+.gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
+        margin-bottom: 2rem; color: var(--cichy); }
+.gora a { text-decoration: none; }
+.do-tresci { position: absolute; left: -9999px; }
+.do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
+:focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
+footer { overflow-wrap: anywhere; }
+.gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
+.gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
+.szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
+.szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
+.jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
+.karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
+.karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
+         border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
+.karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+.karta { position: relative; }
+.karta .nazwa { font-weight: 600; }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
+   Gramatyka japońska", a nie cały akapit o problemie.
+   **Tylko tam, gdzie nazwa jest linkiem.** Karta aplikacji zapowiedzianej ma nazwę
+   w `<span>`, a selektor `.karta .nazwa` łapał i ją — więc kafelek bez dokąd pójścia
+   dostawał niewidzialny cel dotknięcia na całej powierzchni, identyczny z tym
+   w dziesięciu kartach nad nim. Zmierzone okiem 13.09.2026 na telefonie: ten sam
+   kształt, ten sam rozmiar celu, jedna reaguje, druga nie. §15 konwencji mówi o tym
+   wprost: co wygląda na dotykalne, musi być dotykalne. */
+a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
+.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
+.znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
+            border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
+            margin-left: .4rem; vertical-align: .1em; }
+/* Ikonki platform. Kolor z `currentColor` przez `--cichy`, więc tryb ciemny działa
+   bez osobnej reguły — i to jest jedyny powód, dla którego znak jest rysowany, a nie
+   wstawiony plikiem: `<img>` koloru nie dziedziczy i w ciemnym znika.
+   Rozmiar w `em`, żeby znak skalował się razem z tytułem karty, a nie obok niego.
+   Znak leży POD niewidzialną warstwą linku karty (`a.nazwa::after`) i nie dostaje
+   ani `position`, ani własnego odsyłacza — inaczej rozciąłby cel dotknięcia na dwa. */
+.platformy { display: inline-flex; gap: .3em; margin-left: .4rem;
+             vertical-align: .02em; color: var(--cichy); }
+.platforma { display: inline-flex; }
+.platformy svg { width: .85em; height: .85em; display: block; }
+/* Tekst wyłącznie dla czytnika ekranu — ten sam idiom, co skip-link wyżej, bez
+   reguły `:focus`, bo ten element nie jest ogniskowalny. */
+.czytnik { position: absolute; left: -9999px; }
+.sklep { display: block; margin: .35rem 0 1.25rem; font-weight: 600; }
+.nota { font-size: .8rem; margin-top: 2rem; }
+.przycisk { display: inline-block; background: var(--akcent); color: var(--tlo);
+            padding: .55rem 1.1rem; border-radius: 10px; text-decoration: none; }
+.spis-sekcji ul { list-style: none; padding: 0; margin: 0 0 1.75rem;
+                  display: flex; flex-wrap: wrap; gap: .35rem .9rem; font-size: .92rem; }
+.spis-sekcji li { margin: 0; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
+.zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
+          padding-bottom: .5rem; scroll-snap-type: x mandatory; }
+.zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
+.zrzuty img { width: 210px; height: auto; border-radius: 14px;
+              border: 1px solid var(--linia); display: block; }
+.zrzuty figcaption { font-size: .85rem; color: var(--cichy); margin-top: .45rem;
+                     line-height: 1.4; }
+ul.zwykla { padding-left: 1.15rem; }
+ul.zwykla li { margin: .3rem 0; }
+/* Strony tematyczne. Pięć reguł i ani jednej więcej: hasło ma wyglądać jak
+   sekcja opisu sklepowego, a nie jak inny gatunek strony. Rubin dostaje własny
+   rozmiar, bo domyślny w Safari bywa większy niż linia tekstu wokół. */
+.haslo + .haslo { border-top: 1px solid var(--linia); padding-top: .5rem; }
+.haslo h2 { margin-top: 1.75rem; }
+.przyklady { padding-left: 0; list-style: none; margin: .4rem 0 1.25rem; }
+.przyklady li { margin: .6rem 0; }
+.przyklady .pelna { color: var(--cichy); }
+.przyklady .tlum { display: block; color: var(--cichy); font-size: .93rem; }
+ruby rt { font-size: .55em; color: var(--cichy); }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
+         font-size: .88rem; color: var(--cichy); }
+footer a { color: var(--akcent); }
+code { font-size: .9em; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "DefinedTermSet",
+      "name": "Wzorce grzecznościowe – keigo",
+      "description": "です/ます, お〜になる, 美化語 – jedenaście ram, które nakłada się na dowolne słowo, każda ze zdaniem, w którym stoi.",
+      "url": "https://jd-japanese.pl/nauka/keigo/wzorce/",
+      "inLanguage": "pl",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "name": "行きます — ます podnosi ton, nie osobę",
+          "description": "To jest punkt zerowy: wszystko, co keigo dokłada ponad samą uprzejmość formy grzecznościowej, mierzy się właśnie od 行[い]きます. ます nie mówi nic o tym, **kto wykonuje czynność** — nikogo nie wyróżnia; podnosi ton całej wypowiedzi wobec tego, do kogo mówimy. Dlatego 行[い]きます powiesz i o sobie, i o rozmówcy — a 行[い]く bez ます nie jest błędem gramatycznym, tylko zdaniem o ton niżej. Formy, które kogoś **wyróżniają**, wyglądają inaczej i przyjdą zaraz po tej: いらっしゃいます powiesz wtedy, gdy idzie rozmówca."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "学生です — です robi to samo co ます tam, gdzie nie ma czasownika",
+          "description": "W zdaniu typu „X jest Y” です robi dokładnie to, co ます przy czasowniku: **podnosi ton, nie osobę**. Para です/だ jest pierwszym miejscem, w którym uprzejmość widać w zdaniu bez czasownika — dlatego 学生だ wobec kogoś obcego razi, choć nie ma w nim ani jednej formy podnoszącej kogokolwiek. Pierwszym, ale nie jedynym: stopień wyżej stoi でございます, a o osobie, którą chcemy wyróżnić, mówi się でいらっしゃいます."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "受付でございます — stopień wyżej niż です, wciąż nikogo nie wyróżnia",
+          "description": "でございます to uprzejmiejsze です i **nadal nikogo nie wyróżnia**. Dlatego sklepy i recepcje sięgają po nie, mówiąc o rzeczach, o miejscach i o **własnej stronie** — czyli o sobie, o swojej firmie i o swoim lokalu: こちらが受付でございます, 山田でございます. でございます ma swoją drugą połowę i jest ona równie ważna: **o osobie, którą wyróżniamy, nie mówi się でございます** — tam wchodzi でいらっしゃいます (田中様でいらっしゃいますか). O sobie jest odwrotnie i zostaje でございます: でいらっしゃいます wyróżniałoby wtedy nas samych."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "お〜になる — czynność drugiej strony",
+          "description": "Temat czasownika wchodzi między お i になる. Wzorzec obejmuje czynność osoby, którą się podnosi — nigdy własną."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "お〜する — czynność własna ku komuś",
+          "description": "Ten sam temat czasownika co w お〜になる, tylko w drugą stronę: tam podnosisz cudze działanie, tu zniżasz własne, skierowane ku komuś, kogo szanujesz."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "ご〜になる — rdzeń chińskiego pochodzenia",
+          "description": "Rdzeniem tego schematu jest rzeczownik chińskiego pochodzenia (漢語[かんご]), z którego przez する robi się czynność: 利用[りよう]する, 説明[せつめい]する, 確認[かくにん]する. Przed takim rdzeniem stoi zwykle ご — ご利用[りよう]になる, ご説明[せつめい]になる, ご確認[かくにん]になる. Wyjątki siedzą w samym słowie, a nie w schemacie: kilka zadomowionych 漢語[かんご] bierze お i zabiera je ze sobą także tutaj — お電話[でんわ]になる, お約束[やくそく]になる. Tych trzeba nauczyć się po jednym."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "ご〜する — własna czynność, rdzeń chiński",
+          "description": "Odpowiednik お〜する dla rdzeni chińskich. Typowe w obsłudze klienta: ご案内[あんない], ご連絡[れんらく], ご説明[せつめい]."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "お + słowo rodzime",
+          "description": "Przed rzeczownikiem rodzimym (和語[わご]) stoi お: お名前[なまえ], お仕事[しごと], お荷物[にもつ]. To samo お robi jednak trzy różne rzeczy i rozstrzyga o tym nie sama rzecz, tylko to, czyją stronę podnosi zdanie. Gdy rzecz należy do osoby, którą podnosisz — お名前[なまえ], czyli to, jak nazywa się rozmówca — jest to 尊敬語[そんけいご], forma czcząca. Gdy mówisz o własnej czynności skierowanej ku komuś (お手紙[てがみ]を差[さ]し上[あ]げます), jest to 謙譲語[けんじょうご]Ⅰ, forma skromna. A gdy zdanie nie podnosi przez to słowo nikogo i chodzi o samo upiększenie wypowiedzi — お金[かね], お酒[さけ] — jest to 美化[びか]語[ご]; pieniądze nie stają się przez お czyjąkolwiek własnością."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "ご + słowo chińskiego pochodzenia",
+          "description": "Przed rzeczownikiem chińskiego pochodzenia (漢語[かんご]) stoi ご: ご連絡[れんらく], ご住所[じゅうしょ], ご意見[いけん]. Reguła ma wyjątki, których trzeba się nauczyć osobno: お電話[でんわ], お時間[じかん], お食事[しょくじ]."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "お茶[ちゃ] — upiększenie samego słowa",
+          "description": "Tu お nikogo nie podnosi ani nie zniża. Podnosi samo słowo — dlatego urzędowe wytyczne 敬語[けいご]の指針[ししん] (Keigo no shishin) dają temu osobną kategorię 美化[びか]語[ご], „upiększenie słowa”, a podręczniki wliczają ją do form uprzejmych 丁寧[ていねい]語[ご]."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "お〜いたす — stopień wyżej niż お〜する",
+          "description": "Złożenie dwóch rzeczy naraz: お〜する zniża własne działanie wobec tego, ku komu jest skierowane, a いたす dokłada uprzejmość wobec słuchacza. 敬語[けいご]の指針[ししん] nazywa takie formy 謙譲語[けんじょうご]Ⅰ兼[けん]Ⅱ. Stąd ich naturalne miejsce w obsłudze klienta i w korespondencji — w rozmowie prywatnej brzmią sztucznie."
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Japoński w osobnych aplikacjach",
+          "item": "https://jd-japanese.pl/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Nauka japońskiego",
+          "item": "https://jd-japanese.pl/nauka/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Keigo – japońska grzeczność w praktyce",
+          "item": "https://jd-japanese.pl/nauka/keigo/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Wzorce grzecznościowe – keigo",
+          "item": "https://jd-japanese.pl/nauka/keigo/wzorce/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="do-tresci" href="#tresc">Przejdź do treści</a>
+<nav class="gora" aria-label="Witryna"><span><a class="znak" href="../../../" aria-hidden="true" tabindex="-1"><img src="../../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../../nauka/keigo/">← keigo</a></span><span><a href="https://jd-japanese.pl/en/learn/keigo/patterns/">English</a></span></nav>
+<main id="tresc"><div class="szyld"><img src="../../../assets/ikony/keigo.webp" alt="" width="72" height="72"><div><h1>Wzorce grzecznościowe – keigo</h1><p class="podtytul">です/ます, お〜になる, 美化語 – jedenaście ram, które nakłada się na dowolne słowo, każda ze zdaniem, w którym stoi.</p></div></div><nav aria-label="Na tej stronie"><ul class="zwykla"><li><a href="#l1-pat-masu">行きます — ます podnosi ton, nie osobę</a></li><li><a href="#l1-pat-desu">学生です — です robi to samo co ます tam, gdzie nie ma czasownika</a></li><li><a href="#l1-pat-degozaimasu">受付でございます — stopień wyżej niż です, wciąż nikogo nie wyróżnia</a></li><li><a href="#l3-pat-oninaru">お〜になる — czynność drugiej strony</a></li><li><a href="#l3-pat-osuru">お〜する — czynność własna ku komuś</a></li><li><a href="#l3-pat-goriyou">ご〜になる — rdzeń chińskiego pochodzenia</a></li><li><a href="#l3-pat-goannai">ご〜する — własna czynność, rdzeń chiński</a></li><li><a href="#l3-pat-onamae">お + słowo rodzime</a></li><li><a href="#l3-pat-gorenraku">ご + słowo chińskiego pochodzenia</a></li><li><a href="#l3-pat-ocha">お<ruby>茶<rt>ちゃ</rt></ruby> — upiększenie samego słowa</a></li><li><a href="#l3-pat-ooitasu">お〜いたす — stopień wyżej niż お〜する</a></li></ul></nav><section class="haslo"><h2 id="l1-pat-masu">行きます — ます podnosi ton, nie osobę</h2><p>To jest punkt zerowy: wszystko, co keigo dokłada ponad samą uprzejmość formy grzecznościowej, mierzy się właśnie od <ruby>行<rt>い</rt></ruby>きます. ます nie mówi nic o tym, **kto wykonuje czynność** — nikogo nie wyróżnia; podnosi ton całej wypowiedzi wobec tego, do kogo mówimy. Dlatego <ruby>行<rt>い</rt></ruby>きます powiesz i o sobie, i o rozmówcy — a <ruby>行<rt>い</rt></ruby>く bez ます nie jest błędem gramatycznym, tylko zdaniem o ton niżej. Formy, które kogoś **wyróżniają**, wyglądają inaczej i przyjdą zaraz po tej: いらっしゃいます powiesz wtedy, gdy idzie rozmówca.</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>明日<rt>あした</rt></ruby>は<ruby>九時<rt>くじ</rt></ruby>に<ruby>行<rt>い</rt></ruby>きます。</span></li></ul></section><section class="haslo"><h2 id="l1-pat-desu">学生です — です robi to samo co ます tam, gdzie nie ma czasownika</h2><p>W zdaniu typu „X jest Y” です robi dokładnie to, co ます przy czasowniku: **podnosi ton, nie osobę**. Para です/だ jest pierwszym miejscem, w którym uprzejmość widać w zdaniu bez czasownika — dlatego 学生だ wobec kogoś obcego razi, choć nie ma w nim ani jednej formy podnoszącej kogokolwiek. Pierwszym, ale nie jedynym: stopień wyżej stoi でございます, a o osobie, którą chcemy wyróżnić, mówi się でいらっしゃいます.</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>田中<rt>たなか</rt></ruby>さんは<ruby>学生<rt>がくせい</rt></ruby>ですか。</span></li></ul></section><section class="haslo"><h2 id="l1-pat-degozaimasu">受付でございます — stopień wyżej niż です, wciąż nikogo nie wyróżnia</h2><p>でございます to uprzejmiejsze です i **nadal nikogo nie wyróżnia**. Dlatego sklepy i recepcje sięgają po nie, mówiąc o rzeczach, o miejscach i o **własnej stronie** — czyli o sobie, o swojej firmie i o swoim lokalu: こちらが受付でございます, 山田でございます. でございます ma swoją drugą połowę i jest ona równie ważna: **o osobie, którą wyróżniamy, nie mówi się でございます** — tam wchodzi でいらっしゃいます (田中様でいらっしゃいますか). O sobie jest odwrotnie i zostaje でございます: でいらっしゃいます wyróżniałoby wtedy nas samych.</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja">こちらが<ruby>受付<rt>うけつけ</rt></ruby>でございます。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-oninaru">お〜になる — czynność drugiej strony</h2><p>Temat czasownika wchodzi między お i になる. Wzorzec obejmuje czynność osoby, którą się podnosi — nigdy własną.</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja">もうお<ruby>読<rt>よ</rt></ruby>みになりますか。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-osuru">お〜する — czynność własna ku komuś</h2><p>Ten sam temat czasownika co w お〜になる, tylko w drugą stronę: tam podnosisz cudze działanie, tu zniżasz własne, skierowane ku komuś, kogo szanujesz.</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>荷物<rt>にもつ</rt></ruby>をお<ruby>持<rt>も</rt></ruby>ちします。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-goriyou">ご〜になる — rdzeń chińskiego pochodzenia</h2><p>Rdzeniem tego schematu jest rzeczownik chińskiego pochodzenia (<ruby>漢語<rt>かんご</rt></ruby>), z którego przez する robi się czynność: <ruby>利用<rt>りよう</rt></ruby>する, <ruby>説明<rt>せつめい</rt></ruby>する, <ruby>確認<rt>かくにん</rt></ruby>する. Przed takim rdzeniem stoi zwykle ご — ご<ruby>利用<rt>りよう</rt></ruby>になる, ご<ruby>説明<rt>せつめい</rt></ruby>になる, ご<ruby>確認<rt>かくにん</rt></ruby>になる. Wyjątki siedzą w samym słowie, a nie w schemacie: kilka zadomowionych <ruby>漢語<rt>かんご</rt></ruby> bierze お i zabiera je ze sobą także tutaj — お<ruby>電話<rt>でんわ</rt></ruby>になる, お<ruby>約束<rt>やくそく</rt></ruby>になる. Tych trzeba nauczyć się po jednym.</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja">こちらをご<ruby>利用<rt>りよう</rt></ruby>になりますか。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-goannai">ご〜する — własna czynność, rdzeń chiński</h2><p>Odpowiednik お〜する dla rdzeni chińskich. Typowe w obsłudze klienta: ご<ruby>案内<rt>あんない</rt></ruby>, ご<ruby>連絡<rt>れんらく</rt></ruby>, ご<ruby>説明<rt>せつめい</rt></ruby>.</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>会場<rt>かいじょう</rt></ruby>までご<ruby>案内<rt>あんない</rt></ruby>します。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-onamae">お + słowo rodzime</h2><p>Przed rzeczownikiem rodzimym (<ruby>和語<rt>わご</rt></ruby>) stoi お: お<ruby>名前<rt>なまえ</rt></ruby>, お<ruby>仕事<rt>しごと</rt></ruby>, お<ruby>荷物<rt>にもつ</rt></ruby>. To samo お robi jednak trzy różne rzeczy i rozstrzyga o tym nie sama rzecz, tylko to, czyją stronę podnosi zdanie. Gdy rzecz należy do osoby, którą podnosisz — お<ruby>名前<rt>なまえ</rt></ruby>, czyli to, jak nazywa się rozmówca — jest to <ruby>尊敬語<rt>そんけいご</rt></ruby>, forma czcząca. Gdy mówisz o własnej czynności skierowanej ku komuś (お<ruby>手紙<rt>てがみ</rt></ruby>を<ruby>差<rt>さ</rt></ruby>し<ruby>上<rt>あ</rt></ruby>げます), jest to <ruby>謙譲語<rt>けんじょうご</rt></ruby>Ⅰ, forma skromna. A gdy zdanie nie podnosi przez to słowo nikogo i chodzi o samo upiększenie wypowiedzi — お<ruby>金<rt>かね</rt></ruby>, お<ruby>酒<rt>さけ</rt></ruby> — jest to <ruby>美化<rt>びか</rt></ruby><ruby>語<rt>ご</rt></ruby>; pieniądze nie stają się przez お czyjąkolwiek własnością.</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja">お<ruby>名前<rt>なまえ</rt></ruby>をお<ruby>願<rt>ねが</rt></ruby>いします。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-gorenraku">ご + słowo chińskiego pochodzenia</h2><p>Przed rzeczownikiem chińskiego pochodzenia (<ruby>漢語<rt>かんご</rt></ruby>) stoi ご: ご<ruby>連絡<rt>れんらく</rt></ruby>, ご<ruby>住所<rt>じゅうしょ</rt></ruby>, ご<ruby>意見<rt>いけん</rt></ruby>. Reguła ma wyjątki, których trzeba się nauczyć osobno: お<ruby>電話<rt>でんわ</rt></ruby>, お<ruby>時間<rt>じかん</rt></ruby>, お<ruby>食事<rt>しょくじ</rt></ruby>.</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja">ご<ruby>連絡<rt>れんらく</rt></ruby>をお<ruby>待<rt>ま</rt></ruby>ちしております。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-ocha">お<ruby>茶<rt>ちゃ</rt></ruby> — upiększenie samego słowa</h2><p>Tu お nikogo nie podnosi ani nie zniża. Podnosi samo słowo — dlatego urzędowe wytyczne <ruby>敬語<rt>けいご</rt></ruby>の<ruby>指針<rt>ししん</rt></ruby> (Keigo no shishin) dają temu osobną kategorię <ruby>美化<rt>びか</rt></ruby><ruby>語<rt>ご</rt></ruby>, „upiększenie słowa”, a podręczniki wliczają ją do form uprzejmych <ruby>丁寧<rt>ていねい</rt></ruby><ruby>語<rt>ご</rt></ruby>.</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja">お<ruby>茶<rt>ちゃ</rt></ruby>をどうぞ。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-ooitasu">お〜いたす — stopień wyżej niż お〜する</h2><p>Złożenie dwóch rzeczy naraz: お〜する zniża własne działanie wobec tego, ku komu jest skierowane, a いたす dokłada uprzejmość wobec słuchacza. <ruby>敬語<rt>けいご</rt></ruby>の<ruby>指針<rt>ししん</rt></ruby> nazywa takie formy <ruby>謙譲語<rt>けんじょうご</rt></ruby>Ⅰ<ruby>兼<rt>けん</rt></ruby>Ⅱ. Stąd ich naturalne miejsce w obsłudze klienta i w korespondencji — w rozmowie prywatnej brzmią sztucznie.</p><p class="podtytul">Przykłady</p><ul class="przyklady"><li><span lang="ja"><ruby>資料<rt>しりょう</rt></ruby>をお<ruby>送<rt>おく</rt></ruby>りいたします。</span></li></ul></section><h2>Skąd ten materiał</h2><p>Wszystko powyżej pochodzi z darmowej części aplikacji Keigo i przeszło jej przegląd treści.</p><ul class="karty"><li class="karta"><img src="../../../assets/ikony/keigo.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../../../apps/keigo/">Keigo: Grzeczność japońska</a><span class="co">Japoński formalny do pracy</span></div></li></ul><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/id6808383597">App Store →</a><span class="znacznik">Aplikacja darmowa, z zakupem w środku</span></p><h2>Nauka japońskiego</h2><ul class="zwykla"><li><a href="../../../nauka/keigo/slowa/">← Poprzednia sekcja: Słowa czczące i skromne</a></li><li><a href="../../../nauka/keigo/">Keigo – japońska grzeczność w praktyce</a></li></ul></main>
+<footer>Jakub Dwojak · <a href="../../../o-autorze/">O autorze</a> · <a href="../../../co-dalej/">Co dalej</a> · <a href="../../../nauka/">Nauka japońskiego</a> · <a href="../../../dokumenty.html">Spis dokumentów</a> · <a href="mailto:keigo@jd-japanese.pl">keigo@jd-japanese.pl</a></footer>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polite patterns – keigo</title>
+<meta name="description" content="です/ます, お〜になる, 美化語 – eleven frames you lay over any word, each inside the sentence where it stands.">
+<link rel="canonical" href="https://jd-japanese.pl/en/learn/keigo/patterns/">
+<link rel="alternate" hreflang="en" href="https://jd-japanese.pl/en/learn/keigo/patterns/">
+<link rel="alternate" hreflang="pl" href="https://jd-japanese.pl/nauka/keigo/wzorce/">
+<link rel="alternate" hreflang="x-default" href="https://jd-japanese.pl/en/learn/keigo/patterns/">
+<meta property="og:title" content="Polite patterns – keigo">
+<meta property="og:description" content="です/ます, お〜になる, 美化語 – eleven frames you lay over any word, each inside the sentence where it stands.">
+<meta property="og:url" content="https://jd-japanese.pl/en/learn/keigo/patterns/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Japanese in separate apps">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pl_PL">
+<meta name="theme-color" content="#a34f5a">
+<link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
+<link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
+<meta property="og:image" content="https://jd-japanese.pl/assets/karty/keigo-en.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<style>
+:root { color-scheme: light dark; --tlo:#fff; --tekst:#1c1c1e; --cichy:#6b6b70;
+        --linia:#e3e3e6; --akcent:#a34f5a; --karta:#faf9f9; }
+@media (prefers-color-scheme: dark) {
+  :root { --tlo:#131315; --tekst:#ececef; --cichy:#9a9aa0; --linia:#2c2c30;
+          --akcent:#e08a94; --karta:#1b1b1e; }
+}
+* { box-sizing: border-box; }
+body { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
+       font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       color: var(--tekst); background: var(--tlo); }
+h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 .35rem; }
+h2 { font-size: 1.15rem; margin: 2.5rem 0 .75rem; }
+h3 { font-size: 1rem; margin: 1.75rem 0 .4rem; letter-spacing: .01em; }
+p { margin: .75rem 0; }
+a { color: var(--akcent); }
+.podtytul { color: var(--cichy); margin: 0 0 1rem; font-size: 1.05rem; }
+.lead { border-left: 3px solid var(--akcent); padding: .1rem 0 .1rem 1rem;
+        margin: 1.5rem 0; color: var(--tekst); }
+.gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
+        margin-bottom: 2rem; color: var(--cichy); }
+.gora a { text-decoration: none; }
+.do-tresci { position: absolute; left: -9999px; }
+.do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
+:focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
+footer { overflow-wrap: anywhere; }
+.gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
+.gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
+.szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
+.szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
+.jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
+.karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
+.karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
+         border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
+.karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+.karta { position: relative; }
+.karta .nazwa { font-weight: 600; }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
+   Gramatyka japońska", a nie cały akapit o problemie.
+   **Tylko tam, gdzie nazwa jest linkiem.** Karta aplikacji zapowiedzianej ma nazwę
+   w `<span>`, a selektor `.karta .nazwa` łapał i ją — więc kafelek bez dokąd pójścia
+   dostawał niewidzialny cel dotknięcia na całej powierzchni, identyczny z tym
+   w dziesięciu kartach nad nim. Zmierzone okiem 13.09.2026 na telefonie: ten sam
+   kształt, ten sam rozmiar celu, jedna reaguje, druga nie. §15 konwencji mówi o tym
+   wprost: co wygląda na dotykalne, musi być dotykalne. */
+a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
+.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
+.znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
+            border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
+            margin-left: .4rem; vertical-align: .1em; }
+/* Ikonki platform. Kolor z `currentColor` przez `--cichy`, więc tryb ciemny działa
+   bez osobnej reguły — i to jest jedyny powód, dla którego znak jest rysowany, a nie
+   wstawiony plikiem: `<img>` koloru nie dziedziczy i w ciemnym znika.
+   Rozmiar w `em`, żeby znak skalował się razem z tytułem karty, a nie obok niego.
+   Znak leży POD niewidzialną warstwą linku karty (`a.nazwa::after`) i nie dostaje
+   ani `position`, ani własnego odsyłacza — inaczej rozciąłby cel dotknięcia na dwa. */
+.platformy { display: inline-flex; gap: .3em; margin-left: .4rem;
+             vertical-align: .02em; color: var(--cichy); }
+.platforma { display: inline-flex; }
+.platformy svg { width: .85em; height: .85em; display: block; }
+/* Tekst wyłącznie dla czytnika ekranu — ten sam idiom, co skip-link wyżej, bez
+   reguły `:focus`, bo ten element nie jest ogniskowalny. */
+.czytnik { position: absolute; left: -9999px; }
+.sklep { display: block; margin: .35rem 0 1.25rem; font-weight: 600; }
+.nota { font-size: .8rem; margin-top: 2rem; }
+.przycisk { display: inline-block; background: var(--akcent); color: var(--tlo);
+            padding: .55rem 1.1rem; border-radius: 10px; text-decoration: none; }
+.spis-sekcji ul { list-style: none; padding: 0; margin: 0 0 1.75rem;
+                  display: flex; flex-wrap: wrap; gap: .35rem .9rem; font-size: .92rem; }
+.spis-sekcji li { margin: 0; }
+details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
+                  position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
+                         font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin: .6rem 0 .3rem; }
+.zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
+          padding-bottom: .5rem; scroll-snap-type: x mandatory; }
+.zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
+.zrzuty img { width: 210px; height: auto; border-radius: 14px;
+              border: 1px solid var(--linia); display: block; }
+.zrzuty figcaption { font-size: .85rem; color: var(--cichy); margin-top: .45rem;
+                     line-height: 1.4; }
+ul.zwykla { padding-left: 1.15rem; }
+ul.zwykla li { margin: .3rem 0; }
+/* Strony tematyczne. Pięć reguł i ani jednej więcej: hasło ma wyglądać jak
+   sekcja opisu sklepowego, a nie jak inny gatunek strony. Rubin dostaje własny
+   rozmiar, bo domyślny w Safari bywa większy niż linia tekstu wokół. */
+.haslo + .haslo { border-top: 1px solid var(--linia); padding-top: .5rem; }
+.haslo h2 { margin-top: 1.75rem; }
+.przyklady { padding-left: 0; list-style: none; margin: .4rem 0 1.25rem; }
+.przyklady li { margin: .6rem 0; }
+.przyklady .pelna { color: var(--cichy); }
+.przyklady .tlum { display: block; color: var(--cichy); font-size: .93rem; }
+ruby rt { font-size: .55em; color: var(--cichy); }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
+         font-size: .88rem; color: var(--cichy); }
+footer a { color: var(--akcent); }
+code { font-size: .9em; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "DefinedTermSet",
+      "name": "Polite patterns – keigo",
+      "description": "です/ます, お〜になる, 美化語 – eleven frames you lay over any word, each inside the sentence where it stands.",
+      "url": "https://jd-japanese.pl/en/learn/keigo/patterns/",
+      "inLanguage": "en",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "name": "行きます — ます raises the tone, not a person",
+          "description": "This is the zero point: everything keigo adds on top of the polite form itself is measured from 行[い]きます. ます says nothing about **who performs the action** — it singles nobody out; it lifts the tone of the whole utterance towards the person you are speaking to. That is why 行[い]きます works for yourself and for the listener alike — while 行[い]く without ます is not a grammatical mistake, only a sentence one tone lower. Forms that **single someone out** look different, and they come right after this one: you say いらっしゃいます when it is the listener who is going."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "学生です — です does what ます does, where there is no verb",
+          "description": "In an “X is Y” sentence です does exactly what ます does with a verb: **it raises the tone, not a person**. です/だ is the first place where politeness shows in a sentence with no verb — which is why 学生だ sounds wrong to someone you have only just met, even though it contains no form that raises anybody. The first place, but not the only one: でございます stands a step above it, and about a person you want to single out you say でいらっしゃいます."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "受付でございます — a step above です, still singles nobody out",
+          "description": "でございます is a more courteous です and **still singles nobody out**. That is why shops and reception desks reach for it when speaking about things, about places and about their **own side** — that is, themselves, their company and their premises: こちらが受付でございます, 山田でございます. でございます has a second half to it, and it matters just as much: **about a person you are singling out you do not say でございます** — there でいらっしゃいます takes over (田中様でいらっしゃいますか). About yourself it is the other way round and でございます stays: でいらっしゃいます would be singling yourself out."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "お〜になる — the other person's action",
+          "description": "The verb stem goes between お and になる. The pattern covers the action of the person being raised — never one's own."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "お〜する — one's own action towards someone",
+          "description": "The same verb stem as in お〜になる, only the other way round: there you raise someone else's action, here you lower your own, directed at someone you respect."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "ご〜になる — a Sino-Japanese stem",
+          "description": "The stem of this pattern is a Sino-Japanese noun (漢語[かんご]) that becomes an action with する: 利用[りよう]する, 説明[せつめい]する, 確認[かくにん]する. Such a stem usually takes ご — ご利用[りよう]になる, ご説明[せつめい]になる, ご確認[かくにん]になる. The exceptions sit in the word itself rather than in the pattern: a few long-settled 漢語[かんご] take お and keep it here as well — お電話[でんわ]になる, お約束[やくそく]になる. Those have to be learned one at a time."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "ご〜する — one's own action, Sino-Japanese stem",
+          "description": "The counterpart of お〜する for Sino-Japanese stems. Common in customer service: ご案内[あんない], ご連絡[れんらく], ご説明[せつめい]."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "お + a native word",
+          "description": "A native (和語[わご]) noun takes お: お名前[なまえ], お仕事[しごと], お荷物[にもつ]. That same お does three different things, and what decides is not the object but whose side the sentence raises. When the thing belongs to the person being raised — お名前[なまえ], the listener's name — it is 尊敬語[そんけいご], the honorific. When you speak of your own action directed at someone (お手紙[てがみ]を差[さ]し上[あ]げます), it is 謙譲語[けんじょうご]Ⅰ, the humble form. And when the word raises nobody and merely lifts the tone — お金[かね], お酒[さけ] — it is 美化[びか]語[ご]; お does not make the money belong to anyone."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "ご + a Sino-Japanese word",
+          "description": "A Sino-Japanese (漢語[かんご]) noun takes ご: ご連絡[れんらく], ご住所[じゅうしょ], ご意見[いけん]. The rule has exceptions to be learned separately: お電話[でんわ], お時間[じかん], お食事[しょくじ]."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "お茶[ちゃ] — beautifying the word itself",
+          "description": "Here お raises nobody and lowers nobody. It raises the word itself — which is why the official guidelines 敬語[けいご]の指針[ししん] (Keigo no shishin) give it a category of its own, 美化[びか]語[ご], “beautification”, while textbooks fold it into the polite forms 丁寧[ていねい]語[ご]."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "お〜いたす — one step above お〜する",
+          "description": "Two things at once: お〜する lowers one's own action towards the person it is directed at, and いたす adds courtesy towards the listener. 敬語[けいご]の指針[ししん] calls such forms 謙譲語[けんじょうご]Ⅰ兼[けん]Ⅱ. Hence their natural place in customer service and correspondence; in private talk they sound artificial."
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Japanese in separate apps",
+          "item": "https://jd-japanese.pl/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Learning Japanese",
+          "item": "https://jd-japanese.pl/en/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Keigo – Japanese politeness in practice",
+          "item": "https://jd-japanese.pl/en/learn/keigo/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Polite patterns – keigo",
+          "item": "https://jd-japanese.pl/en/learn/keigo/patterns/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="do-tresci" href="#tresc">Skip to content</a>
+<nav class="gora" aria-label="Site"><span><a class="znak" href="../../../../en/" aria-hidden="true" tabindex="-1"><img src="../../../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../../../en/learn/keigo/">← keigo</a></span><span><a href="https://jd-japanese.pl/nauka/keigo/wzorce/">Polski</a></span></nav>
+<main id="tresc"><div class="szyld"><img src="../../../../assets/ikony/keigo.webp" alt="" width="72" height="72"><div><h1>Polite patterns – keigo</h1><p class="podtytul">です/ます, お〜になる, 美化語 – eleven frames you lay over any word, each inside the sentence where it stands.</p></div></div><nav aria-label="On this page"><ul class="zwykla"><li><a href="#l1-pat-masu">行きます — ます raises the tone, not a person</a></li><li><a href="#l1-pat-desu">学生です — です does what ます does, where there is no verb</a></li><li><a href="#l1-pat-degozaimasu">受付でございます — a step above です, still singles nobody out</a></li><li><a href="#l3-pat-oninaru">お〜になる — the other person's action</a></li><li><a href="#l3-pat-osuru">お〜する — one's own action towards someone</a></li><li><a href="#l3-pat-goriyou">ご〜になる — a Sino-Japanese stem</a></li><li><a href="#l3-pat-goannai">ご〜する — one's own action, Sino-Japanese stem</a></li><li><a href="#l3-pat-onamae">お + a native word</a></li><li><a href="#l3-pat-gorenraku">ご + a Sino-Japanese word</a></li><li><a href="#l3-pat-ocha">お<ruby>茶<rt>ちゃ</rt></ruby> — beautifying the word itself</a></li><li><a href="#l3-pat-ooitasu">お〜いたす — one step above お〜する</a></li></ul></nav><section class="haslo"><h2 id="l1-pat-masu">行きます — ます raises the tone, not a person</h2><p>This is the zero point: everything keigo adds on top of the polite form itself is measured from <ruby>行<rt>い</rt></ruby>きます. ます says nothing about **who performs the action** — it singles nobody out; it lifts the tone of the whole utterance towards the person you are speaking to. That is why <ruby>行<rt>い</rt></ruby>きます works for yourself and for the listener alike — while <ruby>行<rt>い</rt></ruby>く without ます is not a grammatical mistake, only a sentence one tone lower. Forms that **single someone out** look different, and they come right after this one: you say いらっしゃいます when it is the listener who is going.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>明日<rt>あした</rt></ruby>は<ruby>九時<rt>くじ</rt></ruby>に<ruby>行<rt>い</rt></ruby>きます。</span></li></ul></section><section class="haslo"><h2 id="l1-pat-desu">学生です — です does what ます does, where there is no verb</h2><p>In an “X is Y” sentence です does exactly what ます does with a verb: **it raises the tone, not a person**. です/だ is the first place where politeness shows in a sentence with no verb — which is why 学生だ sounds wrong to someone you have only just met, even though it contains no form that raises anybody. The first place, but not the only one: でございます stands a step above it, and about a person you want to single out you say でいらっしゃいます.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>田中<rt>たなか</rt></ruby>さんは<ruby>学生<rt>がくせい</rt></ruby>ですか。</span></li></ul></section><section class="haslo"><h2 id="l1-pat-degozaimasu">受付でございます — a step above です, still singles nobody out</h2><p>でございます is a more courteous です and **still singles nobody out**. That is why shops and reception desks reach for it when speaking about things, about places and about their **own side** — that is, themselves, their company and their premises: こちらが受付でございます, 山田でございます. でございます has a second half to it, and it matters just as much: **about a person you are singling out you do not say でございます** — there でいらっしゃいます takes over (田中様でいらっしゃいますか). About yourself it is the other way round and でございます stays: でいらっしゃいます would be singling yourself out.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">こちらが<ruby>受付<rt>うけつけ</rt></ruby>でございます。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-oninaru">お〜になる — the other person's action</h2><p>The verb stem goes between お and になる. The pattern covers the action of the person being raised — never one's own.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">もうお<ruby>読<rt>よ</rt></ruby>みになりますか。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-osuru">お〜する — one's own action towards someone</h2><p>The same verb stem as in お〜になる, only the other way round: there you raise someone else's action, here you lower your own, directed at someone you respect.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>荷物<rt>にもつ</rt></ruby>をお<ruby>持<rt>も</rt></ruby>ちします。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-goriyou">ご〜になる — a Sino-Japanese stem</h2><p>The stem of this pattern is a Sino-Japanese noun (<ruby>漢語<rt>かんご</rt></ruby>) that becomes an action with する: <ruby>利用<rt>りよう</rt></ruby>する, <ruby>説明<rt>せつめい</rt></ruby>する, <ruby>確認<rt>かくにん</rt></ruby>する. Such a stem usually takes ご — ご<ruby>利用<rt>りよう</rt></ruby>になる, ご<ruby>説明<rt>せつめい</rt></ruby>になる, ご<ruby>確認<rt>かくにん</rt></ruby>になる. The exceptions sit in the word itself rather than in the pattern: a few long-settled <ruby>漢語<rt>かんご</rt></ruby> take お and keep it here as well — お<ruby>電話<rt>でんわ</rt></ruby>になる, お<ruby>約束<rt>やくそく</rt></ruby>になる. Those have to be learned one at a time.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">こちらをご<ruby>利用<rt>りよう</rt></ruby>になりますか。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-goannai">ご〜する — one's own action, Sino-Japanese stem</h2><p>The counterpart of お〜する for Sino-Japanese stems. Common in customer service: ご<ruby>案内<rt>あんない</rt></ruby>, ご<ruby>連絡<rt>れんらく</rt></ruby>, ご<ruby>説明<rt>せつめい</rt></ruby>.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>会場<rt>かいじょう</rt></ruby>までご<ruby>案内<rt>あんない</rt></ruby>します。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-onamae">お + a native word</h2><p>A native (<ruby>和語<rt>わご</rt></ruby>) noun takes お: お<ruby>名前<rt>なまえ</rt></ruby>, お<ruby>仕事<rt>しごと</rt></ruby>, お<ruby>荷物<rt>にもつ</rt></ruby>. That same お does three different things, and what decides is not the object but whose side the sentence raises. When the thing belongs to the person being raised — お<ruby>名前<rt>なまえ</rt></ruby>, the listener's name — it is <ruby>尊敬語<rt>そんけいご</rt></ruby>, the honorific. When you speak of your own action directed at someone (お<ruby>手紙<rt>てがみ</rt></ruby>を<ruby>差<rt>さ</rt></ruby>し<ruby>上<rt>あ</rt></ruby>げます), it is <ruby>謙譲語<rt>けんじょうご</rt></ruby>Ⅰ, the humble form. And when the word raises nobody and merely lifts the tone — お<ruby>金<rt>かね</rt></ruby>, お<ruby>酒<rt>さけ</rt></ruby> — it is <ruby>美化<rt>びか</rt></ruby><ruby>語<rt>ご</rt></ruby>; お does not make the money belong to anyone.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">お<ruby>名前<rt>なまえ</rt></ruby>をお<ruby>願<rt>ねが</rt></ruby>いします。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-gorenraku">ご + a Sino-Japanese word</h2><p>A Sino-Japanese (<ruby>漢語<rt>かんご</rt></ruby>) noun takes ご: ご<ruby>連絡<rt>れんらく</rt></ruby>, ご<ruby>住所<rt>じゅうしょ</rt></ruby>, ご<ruby>意見<rt>いけん</rt></ruby>. The rule has exceptions to be learned separately: お<ruby>電話<rt>でんわ</rt></ruby>, お<ruby>時間<rt>じかん</rt></ruby>, お<ruby>食事<rt>しょくじ</rt></ruby>.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">ご<ruby>連絡<rt>れんらく</rt></ruby>をお<ruby>待<rt>ま</rt></ruby>ちしております。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-ocha">お<ruby>茶<rt>ちゃ</rt></ruby> — beautifying the word itself</h2><p>Here お raises nobody and lowers nobody. It raises the word itself — which is why the official guidelines <ruby>敬語<rt>けいご</rt></ruby>の<ruby>指針<rt>ししん</rt></ruby> (Keigo no shishin) give it a category of its own, <ruby>美化<rt>びか</rt></ruby><ruby>語<rt>ご</rt></ruby>, “beautification”, while textbooks fold it into the polite forms <ruby>丁寧<rt>ていねい</rt></ruby><ruby>語<rt>ご</rt></ruby>.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">お<ruby>茶<rt>ちゃ</rt></ruby>をどうぞ。</span></li></ul></section><section class="haslo"><h2 id="l3-pat-ooitasu">お〜いたす — one step above お〜する</h2><p>Two things at once: お〜する lowers one's own action towards the person it is directed at, and いたす adds courtesy towards the listener. <ruby>敬語<rt>けいご</rt></ruby>の<ruby>指針<rt>ししん</rt></ruby> calls such forms <ruby>謙譲語<rt>けんじょうご</rt></ruby>Ⅰ<ruby>兼<rt>けん</rt></ruby>Ⅱ. Hence their natural place in customer service and correspondence; in private talk they sound artificial.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>資料<rt>しりょう</rt></ruby>をお<ruby>送<rt>おく</rt></ruby>りいたします。</span></li></ul></section><h2>Where this comes from</h2><p>Everything above comes from the free part of the Keigo app and has passed its content review.</p><ul class="karty"><li class="karta"><img src="../../../../assets/ikony/keigo.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../../../../en/apps/keigo/">Keigo: Polite Japanese</a><span class="co">Formal Japanese for work</span></div></li></ul><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/id6808383597">App Store →</a><span class="znacznik">Free app with an in-app purchase</span></p><h2>Learning Japanese</h2><ul class="zwykla"><li><a href="../../../../en/learn/keigo/words/">← Previous section: Honorific and humble words</a></li><li><a href="../../../../en/learn/keigo/">Keigo – Japanese politeness in practice</a></li></ul></main>
+<footer>Jakub Dwojak · <a href="../../../../en/about/">About</a> · <a href="../../../../en/whats-next/">What is next</a> · <a href="../../../../en/learn/">Learning Japanese</a> · <a href="../../../../en/documents.html">Document index</a> · <a href="mailto:keigo@jd-japanese.pl">keigo@jd-japanese.pl</a></footer>
+</body>
+</html>

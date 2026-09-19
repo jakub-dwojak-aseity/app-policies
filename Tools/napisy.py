@@ -247,7 +247,7 @@ NAPISY = {
         "grupa_voicing_opis": "〜でいる → 〜でる i dwa inne skróty po dźwięcznym 〜で – ten sam mechanizm co przy 〜ている, tylko po 濁点.",
         "grupa_layered_opis": "なければならない → なきゃ – cztery powinności ścinane dwa razy, aż z całego zdania zostaje jedno słowo.",
         "grupa_omission_opis": "ないといけない → ないと – trzy formy, w których druga połowa zdania po prostu nie pada, a znaczenie zostaje.",
-        "grupa_relation_opis": "Pierwszy dzień w pracy, kelner, wykładowca, telefon w firmie – czternaście sytuacji i forma, której każda z nich wymaga.",
+        "grupa_pattern_opis": "です/ます, お〜になる, 美化語 – jedenaście ram, które nakłada się na dowolne słowo, każda ze zdaniem, w którym stoi.",
         "grupa_lexeme_opis": "いらっしゃる, 召し上がる, 伺う – dwadzieścia słów czczących i skromnych, każde z czasownikiem zwykłym obok i zdaniem, w którym stoi.",
         "grupa_n5.g1.particles_opis": "は, が, を, に, で, と, も, の, か – piętnaście ról partykuł, z których składa się zwykłe japońskie zdanie.",
         "grupa_n5.g2.time-place_opis": "に, から〜まで, ごろ, ぐらい, へ, あります i います – dziewięć punktów o tym, kiedy, gdzie i czy coś w ogóle jest.",
@@ -256,7 +256,11 @@ NAPISY = {
         "grupa_n5.g5.adjectives_opis": "い形容詞 i な形容詞, 〜くないです, 〜より, いちばん – siedem punktów o odmianie przymiotnika i o porównywaniu.",
         "grupa_n5.g6.wishes_opis": "〜たい, 〜がほしい, 〜ませんか, 〜ましょう – sześć form, którymi mówi się, czego się chce i do czego się zaprasza.",
         "grupa_n5.g7.tone_opis": "から, あまり〜ない, ぜんぜん〜ない, ね, よ – pięć punktów o powodzie, natężeniu i o tym, co partykuła końcowa robi z tonem.",
-        "grupa_relation": "Sytuacje",
+        "grupa_pattern": "Wzorce grzecznościowe",
+        # Strona zdjętego adresu (`PRZEKIEROWANIA`). Tytuł mówi, co się stało,
+        # a nie „404" – bo adres nie zniknął, tylko treść przeniosła się wyżej.
+        "przeniesione_tytul": "Ta strona się przeniosła",
+        "przeniesione_opis": "Materiał spod tego adresu jest teraz częścią strony wyżej. Za chwilę przeniesiemy cię tam sami.",
         "grupa_lexeme": "Słowa czczące i skromne",
         "grupa_contraction": "Ściągnięcia",
         "grupa_fusion": "Zlania",
@@ -291,8 +295,8 @@ NAPISY = {
         "temat_potoczny_opis": "Skróty, które słychać na co dzień, każdy obok pełnej formy, "
                                "z której powstał.",
         "temat_keigo_tytul": "Keigo – japońska grzeczność w praktyce",
-        "temat_keigo_opis": "Sytuacje z pracy oraz formy czczące i skromne – co powiedzieć "
-                            "i dlaczego akurat to.",
+        "temat_keigo_opis": "Formy czczące i skromne oraz wzorce, które nakłada się na dowolne "
+                            "słowo – co powiedzieć i dlaczego akurat to.",
     },
     "en": {
         "html_lang": "en",
@@ -462,7 +466,7 @@ NAPISY = {
         "grupa_voicing_opis": "〜でいる → 〜でる and two more contractions after a voiced 〜で – the same mechanism as 〜ている, only past the 濁点.",
         "grupa_layered_opis": "なければならない → なきゃ – four obligations cut twice over, until a whole clause is one word.",
         "grupa_omission_opis": "ないといけない → ないと – three forms where the second half of the sentence is simply never said, and the meaning stays.",
-        "grupa_relation_opis": "First day at work, a waiter, a professor, the office phone – fourteen situations and the form each of them asks for.",
+        "grupa_pattern_opis": "です/ます, お〜になる, 美化語 – eleven frames you lay over any word, each inside the sentence where it stands.",
         "grupa_lexeme_opis": "いらっしゃる, 召し上がる, 伺う – twenty honorific and humble words, each beside its plain verb and inside a sentence.",
         "grupa_n5.g1.particles_opis": "は, が, を, に, で, と, も, の, か – fifteen particle roles that an ordinary Japanese sentence is built from.",
         "grupa_n5.g2.time-place_opis": "に, から〜まで, ごろ, ぐらい, へ, あります and います – nine points about when, where, and whether something is there at all.",
@@ -471,7 +475,9 @@ NAPISY = {
         "grupa_n5.g5.adjectives_opis": "い and な adjectives, 〜くないです, 〜より, いちばん – seven points on adjective inflection and on comparing things.",
         "grupa_n5.g6.wishes_opis": "〜たい, 〜がほしい, 〜ませんか, 〜ましょう – six forms for saying what you want and for inviting someone along.",
         "grupa_n5.g7.tone_opis": "から, あまり〜ない, ぜんぜん〜ない, ね, よ – five points on reason, degree, and what a final particle does to the tone.",
-        "grupa_relation": "Situations",
+        "grupa_pattern": "Polite patterns",
+        "przeniesione_tytul": "This page has moved",
+        "przeniesione_opis": "The material from this address is now part of the page above it. We are taking you there.",
         "grupa_lexeme": "Honorific and humble words",
         "grupa_contraction": "Contractions",
         "grupa_fusion": "Fusions",
@@ -503,7 +509,7 @@ NAPISY = {
         "temat_potoczny_opis": "The contractions you hear every day, each next to the full "
                                "form it came from.",
         "temat_keigo_tytul": "Keigo – Japanese politeness in practice",
-        "temat_keigo_opis": "Situations from working life and the honorific and humble forms "
+        "temat_keigo_opis": "Honorific and humble forms and the frames you lay over any word "
                             "– what to say and why that one.",
         "do_tresci": "Skip to content",
         "nawigacja": "Site",

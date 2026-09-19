@@ -1456,14 +1456,33 @@ def tematy_zywe(apki, eksporty):
 CZYTANIE = re.compile(r"([一-鿿々]+)\[([^\]]+)\]")
 
 
+WYROZNIENIE = re.compile(r"\*\*([^*]+)\*\*")
+
+
 def ruby_html(tekst: str) -> str:
-    """Notacja czytań → `<ruby>`. Bez notacji zwraca tekst bez zmian.
+    """Notacja katalogu → HTML: czytania na `<ruby>`, wyróżnienia na `<strong>`.
 
     Escape idzie **przed** podmianą, nie po: inaczej znaczniki, które ta funkcja
-    dokłada, same zostałyby zescape'owane. Nawiasy kwadratowe nie są dla HTML-a
-    znakami szczególnymi, więc kolejność jest bezpieczna.
+    dokłada, same zostałyby zescape'owane. Ani nawiasy kwadratowe, ani gwiazdki
+    nie są dla HTML-a znakami szczególnymi, więc kolejność jest bezpieczna.
+
+    **Wyróżnienia dopisane 19.09.2026, na wytworze, nie z zamiaru.** Katalogi
+    sióstr niosą w prozie `**tak**`, a aplikacja to renderuje — `JapaneseProse`
+    ma `run.isBold` i składa te fragmenty półgrubą. Witryna drukowała gwiazdki
+    dosłownie: *„nie mówi nic o tym, ..kto wykonuje czynność.."* — z gwiazdkami
+    zamiast półgrubej.
+
+    **Zasięg zmierzony na `<main>` opublikowanych stron: 33 miejsca na pięciu,
+    wszystkie Keigo** — bo tylko jego katalog używa dziś wyróżnień. Dwie z tych
+    stron powstały w tej samej turze ([poz. 376]), dwie stały tak wcześniej.
+    Reszta rodziny nie drgnie: bez gwiazdek ta podmiana jest tożsamością.
+
+    Zagnieżdżeń nie obsługujemy i nie ma po co — `[^*]+` odmawia wtedy dopasowania,
+    więc tekst zostaje dosłowny, czyli tak jak dziś. Lepsze to niż `<strong>`
+    wstawiony w połowie wyrażenia, którego nikt nie zamierzał wyróżniać.
     """
-    return CZYTANIE.sub(r"<ruby>\1<rt>\2</rt></ruby>", e(tekst))
+    return WYROZNIENIE.sub(r"<strong>\1</strong>",
+                           CZYTANIE.sub(r"<ruby>\1<rt>\2</rt></ruby>", e(tekst)))
 
 
 def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):

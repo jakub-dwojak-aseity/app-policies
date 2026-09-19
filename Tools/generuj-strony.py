@@ -1459,6 +1459,25 @@ CZYTANIE = re.compile(r"([一-鿿々]+)\[([^\]]+)\]")
 WYROZNIENIE = re.compile(r"\*\*([^*]+)\*\*")
 
 
+def tekst_prosty(tekst: str) -> str:
+    """Notacja katalogu → czysty tekst, dla pól, które nie unoszą znaczników.
+
+    `ruby_html` jest dla HTML-a; to jest dla JSON-LD, `<meta>` i wszystkiego,
+    co trafia do wyszukiwarki jako **goły tekst**. Dopisane 19.09.2026, bo
+    schema.org dostawał notację zamiast treści: `行[い]きます` i `**tak**`.
+
+    **Czytania zostają — zmieniają tylko zapis na taki, jakiego używa się poza
+    tym repozytorium.** Rozstrzygnięcie Jakuba: *„furigana to furigana i powinna
+    byc normalnie"*. W polu bez znaczników normalnym zapisem są **nawiasy**
+    (`行（い）きます`), pełnej szerokości, bo tekst wokół jest japoński. Zdjęcie
+    czytań byłoby tu stratą treści, nie sprzątaniem: przy pytaniu „jak się to
+    czyta" czytanie JEST odpowiedzią, a to pole jako jedyne czyta model językowy.
+
+    Wyróżnienia schodzą bez śladu — w gołym tekście nie znaczą nic.
+    """
+    return CZYTANIE.sub("\\1（\\2）", WYROZNIENIE.sub(r"\1", tekst))
+
+
 def ruby_html(tekst: str) -> str:
     """Notacja katalogu → HTML: czytania na `<ruby>`, wyróżnienia na `<strong>`.
 
@@ -1773,9 +1792,12 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
                 "hasDefinedTerm": [
                     {
                         "@type": "DefinedTerm",
-                        "name": j.get("termin") or j["nazwa"][jezyk],
-                        "description": (j["glosa"][jezyk]
-                                        or j["wyjasnienie"][jezyk].split("\n\n")[0]),
+                        # `tekst_prosty`, nie surowe pole: to jedzie do
+                        # wyszukiwarki jako goły tekst, a notacja katalogu
+                        # nie jest treścią — patrz [poz. 384].
+                        "name": tekst_prosty(j.get("termin") or j["nazwa"][jezyk]),
+                        "description": tekst_prosty(j["glosa"][jezyk]
+                                       or j["wyjasnienie"][jezyk].split("\n\n")[0]),
                     }
                     for j in moje
                 ],
@@ -1849,7 +1871,11 @@ def rozdroze_tematu(temat, a, eksport, jezyk, manifest):
         karty.append(
             f'<li class="karta"><img src="{ikona}" alt="" width="52" height="52">'
             f'<div><a class="nazwa" href="{cel}">{e(nazwa)}</a>'
-            f'<span class="co" lang="ja">{e(podpis)}</span></div></li>')
+            # `ruby_html`, nie `e` — to jedyne miejsce rozdroża, gdzie stoi
+            # tekst Z KATALOGU, więc jedyne, które może nieść czytania.
+            # Zgłoszenie Jakuba 19.09.2026: na karcie „Słowa" stało
+            # `ご覧[らん]になる` z nawiasami kwadratowymi.
+            f'<span class="co" lang="ja">{ruby_html(podpis)}</span></div></li>')
 
     tresc = (f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
              f'<div><h1>{e(tytul)}</h1>'

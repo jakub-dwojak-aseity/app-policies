@@ -2462,6 +2462,37 @@ def do_webp(zrodlo: Path, cel: Path, dluzszy_bok: int):
     posrednie.unlink()
 
 
+def kadry_z_manifestu(repo: Path) -> list[str] | None:
+    """Identyfikatory kadrów **w kolejności z `screenshots.json`** albo `None`.
+
+    **Źródłem listy kadrów jest manifest, nie listing katalogu** — i to jest cała
+    ta funkcja. `podpisy_kadrow` tuż wyżej mówi o tym wprost („klucz to identyfikator
+    kadru, a nie jego pozycja na liście"), ale galeria brała `sorted(glob("*.png"))`,
+    więc **plik, którego w manifeście nie ma, i tak wchodził na stronę**.
+
+    Zmierzone 21.09.2026 na Kifuku: tura 1.4.0 wstawiła kadr `03-grupa`
+    i przenumerowała siedem następnych, a stare PNG **zostały w katalogu obok nowych**
+    (17 plików przy 10 w manifeście, w obu językach). `sorted()` wybierał wtedy
+    `03-karta` przed `04-karta`, czyli **sierotę zamiast kadru**, a bramka podpisów
+    czerwieniła się na plik, którego manifest nie zna — i **blokowała cały generator**,
+    bo błędy zatrzymują zapis.
+
+    Pętla sprzątająca niżej ([poz. 279], Keigo 16.09.2026) usuwała sieroty **po stronie
+    celu**, czyli gotowe `.webp`. Źródła nie tykała i tykać nie może: to cudze repo.
+    Jedyne miejsce, w którym da się to rozstrzygnąć bez kasowania cudzych plików, jest
+    tutaj — **pytamy manifest, co jest kadrem**.
+    """
+    plik = repo / "docs" / "app-store" / "screenshots.json"
+    if not plik.exists():
+        return None
+    try:
+        shots = json.loads(plik.read_text(encoding="utf-8")).get("shots", [])
+    except (json.JSONDecodeError, OSError):
+        return None
+    ident = [s.get("id") for s in shots if s.get("id")]
+    return ident or None
+
+
 def podpisy_kadrow(repo: Path, jezyk: str, ref: str | None = None) -> dict:
     """Podpisy kadrów z `docs/app-store/screenshots.json` — po identyfikatorze kadru.
 
@@ -2540,7 +2571,15 @@ def importuj_zrzuty(apki, manifest, zapisuj):
             if not zrodlo.exists():
                 brakujace.append(f"{a['slug']} {jezyk}")
                 continue
-            kadry = sorted(zrodlo.glob("*.png"))[:ZRZUTOW_NA_STRONE]
+            # Lista kadrów pochodzi z MANIFESTU, nie z listingu katalogu — patrz
+            # `kadry_z_manifestu`. Bez manifestu wracamy do dawnego zachowania,
+            # żeby repo bez `screenshots.json` nie przestało nagle generować stron.
+            ident = kadry_z_manifestu(repo)
+            if ident is None:
+                kadry = sorted(zrodlo.glob("*.png"))[:ZRZUTOW_NA_STRONE]
+            else:
+                kadry = [zrodlo / f"{i}.png" for i in ident]
+                kadry = [k for k in kadry if k.exists()][:ZRZUTOW_NA_STRONE]
             cel_katalog = katalog / a["slug"] / jezyk
             # Sprzątanie po ZMIANIE NUMERACJI, a nie po zmianie pliku — i to jest
             # cała ta pętla. Kadry mają w nazwie pozycję (`03-dlaczego`), więc

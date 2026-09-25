@@ -43,14 +43,14 @@
 <p>Kuzushi teaches you to recognize casual spoken Japanese — to hear
 <span lang="ja">食べちゃった</span> and know it is <span lang="ja">食べてしまった</span>.
 <strong>All of the learning — levels, practice and progress — happens on your device and works
-offline.</strong> Version 1.5 adds one optional feature, the <strong>“AI”</strong> tab with AI help,
+offline.</strong> Version 1.5 adds one optional feature, the <strong>“Sentences”</strong> tab with an “AI” badge,
 which is the only thing that sends anything off the phone. This policy describes what the app
 actually does in version 1.5.</p>
 
-<div class="note"><strong>Short version:</strong> no account, no analytics, no advertising. The “AI”
+<div class="note"><strong>Short version:</strong> no account, no analytics, no advertising. The “Sentences”
 tab is the only feature that connects to our server — apart from purchases, which go through the App
 Store. It sends the line or sentence you type into it and the language the answer should come back
-in. The server does not store the text of your line; your list of lines and results stays on your
+in. The server does not store the text of your line; your lists of lines and results stay on your
 device only.</div>
 
 <h2>Your account</h2>
@@ -62,16 +62,16 @@ email address, and it has no way to identify you.</p>
 <strong>on your device only</strong> and never leave it. If you export a backup (<em>Settings → Data
 → Export progress</em>), the resulting file is yours — it is written wherever you choose to save it,
 and the app does not upload it.</p>
-<p>What you type in the “AI” tab, and the answer that comes back, <strong>do not feed your progress
-or your practice</strong>. The app keeps your lines and their latest results in a list in that tab —
+<p>What you type in the “Sentences” tab, and the answer that comes back, <strong>do not feed your progress
+or your practice</strong>. The app keeps your lines and their latest results in that tab, in two lists, one per mode —
 <strong>on your device only</strong>, in a separate file that it never sends anywhere and that is
-not part of the progress export. You delete them in the “AI” tab, one at a time or all at once; they
-also go when you delete the app. “Reset all progress” in Settings does not touch this list — the two
+not part of the progress export. You delete them in the “Sentences” tab, one at a time or all at once, from both lists; they
+also go when you delete the app. “Reset all progress” in Settings does not touch these lists — the two
 are separate things.</p>
 <p>You can also <strong>scan a line from a photo</strong> (with the camera or from your photo
 library) — from subtitles, a page or a speech bubble, for example. The text is recognized
 <strong>on the phone</strong>; the photo is never saved or sent anywhere — only the text you pick
-and correct goes into the field, and it reaches the server only when you tap <em>Break down</em> or
+and correct goes into the field, and it reaches the server only when you tap <em>Show full form</em> or
 <em>Show levels</em>. The app asks for camera access the first time you take a photo; the photo
 library opens through the system picker, which gives the app only the photo you choose.</p>
 
@@ -85,7 +85,7 @@ many sessions you have done, one sentence about your weakest spot (in Polish and
 whether today's goal is already met. The field for your next reviews is <strong>always left
 empty</strong> by Kuzushi, because it does not schedule reviews by date. Plus three technical ones:
 which app wrote the file, in what format, and when. <strong>Nothing else.</strong> There is no answer
-history, no list of the patterns you practiced and nothing you type in the “AI” tab, and your
+history, no list of the patterns you practiced and nothing you type in the “Sentences” tab, and your
 progress cannot be reconstructed from this file.</p>
 <p>The file <strong>never leaves your device</strong>, and it is read only by the other apps in this
 family that you have installed on that same device. Nothing syncs between devices.</p>
@@ -105,23 +105,25 @@ exactly as before.</p>
 identifier (IDFA) in the app. The app does not sell or share any data.</p>
 
 <h2>Network connections</h2>
-<p>Outside the “AI” tab the app makes no network connections of its own; traffic for purchases and
+<p>Outside the “Sentences” tab the app makes no network connections of its own; traffic for purchases and
 restoring purchases is handled by iOS and the App Store. The app talks to our server only for AI
-help, and only at these moments: when you open the “AI” tab, a line from the list, the subscription
-screen or Settings (to show how many requests are left); when you tap <em>Break down</em> or
+help, and only at these moments: when you open the “Sentences” tab, a line from either list, the subscription
+screen or Settings (to show how many requests are left); when you tap <em>Show full form</em> or
 <em>Show levels</em>, and straight afterwards, to refresh that number; when you tap <em>Try
 again</em>; and after you buy the subscription or restore purchases (so the server learns about the
 subscription). Never in the background and never on a timer. The text of a line is sent only when
-you tap <em>Break down</em> or <em>Show levels</em>.</p>
-<p>On a device that does not support Apple's App Attest, there is no “AI” tab and the app does not
+you tap <em>Show full form</em> or <em>Show levels</em>.</p>
+<p>On a device that does not support Apple's App Attest, there is no “Sentences” tab and the app does not
 connect to our server at all.</p>
 
-<h2>The “AI” tab — the only feature that sends data</h2>
-<p>The “AI” tab is <strong>optional</strong>. Without it the app teaches and tracks progress exactly
-the same way. It has two functions: <strong>“Break down a line”</strong> — a line you heard, say in an
-anime or a drama, comes back as the textbook sentence with each change named — and <strong>“Make it
-casual”</strong> — your own sentence comes back at levels 1, 3 and 5 of this app.</p>
-<p>When you tap <em>Break down</em> or <em>Show levels</em>, we send two things to our server at
+<h2>The “Sentences” tab — the only feature that sends data</h2>
+<p>The “Sentences” tab is <strong>optional</strong>. Without it the app teaches and tracks progress exactly
+the same way. It has two modes, each with its own list: <strong>“Full form”</strong> — a line you heard, say in
+an anime or a drama, comes back in full form, without contractions, with each contraction named — and
+<strong>“As spoken”</strong> — your own sentence in full form comes back the way it is shortened in
+speech, at levels 1, 3 and 5 of this app. Politeness stays as it was: this is not a rendering into
+the plain form.</p>
+<p>When you tap <em>Show full form</em> or <em>Show levels</em>, we send two things to our server at
 <code>api.jd-japanese.pl</code>: <strong>the line or sentence you typed</strong> (at most 120
 characters) and the language the answer should come back in (Polish or English, following the
 interface language). The server passes them to a language model from <strong>OpenAI</strong>, and
@@ -174,7 +176,7 @@ used only to reply.</p>
 
 <h2>Children</h2>
 <p>The app collects no data that could identify anyone, of any age: there is no account and it does
-not ask for a name, age or address. For the “AI” tab we keep only the technical identifiers and
+not ask for a name, age or address. For the “Sentences” tab we keep only the technical identifiers and
 counters described above.</p>
 
 <h2>Changes</h2>

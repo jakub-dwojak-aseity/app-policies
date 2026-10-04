@@ -133,7 +133,7 @@ z metadanych w repo: te dwa źródła potrafią się rozjechać i już się rozj
 | Shindan: Poziom japońskiego 診断 | [pl](https://jd-japanese.pl/apps/shindan/) · [en](https://jd-japanese.pl/en/apps/shindan/) | [pl](https://jd-japanese.pl/shindan/1.0/privacy.html) · [en](https://jd-japanese.pl/shindan/1.0/en/privacy.html) |
 | Keigo: Grzeczność japońska 敬語 | [pl](https://jd-japanese.pl/apps/keigo/) · [en](https://jd-japanese.pl/en/apps/keigo/) | [pl](https://jd-japanese.pl/keigo/1.0/privacy.html) · [en](https://jd-japanese.pl/keigo/1.0/en/privacy.html) |
 | Kifuku: Akcent japoński 起伏 | [pl](https://jd-japanese.pl/apps/kifuku/) · [en](https://jd-japanese.pl/en/apps/kifuku/) | [pl](https://jd-japanese.pl/kifuku/1.0/privacy.html) · [en](https://jd-japanese.pl/kifuku/1.0/en/privacy.html) |
-| Onomatope: Dźwięki i wyrażenia オノマトペ | [pl](https://jd-japanese.pl/apps/onomatope/) · [en](https://jd-japanese.pl/en/apps/onomatope/) | [pl](https://jd-japanese.pl/onomatope/1.0/privacy.html) · [en](https://jd-japanese.pl/onomatope/1.0/en/privacy.html) |
+| Onomatope: Dźwięki i wyrażenia オノマトペ | [pl](https://jd-japanese.pl/apps/onomatope/) · [en](https://jd-japanese.pl/en/apps/onomatope/) | [pl](https://jd-japanese.pl/onomatope/1.6/privacy.html) · [en](https://jd-japanese.pl/onomatope/1.6/en/privacy.html) |
 | SpoolCalc – kalkulator pojemności szpuli | – | [en](https://jd-japanese.pl/spoolcalc/privacy.html) |
 
 Mapa rodziny: [pl](https://jd-japanese.pl/) · [en](https://jd-japanese.pl/en/). Spis dokumentów: [pl](https://jd-japanese.pl/dokumenty.html) · [en](https://jd-japanese.pl/en/documents.html).

@@ -235,15 +235,15 @@
       "repo": "kuzushi-ios",
       "zrodlo": "md",
       "dokumenty": {
-        "pl": "kuzushi/pl",
-        "en": "kuzushi"
+        "pl": "kuzushi/1.5",
+        "en": "kuzushi/1.5/en"
       },
       "kontakt": "kuzushi@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
       "wSklepie": true,
       "kolejnosc": 6,
       "adresHistoryczny": "kuzushi/index.html",
-      "wersja": "1.4.0"
+      "wersja": "1.5.0"
     },
     {
       "slug": "shindan",

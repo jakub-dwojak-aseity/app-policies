@@ -178,7 +178,7 @@
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 2,
-      "wersja": "1.4.0"
+      "wersja": "1.5.0"
     },
     {
       "slug": "katsuyokei",
@@ -203,14 +203,14 @@
       "repo": "joshi-ios",
       "zrodlo": "md",
       "dokumenty": {
-        "pl": "joshi",
-        "en": "joshi/en"
+        "pl": "joshi/1.5",
+        "en": "joshi/1.5/en"
       },
       "kontakt": "joshi@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 4,
-      "wersja": "1.4.0"
+      "wersja": "1.5.0"
     },
     {
       "slug": "kazoekata",
@@ -268,14 +268,14 @@
       "repo": "keigo-ios",
       "zrodlo": "md",
       "dokumenty": {
-        "pl": "keigo/1.0",
-        "en": "keigo/1.0/en"
+        "pl": "keigo/1.5",
+        "en": "keigo/1.5/en"
       },
       "kontakt": "keigo@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 8,
-      "wersja": "1.5.0"
+      "wersja": "1.5.1"
     },
     {
       "slug": "kifuku",

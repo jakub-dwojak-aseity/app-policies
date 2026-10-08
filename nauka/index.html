@@ -119,6 +119,30 @@ ul.zwykla li { margin: .3rem 0; }
 .przyklady .pelna { color: var(--cichy); }
 .przyklady .tlum { display: block; color: var(--cichy); font-size: .93rem; }
 ruby rt { font-size: .55em; color: var(--cichy); }
+/* Poradnik [poz. 691]: tabela przewija się sama, strona nie — 16px marginesu
+   i żadnego poziomego przewijania całej strony na telefonie. */
+.tabela { overflow-x: auto; margin: .75rem 0 1.25rem; -webkit-overflow-scrolling: touch; }
+.tabela table { border-collapse: collapse; min-width: 100%; font-size: .95rem; }
+.tabela th, .tabela td { border-bottom: 1px solid var(--linia); padding: .45rem .6rem;
+                          text-align: left; vertical-align: top; white-space: nowrap; }
+.tabela td.tekst { white-space: normal; min-width: 9rem; }
+@media (max-width: 30rem) {
+  .tabela th, .tabela td { padding: .4rem .35rem; }
+  .tabela td.tekst { min-width: 7rem; }
+}
+.tabela thead th { color: var(--cichy); font-weight: 600; font-size: .85rem; }
+.tabela tbody th { color: var(--cichy); font-weight: 400; font-size: .85rem; }
+.tabela tbody th[lang="ja"] { color: var(--tekst); font-size: 1rem; }
+.tabela .podpis { display: block; color: var(--cichy); font-size: .78rem; font-weight: 400;
+                  white-space: normal; min-width: 5.5rem; max-width: 8rem; line-height: 1.3; }
+.odmiana { font-size: 1.05rem; }
+.odmiana .strz { color: var(--cichy); }
+.zaproszenie { border: 1px solid var(--linia); border-radius: 12px; background: var(--karta);
+               padding: .9rem 1rem; margin: 1.5rem 0; }
+.zaproszenie p { margin: .3rem 0; }
+.darmowe { display: block; color: var(--cichy); font-size: .88rem; font-weight: 400;
+           margin-top: .5rem; }
+.cwiczenia summary { font-weight: 400; }
 footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
          font-size: .88rem; color: var(--cichy); }
 footer a { color: var(--akcent); }
@@ -146,13 +170,13 @@ code { font-size: .9em; }
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Formy czasownika japońskiego: ます, て, た, ない",
+          "name": "Odmiana czasownika japońskiego: tabela form ます, て, た, ない",
           "url": "https://jd-japanese.pl/nauka/formy-czasownika/"
         },
         {
           "@type": "ListItem",
           "position": 4,
-          "name": "Liczniki japońskie – jak liczyć ludzi, rzeczy i zwierzęta",
+          "name": "Liczniki japońskie: tabele 1–10, odczyty i przykłady",
           "url": "https://jd-japanese.pl/nauka/liczniki-japonskie/"
         },
         {
@@ -205,7 +229,7 @@ code { font-size: .9em; }
 <body>
 <a class="do-tresci" href="#tresc">Przejdź do treści</a>
 <nav class="gora" aria-label="Witryna"><span><a class="znak" href="../" aria-hidden="true" tabindex="-1"><img src="../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../">← Wszystkie aplikacje</a></span><span><a href="https://jd-japanese.pl/en/learn/">English</a></span></nav>
-<main id="tresc"><h1>Nauka japońskiego – partykuły, liczniki, formy, keigo</h1><p class="podtytul">Materiał wyjęty z darmowej części aplikacji rodziny: partykuły, liczniki, formy czasownika, mowa potoczna i keigo.</p><ul class="karty"><li class="karta"><img src="../assets/ikony/joshi.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/partykuly-japonskie/">Partykuły japońskie: は, が, を, に, で, へ</a><p>Partykuły, które niosą zwykłe japońskie zdanie, i role, w jakich stoją – z przykładami i tłumaczeniem.</p></div></li><li class="karta"><img src="../assets/ikony/kaname.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/mylace-pary/">Mylące pary w japońskim: は czy が, もう czy まだ</a><p>Pary, które wyglądają wymiennie i nie są – przy każdym zdaniu sytuacja i powód, dla którego druga forma nie pasuje.</p></div></li><li class="karta"><img src="../assets/ikony/katsuyokei.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/formy-czasownika/">Formy czasownika japońskiego: ます, て, た, ない</a><p>Formy z pierwszych dwóch etapów odmiany – co każda robi i kiedy się jej używa.</p></div></li><li class="karta"><img src="../assets/ikony/kazoekata.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/liczniki-japonskie/">Liczniki japońskie – jak liczyć ludzi, rzeczy i zwierzęta</a><p>Czym liczy się ludzi, cienkie przedmioty, książki i zwierzęta – z czytaniem, notą o wyjątkach i zdaniami przykładowymi.</p></div></li><li class="karta"><img src="../assets/ikony/kuzushi.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/mowa-potoczna/">Japoński potoczny – skróty z anime i rozmowy</a><p>Skróty, które słychać na co dzień, każdy obok pełnej formy, z której powstał.</p></div></li><li class="karta"><img src="../assets/ikony/keigo.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/keigo/">Keigo – japońska grzeczność w praktyce</a><p>Formy czczące i skromne oraz wzorce, które nakłada się na dowolne słowo – co powiedzieć i dlaczego akurat to.</p></div></li><li class="karta"><img src="../assets/ikony/onomatope.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/onomatopeje/">Onomatopeje japońskie – dźwięki z mangi i anime</a><p>Słowa, które naśladują dźwięk i stan – co znaczą i co robi z nimi 濁点.</p></div></li><li class="karta"><img src="../assets/ikony/kaname.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/gramatyka-n5/">Gramatyka japońska N5 – wszystkie punkty z poziomu</a><p>Siedem grup gramatyki N5, od szkieletu zdania po ton wypowiedzi – każdy punkt ze znaczeniem, budową i przykładami.</p></div></li></ul></main>
+<main id="tresc"><h1>Nauka japońskiego – partykuły, liczniki, formy, keigo</h1><p class="podtytul">Materiał wyjęty z darmowej części aplikacji rodziny: partykuły, liczniki, formy czasownika, mowa potoczna i keigo.</p><ul class="karty"><li class="karta"><img src="../assets/ikony/joshi.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/partykuly-japonskie/">Partykuły japońskie: は, が, を, に, で, へ</a><p>Partykuły, które niosą zwykłe japońskie zdanie, i role, w jakich stoją – z przykładami i tłumaczeniem.</p></div></li><li class="karta"><img src="../assets/ikony/kaname.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/mylace-pary/">Mylące pary w japońskim: は czy が, もう czy まだ</a><p>Pary, które wyglądają wymiennie i nie są – przy każdym zdaniu sytuacja i powód, dla którego druga forma nie pasuje.</p></div></li><li class="karta"><img src="../assets/ikony/katsuyokei.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/formy-czasownika/">Odmiana czasownika japońskiego: tabela form ます, て, た, ない</a><p>Tabela odmiany 書く, 食べる, する i 来る, reguły grup godan i ichidan, każda forma z przykładem i ćwiczenia z odpowiedziami.</p></div></li><li class="karta"><img src="../assets/ikony/kazoekata.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/liczniki-japonskie/">Liczniki japońskie: tabele 1–10, odczyty i przykłady</a><p>Jak przeczytać 3本, 4人 czy 8匹: tabele 1–10 dla つ, 人, 本, 枚, 匹 i 冊, wzory zmian dźwiękowych, 22 liczniki ze zdaniami i ćwiczenia.</p></div></li><li class="karta"><img src="../assets/ikony/kuzushi.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/mowa-potoczna/">Japoński potoczny – skróty z anime i rozmowy</a><p>Skróty, które słychać na co dzień, każdy obok pełnej formy, z której powstał.</p></div></li><li class="karta"><img src="../assets/ikony/keigo.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/keigo/">Keigo – japońska grzeczność w praktyce</a><p>Formy czczące i skromne oraz wzorce, które nakłada się na dowolne słowo – co powiedzieć i dlaczego akurat to.</p></div></li><li class="karta"><img src="../assets/ikony/onomatope.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/onomatopeje/">Onomatopeje japońskie – dźwięki z mangi i anime</a><p>Słowa, które naśladują dźwięk i stan – co znaczą i co robi z nimi 濁点.</p></div></li><li class="karta"><img src="../assets/ikony/kaname.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../nauka/gramatyka-n5/">Gramatyka japońska N5 – wszystkie punkty z poziomu</a><p>Siedem grup gramatyki N5, od szkieletu zdania po ton wypowiedzi – każdy punkt ze znaczeniem, budową i przykładami.</p></div></li></ul></main>
 <footer>Jakub Dwojak · <a href="../o-autorze/">O autorze</a> · <a href="../co-dalej/">Co dalej</a> · <a href="../dokumenty.html">Spis dokumentów</a></footer>
 </body>
 </html>

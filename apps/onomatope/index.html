@@ -121,6 +121,30 @@ ul.zwykla li { margin: .3rem 0; }
 .przyklady .pelna { color: var(--cichy); }
 .przyklady .tlum { display: block; color: var(--cichy); font-size: .93rem; }
 ruby rt { font-size: .55em; color: var(--cichy); }
+/* Poradnik [poz. 691]: tabela przewija się sama, strona nie — 16px marginesu
+   i żadnego poziomego przewijania całej strony na telefonie. */
+.tabela { overflow-x: auto; margin: .75rem 0 1.25rem; -webkit-overflow-scrolling: touch; }
+.tabela table { border-collapse: collapse; min-width: 100%; font-size: .95rem; }
+.tabela th, .tabela td { border-bottom: 1px solid var(--linia); padding: .45rem .6rem;
+                          text-align: left; vertical-align: top; white-space: nowrap; }
+.tabela td.tekst { white-space: normal; min-width: 9rem; }
+@media (max-width: 30rem) {
+  .tabela th, .tabela td { padding: .4rem .35rem; }
+  .tabela td.tekst { min-width: 7rem; }
+}
+.tabela thead th { color: var(--cichy); font-weight: 600; font-size: .85rem; }
+.tabela tbody th { color: var(--cichy); font-weight: 400; font-size: .85rem; }
+.tabela tbody th[lang="ja"] { color: var(--tekst); font-size: 1rem; }
+.tabela .podpis { display: block; color: var(--cichy); font-size: .78rem; font-weight: 400;
+                  white-space: normal; min-width: 5.5rem; max-width: 8rem; line-height: 1.3; }
+.odmiana { font-size: 1.05rem; }
+.odmiana .strz { color: var(--cichy); }
+.zaproszenie { border: 1px solid var(--linia); border-radius: 12px; background: var(--karta);
+               padding: .9rem 1rem; margin: 1.5rem 0; }
+.zaproszenie p { margin: .3rem 0; }
+.darmowe { display: block; color: var(--cichy); font-size: .88rem; font-weight: 400;
+           margin-top: .5rem; }
+.cwiczenia summary { font-weight: 400; }
 footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
          font-size: .88rem; color: var(--cichy); }
 footer a { color: var(--akcent); }

@@ -251,7 +251,7 @@ NAPISY = {
         "grupa_lexeme_opis": "いらっしゃる, 召し上がる, 伺う – dwadzieścia słów czczących i skromnych, każde z czasownikiem zwykłym obok i zdaniem, w którym stoi.",
         "grupa_n5.g1.particles_opis": "は, が, を, に, で, と, も, の, か – piętnaście ról partykuł, z których składa się zwykłe japońskie zdanie.",
         "grupa_n5.g2.time-place_opis": "に, から〜まで, ごろ, ぐらい, へ, あります i います – dziewięć punktów o tym, kiedy, gdzie i czy coś w ogóle jest.",
-        "grupa_n5.g3.verb-forms_opis": "〜ます, 〜て, 〜ています, 〜ない, 〜た – jedenaście form czasownika N5, z różnicą między czynnością w toku a jej skutkiem.",
+        "grupa_n5.g3.verb-forms_opis": "〜ます, 〜て, 〜ています, 〜ない, 〜た – dwanaście form czasownika N5, z różnicą między czynnością w toku a jej skutkiem.",
         "grupa_n5.g4.requests_opis": "〜てください, 〜てもいいです, 〜てはいけません – siedem sposobów na prośbę, pozwolenie i zakaz, od najgrzeczniejszego.",
         "grupa_n5.g5.adjectives_opis": "い形容詞 i な形容詞, 〜くないです, 〜より, いちばん – siedem punktów o odmianie przymiotnika i o porównywaniu.",
         "grupa_n5.g6.wishes_opis": "〜たい, 〜がほしい, 〜ませんか, 〜ましょう – sześć form, którymi mówi się, czego się chce i do czego się zaprasza.",
@@ -285,12 +285,38 @@ NAPISY = {
         "temat_pary_tytul": "Mylące pary w japońskim: は czy が, もう czy まだ",
         "temat_pary_opis": "Pary, które wyglądają wymiennie i nie są – przy każdym zdaniu "
                            "sytuacja i powód, dla którego druga forma nie pasuje.",
-        "temat_liczniki_tytul": "Liczniki japońskie – jak liczyć ludzi, rzeczy i zwierzęta",
-        "temat_liczniki_opis": "Czym liczy się ludzi, cienkie przedmioty, książki i zwierzęta "
-                               "– z czytaniem, notą o wyjątkach i zdaniami przykładowymi.",
-        "temat_formy_tytul": "Formy czasownika japońskiego: ます, て, た, ない",
-        "temat_formy_opis": "Formy z pierwszych dwóch etapów odmiany – co każda robi "
-                            "i kiedy się jej używa.",
+        "temat_liczniki_tytul": "Liczniki japońskie: tabele 1–10, odczyty i przykłady",
+        "temat_liczniki_opis": "Jak przeczytać 3本, 4人 czy 8匹: tabele 1–10 dla つ, 人, 本, 枚, 匹 "
+                               "i 冊, wzory zmian dźwiękowych, 22 liczniki ze zdaniami i ćwiczenia.",
+        "temat_formy_tytul": "Odmiana czasownika japońskiego: tabela form ます, て, た, ない",
+        "temat_formy_opis": "Tabela odmiany 書く, 食べる, する i 来る, reguły grup godan "
+                            "i ichidan, każda forma z przykładem i ćwiczenia z odpowiedziami.",
+        # [poz. 691] Poradnik: co da się wypróbować za darmo — brzmienie wzięte
+        # z sekcji „co za darmo" tekstu sklepowego przy `sklep/<v>`; darmowa treść,
+        # zakup i AI rozdzielone tak samo jak tam. Liczbę pilnuje bramka 24.
+        "darmowe_kaname": "Za darmo: cały poziom JLPT N5, bez limitu sesji i bez reklam. "
+                          "Wyższe poziomy w zakupie; analiza AI: kilka wywołań miesięcznie gratis.",
+        "darmowe_katsuyokei": "Za darmo: poziomy 1 i 2 w całości, aż do formy te. "
+                              "Kolejne poziomy jednym zakupem.",
+        "darmowe_kazoekata": "Za darmo: poziomy 1 i 2 w całości, 22 liczniki. "
+                             "Pozostałe poziomy jednym zakupem.",
+        "darmowe_keigo": "Za darmo: poziomy 1 i 2 w całości. Poziomy 3–5 jednym zakupem; "
+                         "sprawdzanie zdań przez AI: kilka miesięcznie gratis, więcej w subskrypcji.",
+        "zaproszenie_formy": "Tabela to początek. W aplikacji {apka} odmieniasz czasowniki sam, "
+                             "a ona sprawdza każdą odpowiedź.",
+        "zaproszenie_liczniki": "W aplikacji {apka} ćwiczysz te odczyty sam, z powtórkami "
+                                "i śledzeniem postępu.",
+        "zaproszenie_keigo": "W aplikacji {apka} ćwiczysz wybór rejestru na zdaniach "
+                             "z codziennych sytuacji.",
+        "nauka_skad_opis_poradnik": "Hasła na tej stronie pochodzą z darmowej części aplikacji {apka}, "
+                                    "formy japońskie w tabelach i odpowiedziach liczy jej silnik, "
+                                    "a objaśnienia i zdania przeszły ten sam przegląd treści co aplikacja.",
+        "tabela_grupy_tytul": "W skrócie",
+        "tabela_klasa_godan": "godan (grupa 1)",
+        "tabela_klasa_ichidan": "ichidan (grupa 2)",
+        "tabela_klasa_suru": "nieregularny",
+        "tabela_klasa_kuru": "nieregularny",
+        "tabela_grupy_kolumny": ["Wyrażenie", "Znaczenie", "Przykład"],
         "temat_potoczny_tytul": "Japoński potoczny – skróty z anime i rozmowy",
         "temat_potoczny_opis": "Skróty, które słychać na co dzień, każdy obok pełnej formy, "
                                "z której powstał.",
@@ -470,7 +496,7 @@ NAPISY = {
         "grupa_lexeme_opis": "いらっしゃる, 召し上がる, 伺う – twenty honorific and humble words, each beside its plain verb and inside a sentence.",
         "grupa_n5.g1.particles_opis": "は, が, を, に, で, と, も, の, か – fifteen particle roles that an ordinary Japanese sentence is built from.",
         "grupa_n5.g2.time-place_opis": "に, から〜まで, ごろ, ぐらい, へ, あります and います – nine points about when, where, and whether something is there at all.",
-        "grupa_n5.g3.verb-forms_opis": "〜ます, 〜て, 〜ています, 〜ない, 〜た – eleven N5 verb forms, with the difference between an action in progress and its result.",
+        "grupa_n5.g3.verb-forms_opis": "〜ます, 〜て, 〜ています, 〜ない, 〜た – twelve N5 verb forms, with the difference between an action in progress and its result.",
         "grupa_n5.g4.requests_opis": "〜てください, 〜てもいいです, 〜てはいけません – seven ways to ask, to permit and to forbid, from the most polite down.",
         "grupa_n5.g5.adjectives_opis": "い and な adjectives, 〜くないです, 〜より, いちばん – seven points on adjective inflection and on comparing things.",
         "grupa_n5.g6.wishes_opis": "〜たい, 〜がほしい, 〜ませんか, 〜ましょう – six forms for saying what you want and for inviting someone along.",
@@ -499,12 +525,35 @@ NAPISY = {
         "temat_pary_tytul": "Confusing pairs in Japanese: は or が, もう or まだ",
         "temat_pary_opis": "Pairs that look interchangeable and are not – each sentence "
                            "comes with the situation and the reason the other form fails.",
-        "temat_liczniki_tytul": "Japanese counters – how to count people, things and animals",
-        "temat_liczniki_opis": "What you use to count people, thin objects, books and animals "
-                               "– with readings, notes on the exceptions and example sentences.",
-        "temat_formy_tytul": "Japanese verb forms: masu, te, ta, nai",
-        "temat_formy_opis": "The forms from the first two stages of conjugation – what each "
-                            "one does and when it is used.",
+        "temat_liczniki_tytul": "Japanese Counters: 1–10 Charts, Readings and Examples",
+        "temat_liczniki_opis": "How to read 3本, 4人 or 8匹: 1–10 charts for つ, 人, 本, 枚, 匹 "
+                               "and 冊, the sound-change patterns, 22 counters with sentences and practice.",
+        "temat_formy_tytul": "Japanese Verb Conjugation Chart: Masu, Te, Ta & Nai Forms",
+        "temat_formy_opis": "Conjugation chart for 書く, 食べる, する and 来る, the godan and "
+                            "ichidan rules, every form with an example, and practice with answers.",
+        "darmowe_kaname": "Free: all of JLPT N5, no session limit, no ads. "
+                          "Higher levels are a purchase; a few AI analyses a month are free.",
+        "darmowe_katsuyokei": "Free: levels 1 and 2 in full, up to the te-form. "
+                              "Later levels with one purchase.",
+        "darmowe_kazoekata": "Free: levels 1 and 2 in full, 22 counters. "
+                             "The other levels with one purchase.",
+        "darmowe_keigo": "Free: levels 1 and 2 in full. Levels 3–5 with one purchase; "
+                         "AI sentence checks: a few a month free, more with a subscription.",
+        "zaproszenie_formy": "The chart is just the start. In {apka} you conjugate verbs yourself "
+                             "and every answer is checked.",
+        "zaproszenie_liczniki": "In {apka} you practise these readings yourself, with reviews "
+                                "and progress tracking.",
+        "zaproszenie_keigo": "In {apka} you practise choosing the right register in sentences "
+                             "from everyday situations.",
+        "nauka_skad_opis_poradnik": "The entries on this page come from the free part of the {apka} app, "
+                                    "the Japanese forms in the charts and answers are computed by its engine, "
+                                    "and the explanations and sentences passed the same content review as the app.",
+        "tabela_grupy_tytul": "At a glance",
+        "tabela_klasa_godan": "godan (group 1)",
+        "tabela_klasa_ichidan": "ichidan (group 2)",
+        "tabela_klasa_suru": "irregular",
+        "tabela_klasa_kuru": "irregular",
+        "tabela_grupy_kolumny": ["Expression", "Meaning", "Example"],
         "temat_potoczny_tytul": "Casual Japanese – the contractions in anime and conversation",
         "temat_potoczny_opis": "The contractions you hear every day, each next to the full "
                                "form it came from.",

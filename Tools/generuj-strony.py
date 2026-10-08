@@ -184,6 +184,30 @@ ul.zwykla li { margin: .3rem 0; }
 .przyklady .pelna { color: var(--cichy); }
 .przyklady .tlum { display: block; color: var(--cichy); font-size: .93rem; }
 ruby rt { font-size: .55em; color: var(--cichy); }
+/* Poradnik [poz. 691]: tabela przewija się sama, strona nie — 16px marginesu
+   i żadnego poziomego przewijania całej strony na telefonie. */
+.tabela { overflow-x: auto; margin: .75rem 0 1.25rem; -webkit-overflow-scrolling: touch; }
+.tabela table { border-collapse: collapse; min-width: 100%; font-size: .95rem; }
+.tabela th, .tabela td { border-bottom: 1px solid var(--linia); padding: .45rem .6rem;
+                          text-align: left; vertical-align: top; white-space: nowrap; }
+.tabela td.tekst { white-space: normal; min-width: 9rem; }
+@media (max-width: 30rem) {
+  .tabela th, .tabela td { padding: .4rem .35rem; }
+  .tabela td.tekst { min-width: 7rem; }
+}
+.tabela thead th { color: var(--cichy); font-weight: 600; font-size: .85rem; }
+.tabela tbody th { color: var(--cichy); font-weight: 400; font-size: .85rem; }
+.tabela tbody th[lang="ja"] { color: var(--tekst); font-size: 1rem; }
+.tabela .podpis { display: block; color: var(--cichy); font-size: .78rem; font-weight: 400;
+                  white-space: normal; min-width: 5.5rem; max-width: 8rem; line-height: 1.3; }
+.odmiana { font-size: 1.05rem; }
+.odmiana .strz { color: var(--cichy); }
+.zaproszenie { border: 1px solid var(--linia); border-radius: 12px; background: var(--karta);
+               padding: .9rem 1rem; margin: 1.5rem 0; }
+.zaproszenie p { margin: .3rem 0; }
+.darmowe { display: block; color: var(--cichy); font-size: .88rem; font-weight: 400;
+           margin-top: .5rem; }
+.cwiczenia summary { font-weight: 400; }
 footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
          font-size: .88rem; color: var(--cichy); }
 footer a { color: var(--akcent); }
@@ -662,8 +686,20 @@ def platformy_na_stronie(apki):
     return {p: sum(1 for a in apki if w_sklepie(a, p)) for p in PLATFORMY}
 
 
-def link_sklepu(a, platforma="ios"):
-    return ADRES_SKLEPU[platforma](sklepy(a)[platforma]["id"])
+#: **Token dostawcy App Store (`pt`) do linków kampanii — [poz. 691].** Bez niego
+#: linki zostają gołe, bo kampania bez tokenu nie jest liczona przez App Analytics,
+#: a samo `ct=` byłoby obietnicą pomiaru, którego nie ma. Token widać w ASC →
+#: App Analytics → Campaigns (Generate a Link); nie wychodzi z API ASC.
+#: Witryna niczego nie śledzi: kampanię liczy Apple, po swojej stronie, i tylko
+#: u osób, które zgodziły się dzielić danymi z twórcami aplikacji.
+TOKEN_DOSTAWCY = None
+
+
+def link_sklepu(a, platforma="ios", kampania=None):
+    adres = ADRES_SKLEPU[platforma](sklepy(a)[platforma]["id"])
+    if platforma == "ios" and kampania and TOKEN_DOSTAWCY:
+        adres += f"?pt={TOKEN_DOSTAWCY}&ct={kampania}&mt=8"
+    return adres
 
 
 def sklepy(a):
@@ -707,7 +743,7 @@ def w_sklepie(a, platforma=None):
     return any(w.get("stan") == "w-sklepie" for w in s.values())
 
 
-def przyciski_sklepow(a, n):
+def przyciski_sklepow(a, n, kampania=None):
     """Przyciski sklepów, po jednym na platformę, w stałej kolejności `PLATFORMY`.
 
     **Przy jednym sklepie wynik jest znak w znak taki jak przed [poz. 307]** — i to jest
@@ -715,8 +751,25 @@ def przyciski_sklepow(a, n):
     drgnąć, bo model nauczył się drugiej platformy.
     """
     return "".join(
-        f'<a class="przycisk" href="{link_sklepu(a, p)}">{e(n[NAZWA_SKLEPU[p]])} →</a>'
+        f'<a class="przycisk" href="{e(link_sklepu(a, p, kampania))}">{e(n[NAZWA_SKLEPU[p]])} →</a>'
         for p in PLATFORMY if w_sklepie(a, p))
+
+
+def wyjscie_do_sklepu(a, n, kampania=None):
+    """Przycisk sklepu z tym, co w aplikacji jest za darmo — [poz. 691].
+
+    `darmowe_<slug>` mówi konkretnie, co da się wypróbować, i rozdziela darmową
+    treść, zakup i AI tak, jak robi to tekst sklepowy przy `sklep/<v>`. Apka bez
+    takiego napisu dostaje dawną plakietkę — nic nie jest zgadywane.
+    """
+    if not a["wSklepie"]:
+        return f'<p class="sklep"><span class="znacznik">{e(n["wkrotce"])}</span></p>'
+    darmowe = n.get("darmowe_%s" % a["slug"])
+    if darmowe:
+        return (f'<p class="sklep">{przyciski_sklepow(a, n, kampania)}'
+                f'<span class="darmowe">{e(darmowe)}</span></p>')
+    return (f'<p class="sklep">{przyciski_sklepow(a, n, kampania)}'
+            f'<span class="znacznik">{e(n["darmowa"])}</span></p>')
 
 
 def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
@@ -1251,7 +1304,7 @@ TEMATY = (
     {"apka": "onomatope", "klucz": "onomatopeje",
      "sciezka": {"pl": "nauka/onomatopeje", "en": "en/learn/japanese-mimetics"},
      "grupy": (
-         {"grupa": "l1.bol", "sciezka": {"pl": "bol", "en": "pain"}},
+         {"grupa": "l1.bol", "sciezka": {"pl": "bol", "en": "pain"}, "tabela": True},
          {"grupa": "l1.drzenie", "sciezka": {"pl": "drzenie", "en": "shivering"}},
          {"grupa": "l1.zmeczenie", "sciezka": {"pl": "zmeczenie", "en": "tiredness"}},
          {"grupa": "l1",
@@ -1504,7 +1557,21 @@ def ruby_html(tekst: str) -> str:
                            CZYTANIE.sub(r"<ruby>\1<rt>\2</rt></ruby>", e(tekst)))
 
 
-def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):
+def przyklad_jp(p):
+    """Zdanie przykładowe z odczytem nad wyrażeniem liczbowym, gdy eksport go niesie.
+
+    Kazoekata podaje „3本" i „さんぼん" osobno, bo notacja `漢字[かな]` wiąże się
+    tylko z ciągiem kanji — cyfry by z niej wypadły. Rubin kładzie się więc tutaj,
+    nad pierwszym wystąpieniem wyrażenia, po eskejpowaniu reszty zdania.
+    """
+    html = ruby_html(p["jp"])
+    if p.get("wyrazenie") and p.get("odczyt") and e(p["wyrazenie"]) in html:
+        html = html.replace(e(p["wyrazenie"]),
+                            f'<ruby>{e(p["wyrazenie"])}<rt>{e(p["odczyt"])}</rt></ruby>', 1)
+    return html
+
+
+def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset(), poziom=2):
     """Jedno hasło strony tematycznej. Zwraca `(kotwica, etykieta, html)`.
 
     Kotwica bierze się z **identyfikatora jednostki**, nie z nagłówka: nagłówki
@@ -1548,10 +1615,17 @@ def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):
     naglowek = " ".join(czlony)
     etykieta = " · ".join(c for c in (termin, nazwa) if c)
 
-    czesci = [f'<h2 id="{kot}">{naglowek}</h2>']
+    czesci = [f'<h{poziom} id="{kot}">{naglowek}</h{poziom}>']
 
     if jednostka["glosa"][jezyk]:
         czesci.append(f'<p class="lead">{ruby_html(jednostka["glosa"][jezyk])}</p>')
+
+    # Linia odmiany z silnika siostry: „書く → 書けば". Konkretny japoński wynik przy
+    # każdej formie — sama nazwa formy i opis nie mówią, jak ona wygląda [poz. 691].
+    if jednostka.get("odmiana"):
+        pary = " · ".join(f'{ruby_html(o["z"])} <span class="strz">→</span> {ruby_html(o["na"])}'
+                          for o in jednostka["odmiana"])
+        czesci.append(f'<p class="odmiana" lang="ja">{pary}</p>')
 
     for akapit in jednostka["wyjasnienie"][jezyk].split("\n\n"):
         if akapit.strip():
@@ -1586,7 +1660,7 @@ def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):
             if p.get("jpPelne"):
                 wiersz += (f'<span class="pelna" lang="ja">{ruby_html(p["jpPelne"])}'
                            f"</span> → ")
-            wiersz += f'<span lang="ja">{ruby_html(p["jp"])}</span>'
+            wiersz += f'<span lang="ja">{przyklad_jp(p)}</span>'
             # Tłumaczenie zdania. Osobne pole od `uwaga` z rozmysłu: czytelnik bierze
             # polską linijkę pod japońskim zdaniem za tłumaczenie, więc wpisanie tam
             # uzasadnienia byłoby drobnym kłamstwem na każdej pozycji.
@@ -1598,6 +1672,142 @@ def haslo_html(jednostka, jezyk, n, zajete, powtorzone=frozenset()):
         czesci.append(f'<ul class="przyklady">{"".join(wiersze)}</ul>')
 
     return kot, etykieta, '<section class="haslo">%s</section>' % "".join(czesci)
+
+
+def akapity(tekst):
+    return "".join(f"<p>{ruby_html(a.strip())}</p>" for a in tekst.split("\n\n") if a.strip())
+
+
+def komorka(c, jezyk):
+    """Komórka tabeli prostej: napis wspólny albo `{pl, en}`."""
+    return c[jezyk] if isinstance(c, dict) else c
+
+
+def odczyt_komorki(odczyt):
+    """„ななにん・しちにん" → wzorcowy, a pod nim drobniej drugi — tabela nie puchnie."""
+    pierwszy, *inne = odczyt.split("・")
+    return e(pierwszy) + (f'<span class="podpis">{e("・".join(inne))}</span>' if inne else "")
+
+
+def poradnik_html(poradnik, eksport, jezyk, n, a, temat, hasla_po_id, kotwice):
+    """Poradnik siostry na stronie tematu — [poz. 691]. Zwraca `(html, spis)`.
+
+    Treść pisze i przegląda siostra (`docs/www/poradnik.json`, jednostki `www`
+    w jej `review-content.py`); japoński w tabelach i odpowiedziach liczy jej
+    silnik. Witryna dokłada wyłącznie układ: nagłówki z kotwicami, tabele jako
+    tekst (nie obraz), ćwiczenia w `<details>` i miejsce na drugie wyjście do
+    sklepu. Blok bez zielonego werdyktu nie dociera tu w ogóle — odpada w eksporcie.
+    """
+    czesci, spis = [], []
+    przypisane = {h for s_ in poradnik.get("sekcje", []) for h in s_["hasla"]}
+
+    def naglowek(blok_id, tekst):
+        kot = kotwica("p-" + blok_id, kotwice)
+        spis.append(f'<li><a href="#{kot}">{ruby_html(tekst)}</a></li>')
+        return f'<h2 id="{kot}">{ruby_html(tekst)}</h2>'
+
+    for blok in poradnik["bloki"]:
+        typ = blok["typ"]
+        if blok.get("naglowek"):
+            czesci.append(naglowek(blok["id"], blok["naglowek"][jezyk]))
+        if typ == "tekst":
+            czesci.append(akapity(blok["tresc"][jezyk]))
+        elif typ == "tabela" and blok.get("wiersze"):
+            # Odmiana: wiersz = czasownik, kolumna = forma, komórki z silnika.
+            kol = blok["kolumny"][jezyk]
+            glowa = "".join(f'<th scope="col">{e(k)}</th>' for k in kol)
+            wiersze = "".join(
+                f'<tr><th scope="row">{e(n.get("tabela_klasa_" + w["klasa"], n.get("klasa_" + w["klasa"], w["klasa"])))}</th>'
+                + "".join(f'<td lang="ja">{ruby_html(c)}</td>' for c in w["komorki"])
+                + "</tr>" for w in blok["wiersze"])
+            czesci.append(f'<div class="tabela"><table><thead><tr>{glowa}</tr></thead>'
+                          f'<tbody>{wiersze}</tbody></table></div>')
+            if blok.get("tresc"):
+                czesci.append(akapity(blok["tresc"][jezyk]))
+        elif typ == "tabela" and blok.get("liczniki"):
+            # Liczniki: wiersz = liczba 1–10, kolumna = licznik, odczyty z silnika.
+            kol = blok["kolumny"][jezyk]
+            glowa = f'<th scope="col">{e(kol[0])}</th>' + "".join(
+                f'<th scope="col"><span lang="ja">{e(l["kanji"])}</span>'
+                f'<span class="podpis">{e(l["nazwa"][jezyk])}</span></th>'
+                for l in blok["liczniki"])
+            wiersze = "".join(
+                f'<tr><th scope="row">{i + 1}</th>'
+                + "".join(f'<td lang="ja">{odczyt_komorki(l["odczyty"][i])}</td>'
+                          for l in blok["liczniki"])
+                + "</tr>" for i in range(10))
+            wiersze += (f'<tr><th scope="row">{e(kol[1])}</th>'
+                        + "".join(f'<td lang="ja">{e(l["pytajna"])}</td>' for l in blok["liczniki"])
+                        + "</tr>")
+            czesci.append(f'<div class="tabela"><table><thead><tr>{glowa}</tr></thead>'
+                          f'<tbody>{wiersze}</tbody></table></div>')
+            if blok.get("tresc"):
+                czesci.append(akapity(blok["tresc"][jezyk]))
+        elif typ == "tabela_prosta":
+            glowa = "".join(f'<th scope="col">{e(k)}</th>' for k in blok["kolumny"][jezyk])
+            wiersze = "".join(
+                "<tr>" + "".join(
+                    (f'<th scope="row" lang="ja">{ruby_html(komorka(c, jezyk))}</th>' if i == 0
+                     else f'<td lang="ja">{ruby_html(komorka(c, jezyk))}</td>')
+                    for i, c in enumerate(w)) + "</tr>"
+                for w in blok["wiersze"])
+            czesci.append(f'<div class="tabela"><table><thead><tr>{glowa}</tr></thead>'
+                          f'<tbody>{wiersze}</tbody></table></div>')
+            if blok.get("tresc"):
+                czesci.append(akapity(blok["tresc"][jezyk]))
+        elif typ == "zaproszenie":
+            nazwa = a["teksty"][jezyk]["nazwa"].split(":")[0].strip()
+            tekst = n.get("zaproszenie_%s" % temat["klucz"], "").format(apka=nazwa)
+            czesci.append(f'<aside class="zaproszenie"><p>{e(tekst)}</p>'
+                          + wyjscie_do_sklepu(a, n, kampania="web-%s-srodek" % temat["klucz"])
+                          + "</aside>")
+        elif typ == "hasla":
+            for sekcja in poradnik.get("sekcje", []):
+                czesci.append(naglowek("s-" + sekcja["id"], sekcja["naglowek"][jezyk]))
+                if sekcja.get("tresc"):
+                    czesci.append(akapity(sekcja["tresc"][jezyk]))
+                czesci.extend(hasla_po_id[h][1] for h in sekcja["hasla"] if h in hasla_po_id)
+            for hid, (etykieta, html_h, kot) in hasla_po_id.items():
+                if hid not in przypisane:
+                    if not poradnik.get("sekcje"):
+                        spis.append(f'<li><a href="#{kot}">{ruby_html(etykieta)}</a></li>')
+                    czesci.append(html_h)
+        elif typ == "cwiczenia":
+            if blok.get("tresc"):
+                czesci.append(akapity(blok["tresc"][jezyk]))
+            pytania = []
+            for p_ in blok.get("pytania", []):
+                forma = (f' <span class="strz">→</span> {e(p_["forma"][jezyk])}'
+                         if p_.get("forma") else "")
+                pytania.append(f'<details><summary><span lang="ja">{ruby_html(p_["z"])}</span>'
+                               f'{forma}</summary><p lang="ja">{ruby_html(p_["odpowiedz"])}</p>'
+                               f"</details>")
+            czesci.append(f'<div class="cwiczenia">{"".join(pytania)}</div>')
+    return "".join(czesci), spis
+
+
+def tabela_grupy(moje, jezyk, n):
+    """Tabela „w skrócie" na górze strony grupy: wyrażenie, znaczenie, przykład.
+
+    Zbudowana **wyłącznie z pól eksportu, które i tak stoją na stronie** — termin,
+    nazwa i pierwsze zdanie przykładowe — więc niczego nie dopowiada od siebie.
+    Włącza ją flaga `tabela` przy grupie w `TEMATY` [poz. 691].
+    """
+    kol = n["tabela_grupy_kolumny"]
+    wiersze = []
+    for j in moje:
+        p_ = (j.get("przyklady") or [None])[0]
+        przyklad = ""
+        if p_:
+            przyklad = (f'<span lang="ja">{przyklad_jp(p_)}</span>'
+                        + (f'<span class="podpis">{e(p_[jezyk])}</span>' if p_.get(jezyk) else ""))
+        wiersze.append(f'<tr><th scope="row" lang="ja">{ruby_html(j.get("termin") or "")}</th>'
+                       f'<td class="tekst">{ruby_html(j["nazwa"][jezyk])}</td>'
+                       f'<td class="tekst">{przyklad}</td></tr>')
+    glowa = "".join(f'<th scope="col">{e(k)}</th>' for k in kol)
+    return (f'<h2 id="w-skrocie">{e(n["tabela_grupy_tytul"])}</h2>'
+            f'<div class="tabela"><table><thead><tr>{glowa}</tr></thead>'
+            f'<tbody>{"".join(wiersze)}</tbody></table></div>')
 
 
 def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None):
@@ -1647,12 +1857,25 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
             liczba[t_j] = liczba.get(t_j, 0) + 1
     powtorzone = frozenset(t_j for t_j, ile in liczba.items() if ile > 1)
 
+    poradnik = None if grupa else eksport.get("poradnik")
+    w_sekcjach = {h for s_ in (poradnik or {}).get("sekcje", []) for h in s_["hasla"]}
     zajete, spis, hasla, etykiety = set(), [], [], []
+    hasla_po_id = {}
     for jednostka in moje:
-        kot, etykieta, html_hasla = haslo_html(jednostka, jezyk, n, zajete, powtorzone)
+        kot, etykieta, html_hasla = haslo_html(
+            jednostka, jezyk, n, zajete, powtorzone,
+            poziom=3 if jednostka["id"] in w_sekcjach else 2)
         spis.append(f'<li><a href="#{kot}">{ruby_html(etykieta)}</a></li>')
         etykiety.append(etykieta)
         hasla.append(html_hasla)
+        hasla_po_id[jednostka["id"]] = (etykieta, html_hasla, kot)
+
+    if poradnik:
+        tresc_poradnika, spis = poradnik_html(poradnik, eksport, jezyk, n, a, temat,
+                                              hasla_po_id, zajete)
+        hasla = [tresc_poradnika]
+    elif grupa and grupa.get("tabela"):
+        hasla = [tabela_grupy(moje, jezyk, n)] + hasla
 
     # **Spis sekcji zawsze pionowy, jeden odnośnik pod drugim** — rozstrzygnięcie
     # Jakuba z 13.09, wzorem strony o partykułach. Pierwsza wersja przełączała
@@ -1664,11 +1887,8 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
     spis_sekcji = (f'<nav aria-label="{e(n["nauka_spis"])}">'
                    f'<ul class="zwykla">{"".join(spis)}</ul></nav>')
 
-    if a["wSklepie"]:
-        sklep = (f'<p class="sklep">{przyciski_sklepow(a, n)}'
-                 f'<span class="znacznik">{e(n["darmowa"])}</span></p>')
-    else:
-        sklep = f'<p class="sklep"><span class="znacznik">{e(n["wkrotce"])}</span></p>'
+    sklep = wyjscie_do_sklepu(
+        a, n, kampania="web-%s" % (temat["klucz"] + ("-" + grupa["grupa"] if grupa else "")))
 
     # Wyjście do aplikacji, z której ten materiał pochodzi. Ta sama karta, co na
     # mapie rodziny — bo to jest ta sama rzecz, a druga jej postać byłaby drugim
@@ -1768,7 +1988,7 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
         # Sama nazwa własna, bez podtytułu ze sklepu: „z darmowej części aplikacji
         # Kazoekata: Liczniki japońskie i przeszło jej przegląd" rozpada się na
         # dwukropku. Nazwa przed dwukropkiem jest tą, której aplikacja używa o sobie.
-        + f'<p>{e(n["nauka_skad_opis"].format(apka=t["nazwa"].split(":")[0].strip()))}</p>'
+        + f'<p>{e(n["nauka_skad_opis_poradnik" if poradnik else "nauka_skad_opis"].format(apka=t["nazwa"].split(":")[0].strip()))}</p>'
         + karta
         + sklep
         + powiazane_html
@@ -3609,6 +3829,31 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
                 if NAPISY[jezyk_]["android_cc_by"][:40] not in tresc:
                     bledy.append(f"{adres_}: stoi znak Androida bez noty CC BY — "
                                  f"licencja znaku jej WYMAGA")
+
+    # 24. Wyjście do sklepu mówi prawdę o darmowym zakresie i o kampanii [poz. 691].
+    #
+    #     (a) Liczba w `darmowe_<slug>` („22 liczniki") jest twierdzeniem o materiale,
+    #     więc musi się zgadzać z liczbą haseł eksportu tej apki — eksport to
+    #     dokładnie darmowe i przejrzane hasła. Napis bez liczby nie ma czego pilnować.
+    #     (b) Gdy `TOKEN_DOSTAWCY` jest ustawiony, każdy link do App Store na stronie
+    #     tematycznej niesie `ct=` — kampania liczona w połowie stron byłaby liczbą
+    #     o czymś innym, niż się wydaje.
+    for jezyk_ in JEZYKI:
+        for klucz, napis in NAPISY[jezyk_].items():
+            if not klucz.startswith("darmowe_") or not isinstance(napis, str):
+                continue
+            slug = klucz[len("darmowe_"):]
+            ile = re.findall(r"\b(\d{2,})\b", napis)
+            eksport = eksporty.get(slug)
+            if ile and eksport and int(ile[0]) != len(eksport.get("jednostki", [])):
+                bledy.append(f"NAPISY[{jezyk_}][{klucz}]: obiecuje {ile[0]}, a eksport "
+                             f"{slug} ma {len(eksport['jednostki'])} haseł")
+    if TOKEN_DOSTAWCY:
+        for adres_, tresc in pliki.items():
+            if adres_.startswith(("nauka/", "en/learn/")):
+                for link in re.findall(r'href="(https://apps\.apple\.com/[^"]+)"', tresc):
+                    if "ct=" not in link:
+                        bledy.append(f"{adres_}: link do sklepu bez ct= mimo tokenu kampanii")
 
     return bledy, uwagi
 

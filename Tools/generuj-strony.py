@@ -1691,7 +1691,7 @@ def odczyt_komorki(odczyt):
     return e(pierwszy) + (f'<span class="podpis">{e("・".join(inne))}</span>' if inne else "")
 
 
-def poradnik_html(poradnik, eksport, jezyk, n, a, temat, hasla_po_id, kotwice):
+def poradnik_html(poradnik, eksport, jezyk, n, a, temat, hasla_po_id, kotwice, karty_html=""):
     """Poradnik siostry na stronie tematu — [poz. 691]. Zwraca `(html, spis)`.
 
     Treść pisze i przegląda siostra (`docs/www/poradnik.json`, jednostki `www`
@@ -1764,6 +1764,9 @@ def poradnik_html(poradnik, eksport, jezyk, n, a, temat, hasla_po_id, kotwice):
                           + wyjscie_do_sklepu(a, n, kampania="web-%s-srodek" % temat["klucz"])
                           + "</aside>")
         elif typ == "hasla":
+            # Na rozdrożu w miejscu haseł stoją karty sekcji tematu.
+            if karty_html:
+                czesci.append(karty_html)
             for sekcja in poradnik.get("sekcje", []):
                 czesci.append(naglowek("s-" + sekcja["id"], sekcja["naglowek"][jezyk]))
                 if sekcja.get("tresc"):
@@ -2074,8 +2077,13 @@ def rozdroze_tematu(temat, a, eksport, jezyk, manifest):
     sciezka, glebokosc = sciezki_tematu(temat, jezyk)
     alternatywny = sciezki_tematu(temat, inny)[0]
     t = a["teksty"][jezyk]
-    tytul = n["temat_%s_tytul" % temat["klucz"]]
-    opis = n["temat_%s_opis" % temat["klucz"]]
+    # Tytuł i opis „z poradnikiem” wchodzą razem z poradnikiem, nie wcześniej:
+    # strona nie obiecuje tabeli, której eksport jeszcze nie niesie [poz. 691].
+    z_poradnikiem = "_poradnik" if eksport.get("poradnik") else ""
+    tytul = n.get("temat_%s_tytul%s" % (temat["klucz"], z_poradnikiem),
+                  n["temat_%s_tytul" % temat["klucz"]])
+    opis = n.get("temat_%s_opis%s" % (temat["klucz"], z_poradnikiem),
+                 n["temat_%s_opis" % temat["klucz"]])
     ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
     baza = manifest["bazaAdresu"]
     dom = "index.html" if jezyk == "pl" else "en/index.html"
@@ -2099,12 +2107,28 @@ def rozdroze_tematu(temat, a, eksport, jezyk, manifest):
             # `ご覧[らん]になる` z nawiasami kwadratowymi.
             f'<span class="co" lang="ja">{ruby_html(podpis)}</span></div></li>')
 
-    tresc = (f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
+    szyld = (f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
              f'<div><h1>{e(tytul)}</h1>'
-             f'<p class="podtytul">{e(opis)}</p></div></div>'
-             f'<ul class="karty">{"".join(karty)}</ul>'
-             f"<h2>{e(n['nauka_skad'])}</h2>"
-             f'<p>{e(n["nauka_skad_opis"].format(apka=t["nazwa"].split(":")[0].strip()))}</p>')
+             f'<p class="podtytul">{e(opis)}</p></div></div>')
+    karty_html = f'<ul class="karty">{"".join(karty)}</ul>'
+    apka = t["nazwa"].split(":")[0].strip()
+    poradnik = eksport.get("poradnik")
+    if poradnik:
+        # Wstęp z siostry [poz. 691]: proza, tabela i karty sekcji w miejscu
+        # bloku `hasla`, a na końcu wyjście do sklepu — rozdroże bez niego było
+        # jedyną stroną tematu, z której nie dało się przejść do aplikacji.
+        tresc_p, spis = poradnik_html(poradnik, eksport, jezyk, n, a, temat, {}, set(),
+                                      karty_html=karty_html)
+        tresc = (szyld
+                 + f'<nav aria-label="{e(n["nauka_spis"])}"><ul class="zwykla">{"".join(spis)}</ul></nav>'
+                 + tresc_p
+                 + f"<h2>{e(n['nauka_skad'])}</h2>"
+                 + f'<p>{e(n.get("nauka_skad_opis_poradnik_%s" % temat["klucz"], n["nauka_skad_opis_poradnik"]).format(apka=apka))}</p>'
+                 + wyjscie_do_sklepu(a, n, kampania="web-%s" % temat["klucz"]))
+    else:
+        tresc = (szyld + karty_html
+                 + f"<h2>{e(n['nauka_skad'])}</h2>"
+                 + f'<p>{e(n["nauka_skad_opis"].format(apka=apka))}</p>')
 
     jsonld = {
         "@context": "https://schema.org",

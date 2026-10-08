@@ -247,7 +247,7 @@ NAPISY = {
         "grupa_voicing_opis": "〜でいる → 〜でる i dwa inne skróty po dźwięcznym 〜で – ten sam mechanizm co przy 〜ている, tylko po 濁点.",
         "grupa_layered_opis": "なければならない → なきゃ – cztery powinności ścinane dwa razy, aż z całego zdania zostaje jedno słowo.",
         "grupa_omission_opis": "ないといけない → ないと – trzy formy, w których druga połowa zdania po prostu nie pada, a znaczenie zostaje.",
-        "grupa_pattern_opis": "です/ます, お〜になる, 美化語 – jedenaście ram, które nakłada się na dowolne słowo, każda ze zdaniem, w którym stoi.",
+        "grupa_pattern_opis": "です/ます, お〜になる, 美化語 – jedenaście ram, które nakłada się na większość słów, każda ze zdaniem, w którym stoi.",
         "grupa_lexeme_opis": "いらっしゃる, 召し上がる, 伺う – dwadzieścia słów czczących i skromnych, każde z czasownikiem zwykłym obok i zdaniem, w którym stoi.",
         "grupa_n5.g1.particles_opis": "は, が, を, に, で, と, も, の, か – piętnaście ról partykuł, z których składa się zwykłe japońskie zdanie.",
         "grupa_n5.g2.time-place_opis": "に, から〜まで, ごろ, ぐらい, へ, あります i います – dziewięć punktów o tym, kiedy, gdzie i czy coś w ogóle jest.",
@@ -306,11 +306,17 @@ NAPISY = {
                              "a ona sprawdza każdą odpowiedź.",
         "zaproszenie_liczniki": "W aplikacji {apka} ćwiczysz te odczyty sam, z powtórkami "
                                 "i śledzeniem postępu.",
-        "zaproszenie_keigo": "W aplikacji {apka} ćwiczysz wybór rejestru na zdaniach "
-                             "z codziennych sytuacji.",
+        "zaproszenie_keigo": "W aplikacji {apka} ćwiczysz te formy sam: rozpoznajesz je, wiesz, "
+                             "kogo podnoszą albo zniżają, i budujesz je z ram.",
+        "nauka_skad_opis_poradnik_keigo": "Hasła i tabela porównawcza pochodzą z przejrzanego katalogu "
+                                          "darmowej części aplikacji {apka}, a wstęp przeszedł ten sam "
+                                          "przegląd treści co aplikacja.",
         "nauka_skad_opis_poradnik": "Hasła na tej stronie pochodzą z darmowej części aplikacji {apka}, "
                                     "formy japońskie w tabelach i odpowiedziach liczy jej silnik, "
                                     "a objaśnienia i zdania przeszły ten sam przegląd treści co aplikacja.",
+        "temat_keigo_tytul_poradnik": "Keigo: czym jest i jak go używać – tabela teineigo, sonkeigo, kenjougo",
+        "temat_keigo_opis_poradnik": "Trzy rodzaje japońskiej grzeczności w jednej tabeli: いらっしゃる, 伺う, まいる – "
+                                     "kiedy którego użyć, jedna czynność w czterech sytuacjach i 31 haseł z przykładami.",
         "tabela_grupy_tytul": "W skrócie",
         "tabela_klasa_godan": "godan (grupa 1)",
         "tabela_klasa_ichidan": "ichidan (grupa 2)",
@@ -321,8 +327,8 @@ NAPISY = {
         "temat_potoczny_opis": "Skróty, które słychać na co dzień, każdy obok pełnej formy, "
                                "z której powstał.",
         "temat_keigo_tytul": "Keigo – japońska grzeczność w praktyce",
-        "temat_keigo_opis": "Formy czczące i skromne oraz wzorce, które nakłada się na dowolne "
-                            "słowo – co powiedzieć i dlaczego akurat to.",
+        "temat_keigo_opis": "Formy czczące i skromne oraz wzorce, które nakłada się na większość "
+                            "słów – co powiedzieć i dlaczego akurat to.",
     },
     "en": {
         "html_lang": "en",
@@ -492,7 +498,7 @@ NAPISY = {
         "grupa_voicing_opis": "〜でいる → 〜でる and two more contractions after a voiced 〜で – the same mechanism as 〜ている, only past the 濁点.",
         "grupa_layered_opis": "なければならない → なきゃ – four obligations cut twice over, until a whole clause is one word.",
         "grupa_omission_opis": "ないといけない → ないと – three forms where the second half of the sentence is simply never said, and the meaning stays.",
-        "grupa_pattern_opis": "です/ます, お〜になる, 美化語 – eleven frames you lay over any word, each inside the sentence where it stands.",
+        "grupa_pattern_opis": "です/ます, お〜になる, 美化語 – eleven frames you lay over most words, each inside the sentence where it stands.",
         "grupa_lexeme_opis": "いらっしゃる, 召し上がる, 伺う – twenty honorific and humble words, each beside its plain verb and inside a sentence.",
         "grupa_n5.g1.particles_opis": "は, が, を, に, で, と, も, の, か – fifteen particle roles that an ordinary Japanese sentence is built from.",
         "grupa_n5.g2.time-place_opis": "に, から〜まで, ごろ, ぐらい, へ, あります and います – nine points about when, where, and whether something is there at all.",
@@ -543,11 +549,17 @@ NAPISY = {
                              "and every answer is checked.",
         "zaproszenie_liczniki": "In {apka} you practise these readings yourself, with reviews "
                                 "and progress tracking.",
-        "zaproszenie_keigo": "In {apka} you practise choosing the right register in sentences "
-                             "from everyday situations.",
+        "zaproszenie_keigo": "In {apka} you practise these forms yourself: you recognise them, "
+                             "know whom they raise or lower, and build them from frames.",
+        "nauka_skad_opis_poradnik_keigo": "The entries and the comparison chart come from the reviewed "
+                                          "catalogue of the free part of the {apka} app, and the introduction "
+                                          "passed the same content review as the app.",
         "nauka_skad_opis_poradnik": "The entries on this page come from the free part of the {apka} app, "
                                     "the Japanese forms in the charts and answers are computed by its engine, "
                                     "and the explanations and sentences passed the same content review as the app.",
+        "temat_keigo_tytul_poradnik": "Keigo Explained: Teineigo, Sonkeigo and Kenjougo with Chart",
+        "temat_keigo_opis_poradnik": "The three kinds of Japanese honorifics in one chart – いらっしゃる, 伺う, まいる, "
+                                     "when to use which, one action in four situations and 31 entries with examples.",
         "tabela_grupy_tytul": "At a glance",
         "tabela_klasa_godan": "godan (group 1)",
         "tabela_klasa_ichidan": "ichidan (group 2)",
@@ -558,7 +570,7 @@ NAPISY = {
         "temat_potoczny_opis": "The contractions you hear every day, each next to the full "
                                "form it came from.",
         "temat_keigo_tytul": "Keigo – Japanese politeness in practice",
-        "temat_keigo_opis": "Honorific and humble forms and the frames you lay over any word "
+        "temat_keigo_opis": "Honorific and humble forms and the frames you lay over most words "
                             "– what to say and why that one.",
         "do_tresci": "Skip to content",
         "nawigacja": "Site",

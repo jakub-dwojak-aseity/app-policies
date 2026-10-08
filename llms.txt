@@ -47,7 +47,7 @@ pleasant – understand that and you can guess a word you have never seen.
 - [Odmiana czasownika japońskiego: tabela form ます, て, た, ない](https://jd-japanese.pl/nauka/formy-czasownika/): Tabela odmiany 書く, 食べる, する i 来る, reguły grup godan i ichidan, każda forma z przykładem i ćwiczenia z odpowiedziami.
 - [Liczniki japońskie: tabele 1–10, odczyty i przykłady](https://jd-japanese.pl/nauka/liczniki-japonskie/): Jak przeczytać 3本, 4人 czy 8匹: tabele 1–10 dla つ, 人, 本, 枚, 匹 i 冊, wzory zmian dźwiękowych, 22 liczniki ze zdaniami i ćwiczenia.
 - [Japoński potoczny – skróty z anime i rozmowy](https://jd-japanese.pl/nauka/mowa-potoczna/): Skróty, które słychać na co dzień, każdy obok pełnej formy, z której powstał.
-- [Keigo – japońska grzeczność w praktyce](https://jd-japanese.pl/nauka/keigo/): Formy czczące i skromne oraz wzorce, które nakłada się na dowolne słowo – co powiedzieć i dlaczego akurat to.
+- [Keigo – japońska grzeczność w praktyce](https://jd-japanese.pl/nauka/keigo/): Formy czczące i skromne oraz wzorce, które nakłada się na większość słów – co powiedzieć i dlaczego akurat to.
 - [Onomatopeje japońskie – dźwięki z mangi i anime](https://jd-japanese.pl/nauka/onomatopeje/): Słowa, które naśladują dźwięk i stan – co znaczą i co robi z nimi 濁点.
 - [Gramatyka japońska N5 – wszystkie punkty z poziomu](https://jd-japanese.pl/nauka/gramatyka-n5/): Siedem grup gramatyki N5, od szkieletu zdania po ton wypowiedzi – każdy punkt ze znaczeniem, budową i przykładami.
 - [Japanese particles: は, が, を, に, で, へ](https://jd-japanese.pl/en/learn/japanese-particles/): The particles that carry an ordinary Japanese sentence, and the roles they stand in – with examples and translations.
@@ -55,7 +55,7 @@ pleasant – understand that and you can guess a word you have never seen.
 - [Japanese Verb Conjugation Chart: Masu, Te, Ta & Nai Forms](https://jd-japanese.pl/en/learn/verb-forms/): Conjugation chart for 書く, 食べる, する and 来る, the godan and ichidan rules, every form with an example, and practice with answers.
 - [Japanese Counters: 1–10 Charts, Readings and Examples](https://jd-japanese.pl/en/learn/japanese-counters/): How to read 3本, 4人 or 8匹: 1–10 charts for つ, 人, 本, 枚, 匹 and 冊, the sound-change patterns, 22 counters with sentences and practice.
 - [Casual Japanese – the contractions in anime and conversation](https://jd-japanese.pl/en/learn/casual-japanese/): The contractions you hear every day, each next to the full form it came from.
-- [Keigo – Japanese politeness in practice](https://jd-japanese.pl/en/learn/keigo/): Honorific and humble forms and the frames you lay over any word – what to say and why that one.
+- [Keigo – Japanese politeness in practice](https://jd-japanese.pl/en/learn/keigo/): Honorific and humble forms and the frames you lay over most words – what to say and why that one.
 - [Japanese mimetics – the sounds in manga and anime](https://jd-japanese.pl/en/learn/japanese-mimetics/): Words that imitate sound and state – what they mean and what 濁点 does to them.
 - [Japanese N5 grammar – every point on the level](https://jd-japanese.pl/en/learn/japanese-n5-grammar/): Seven groups of N5 grammar, from the sentence skeleton to tone – each point with its meaning, formation and examples.
 

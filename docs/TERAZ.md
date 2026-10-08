@@ -126,8 +126,10 @@ pole `poradnik`, a `strona_tematu` je renderuje; brak pola = dawny układ. Wyjś
 **Linki kampanii działają od 08.10:** `TOKEN_DOSTAWCY = "129317804"` (od Jakuba, z linku ASC; jeden na konto).
 Każdy przycisk App Store niesie `ct`: `web-app-<apka>` na stronie produktu, `web-<temat>[-<sekcja>]` na dole
 strony tematycznej, `web-<temat>-srodek` po tabeli poradnika. JSON-LD `sameAs` zostaje czysty. Raport: App
-Analytics → Campaigns, metryka widoczna od 5 w zakresie dat, po ≥24 h; kliknięcie ≠ pobranie. **Keigo (wstęp) czeka na zatwierdzenie 1.6.0**:
-świeży eksport z `codex/keigo-fixes` zmienia 4 hasła, których sklep jeszcze nie ma.
+Analytics → Campaigns, metryka widoczna od 5 w zakresie dat, po ≥24 h; kliknięcie ≠ pobranie. **Wstęp keigo jest GOTOWY i przejrzany** (`keigo-ios` `921bd17`),
+ale eksportu nie przeliczono: świeży eksport z `codex/keigo-fixes` zmienia 4 hasła, których sklep jeszcze nie ma.
+Po zatwierdzeniu 1.6.0 wystarczy `review-content.py --eksport-www` w Keigo i regeneracja — tytuł i opis
+„z poradnikiem” (`temat_keigo_*_poradnik`) przełączą się same.
 
 Poza tym bez zmian: domena przełączona 09.09, dziesięć podstron produktowych w dwóch językach,
 mapa rodziny, spis dokumentów, strona o autorze, własna 404, `robots.txt` z robotami AI

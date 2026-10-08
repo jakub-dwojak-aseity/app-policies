@@ -108,14 +108,24 @@ a nikt nie wpisuje w Google „Kazoekata": wpisuje „jaki licznik do butelek" a
 | adres | z czego | ile |
 |---|---|---|
 | `/nauka/partykuly-japonskie/` | Joshi | **15 ról** w 6 partykułach, 56 zdań |
-| `/nauka/formy-czasownika/` | Katsuyokei | 14 form |
-| `/nauka/liczniki-japonskie/` | Kazoekata | 22 liczniki, 44 zdania |
+| `/nauka/formy-czasownika/` | Katsuyokei | 15 form + **poradnik** (tabela z silnika, reguły grup, 15 zdań, 8 ćwiczeń) |
+| `/nauka/liczniki-japonskie/` | Kazoekata | 22 liczniki, 44 zdania z odczytem + **poradnik** (tabele 1–10 z silnika, wzory, 8 ćwiczeń) |
 | `/nauka/mowa-potoczna/` + 5 sekcji | Kuzushi | 34 wzorce wg rodzaju skrótu, 61 par zdań |
 | `/nauka/keigo/` + 2 sekcje | Keigo | 13 sytuacji, 19 słów |
 | `/nauka/mylace-pary/` | Kaname | 13 par N5, 22 zdania z sytuacją i powodem |
 | `/nauka/onomatopeje/` + 6 sekcji | Onomatope | 66 haseł, 132 zdania |
 | `/nauka/gramatyka-n5/` + 7 grup | Kaname | 60 punktów N5, 123 zdania |
 | `/nauka/` i `/en/learn/` | rozdroże | żeby strony nie były sierotami |
+
+**Poradnik — [poz. 691], 08.10.2026.** Tekst tylko dla WWW leży w siostrze, w `docs/www/poradnik.json`
+(apka go nie czyta), i przechodzi jej przegląd jako jednostki `kind=www` — tak jak hasła. Japoński w tabelach,
+liniach odmiany i odpowiedziach ćwiczeń liczy **silnik siostry** (`tabela-form.json` / `czytania.json`,
+testy `WebGuide*Tests`, które sprawdzają też każde „X → Y” i „3本（さんぼん）” w prozie). Eksport niesie
+pole `poradnik`, a `strona_tematu` je renderuje; brak pola = dawny układ. Wyjście do sklepu bierze
+`darmowe_<slug>` z `napisy.py` (brzmienie z „co za darmo” w tekście sklepowym), bramka 24 pilnuje liczby.
+**Linki kampanii są gotowe, ale wyłączone:** `TOKEN_DOSTAWCY = None` w generatorze, bo `pt` nie wychodzi
+z API ASC — wpisać po odczycie z App Analytics → Campaigns. **Keigo (wstęp) czeka na zatwierdzenie 1.6.0**:
+świeży eksport z `codex/keigo-fixes` zmienia 4 hasła, których sklep jeszcze nie ma.
 
 Poza tym bez zmian: domena przełączona 09.09, dziesięć podstron produktowych w dwóch językach,
 mapa rodziny, spis dokumentów, strona o autorze, własna 404, `robots.txt` z robotami AI

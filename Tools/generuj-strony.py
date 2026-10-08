@@ -692,14 +692,16 @@ def platformy_na_stronie(apki):
 #: App Analytics → Campaigns (Generate a Link); nie wychodzi z API ASC.
 #: Witryna niczego nie śledzi: kampanię liczy Apple, po swojej stronie, i tylko
 #: u osób, które zgodziły się dzielić danymi z twórcami aplikacji.
-TOKEN_DOSTAWCY = None
+TOKEN_DOSTAWCY = "129317804"  # Jakub 08.10.2026, z linku wygenerowanego w ASC
 
 
 def link_sklepu(a, platforma="ios", kampania=None):
-    adres = ADRES_SKLEPU[platforma](sklepy(a)[platforma]["id"])
+    identyfikator = sklepy(a)[platforma]["id"]
     if platforma == "ios" and kampania and TOKEN_DOSTAWCY:
-        adres += f"?pt={TOKEN_DOSTAWCY}&ct={kampania}&mt=8"
-    return adres
+        # Kształt co do znaku jak link z ASC → App Analytics → Campaigns.
+        return (f"https://apps.apple.com/app/apple-store/id{identyfikator}"
+                f"?pt={TOKEN_DOSTAWCY}&ct={kampania}&mt=8")
+    return ADRES_SKLEPU[platforma](identyfikator)
 
 
 def sklepy(a):
@@ -963,7 +965,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
         # trafia się wprost z wyszukiwarki, z pominięciem mapy rodziny — a do 16.09.2026
         # nie padało tu ani razu słowo „iOS", „iPhone" ani „Android" (zmierzone: zero
         # trafień w wytworze). Jedynym sygnałem był napis na przycisku.
-        sklep = (f'<p class="sklep">{przyciski_sklepow(a, n)}'
+        sklep = (f'<p class="sklep">{przyciski_sklepow(a, n, "web-app-%s" % a["slug"])}'
                  f'{znaczki_platform(a, jezyk)}'
                  f'<span class="znacznik">{e(n["darmowa"])}</span></p>')
     else:
@@ -3835,9 +3837,9 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
     #     (a) Liczba w `darmowe_<slug>` („22 liczniki") jest twierdzeniem o materiale,
     #     więc musi się zgadzać z liczbą haseł eksportu tej apki — eksport to
     #     dokładnie darmowe i przejrzane hasła. Napis bez liczby nie ma czego pilnować.
-    #     (b) Gdy `TOKEN_DOSTAWCY` jest ustawiony, każdy link do App Store na stronie
-    #     tematycznej niesie `ct=` — kampania liczona w połowie stron byłaby liczbą
-    #     o czymś innym, niż się wydaje.
+    #     (b) Gdy `TOKEN_DOSTAWCY` jest ustawiony, każdy klikalny link do App Store
+    #     (strony tematyczne i produktowe) niesie `ct=` — kampania liczona w połowie
+    #     stron byłaby liczbą o czymś innym, niż się wydaje. JSON-LD zostaje czysty.
     for jezyk_ in JEZYKI:
         for klucz, napis in NAPISY[jezyk_].items():
             if not klucz.startswith("darmowe_") or not isinstance(napis, str):
@@ -3850,7 +3852,7 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
                              f"{slug} ma {len(eksport['jednostki'])} haseł")
     if TOKEN_DOSTAWCY:
         for adres_, tresc in pliki.items():
-            if adres_.startswith(("nauka/", "en/learn/")):
+            if adres_.endswith(".html"):
                 for link in re.findall(r'href="(https://apps\.apple\.com/[^"]+)"', tresc):
                     if "ct=" not in link:
                         bledy.append(f"{adres_}: link do sklepu bez ct= mimo tokenu kampanii")

@@ -123,8 +123,10 @@ liniach odmiany i odpowiedziach ćwiczeń liczy **silnik siostry** (`tabela-form
 testy `WebGuide*Tests`, które sprawdzają też każde „X → Y” i „3本（さんぼん）” w prozie). Eksport niesie
 pole `poradnik`, a `strona_tematu` je renderuje; brak pola = dawny układ. Wyjście do sklepu bierze
 `darmowe_<slug>` z `napisy.py` (brzmienie z „co za darmo” w tekście sklepowym), bramka 24 pilnuje liczby.
-**Linki kampanii są gotowe, ale wyłączone:** `TOKEN_DOSTAWCY = None` w generatorze, bo `pt` nie wychodzi
-z API ASC — wpisać po odczycie z App Analytics → Campaigns. **Keigo (wstęp) czeka na zatwierdzenie 1.6.0**:
+**Linki kampanii działają od 08.10:** `TOKEN_DOSTAWCY = "129317804"` (od Jakuba, z linku ASC; jeden na konto).
+Każdy przycisk App Store niesie `ct`: `web-app-<apka>` na stronie produktu, `web-<temat>[-<sekcja>]` na dole
+strony tematycznej, `web-<temat>-srodek` po tabeli poradnika. JSON-LD `sameAs` zostaje czysty. Raport: App
+Analytics → Campaigns, metryka widoczna od 5 w zakresie dat, po ≥24 h; kliknięcie ≠ pobranie. **Keigo (wstęp) czeka na zatwierdzenie 1.6.0**:
 świeży eksport z `codex/keigo-fixes` zmienia 4 hasła, których sklep jeszcze nie ma.
 
 Poza tym bez zmian: domena przełączona 09.09, dziesięć podstron produktowych w dwóch językach,

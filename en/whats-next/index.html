@@ -42,6 +42,11 @@ a { color: var(--akcent); }
 .gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
         margin-bottom: 2rem; color: var(--cichy); }
 .gora a { text-decoration: none; }
+.gora-prawo { display: flex; align-items: center; gap: .75rem; }
+.instagram { display: inline-flex; align-items: center; justify-content: center;
+             gap: .5rem; min-width: 44px; min-height: 44px; vertical-align: middle; }
+.instagram svg { width: 22px; height: 22px; flex: none; }
+.instagram:hover { color: var(--tekst); }
 .do-tresci { position: absolute; left: -9999px; }
 .do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
 :focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
@@ -171,8 +176,8 @@ code { font-size: .9em; }
 </head>
 <body>
 <a class="do-tresci" href="#tresc">Skip to content</a>
-<nav class="gora" aria-label="Site"><span><a class="znak" href="../../en/" aria-hidden="true" tabindex="-1"><img src="../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../en/">← All apps</a></span><span><a href="https://jd-japanese.pl/co-dalej/">Polski</a></span></nav>
+<nav class="gora" aria-label="Site"><span><a class="znak" href="../../en/" aria-hidden="true" tabindex="-1"><img src="../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../en/">← All apps</a></span><span class="gora-prawo"><a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://jd-japanese.pl/co-dalej/">Polski</a></span></nav>
 <main id="tresc"><h1>What is next</h1><p class="lead">This page announces no dates. It lists four things I am weighing up and says what I already know about each. If one of them matters to you, write – that is the only way I will find out.</p><h2>An Android version</h2><p>Today these apps are on iPhone and iPad only. An Android version has no date. If you need one, write – interest moves the order of what I work on first.</p><p><a href="mailto:support@jd-japanese.pl?subject=What%20is%20next%3A%20Android">Write →</a></p><h2>Interface languages</h2><p>The apps speak Polish and English. German, Spanish and French are possible, but each of them is a few thousand fields to translate and check. One email asking for it is worth more than my guesses about whether anyone wants it.</p><p><a href="mailto:support@jd-japanese.pl?subject=What%20is%20next%3A%20languages">Write →</a></p><h2>Which of the announced apps first</h2><p>Six apps already have a name, a character and a scope, but no code yet – they stand lower on the family map. The order in which they appear is not settled. If you need one of them earlier than the rest, say which.</p><p><a href="mailto:support@jd-japanese.pl?subject=What%20is%20next%3A%20announced%20apps">Write →</a></p><h2>What is missing</h2><p>An open field for what I did not think of. A mistake in the content, a missing feature, something that gets in the way every day – anything.</p><p><a href="mailto:support@jd-japanese.pl?subject=What%20is%20next%3A%20what%20is%20missing">Write →</a></p><p class="podtytul">There is no counter here and no tracking of any kind – this site records nothing about its visitors. I count emails, and that is all.</p></main>
-<footer>Jakub Dwojak · <a href="../../en/about/">About</a> · <a href="../../en/learn/">Learning Japanese</a> · <a href="../../en/documents.html">Document index</a> · <a href="https://www.instagram.com/jd_japanese/">Instagram @jd_japanese</a></footer>
+<footer>Jakub Dwojak · <a href="../../en/about/">About</a> · <a href="../../en/learn/">Learning Japanese</a> · <a href="../../en/documents.html">Document index</a> · <a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>@jd_japanese</span></a></footer>
 </body>
 </html>

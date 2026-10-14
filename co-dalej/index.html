@@ -42,6 +42,11 @@ a { color: var(--akcent); }
 .gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
         margin-bottom: 2rem; color: var(--cichy); }
 .gora a { text-decoration: none; }
+.gora-prawo { display: flex; align-items: center; gap: .75rem; }
+.instagram { display: inline-flex; align-items: center; justify-content: center;
+             gap: .5rem; min-width: 44px; min-height: 44px; vertical-align: middle; }
+.instagram svg { width: 22px; height: 22px; flex: none; }
+.instagram:hover { color: var(--tekst); }
 .do-tresci { position: absolute; left: -9999px; }
 .do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
 :focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
@@ -171,8 +176,8 @@ code { font-size: .9em; }
 </head>
 <body>
 <a class="do-tresci" href="#tresc">Przejdź do treści</a>
-<nav class="gora" aria-label="Witryna"><span><a class="znak" href="../" aria-hidden="true" tabindex="-1"><img src="../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../">← Wszystkie aplikacje</a></span><span><a href="https://jd-japanese.pl/en/whats-next/">English</a></span></nav>
+<nav class="gora" aria-label="Witryna"><span><a class="znak" href="../" aria-hidden="true" tabindex="-1"><img src="../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../">← Wszystkie aplikacje</a></span><span class="gora-prawo"><a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://jd-japanese.pl/en/whats-next/">English</a></span></nav>
 <main id="tresc"><h1>Co dalej</h1><p class="lead">Ta strona nie zapowiada terminów. Wymienia cztery rzeczy, nad którymi się zastanawiam, i mówi, co o każdej z nich już wiem. Jeśli któraś jest dla Ciebie ważna, napisz – to jedyny sposób, w jaki się o tym dowiem.</p><h2>Wersja na Androida</h2><p>Dziś te aplikacje są tylko na iPhone'a i iPada. Wersja na Androida nie ma daty. Jeśli jest Ci potrzebna, napisz – zainteresowanie przesuwa kolejność tego, co robię najpierw.</p><p><a href="mailto:support@jd-japanese.pl?subject=Co%20dalej%3A%20Android">Napisz →</a></p><h2>Języki interfejsu</h2><p>Aplikacje mówią po polsku i po angielsku. Niemiecki, hiszpański i francuski są możliwe, ale każdy z nich to kilka tysięcy pól do przetłumaczenia i sprawdzenia. Jeden mail z prośbą jest wart więcej niż moje domysły o tym, czy ktoś tego chce.</p><p><a href="mailto:support@jd-japanese.pl?subject=Co%20dalej%3A%20j%C4%99zyki">Napisz →</a></p><h2>Która z zapowiedzianych pierwsza</h2><p>Sześć aplikacji ma już nazwę, znak i zakres, a nie ma jeszcze kodu – stoją niżej na mapie rodziny. Kolejność, w jakiej powstaną, nie jest przesądzona. Jeśli któraś jest Ci potrzebna wcześniej niż reszta, powiedz która.</p><p><a href="mailto:support@jd-japanese.pl?subject=Co%20dalej%3A%20zapowiedziane">Napisz →</a></p><h2>Czego brakuje</h2><p>Pole otwarte na to, czego nie przewidziałem. Błąd w treści, brakująca funkcja, coś, co przeszkadza codziennie – wszystko jedno.</p><p><a href="mailto:support@jd-japanese.pl?subject=Co%20dalej%3A%20czego%20brakuje">Napisz →</a></p><p class="podtytul">Nie ma tu licznika ani żadnego śledzenia – ta witryna nie zapisuje niczego o odwiedzających. Liczę maile, i tyle.</p></main>
-<footer>Jakub Dwojak · <a href="../o-autorze/">O autorze</a> · <a href="../nauka/">Nauka japońskiego</a> · <a href="../dokumenty.html">Spis dokumentów</a> · <a href="https://www.instagram.com/jd_japanese/">Instagram @jd_japanese</a></footer>
+<footer>Jakub Dwojak · <a href="../o-autorze/">O autorze</a> · <a href="../nauka/">Nauka japońskiego</a> · <a href="../dokumenty.html">Spis dokumentów</a> · <a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>@jd_japanese</span></a></footer>
 </body>
 </html>

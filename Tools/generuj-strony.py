@@ -107,6 +107,11 @@ a { color: var(--akcent); }
 .gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
         margin-bottom: 2rem; color: var(--cichy); }
 .gora a { text-decoration: none; }
+.gora-prawo { display: flex; align-items: center; gap: .75rem; }
+.instagram { display: inline-flex; align-items: center; justify-content: center;
+             gap: .5rem; min-width: 44px; min-height: 44px; vertical-align: middle; }
+.instagram svg { width: 22px; height: 22px; flex: none; }
+.instagram:hover { color: var(--tekst); }
 .do-tresci { position: absolute; left: -9999px; }
 .do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
 :focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
@@ -536,7 +541,20 @@ def gora(jezyk, glebokosc, alternatywny, manifest, mapa=True, powrot=None):
              f'{e(n["inny_jezyk"])}</a>')
     return (f'<nav class="gora" aria-label="{e(n["nawigacja"])}">'
             f'<span>{znak_html}{powrot}</span>'
-            f'<span>{prawo}</span></nav>')
+            f'<span class="gora-prawo">{link_instagram()}{prawo}</span></nav>')
+
+
+def link_instagram(z_tekstem=False):
+    """Znak społecznościowy; bez zewnętrznych fontów, skryptów i trackerów."""
+    znak = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+            'stroke-width="1.8" aria-hidden="true" focusable="false">'
+            '<rect x="3" y="3" width="18" height="18" rx="5"/>'
+            '<circle cx="12" cy="12" r="4"/>'
+            '<circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>'
+            '</svg>')
+    tekst = '<span>@jd_japanese</span>' if z_tekstem else ''
+    return ('<a class="instagram" href="https://www.instagram.com/jd_japanese/" '
+            'aria-label="Instagram @jd_japanese">' + znak + tekst + '</a>')
 
 
 def stopka(jezyk, glebokosc, manifest, kontakt=None, spis_dokumentow=False,
@@ -568,7 +586,7 @@ def stopka(jezyk, glebokosc, manifest, kontakt=None, spis_dokumentow=False,
     linki.insert(0, f'<a href="{wzgledny(glebokosc, autor)}">{e(n["autor_link"])}</a>')
     if kontakt:
         linki.append(f'<a href="mailto:{kontakt}">{e(kontakt)}</a>')
-    linki.append('<a href="https://www.instagram.com/jd_japanese/">Instagram @jd_japanese</a>')
+    linki.append(link_instagram(z_tekstem=True))
     czlony = [e(manifest["autor"])] + linki
     return f"<footer>{' · '.join(czlony)}</footer>"
 

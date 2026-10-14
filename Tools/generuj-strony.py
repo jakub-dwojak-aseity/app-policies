@@ -568,6 +568,7 @@ def stopka(jezyk, glebokosc, manifest, kontakt=None, spis_dokumentow=False,
     linki.insert(0, f'<a href="{wzgledny(glebokosc, autor)}">{e(n["autor_link"])}</a>')
     if kontakt:
         linki.append(f'<a href="mailto:{kontakt}">{e(kontakt)}</a>')
+    linki.append('<a href="https://www.instagram.com/jd_japanese/">Instagram @jd_japanese</a>')
     czlony = [e(manifest["autor"])] + linki
     return f"<footer>{' · '.join(czlony)}</footer>"
 

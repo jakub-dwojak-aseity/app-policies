@@ -187,8 +187,11 @@
   <strong>There is no installation, device or person identifier.</strong> Each event has its own
   random UUID solely to avoid counting it twice when delivery is retried.
   We collect no texts, answer history, content or role identifiers, email address,
-  location, device model or iOS version. Statistics use no cookies, account token,
-  App Attest or purchase identifiers and are not linked to AI help data.
+  location, device model or iOS version. Statistical events contain no account token,
+  App Attest identifiers, purchase identifiers or the purchase-attempt UUID described below.
+  Statistics use no cookies and are not linked to AI help data on the server.
+  An attempt is associated with a purchase only locally to confirm its origin;
+  the purchase event sent still includes only its kind.
 </p>
 <p>
   An IP address is necessary for the connection, but we do not record it in events or access logs.
@@ -203,7 +206,8 @@
 <p>
   You can withdraw consent at any time in <em>Settings → Privacy</em>, using
   <em>Send anonymous usage statistics</em>. Turning it off cancels delivery, deletes the local queue
-  and the current session record used for measurement, and stops collection and future uploads.
+  and the current session record used for measurement, as well as local purchase-attempt records;
+  it stops collection and future uploads. It does not remove a token already stored in an Apple transaction.
   Events already received may remain until retention ends: without an installation identifier
   we cannot locate a particular person's events and delete them on request. Declining consent,
   a lack of internet or a server outage does not change learning, progress or access to purchased features.
@@ -267,9 +271,21 @@
   The one-off Premium purchase and the AI Help subscription are handled entirely by Apple. Joshi never
   sees your payment details, card number or billing information. The app reads the state of your
   purchases from iOS. While the AI Help subscription is active, the app passes our server the
-  Apple-signed proof of that transaction — only so the server can check the signature itself and grant
-  the subscription's requests. Proof of the Premium transaction is not sent to the server. If you consent to usage
-  statistics, an anonymous purchase event includes only its kind, without a transaction identifier.
+  full Apple-signed proof of that transaction (JWS), so the server can check the signature itself
+  and grant the subscription's requests. If the transaction contains the purchase-attempt UUID
+  described below, that UUID also reaches the server as part of the proof. Proof of the Premium
+  transaction is not sent to the server. An anonymous purchase event includes only its kind,
+  without a purchase-attempt UUID or transaction identifier.
+</p>
+<p>
+  <strong>Only while consent to statistics is enabled</strong>, the app creates a separate random
+  UUID for each local purchase attempt and passes it to Apple as <code>appAccountToken</code>.
+  Despite the field's name, it is not an account, person or installation identifier and is not
+  shared across different attempts. The app keeps a local association to confirm that a received
+  transaction originated from that purchase attempt. The UUID is not included in statistical events.
+  Apple stores it in the transaction; it may also remain in subscription renewal transactions.
+  Withdrawing consent deletes the local record and stops future measurement, but does not delete
+  or change an Apple transaction or the token stored in it.
 </p>
 <p>
   How Apple processes data is described in

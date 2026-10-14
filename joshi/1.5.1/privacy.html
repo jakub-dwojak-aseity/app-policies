@@ -189,8 +189,11 @@
   <strong>Nie ma identyfikatora instalacji, urządzenia ani osoby.</strong> Każde zdarzenie ma własny
   losowy UUID wyłącznie do uniknięcia podwójnego policzenia przy ponowieniu wysyłki.
   Nie zbieramy tekstów, historii odpowiedzi, identyfikatorów treści i ról, adresu e-mail,
-  lokalizacji, modelu urządzenia ani wersji iOS. Statystyka nie używa cookies, tokenu konta,
-  App Attest ani identyfikatorów zakupów i nie jest łączona z danymi pomocy AI.
+  lokalizacji, modelu urządzenia ani wersji iOS. Zdarzenia statystyczne nie zawierają tokenu
+  konta, identyfikatorów App Attest, zakupu ani UUID próby zakupu opisanego niżej.
+  Statystyka nie używa cookies i na serwerze nie jest łączona z danymi pomocy AI.
+  Skojarzenie próby z zakupem odbywa się wyłącznie lokalnie, aby potwierdzić jego pochodzenie;
+  wysłane zdarzenie zakupu nadal zawiera tylko jego rodzaj.
 </p>
 <p>
   Adres IP jest potrzebny do połączenia, ale nie zapisujemy go w zdarzeniach ani dziennikach dostępu.
@@ -205,7 +208,8 @@
 <p>
   Zgodę możesz wycofać w każdej chwili w <em>Ustawienia → Prywatność</em>, przełącznikiem
   <em>Wysyłaj anonimową statystykę użycia</em>. Wyłączenie anuluje wysyłkę, usuwa lokalną kolejkę
-  i zapis bieżącej sesji służący pomiarowi oraz zatrzymuje zbieranie i przyszłe wysyłanie.
+  i zapis bieżącej sesji służący pomiarowi oraz lokalne zapisy prób zakupu; zatrzymuje zbieranie
+  i przyszłe wysyłanie. Nie usuwa tokenu zapisanego już w transakcji Apple.
   Już odebrane zdarzenia mogą pozostać do końca retencji: bez identyfikatora instalacji
   nie możemy odnaleźć zdarzeń konkretnej osoby i usunąć ich na żądanie. Brak zgody, internetu
   lub dostępnego serwera nie zmienia nauki, postępu ani dostępu do zakupionych funkcji.
@@ -269,9 +273,21 @@
   Jednorazowy zakup Premium i subskrypcję Pomoc AI obsługuje w całości Apple. Joshi nigdy nie widzi
   Twoich danych płatniczych, numeru karty ani danych rozliczeniowych. Stan zakupu aplikacja
   odczytuje z systemu iOS. Przy czynnej subskrypcji Pomoc AI aplikacja przekazuje naszemu serwerowi
-  podpisany przez Apple dowód tej transakcji — wyłącznie po to, żeby serwer mógł sam sprawdzić
-  podpis i przydzielić zapytania z subskrypcji. Dowód transakcji Premium nie jest wysyłany do serwera. Jeżeli zgodzisz się na statystykę
-  użycia, anonimowe zdarzenie zakupu zawiera tylko jego rodzaj, bez identyfikatora transakcji.
+  pełny podpisany przez Apple dowód tej transakcji (JWS) — po to, żeby serwer mógł sam sprawdzić
+  podpis i przydzielić zapytania z subskrypcji. Jeżeli transakcja zawiera UUID próby zakupu opisany
+  poniżej, ten UUID także trafia do serwera jako część dowodu. Dowód transakcji Premium nie jest
+  wysyłany do serwera. Anonimowe zdarzenie zakupu zawiera tylko jego rodzaj, bez UUID próby zakupu
+  i bez identyfikatora transakcji.
+</p>
+<p>
+  <strong>Tylko przy włączonej zgodzie na statystykę</strong>, dla każdej lokalnej próby zakupu
+  aplikacja tworzy osobny losowy UUID i przekazuje go Apple jako <code>appAccountToken</code>.
+  Mimo nazwy tego pola nie jest to identyfikator konta, osoby ani instalacji i nie jest wspólny
+  dla różnych prób. Aplikacja zachowuje lokalne skojarzenie, aby potwierdzić, że otrzymana
+  transakcja pochodzi z tej próby zakupu. UUID nie trafia do zdarzeń statystycznych.
+  Apple zapisuje go w transakcji; może on pozostać także w transakcjach odnowienia subskrypcji.
+  Wycofanie zgody usuwa lokalny zapis i zatrzymuje przyszły pomiar, ale nie usuwa ani nie zmienia
+  transakcji Apple lub zapisanego w niej tokenu.
 </p>
 <p>
   Sposób przetwarzania danych przez Apple opisuje

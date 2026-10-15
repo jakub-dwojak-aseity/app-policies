@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Katsuyokei — Privacy Policy</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    max-width: 42rem; margin: 0 auto; padding: 2rem 1.25rem 4rem;
+    font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #1c1c1e; background: #fff;
+  }
+  h1 { font-size: 1.75rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2.25rem; }
+  .updated { color: #6b6b70; font-size: .9rem; margin-top: 0; }
+  ul { padding-left: 1.25rem; }
+  li { margin: .4rem 0; }
+  a { color: #16706c; }
+  .note { border-left: 3px solid #1e8480; padding: .1rem 0 .1rem 1rem; margin: 1.5rem 0; color: #45454a; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e3e3e6; font-size: .9rem; color: #6b6b70; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #ececef; background: #131315; }
+    .updated, footer { color: #9a9aa0; }
+    .note { color: #c8c8ce; }
+    footer { border-top-color: #2c2c30; }
+    a { color: #4fb8b2; }
+  }
+</style>
+<link rel="canonical" href="https://jd-japanese.pl/katsuyokei/1.5.0/en/privacy.html">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
+<link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
+<meta name="description" content="Katsuyokei helps you practice Japanese conjugation offline. Voluntary anonymous usage statistics require consent and are off by default.">
+<meta property="og:title" content="Katsuyokei — Privacy Policy">
+<meta property="og:description" content="Katsuyokei helps you practice Japanese conjugation offline. Voluntary anonymous usage statistics require consent and are off by default.">
+<meta property="og:url" content="https://jd-japanese.pl/katsuyokei/1.5.0/en/privacy.html">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://jd-japanese.pl/assets/karty/katsuyokei-en.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<main>
+<h1>Privacy policy</h1>
+<p class="updated"><strong>Katsuyokei</strong> · version 1.5.0 · updated: 15 October 2026</p>
+<p>Katsuyokei helps you practice Japanese conjugation. Study material, exercises and progress work on your device, including offline. Version 1.5.0 adds voluntary anonymous usage statistics, off by default.</p>
+<div class="note">There is no account, advertising or AI help. Your answers and full study history stay on your device. Only after you consent do we send the limited statistical events described below to our own server.</div>
+<h2>Study data and progress backups</h2>
+<p>Progress, answer history, sessions, your day streak and settings are stored on your device. Your full history and typed answers are not sent to our server. Exported progress is saved where you choose; the app does not send it automatically. Deleting the app removes its local data. You can also erase progress in Settings.</p>
+<h2>The app family and widgets</h2>
+<p>Katsuyokei writes a local card for “Your Japanese”. It contains the percentage of material mastered, your streak, completed session count, a general description of your weakest area in Polish and English, and the time until which your daily goal is complete. It also contains the format, app name and update time. The next review date stays empty: Katsuyokei does not schedule SRS reviews.</p>
+<p>Other family apps installed on the same device can read this card. Widgets use local shared storage to show family progress and the answers remaining towards your daily goal. These data never leave the device and do not sync between devices. They do not contain your full answer history.</p>
+<p>Shared storage can survive uninstalling one app; it disappears after all family apps are removed. “Erase all progress” also removes Katsuyokei’s card and updates the widget’s local goal data.</p>
+<h2>Voluntary anonymous usage statistics</h2>
+<p>Statistics help us understand where learners stop practicing. They are <strong>off by default</strong>. Only after consent do we record events and send them to <code>api.jd-japanese.pl</code>. Earlier events are not reconstructed.</p>
+<ul>
+<li>First entry after consent and a general entry category: a new installation, restored progress or later consent.</li>
+<li>An active day: a range of completed session counts, learning stage 1–5 (not a JLPT level), Premium access, seeing an offer and enabled reminders.</li>
+<li>Completing or abandoning a session: its kind and scope (everything, stage, form, irregulars or a set of forms), outcome, a range of answer counts, and count ranges for recognition and production questions shown. For abandonment, also the last question’s general type, its outcome and a range for consecutive mistakes. We do not send the specific form, vocabulary entry, question or answer.</li>
+<li>The first completed session with its duration range and a second session completed on a different study day. We send no first SRS review event.</li>
+<li>Viewing a Premium offer and its general trigger. This measurement scope does not report completed purchases or AI use.</li>
+</ul>
+<p>Events include the cohort week, day since its start, interface language, app version and experiment variant at consent and currently. Each event has its own random UUID to avoid double counting on retry. <strong>There is no person, device or installation identifier.</strong> We do not send text, answer history, content identifiers, email, location, device model, iOS version, product identifiers or Apple transaction identifiers.</p>
+<p>Offline events wait on the device for up to 30 days, with a maximum of 500 events. The queue is excluded from progress exports and backups. Acknowledged events are removed from the queue. Raw server events are retained for 400 days and then replaced by daily totals without UUIDs.</p>
+<p>An IP address is needed for the connection but is not stored in events or access logs. Abuse protection uses a separate keyed address hash, periodically deleted after 24 hours of inactivity and not linked to events.</p>
+<p>You can withdraw consent in Settings under Privacy. Turning statistics off stops collection, cancels uploads and removes the local queue and the current session’s measurement state. Events already received may remain until retention ends: without an installation identifier we cannot locate a particular person’s events. No consent, internet connection or available server is needed for study, progress or purchased features.</p>
+<h2>Network, advertising and reminders</h2>
+<p>Our server handles only the statistics described above after consent. iOS and the App Store handle purchases and restores. The app contains no advertising, IDFA, third-party analytics kit or crash reporter. It does not track you across apps or websites, sell data, or use statistics for advertising or profiling.</p>
+<p>Goal reminders are optional local notifications. Denying notification permission does not affect study. With consent to statistics, we send only a flag indicating whether reminders are enabled.</p>
+<h2>Purchases</h2>
+<p>The App Store handles the one-time Premium purchase. The app checks its validity through the system and does not receive payment details, an address or your Apple Account identifier.</p>
+<h2>Contact and crash reports</h2>
+<p>“Suggest a feature” and “Report a bug” open your mail client. You can review and edit the message before sending. A bug report includes the app version, build, iOS version and device series model; you can remove that block. Nothing is sent automatically. System crash reports shared by Apple follow your iOS privacy settings.</p>
+<h2>Children and policy changes</h2>
+<p>The app is not directed at children under 13. Changes to data handling require an updated policy before the affected app release.</p>
+<h2>Contact</h2><p>Privacy questions: <a href="mailto:katsuyokei@jd-japanese.pl">katsuyokei@jd-japanese.pl</a>.</p>
+</main>
+<footer>
+  Katsuyokei 活用形 · <a href="mailto:katsuyokei@jd-japanese.pl">katsuyokei@jd-japanese.pl</a><br>
+  <a href="privacy.html">Privacy policy</a> ·
+  <a href="support.html">Support</a> ·
+  <a href="terms.html">Terms of use</a>
+<br><a href="https://jd-japanese.pl/en/apps/katsuyokei/">Katsuyokei: Japanese Conjugation</a> · <a href="https://jd-japanese.pl/en/">Japanese in ten apps</a></footer>
+
+</body>
+</html>

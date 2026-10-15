@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Katsuyokei — Polityka prywatności</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    max-width: 42rem; margin: 0 auto; padding: 2rem 1.25rem 4rem;
+    font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #1c1c1e; background: #fff;
+  }
+  h1 { font-size: 1.75rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2.25rem; }
+  .updated { color: #6b6b70; font-size: .9rem; margin-top: 0; }
+  ul { padding-left: 1.25rem; }
+  li { margin: .4rem 0; }
+  a { color: #16706c; }
+  .note { border-left: 3px solid #1e8480; padding: .1rem 0 .1rem 1rem; margin: 1.5rem 0; color: #45454a; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e3e3e6; font-size: .9rem; color: #6b6b70; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #ececef; background: #131315; }
+    .updated, footer { color: #9a9aa0; }
+    .note { color: #c8c8ce; }
+    footer { border-top-color: #2c2c30; }
+    a { color: #4fb8b2; }
+  }
+</style>
+<link rel="canonical" href="https://jd-japanese.pl/katsuyokei/1.5.0/privacy.html">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
+<link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
+<meta name="description" content="Katsuyokei ćwiczy odmianę japońską offline. Dobrowolna anonimowa statystyka użycia wymaga zgody i jest domyślnie wyłączona.">
+<meta property="og:title" content="Katsuyokei — Polityka prywatności">
+<meta property="og:description" content="Katsuyokei ćwiczy odmianę japońską offline. Dobrowolna anonimowa statystyka użycia wymaga zgody i jest domyślnie wyłączona.">
+<meta property="og:url" content="https://jd-japanese.pl/katsuyokei/1.5.0/privacy.html">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://jd-japanese.pl/assets/karty/katsuyokei-pl.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<main>
+<h1>Polityka prywatności</h1>
+<p class="updated">Aplikacja <strong>Katsuyokei</strong> · wersja 1.5.0 · aktualizacja: 15 października 2026</p>
+<p>Katsuyokei służy do ćwiczenia odmiany japońskiej. Materiał, ćwiczenia i postęp działają na urządzeniu, także bez internetu. Wersja 1.5.0 dodaje dobrowolną anonimową statystykę użycia, domyślnie wyłączoną.</p>
+<div class="note">Nie ma konta, reklam ani pomocy AI. Odpowiedzi i pełna historia nauki pozostają na urządzeniu. Dopiero po Twojej zgodzie wysyłamy do własnego serwera ograniczone zdarzenia statystyczne opisane niżej.</div>
+<h2>Dane nauki i kopia postępu</h2>
+<p>Postęp, historia odpowiedzi, sesje, seria dni i ustawienia są zapisane na urządzeniu. Pełna historia ani wpisane odpowiedzi nie są wysyłane do naszego serwera. Po wyeksportowaniu postępu plik zapisuje się tam, gdzie wskażesz; aplikacja nie wysyła go automatycznie. Usunięcie aplikacji usuwa jej lokalne dane. W Ustawieniach możesz też skasować postęp.</p>
+<h2>Rodzina aplikacji i widżety</h2>
+<p>Katsuyokei zapisuje lokalnie kartę dla sekcji „Twój japoński”. Zawiera ona procent opanowanego materiału, serię dni, liczbę ukończonych sesji, ogólny opis najsłabszego miejsca po polsku i angielsku oraz informację, do kiedy dzienny cel jest wykonany. Do tego format, nazwę aplikacji i czas aktualizacji. Pole terminu najbliższej powtórki pozostaje puste: Katsuyokei nie planuje powtórek SRS.</p>
+<p>Kartę czytają aplikacje rodziny zainstalowane na tym samym urządzeniu. Widżety korzystają z lokalnego obszaru współdzielonego, żeby pokazać postęp rodziny i pozostałe odpowiedzi do celu dnia. Te dane nie opuszczają urządzenia i nie synchronizują się między urządzeniami. Nie zawierają pełnej historii odpowiedzi.</p>
+<p>Obszar współdzielony może przetrwać odinstalowanie jednej aplikacji; znika po usunięciu wszystkich aplikacji rodziny. „Skasuj cały postęp” usuwa także kartę Katsuyokei i odświeża lokalny zapis celu dla widżetu.</p>
+<h2>Dobrowolna anonimowa statystyka użycia</h2>
+<p>Statystyka pomaga sprawdzać, gdzie uczniowie przerywają ćwiczenia. Jest <strong>domyślnie wyłączona</strong>. Dopiero po zgodzie zapisujemy zdarzenia i wysyłamy je do <code>api.jd-japanese.pl</code>. Nie odtwarzamy wcześniejszych zdarzeń.</p>
+<ul>
+<li>Pierwsze wejście po zgodzie i ogólna kategoria rozpoczęcia: nowa instalacja, przywrócony postęp albo późniejsza zgoda.</li>
+<li>Aktywny dzień: przedział liczby ukończonych sesji, etap nauki 1–5 (nie poziom JLPT), dostęp Premium, zobaczenie oferty i włączenie przypomnień.</li>
+<li>Ukończenie lub porzucenie sesji: jej rodzaj i zakres (wszystko, etap, forma, nieregularne lub zestaw form), wynik, przedział liczby odpowiedzi oraz liczby pokazanych pytań rozpoznawania i wytwarzania. Przy porzuceniu także ogólny typ ostatniego pytania, jego wynik i przedział długości serii pomyłek. Nie wysyłamy konkretnej formy, hasła, pytania ani odpowiedzi.</li>
+<li>Pierwsza ukończona sesja wraz z przedziałem czasu jej trwania i druga ukończona sesja w innym dniu nauki. Nie wysyłamy zdarzenia pierwszej powtórki SRS.</li>
+<li>Wyświetlenie oferty Premium i jego ogólny powód. Ten zakres pomiaru nie raportuje ukończonych zakupów ani użycia AI.</li>
+</ul>
+<p>Zdarzenia zawierają tydzień kohorty, dzień od jej początku, język interfejsu, wersję aplikacji i wariant eksperymentu przy zgodzie oraz obecnie. Każde zdarzenie ma osobny losowy UUID, aby ponowienie wysyłki nie policzyło go dwa razy. <strong>Nie ma identyfikatora osoby, urządzenia ani instalacji.</strong> Nie wysyłamy tekstów, historii odpowiedzi, identyfikatorów treści, adresu e-mail, lokalizacji, modelu urządzenia, wersji iOS, identyfikatora produktu ani transakcji Apple.</p>
+<p>Bez internetu kolejka czeka na urządzeniu do 30 dni i zawiera najwyżej 500 zdarzeń. Nie wchodzi do eksportu postępu ani kopii zapasowej. Po potwierdzeniu odbioru zdarzenia znikają z kolejki. Na serwerze surowe zdarzenia są przechowywane przez 400 dni, a potem zastępują je sumy dzienne bez UUID.</p>
+<p>Adres IP jest potrzebny do połączenia, ale nie zapisujemy go w zdarzeniach ani dziennikach dostępu. Ochrona przed nadużyciami używa osobnego kluczowanego skrótu adresu, okresowo usuwanego po 24 godzinach nieaktywności i niełączonego ze zdarzeniami.</p>
+<p>Zgodę można wycofać w Ustawieniach, w sekcji Prywatność. Wyłączenie zatrzymuje zbieranie, anuluje wysyłanie i usuwa lokalną kolejkę oraz zapis bieżącej sesji służący pomiarowi. Zdarzenia już odebrane mogą pozostać do końca retencji: bez identyfikatora instalacji nie umiemy wskazać zdarzeń konkretnej osoby. Brak zgody, sieci lub serwera nie blokuje nauki, postępu ani zakupionych funkcji.</p>
+<h2>Sieć, reklamy i przypomnienia</h2>
+<p>Własny serwer obsługuje wyłącznie opisaną statystykę po zgodzie. Zakup i przywracanie zakupu obsługują iOS i App Store. Aplikacja nie zawiera reklam, IDFA, zewnętrznego zestawu analitycznego ani raportera awarii. Nie śledzi między aplikacjami i stronami, nie sprzedaje danych i nie używa statystyki do reklam ani profilowania.</p>
+<p>Przypomnienia o celu są opcjonalnymi powiadomieniami lokalnymi. Odmowa zgody na powiadomienia nie zmienia działania nauki. Za zgodą na statystykę wysyłamy jedynie flagę ich włączenia.</p>
+<h2>Zakupy</h2>
+<p>Jednorazowy zakup Premium obsługuje App Store. Aplikacja sprawdza jego ważność przez system i nie otrzymuje danych płatniczych, adresu ani identyfikatora Twojego konta Apple.</p>
+<h2>Kontakt i raporty awarii</h2>
+<p>„Zaproponuj funkcję” i „Zgłoś błąd” otwierają klienta poczty. Przed wysłaniem widzisz i możesz zmienić wiadomość. Zgłoszenie błędu zawiera wersję aplikacji, build, wersję iOS i model serii urządzenia; możesz usunąć ten blok. Nic nie wysyła się automatycznie. Systemowe raporty awarii udostępniane przez Apple podlegają ustawieniom prywatności iOS.</p>
+<h2>Dzieci i zmiany polityki</h2>
+<p>Aplikacja nie jest kierowana do dzieci poniżej 13 roku życia. Zmiany sposobu przetwarzania danych wymagają aktualizacji polityki przed wydaniem aplikacji, której dotyczą.</p>
+<h2>Kontakt</h2><p>Pytania o prywatność: <a href="mailto:katsuyokei@jd-japanese.pl">katsuyokei@jd-japanese.pl</a>.</p>
+</main>
+<footer>
+  Katsuyokei 活用形 · <a href="mailto:katsuyokei@jd-japanese.pl">katsuyokei@jd-japanese.pl</a><br>
+  <a href="privacy.html">Polityka prywatności</a> ·
+  <a href="support.html">Wsparcie</a> ·
+  <a href="terms.html">Warunki korzystania</a>
+<br><a href="https://jd-japanese.pl/apps/katsuyokei/">Katsuyokei: Odmiana japońska</a> · <a href="https://jd-japanese.pl/">Japoński w dziesięciu aplikacjach</a></footer>
+</body>
+</html>

@@ -4,9 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kuzushi — Polityka prywatności</title>
-<link rel="alternate" hreflang="pl" href="https://jd-japanese.pl/kuzushi/1.6/privacy.html">
-<link rel="alternate" hreflang="en" href="https://jd-japanese.pl/kuzushi/1.6/en/privacy.html">
-<link rel="alternate" hreflang="x-default" href="https://jd-japanese.pl/kuzushi/1.6/en/privacy.html">
+<meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://jd-japanese.pl/kuzushi/1.6/privacy.html">
 <link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
 <link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
@@ -104,7 +102,7 @@
 <p>Zakres obejmuje pierwsze wejście po zgodzie, aktywny dzień, ukończenie lub porzucenie sesji, pierwszą ukończoną naukę i powtórkę, powrót w kolejnej dobie nauki, wyświetlenie oferty i ukończony zakup. Zdarzenia niosą wyłącznie zamknięte kategorie i przedziały: rodzaj i wynik sesji, liczbę odpowiedzi, czas sesji, ogólne typy pytań, a przy porzuceniu typ ostatniego pytania, wynik i długość serii błędów. Ukończenie sesji opisuje udział w ćwiczeniu, a nie płynność lub opanowanie języka; samoocena mówienia nie jest oceną wymowy.</p>
 <p>Dołączamy nazwę aplikacji, język interfejsu, wersję schematu, bieżącą wersję i wariant funkcji oraz wersję i wariant zamrożone przy zgodzie. Kohorta niesie tydzień pierwszego uruchomienia, numer doby nauki i kategorię wejścia: nowa instalacja, przywrócony postęp albo późniejsza zgoda. Aktywny dzień zawiera przedział liczby sesji, ogólną kategorię etapu nauki i flagi użycia AI, zobaczenia oferty, Premium, subskrypcji AI oraz przypomnień. Etap nie jest poziomem JLPT ani oceną znajomości języka. Zdarzenie zakupu zawiera tylko rodzaj zakupu. Użycie AI jest wyłącznie flagą w migawce aktywnego dnia; nie wysyłamy osobnego zdarzenia z rodzajem funkcji lub wynikiem AI.</p>
 <p>Nie ma identyfikatora instalacji, urządzenia ani osoby. Każde zdarzenie ma osobny losowy UUID wyłącznie do deduplikacji. Nie wysyłamy tekstów pytań, odpowiedzi, zdań AI, notatek, identyfikatorów lekcji i zadań, adresu e-mail, lokalizacji, modelu urządzenia, wersji iOS ani identyfikatorów App Attest lub transakcji Apple. Zdarzenia nie są łączone z danymi pomocy AI ani między aplikacjami. Nie używamy cookies, reklam ani profilowania.</p>
-<p>Adres IP jest potrzebny do połączenia, ale nie zapisujemy go w zdarzeniach ani dziennikach dostępu. Oddzielna ochrona przed nadużyciami używa kluczowanego skrótu IP, usuwanego po 24 godzinach nieaktywności. Bez internetu kolejka czeka na urządzeniu najwyżej <strong>30 dni</strong>, do <strong>500 zdarzeń</strong>. Nie wchodzi do kopii postępu. Potwierdzone zdarzenia usuwamy z kolejki. Na serwerze surowe zdarzenia pozostają do <strong>400 dni</strong>, a później tylko anonimowe sumy dzienne bez UUID.</p>
+<p>Adres IP jest potrzebny do połączenia, ale nie zapisujemy go w zdarzeniach ani dzienniku dostępu API. Oddzielna ochrona przed nadużyciami używa kluczowanego skrótu IP; nie łączymy go ze zdarzeniami. Nieaktywne wpisy są usuwane w cyklicznym czyszczeniu z progiem 24 godzin. Dziennik błędów serwera może zawierać adres IP i dane techniczne połączenia, używane do diagnozy i ochrony usługi. Bez internetu kolejka czeka na urządzeniu najwyżej <strong>30 dni</strong>, do <strong>500 zdarzeń</strong>. Nie wchodzi do kopii postępu. Potwierdzone zdarzenia usuwamy z kolejki. Na serwerze surowe zdarzenia pozostają do <strong>400 dni</strong>, a później tylko anonimowe sumy dzienne bez UUID.</p>
 <p>Zgodę wycofasz w <em>Ustawienia → Prywatność → Wysyłaj anonimową statystykę użycia</em>. Wyłączenie zatrzymuje zbieranie i wysyłanie, usuwa lokalną kolejkę oraz lokalny stan pomiaru bieżących sesji. Odebrane już zdarzenia mogą pozostać do końca retencji: bez identyfikatora nie możemy odszukać danych konkretnej osoby. Odmowa, brak sieci i awaria serwera nie zmieniają nauki ani dostępu do zakupionych funkcji.</p>
 
 <h2>Zakładka „Zdania” — opcjonalna pomoc AI</h2>
@@ -121,23 +119,26 @@
   adresem <code>api.jd-japanese.pl</code> dwie rzeczy: <strong>linijkę albo zdanie, które
   wpisałeś</strong> (najwyżej 120 znaków), i język, w którym ma wrócić odpowiedź (polski albo
   angielski, według języka interfejsu). Serwer przekazuje je do modelu językowego firmy
-  <strong>OpenAI</strong>, a odpowiedź wraca do aplikacji. Nie jedzie nic więcej — ani postęp,
-  ani historia odpowiedzi, ani zdjęcie, ani nic, co pozwalałoby Cię zidentyfikować.
+  <strong>OpenAI</strong>, a odpowiedź wraca do aplikacji. Nie wysyłamy postępu,
+  historii odpowiedzi ani zdjęcia. Żądaniu towarzyszą dane techniczne uwierzytelniania
+  i rozliczenia opisane poniżej.
 </p>
 <p>
   <strong>Treści Twojej linijki nie zapisujemy</strong> — nie trafia do żadnej bazy ani do
   dziennika zdarzeń; nie zapisujemy też odpowiedzi modelu. W bazie nie ma kolumny, w której
   mogłyby stanąć, a dopisanie takiej wywraca automatyczny test po stronie serwera. W żądaniu do
-  OpenAI prosimy o niezachowywanie odpowiedzi. Jedyny wyjątek jest krótki i nie trafia na dysk:
-  gotowa odpowiedź zostaje przez dwie minuty w pamięci operacyjnej serwera, żeby dwukrotne
-  naciśnięcie przycisku przy tej samej linijce nie liczyło się jako dwa zapytania.
+  OpenAI prosimy o niezachowywanie odpowiedzi. Wyjątkiem jest pamięć podręczna, która nie trafia na dysk:
+  gotowa odpowiedź może pozostać w pamięci operacyjnej serwera. Można jej ponownie użyć przez
+  120 sekund, żeby dwukrotne naciśnięcie przycisku przy tej samej linijce nie liczyło się jako
+  dwa zapytania. Wygasłe wpisy są usuwane przy kolejnych operacjach na tej pamięci podręcznej;
+  restart procesu usuwa ją w całości. Nie jest to gwarancja fizycznego usunięcia dokładnie po dwóch minutach.
 </p>
 <p>Trwale przechowujemy natomiast rzeczy, bez których funkcja nie mogłaby działać:</p>
 <ul>
   <li><strong>identyfikator klucza App Attest</strong> wraz z jego kluczem publicznym — techniczny
     identyfikator z mechanizmu Apple, potwierdzający, że żądanie wychodzi z prawdziwej, niezmienionej
-    kopii tej aplikacji. Powstaje na urządzeniu, jest unikalny dla tej jednej aplikacji i nie da się
-    go powiązać z niczym, co widzi Apple albo inna aplikacja;</li>
+    kopii tej aplikacji. Powstaje na urządzeniu dla tej aplikacji; nie używamy go do śledzenia
+    między aplikacjami ani do łączenia ze statystyką użycia;</li>
   <li><strong>identyfikator transakcji subskrypcji</strong> z App Store — tylko jeżeli masz
     subskrypcję: żeby wiedzieć, że ją masz, także po reinstalacji albo na innym urządzeniu
     zalogowanym tym samym kontem Apple;</li>
@@ -146,8 +147,12 @@
 <p>
   Krócej trzymamy dane techniczne rozliczenia i utrzymania: identyfikatory transakcji Apple oraz
   metryki zapytania (numer zapytania, nazwa funkcji, model, status, liczba tokenów, czas
-  odpowiedzi) — przez 90 dni. Adresu IP nie zapisujemy; do ochrony przed nadużyciem serwer trzyma
-  przez 24 godziny wyłącznie jego skrót kluczowany.
+  odpowiedzi) — przez 90 dni. Adresu IP nie zapisujemy w tych rekordach ani w dzienniku dostępu API.
+  Oddzielny limiter używa jego kluczowanego skrótu, którego nieaktywne wpisy usuwa cykliczne
+  czyszczenie z progiem 24 godzin. Dziennik błędów serwera może zawierać adres IP i dane
+  techniczne połączenia, używane do diagnozy i ochrony usługi. Skonfigurowana codzienna rotacja
+  zachowuje do 10 archiwalnych plików tego dziennika. Puste pliki nie są rotowane, a opóźnienie
+  rotacji może wydłużyć przechowywanie; nie jest to gwarancja usunięcia po dokładnie 10 dniach.
 </p>
 <p>
   Przy połączeniu aplikacja dołącza też jednorazowy token DeviceCheck wystawiony przez iOS.
@@ -185,9 +190,9 @@
 
 <h2>Dzieci</h2>
 <p>
-  Aplikacja nie zbiera danych pozwalających kogokolwiek zidentyfikować, w żadnym wieku: nie ma
-  konta i nie pyta o imię, wiek ani adres. Przy zakładce „Zdania” przechowujemy wyłącznie
-  identyfikatory techniczne i liczniki opisane wyżej.
+  Aplikacja nie wymaga konta i nie pyta o imię, wiek ani adres. Opisane wyżej zasady dotyczą
+  użytkowników w każdym wieku. Dobrowolna statystyka i pomoc w zakładce „Zdania” korzystają
+  z opisanych danych technicznych; nie oznacza to całkowitego braku danych po stronie serwera.
 </p>
 
 <h2>Zmiany</h2>

@@ -9,10 +9,12 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
 
 ## Zgłoszenia odpowiedzi Kaname [713]
 
-Przygotowany lokalnie komplet `kaname/1.12/` i `kaname/1.12/en/`: polityka, warunki, wsparcie.
-To dokumenty dla funkcji 1.12, jeszcze bez publikacji; 1.11 zachowuje adresy 1.10.
+Opublikowany komplet `kaname/1.12/` i `kaname/1.12/en/`: polityka, warunki, wsparcie.
+Dokumenty 1.12 opublikowano z `596c4fd`; Pages `39076220416` zakończyło się sukcesem.
+Wszystkie sześć kanonicznych adresów odpowiada 200 i jest bajtowo zgodnych ze źródłem.
+Przejściowe 404 podczas publikacji ustąpiły. Wersja 1.11 zachowuje adresy 1.10.
 Polityka opisuje świadome Send, pełny snapshot (także własną odpowiedź i komentarz),
-UUID zgłoszenia, osobny rejestr w zabezpieczonym panelu i retencję 180 dni z codziennym usuwaniem.
+UUID zgłoszenia i osobny rejestr w zabezpieczonym panelu. Treść/snapshot/komentarz/tekstowe noty wygasają po180d; minimalna ewidencja bez tych treści pozostaje dla otwartych spraw, zamknięta znika180dpo zamknięciu. Zmiana596c4fd opublikowana; BEaabfc28 i paneld1b13b1d produkcyjne, actualHTTPSworkflow20checks i snapshot3klientów odebrane. Zalogowany browserrender i całe wydanie aplikacji jeszcze nieodebrane.
 Analytics i zgłoszenia są osobne; brak konta oraz dołączanego ID osoby/instalacji/urządzenia.
 IP jest przetwarzany przy połączeniu i jako HMAC osobnego limitera; brak IP w zwykłym access logu
 nie jest obietnicą braku IP w dziennikach błędów infrastruktury. Źródła odczytu: Kaname
@@ -20,17 +22,21 @@ nie jest obietnicą braku IP w dziennikach błędów infrastruktury. Źródła o
 `src/reports/{service,schemas}.ts`, `src/app.ts`, `src/retention.ts`,
 `deploy/nginx-japanese-{be,upstream}.conf`. To odczyt źródeł, nie pomiar konfiguracji hosta.
 
+Dodatkowy odczyt18.10: usunięto zduplikowaną sekcję raportów i literówkę117October w ENsupport; parser6HTML potwierdził uniqueh2, języki i względne linki, diffcheckPASS.
+
 Odbiór: kontrola nagłówków ograniczona do sześciu nowych plików — kod 0; locale, canonical,
 noindex, main, wszystkie względne odsyłacze i pola polityki — PASS; `git diff --check` — 0.
 Pełny `generuj-strony.py --sprawdz` — 24 wcześniejsze błędy noindex/hreflang w Bunmyaku 1.6
 oraz Joshi 1.5.1; `glowy_dokumentow.py --sprawdz` — 12 wcześniejszych braków, nowe sześć kompletne.
-Przed wydaniem: mirror kompletu w Kaname `docs/app-store/1.12`, URL aplikacji, publikacja dokumentów,
+Przed wydaniem: mirror kompletu w Kaname `docs/app-store/1.12`, URL aplikacji i deklaracje sklepu,
 odczyt wdrożonej konfiguracji logów/retencji i osobny odbiór App Privacy. Faktami do ASC są:
 przechowywany własny tekst i kontekst zadania, cel obsługi błędów treści/oceniania,
 180-dniowa retencja, brak dołączanych ID ucznia, osobny UUID zgłoszenia oraz techniczny limiter IP.
 To nie jest przypisanie kategorii prawnej ani deklaracja ASC. Manifest i ASC pozostają nietknięte.
 **Sprawdzić w siostrach:** przyszłe wejście tej funkcji wymaga osobnej wersji polityki i odbioru payloadu;
 nie dopisano jej dzisiaj żadnej innej aplikacji. Backlog i ledger rodziny prowadzi właściciel huba.
+
+Dowód publikacji: `docs/proofs/kaname-report-policy-publication.json`. Nie jest to odbiór wersji sklepowej.
 
 ## Od czego zacząć
 

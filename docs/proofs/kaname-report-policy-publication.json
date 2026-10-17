@@ -1,0 +1,47 @@
+{
+  "measuredAtUtc": "2026-10-17T22:44:28.029838+00:00",
+  "source": "596c4fd335da65759b83a0c6ce7c95433dd73dcc",
+  "pagesRun": 39076220416,
+  "pagesConclusion": "success",
+  "checks": [
+    {
+      "path": "kaname/1.12/privacy.html",
+      "status": 200,
+      "byteEqual": true,
+      "sha256": "2e723070e3fe8479a203e04049fe1b8605acd92242de30fd8dfe173b7e135f22"
+    },
+    {
+      "path": "kaname/1.12/support.html",
+      "status": 200,
+      "byteEqual": true,
+      "sha256": "2e3771d5c81998bf5b78ff81a4da2f91ac981b1adb7c9cad628ae575a6df8ce8"
+    },
+    {
+      "path": "kaname/1.12/terms.html",
+      "status": 200,
+      "byteEqual": true,
+      "sha256": "60c47e39168544a7bcd2704008fa01ad8d70c3c58652bf66a1ed263a6cec5540"
+    },
+    {
+      "path": "kaname/1.12/en/privacy.html",
+      "status": 200,
+      "byteEqual": true,
+      "sha256": "481f61b54ab34f57152360d366b6a8a5f8db0cd1705bf9172843e92f31f4869c",
+      "verifiedAtUtc": "2026-10-17T22:47:49.594752+00:00"
+    },
+    {
+      "path": "kaname/1.12/en/support.html",
+      "status": 200,
+      "byteEqual": true,
+      "sha256": "201204c93b51afb00cc516f2e6389e98ae85c56481c6f0e8863ef45b5bce567f"
+    },
+    {
+      "path": "kaname/1.12/en/terms.html",
+      "status": 200,
+      "byteEqual": true,
+      "sha256": "c24492b66b358079722d3f945a721fc24b96051c8cd89547aca0b5ee64442586"
+    }
+  ],
+  "allSixByteEqual": true,
+  "note": "Initial transient404 during Pages rollout retained in initial check; all canonical URLs now200 and byte-identical."
+}

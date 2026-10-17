@@ -7,6 +7,31 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
 **112** (zapowiadanie apek), **113** (wizytówka poza witryną), **189** (strony tematyczne),
 **330** (indeksowanie stron tematycznych).
 
+## Zgłoszenia odpowiedzi Kaname [713]
+
+Przygotowany lokalnie komplet `kaname/1.12/` i `kaname/1.12/en/`: polityka, warunki, wsparcie.
+To dokumenty dla funkcji 1.12, jeszcze bez publikacji; 1.11 zachowuje adresy 1.10.
+Polityka opisuje świadome Send, pełny snapshot (także własną odpowiedź i komentarz),
+UUID zgłoszenia, osobny rejestr w zabezpieczonym panelu i retencję 180 dni z codziennym usuwaniem.
+Analytics i zgłoszenia są osobne; brak konta oraz dołączanego ID osoby/instalacji/urządzenia.
+IP jest przetwarzany przy połączeniu i jako HMAC osobnego limitera; brak IP w zwykłym access logu
+nie jest obietnicą braku IP w dziennikach błędów infrastruktury. Źródła odczytu: Kaname
+`App/Services/IssueReport.swift`, `App/Views/Session/IssueReportView.swift`; backend
+`src/reports/{service,schemas}.ts`, `src/app.ts`, `src/retention.ts`,
+`deploy/nginx-japanese-{be,upstream}.conf`. To odczyt źródeł, nie pomiar konfiguracji hosta.
+
+Odbiór: kontrola nagłówków ograniczona do sześciu nowych plików — kod 0; locale, canonical,
+noindex, main, wszystkie względne odsyłacze i pola polityki — PASS; `git diff --check` — 0.
+Pełny `generuj-strony.py --sprawdz` — 24 wcześniejsze błędy noindex/hreflang w Bunmyaku 1.6
+oraz Joshi 1.5.1; `glowy_dokumentow.py --sprawdz` — 12 wcześniejszych braków, nowe sześć kompletne.
+Przed wydaniem: mirror kompletu w Kaname `docs/app-store/1.12`, URL aplikacji, publikacja dokumentów,
+odczyt wdrożonej konfiguracji logów/retencji i osobny odbiór App Privacy. Faktami do ASC są:
+przechowywany własny tekst i kontekst zadania, cel obsługi błędów treści/oceniania,
+180-dniowa retencja, brak dołączanych ID ucznia, osobny UUID zgłoszenia oraz techniczny limiter IP.
+To nie jest przypisanie kategorii prawnej ani deklaracja ASC. Manifest i ASC pozostają nietknięte.
+**Sprawdzić w siostrach:** przyszłe wejście tej funkcji wymaga osobnej wersji polityki i odbioru payloadu;
+nie dopisano jej dzisiaj żadnej innej aplikacji. Backlog i ledger rodziny prowadzi właściciel huba.
+
 ## Od czego zacząć
 
 ### 16.09.2026 — 44 strony tematyczne poza indeksem Google [330]

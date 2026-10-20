@@ -6,7 +6,7 @@ Autor: Jakub Dwojak. Aplikacje na iPhone'a, po polsku i po angielsku. Każdy opi
 
 ## Aplikacje
 
-- [Kaname: Gramatyka japońska](https://jd-japanese.pl/apps/kaname/): Powtórki JLPT: N5 N4 N3 N2 N1. Mylisz podobne konstrukcje? Zobacz je obok siebie w prawdziwych zdaniach, nie w samym opisie. Do tego skan japońskiego ze zdjęcia i sprawdzenie własnego zdania przez AI.
+- [Kaname: Gramatyka japońska](https://jd-japanese.pl/apps/kaname/): Powtórki JLPT: N5 N4 N3 N2 N1. Od reguły do własnego zdania. Porównuj podobne konstrukcje, ćwicz użycie gramatyki i wracaj do powtórek. Cały N5 ze wszystkimi ćwiczeniami za darmo.
 - [Bunmyaku: Japoński w zdaniu](https://jd-japanese.pl/apps/bunmyaku/): Słówka, kanji i furigana. Znasz znak. Znasz słowo. Ale czy przeczytasz je, gdy wyskoczy w środku zdania? To osobna pamięć – i ta aplikacja ją ćwiczy.
 - [Katsuyokei: Odmiana japońska](https://jd-japanese.pl/apps/katsuyokei/): Czasowniki, formy, fiszki. Formy biorą się z reguł, nie z pamięci. Ćwicz je, aż 書いて pojawi się, zanim zdążysz
 o nim pomyśleć.
@@ -24,7 +24,7 @@ rozumie, zgadnie słowo, którego nigdy nie widział. Reszta uczy się trzystu s
 
 ## Wersja angielska
 
-- [Kaname: Japanese Grammar](https://jd-japanese.pl/en/apps/kaname/): JLPT practice: N5 N4 N3 N2 N1. Mixing up similar patterns? See them side by side in real sentences, not just in prose. Plus scanning Japanese from a photo and an AI check on sentences you write.
+- [Kaname: Japanese Grammar](https://jd-japanese.pl/en/apps/kaname/): JLPT practice: N5 N4 N3 N2 N1. Turn Japanese grammar into sentences you can use. Practise similar patterns, build your own examples and review at your pace. All N5 exercises are free.
 - [Bunmyaku: Japanese Reading](https://jd-japanese.pl/en/apps/bunmyaku/): Vocabulary, kanji, furigana. You know the kanji. You know the word. But can you read it when it turns up inside a sentence? That is a different memory – and this trains it.
 - [Katsuyokei: Conjugation](https://jd-japanese.pl/en/apps/katsuyokei/): Verbs, adjectives and drills. Verb forms come from rules, not from memory. Drill them until 書いて arrives before you
 have finished thinking about it.

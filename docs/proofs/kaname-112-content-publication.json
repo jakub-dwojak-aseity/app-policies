@@ -1,0 +1,93 @@
+{
+  "backlog": 189,
+  "scope": "Kaname accepted 1.12 release thematic propagation; product/store metadata remain at measured shop version",
+  "acceptedAppCommit": "c0d4309ee8c045136e8bb132a196dbeacfdd4a02",
+  "exportCommit": "1951078d",
+  "exportSHA256": "cbe5eb2466386d9ef769d36e87b3f371f749a31870e7b2c2342e792bc3868255",
+  "resourceSourceCommit": "c523e26b0abcfc4fa014be13f1b21a5ed6d7ef43",
+  "units": 74,
+  "sentences": 205,
+  "groups": 7,
+  "nativeLineage": "existing pinned www_review_lineage SOURCE adapter;115 exact reading conditions; no new lens verdicts or content edits",
+  "gates": {
+    "generatorErrors": 0,
+    "repeatable": true,
+    "diffCheck": 0
+  },
+  "limits": [
+    "Existing unrelated source-copy warnings retained.",
+    "App product version remains 1.11 until READY_FOR_SALE.",
+    "Four ka-child locales excluded by existing strict eligibility."
+  ],
+  "sisters": "No exporter/generator logic changed; other sisters and their exports untouched.",
+  "generatedFiles": [
+    {
+      "path": "en/learn/confusing-pairs/index.html",
+      "sha256": "389845a424a684083d1affca494d8a13b941e53d89a2601de323bfd4d69136e4"
+    },
+    {
+      "path": "en/learn/japanese-n5-grammar/adjectives/index.html",
+      "sha256": "53eb79d024fbf51a8b128ddbfa8fb983e5301dee71433a5d7ec91f3e6bd41dd1"
+    },
+    {
+      "path": "en/learn/japanese-n5-grammar/reason-and-tone/index.html",
+      "sha256": "4af86e5d0cf85820ef3c5450fcf289279d50f32c7775e6d7ceca44afae9169dc"
+    },
+    {
+      "path": "en/learn/japanese-n5-grammar/requests-and-prohibitions/index.html",
+      "sha256": "35c4287292f5c1d8da11de06ff6bfce08bdbcc07abbe9e69f3b738e468d53a71"
+    },
+    {
+      "path": "en/learn/japanese-n5-grammar/sentence-skeleton/index.html",
+      "sha256": "61529eb889ce0da652174b02b390bfbae31d9a0b4f96cff4a6e54be2e81b2c66"
+    },
+    {
+      "path": "en/learn/japanese-n5-grammar/time-and-place/index.html",
+      "sha256": "9abe430ce0bbb956cc121e338951beeba5682b747924496d1d152b1bf58fe47e"
+    },
+    {
+      "path": "en/learn/japanese-n5-grammar/verb-forms/index.html",
+      "sha256": "89e9a091db59c9ab7aa472b58ade51c35e9d69ea83b32527f307cd23fd9c31fe"
+    },
+    {
+      "path": "en/learn/japanese-n5-grammar/wishes-and-invitations/index.html",
+      "sha256": "5df2cde0f7c07736dc66dcd1460a04b076ecdf64eb7b904e0d3f63086f1ab716"
+    },
+    {
+      "path": "nauka/gramatyka-n5/checi-i-zaproszenia/index.html",
+      "sha256": "7b3bfe51456558e362d396318358a57bec136ab8774c1cf806f3f728edfc76b5"
+    },
+    {
+      "path": "nauka/gramatyka-n5/czas-i-miejsce/index.html",
+      "sha256": "7c0b8e1efead3fbb41a3edc092342f1105c1210dcb30a9a2cf030189e648a39f"
+    },
+    {
+      "path": "nauka/gramatyka-n5/formy-czasownika/index.html",
+      "sha256": "42e27a8a154deb72476a282fad085ed8134482ac9b497d35c26145c770ffbf5d"
+    },
+    {
+      "path": "nauka/gramatyka-n5/powod-i-ton/index.html",
+      "sha256": "23538c684c77fe39619055f25d4d1b26ccf52f609178eb45792193aab6b497fa"
+    },
+    {
+      "path": "nauka/gramatyka-n5/prosby-i-zakazy/index.html",
+      "sha256": "30649318bc88627188917eed1dff5c259f3f6bf77803a618a31568410b30d8b5"
+    },
+    {
+      "path": "nauka/gramatyka-n5/przymiotniki/index.html",
+      "sha256": "c73d6f1f9bb4380dcee8fa84c633f5e35e4fba5e4e05583dfd207817d6f676a7"
+    },
+    {
+      "path": "nauka/gramatyka-n5/szkielet-zdania/index.html",
+      "sha256": "2b08485d37c261711f01bac4c70f6459b0dc9c2e13f8112f444b4974d74d0761"
+    },
+    {
+      "path": "nauka/mylace-pary/index.html",
+      "sha256": "a63544297fe22f2b9a3e166de460c8e872a1634ee37db5be93a3ede185c32a24"
+    },
+    {
+      "path": "sitemap.xml",
+      "sha256": "9633bc054fdd7b510e4a2e47a69705ddcf85eab23afa59403a6a9e3c72e0d9a6"
+    }
+  ]
+}

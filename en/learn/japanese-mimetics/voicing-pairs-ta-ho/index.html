@@ -16,141 +16,319 @@
 <meta property="og:site_name" content="Japanese in separate apps">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="pl_PL">
-<meta name="theme-color" content="#a34f5a">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#FBF7F5">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161112">
 <link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
 <link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
 <meta property="og:image" content="https://jd-japanese.pl/assets/karty/onomatope-en.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <style>
-:root { color-scheme: light dark; --tlo:#fff; --tekst:#1c1c1e; --cichy:#6b6b70;
-        --linia:#e3e3e6; --akcent:#a34f5a; --karta:#faf9f9; }
+:root { color-scheme: light dark; --bg:#FBF7F5; --surface:#FFFFFF; --surface-2:#F4EDEA; --line:#E9DEDA; --text:#2A2022; --text-muted:#6F6164; --cl:#BC4F56;--cal:#AC484F;--cd:#8E446D;--cad:#D36F73; --ko:#1F1A1B; }
 @media (prefers-color-scheme: dark) {
-  :root { --tlo:#131315; --tekst:#ececef; --cichy:#9a9aa0; --linia:#2c2c30;
-          --akcent:#e08a94; --karta:#1b1b1e; }
+  :root { --bg:#161112; --surface:#221A1C; --surface-2:#2B2224; --line:#3A2E31; --text:#F4ECEB; --text-muted:#B6A6A8; --ko:#747172; }
 }
+/* Witryna 2.0 — język z makiet W01/W02 (`jp-grammar/.planning/witryna/`).
+   Neutralne i kolory apek przychodzą z `wyglad.json`; tu stoi tylko układ.
+   Element w kolorze apki niesie cztery zmienne w `style`, a para jasna/ciemna
+   wybiera się niżej, jednym selektorem dla całej rodziny. */
+[style*="--cl:"], :root { --c: var(--cl); --ca: var(--cal); }
+@media (prefers-color-scheme: dark) {
+  [style*="--cl:"], :root { --c: var(--cd); --ca: var(--cad); }
+}
+:root { --font-display: ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN", system-ui, sans-serif;
+        --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, system-ui, sans-serif;
+        --font-jp: "Hiragino Maru Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif; }
 * { box-sizing: border-box; }
-body { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
-       font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-       color: var(--tekst); background: var(--tlo); }
-h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 .35rem; }
-h2 { font-size: 1.15rem; margin: 2.5rem 0 .75rem; }
-h3 { font-size: 1rem; margin: 1.75rem 0 .4rem; letter-spacing: .01em; }
+html, body { margin: 0; }
+body { font: 1rem/1.6 var(--font-body); color: var(--text); background: var(--bg);
+       overflow-wrap: break-word; }
+[lang="ja"] { font-family: var(--font-jp); }
+a { color: var(--ca); }
+img { max-width: 100%; }
+.symbole { position: absolute; width: 0; height: 0; overflow: hidden; }
+.kinako { display: block; flex: none; image-rendering: pixelated; shape-rendering: crispEdges; }
+.in { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+@media (max-width: 600px) { .in { padding: 0 16px; } }
+.waska { max-width: 46rem; }
+.do-tresci { position: absolute; left: -9999px; }
+.do-tresci:focus { position: static; display: inline-block; margin: .5rem 1rem; }
+:focus-visible { outline: 2px solid var(--ca); outline-offset: 2px; border-radius: 4px; }
+.czytnik { position: absolute; left: -9999px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
+h1 { font-size: clamp(1.9rem, 4.6vw, 3.1rem); line-height: 1.1; margin: 0; letter-spacing: -.01em; }
+h2 { font-size: 1.6rem; line-height: 1.2; margin: 2.75rem 0 .4rem; }
+h3 { font-size: 1.15rem; margin: 1.75rem 0 .4rem; }
 p { margin: .75rem 0; }
-a { color: var(--akcent); }
-.podtytul { color: var(--cichy); margin: 0 0 1rem; font-size: 1.05rem; }
-.lead { border-left: 3px solid var(--akcent); padding: .1rem 0 .1rem 1rem;
-        margin: 1.5rem 0; color: var(--tekst); }
-.gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
-        margin-bottom: 2rem; color: var(--cichy); }
-.gora a { text-decoration: none; }
-.gora-prawo { display: flex; align-items: center; gap: .75rem; }
+.lead { font-size: 1.15rem; line-height: 1.55; color: var(--text-muted); max-width: 46ch; margin: .9rem 0 0; }
+.podtytul { color: var(--text-muted); margin: .4rem 0 1rem; }
+.pod-naglowkiem { color: var(--text-muted); margin: 0 0 1.1rem; }
+.jp { color: var(--text-muted); font-weight: 400; font-size: .7em; margin-left: .4em; }
+
+/* pasek witryny */
+.gora { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem 1.1rem; padding: 16px 0;
+        font-size: .92rem; }
+.gora a { color: var(--text-muted); text-decoration: none; }
+.gora a:hover { color: var(--text); }
+.gora .logo { display: inline-flex; align-items: center; gap: .5rem; margin-right: auto;
+              font: 700 1.05rem/1 var(--font-display); color: var(--text); }
+.gora .logo img { width: 32px; height: 32px; border-radius: 8px; display: block; image-rendering: pixelated; }
+.gora .tu { color: var(--text); font-weight: 600; }
+.gora .powrot { flex-basis: 100%; order: 9; color: var(--ca); font-size: .9rem; }
 .instagram { display: inline-flex; align-items: center; justify-content: center;
              gap: .5rem; min-width: 44px; min-height: 44px; vertical-align: middle; }
-.instagram svg { width: 22px; height: 22px; flex: none; }
-.instagram:hover { color: var(--tekst); }
-.do-tresci { position: absolute; left: -9999px; }
-.do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
-:focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
-footer { overflow-wrap: anywhere; }
-.gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
-.gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
-.szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
-.szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
-.jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
-.karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
-.karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
-         border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
-.karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
-.karta { position: relative; }
-.karta .nazwa { font-weight: 600; }
-/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
-   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
-   Gramatyka japońska", a nie cały akapit o problemie.
-   **Tylko tam, gdzie nazwa jest linkiem.** Karta aplikacji zapowiedzianej ma nazwę
-   w `<span>`, a selektor `.karta .nazwa` łapał i ją — więc kafelek bez dokąd pójścia
-   dostawał niewidzialny cel dotknięcia na całej powierzchni, identyczny z tym
-   w dziesięciu kartach nad nim. Zmierzone okiem 13.09.2026 na telefonie: ten sam
-   kształt, ten sam rozmiar celu, jedna reaguje, druga nie. §15 konwencji mówi o tym
-   wprost: co wygląda na dotykalne, musi być dotykalne. */
-a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
-.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
-.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
-.znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
-            border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
-            margin-left: .4rem; vertical-align: .1em; }
-/* Ikonki platform. Kolor z `currentColor` przez `--cichy`, więc tryb ciemny działa
-   bez osobnej reguły — i to jest jedyny powód, dla którego znak jest rysowany, a nie
-   wstawiony plikiem: `<img>` koloru nie dziedziczy i w ciemnym znika.
-   Rozmiar w `em`, żeby znak skalował się razem z tytułem karty, a nie obok niego.
-   Znak leży POD niewidzialną warstwą linku karty (`a.nazwa::after`) i nie dostaje
-   ani `position`, ani własnego odsyłacza — inaczej rozciąłby cel dotknięcia na dwa. */
-.platformy { display: inline-flex; gap: .3em; margin-left: .4rem;
-             vertical-align: .02em; color: var(--cichy); }
+.instagram svg { width: 20px; height: 20px; flex: none; }
+@media (max-width: 600px) { .gora .zbedne { display: none; } }
+.pas { background: var(--c); color: #fff; }
+.pas .gora a, .pas .gora .logo { color: rgb(255 255 255 / .88); }
+.pas .gora .powrot { color: #fff; }
+.pas a { color: #fff; }
+.cienki { border-top: 6px solid var(--c); }
+
+/* przyciski */
+.przyciski { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 1.4rem; }
+.btn, .przycisk { display: inline-flex; align-items: center; gap: .5rem; border-radius: 999px;
+                  padding: 13px 20px; font: 600 1rem/1 var(--font-display); text-decoration: none;
+                  background: var(--c); color: #fff; }
+.btn.drugi { background: var(--surface-2); color: var(--text); }
+.pas .przycisk, .cta .przycisk { background: #fff; color: var(--ca); }
+@media (prefers-color-scheme: dark) { .pas .przycisk, .cta .przycisk { color: var(--cl); } }
+.znacznik { display: inline-flex; align-items: center; font-size: .8rem; font-weight: 600;
+            padding: .3rem .65rem; border-radius: 999px; color: var(--ca);
+            background: color-mix(in srgb, var(--c) 12%, var(--surface)); }
+.pas .znacznik { color: #fff; background: rgb(255 255 255 / .18); }
+.sklep { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 1.4rem 0 0; }
+.darmowe { flex-basis: 100%; color: var(--text-muted); font-size: .9rem; }
+.pas .darmowe { color: rgb(255 255 255 / .9); }
+.platformy { display: inline-flex; gap: .3em; vertical-align: .02em; color: var(--text-muted); }
+.pas .platformy { color: #fff; }
 .platforma { display: inline-flex; }
-.platformy svg { width: .85em; height: .85em; display: block; }
-/* Tekst wyłącznie dla czytnika ekranu — ten sam idiom, co skip-link wyżej, bez
-   reguły `:focus`, bo ten element nie jest ogniskowalny. */
-.czytnik { position: absolute; left: -9999px; }
-.sklep { display: block; margin: .35rem 0 1.25rem; font-weight: 600; }
-.nota { font-size: .8rem; margin-top: 2rem; }
-.przycisk { display: inline-block; background: var(--akcent); color: var(--tlo);
-            padding: .55rem 1.1rem; border-radius: 10px; text-decoration: none; }
-.spis-sekcji ul { list-style: none; padding: 0; margin: 0 0 1.75rem;
-                  display: flex; flex-wrap: wrap; gap: .35rem .9rem; font-size: .92rem; }
-.spis-sekcji li { margin: 0; }
-details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
-details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
-                  position: relative; }
+.platformy svg { width: .95em; height: .95em; display: block; }
+
+/* strona główna */
+.hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: center; padding: 26px 0 30px; }
+.scena { position: relative; height: 230px; }
+.scena .grunt { position: absolute; left: 6%; right: 6%; bottom: 18px; height: 3px; border-radius: 2px; background: var(--line); }
+.scena .kropki { position: absolute; left: 12%; right: 30%; bottom: 40px; display: flex; justify-content: space-between; }
+.scena .kropki i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+.scena .kropki i.byla { background: var(--c); }
+.scena .torii { position: absolute; right: 12%; bottom: 18px; }
+.scena .kinako { position: absolute; left: 18%; bottom: 20px; }
+@media (max-width: 700px) {
+  .hero { grid-template-columns: 1fr; padding-top: 6px; gap: 8px; }
+  .scena { order: -1; height: 160px; }
+  .scena .kinako { width: 96px; height: 96px; }
+}
+.start { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; background: var(--surface);
+         border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; }
+.start > div { flex: 1 1 280px; }
+.start b { display: block; font: 700 1rem/1.2 var(--font-display); margin-bottom: 3px; }
+.start ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 2px 10px;
+            color: var(--text-muted); font-size: .92rem; }
+.start ol li::before { content: counter(list-item) " · "; }
+.start ol li + li::before { content: "→ " counter(list-item) " · "; }
+.start .btn { padding: 10px 16px; font-size: .92rem; }
+.siatka { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 0; margin: 0; list-style: none; }
+@media (max-width: 900px) { .siatka { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .siatka { grid-template-columns: 1fr; } }
+.apka { position: relative; border-radius: 20px; overflow: hidden; background: var(--surface);
+        border: 1px solid var(--line); display: flex; flex-direction: column; transition: transform .15s; }
+.apka:hover { transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .apka { transition: none; } .apka:hover { transform: none; } }
+.apka .gorna { background: var(--c); color: #fff; padding: 16px 16px 14px; position: relative; overflow: hidden;
+               display: flex; gap: 12px; align-items: center; min-height: 86px; }
+.apka .znak-wodny { position: absolute; right: -6px; bottom: -22px; font: 700 92px/1 var(--font-jp); opacity: .14;
+                    pointer-events: none; }
+.apka .gorna img { width: 52px; height: 52px; border-radius: 14px; flex: none; position: relative;
+                   box-shadow: 0 0 0 2px rgb(255 255 255 / .35); }
+.apka .gorna > div { position: relative; min-width: 0; }
+.apka .nazwa { display: block; color: #fff; text-decoration: none; font: 700 1.15rem/1.15 var(--font-display); }
+.apka .co { display: block; opacity: .9; font-size: .85rem; margin-top: 2px; }
+.apka .gorna .platformy, .apka .gorna .znacznik { color: #fff; }
+.apka .gorna .znacznik { background: rgb(255 255 255 / .18); margin-top: 6px; }
+.apka .dol { padding: 14px 16px 16px; display: grid; gap: 10px; flex: 1; }
+.apka .dol .znacznik { justify-self: start; }
+.apka .dol p { margin: 0; font-size: .93rem; line-height: 1.5; color: var(--text-muted); }
+.apka .stopka-karty { margin-top: auto; display: flex; justify-content: space-between; gap: 8px;
+                      font-size: .85rem; font-weight: 600; color: var(--ca); }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu słyszy samą nazwę.
+   Tylko tam, gdzie nazwa jest linkiem (§15 konwencji: co wygląda na dotykalne,
+   musi być dotykalne — i odwrotnie). */
+a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.zapowiedz { border-style: dashed; border-width: 2px; }
+.zapowiedz:hover { transform: none; }
+.zapowiedz .gorna { background: repeating-linear-gradient(135deg, var(--c) 0 14px, color-mix(in srgb, var(--c) 86%, #000) 14px 28px); }
+.zapowiedz .nazwa { cursor: default; }
+.zapowiedz a.chce { position: relative; z-index: 1; color: var(--ca); font-weight: 600; font-size: .9rem; text-decoration: none; }
+
+/* tematy: karta-hub (strona główna, rozdroże nauki) */
+.huby { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0; margin: 0; list-style: none; }
+@media (max-width: 700px) { .huby { grid-template-columns: 1fr; } }
+.hub { background: var(--surface); border: 1px solid var(--line); border-top: 5px solid var(--c);
+       border-radius: 18px; padding: 16px; display: grid; gap: 8px; align-content: start; }
+.hub h3 { margin: 0; font-size: 1.1rem; line-height: 1.3; }
+.hub h3 a { color: var(--text); text-decoration: none; }
+.hub p { margin: 0; color: var(--text-muted); font-size: .93rem; line-height: 1.5; }
+.hub details { border: 0; padding: 0; }
+.hub summary { font-size: .82rem; color: var(--ca); font-weight: 600; }
+.pigulki { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 8px 0 0; list-style: none; }
+.pigulki a { display: inline-block; text-decoration: none; font-size: .85rem; color: var(--text);
+             background: color-mix(in srgb, var(--c) 10%, var(--surface)); border-radius: 999px; padding: 5px 10px; }
+.skoki { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 1.2rem 0 0; list-style: none; }
+.skoki a { text-decoration: none; color: var(--text); background: var(--surface); border: 1px solid var(--line);
+           border-radius: 999px; padding: 6px 12px 6px 6px; font-size: .9rem; display: inline-flex; gap: 8px; align-items: center; }
+.skoki img { width: 24px; height: 24px; border-radius: 7px; }
+.grupa-apki { margin-top: 2.2rem; }
+.grupa-apki > header { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+.grupa-apki > header img { width: 44px; height: 44px; border-radius: 12px; flex: none; }
+.grupa-apki > header h2 { margin: 0; font-size: 1.35rem; }
+.grupa-apki > header small { display: block; color: var(--text-muted); font: 400 .85rem/1.4 var(--font-body); }
+.grupa-apki > header a { margin-left: auto; font-size: .9rem; font-weight: 600; color: var(--ca); text-decoration: none; white-space: nowrap; }
+@media (max-width: 600px) { .grupa-apki > header a { display: none; } }
+.cicho { margin-top: 2rem; border: 2px dashed var(--line); border-radius: 18px; padding: 14px 16px;
+         color: var(--text-muted); font-size: .95rem; display: flex; gap: 12px; align-items: center; }
+.cicho p { margin: 0; }
+
+/* mini-karty apek */
+.mini { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; padding: 0; margin: 0; list-style: none; }
+.mini li { position: relative; display: flex; gap: 12px; align-items: center; background: var(--surface);
+           border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 16px; padding: 10px 12px; }
+.mini img { width: 44px; height: 44px; border-radius: 12px; flex: none; }
+.mini .nazwa { display: block; color: var(--text); text-decoration: none; font: 600 .98rem/1.2 var(--font-display); }
+.mini .co { display: block; color: var(--text-muted); font-size: .8rem; margin-top: 2px; }
+
+/* strona apki */
+.pas-apki { position: relative; overflow: hidden; }
+.pas-apki .znak-wodny { position: absolute; right: 2%; bottom: -60px; font: 700 300px/1 var(--font-jp);
+                        opacity: .1; pointer-events: none; }
+.szyld-apki { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; padding: 14px 0 36px; position: relative; }
+@media (max-width: 700px) { .szyld-apki { grid-template-columns: 1fr; } .szyld-apki .mowi { justify-self: end; } }
+.szyld-apki .ikona { width: 84px; height: 84px; border-radius: 22px; display: block; margin-bottom: 16px;
+                     box-shadow: 0 0 0 3px rgb(255 255 255 / .3); }
+.szyld-apki .jp { color: rgb(255 255 255 / .8); }
+.szyld-apki .podtytul { color: rgb(255 255 255 / .92); font-size: 1.1rem; margin: .5rem 0 0; }
+.pas .lead { color: rgb(255 255 255 / .92); }
+.mowi { display: flex; gap: 10px; align-items: flex-end; }
+.dymek { background: var(--surface); color: var(--text); border: 1px solid var(--line);
+         border-radius: 16px 16px 16px 4px; padding: 10px 12px; font-size: .9rem; line-height: 1.4;
+         max-width: 220px; margin: 0 0 60px; }
+.pas .dymek { border-color: transparent; background: #fff; color: #2A2022; }
+.zrzuty { display: flex; gap: 14px; overflow-x: auto; margin: 1rem 0 0; padding: 4px 2px 12px; scroll-snap-type: x mandatory; }
+.zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; border-radius: 22px; padding: 12px 12px 10px;
+                 background: linear-gradient(180deg, var(--c), color-mix(in srgb, var(--c) 60%, #000)); color: #fff; }
+.zrzuty img { width: 186px; height: auto; border-radius: 14px; display: block; }
+.zrzuty a { color: #fff; }
+.zrzuty figcaption { font-size: .82rem; margin-top: .55rem; line-height: 1.4; }
+.zrzuty figcaption strong { font-family: var(--font-display); }
+.opis h3 { font-size: 1.05rem; text-transform: none; letter-spacing: .01em; }
+.spis-sekcji ul, .spis-tematu ul { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: .6rem 0 1.4rem; list-style: none; }
+.spis-sekcji a, .spis-tematu a { display: inline-block; text-decoration: none; color: var(--text); font-size: .9rem;
+                                 background: color-mix(in srgb, var(--c) 10%, var(--surface)); border-radius: 999px; padding: 7px 12px; }
+details { border-bottom: 1px solid var(--line); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem; position: relative; }
 details summary::-webkit-details-marker { display: none; }
-details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
-                         font-weight: 400; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--text-muted); font-weight: 400; }
 details[open] summary::after { content: "–"; }
 details p { margin: .6rem 0 .3rem; }
-.zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
-          padding-bottom: .5rem; scroll-snap-type: x mandatory; }
-.zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
-.zrzuty img { width: 210px; height: auto; border-radius: 14px;
-              border: 1px solid var(--linia); display: block; }
-.zrzuty figcaption { font-size: .85rem; color: var(--cichy); margin-top: .45rem;
-                     line-height: 1.4; }
+.pytania details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 8px; }
+.pytania summary { font: 600 1rem/1.3 var(--font-display); }
+.pytania details p { color: var(--text-muted); line-height: 1.55; }
+.dokumenty-apki { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: .5rem 0 0; list-style: none; }
+.dokumenty-apki a, .dl a { display: inline-block; text-decoration: none; color: var(--text); font-size: .9rem;
+                           border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; background: var(--surface); }
 ul.zwykla { padding-left: 1.15rem; }
 ul.zwykla li { margin: .3rem 0; }
-/* Strony tematyczne. Pięć reguł i ani jednej więcej: hasło ma wyglądać jak
-   sekcja opisu sklepowego, a nie jak inny gatunek strony. Rubin dostaje własny
-   rozmiar, bo domyślny w Safari bywa większy niż linia tekstu wokół. */
-.haslo + .haslo { border-top: 1px solid var(--linia); padding-top: .5rem; }
-.haslo h2 { margin-top: 1.75rem; }
-.przyklady { padding-left: 0; list-style: none; margin: .4rem 0 1.25rem; }
-.przyklady li { margin: .6rem 0; }
-.przyklady .pelna { color: var(--cichy); }
-.przyklady .tlum { display: block; color: var(--cichy); font-size: .93rem; }
-ruby rt { font-size: .55em; color: var(--cichy); }
-/* Poradnik [poz. 691]: tabela przewija się sama, strona nie — 16px marginesu
-   i żadnego poziomego przewijania całej strony na telefonie. */
-.tabela { overflow-x: auto; margin: .75rem 0 1.25rem; -webkit-overflow-scrolling: touch; }
+
+/* strony tematyczne */
+.szyld-tematu { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; padding: 10px 0 4px; }
+.szyld-tematu img { width: 64px; height: 64px; border-radius: 18px; display: block; }
+.szyld-tematu h1 { font-size: clamp(1.6rem, 3.6vw, 2.5rem); }
+@media (max-width: 600px) { .szyld-tematu { grid-template-columns: 1fr; gap: 10px; } .szyld-tematu img { width: 52px; height: 52px; } }
+.haslo { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 4px 22px 14px; margin-top: 16px; }
+.haslo h2, .haslo h3 { margin-top: 1.1rem; color: var(--ca); }
+.haslo h2 { font-size: 1.5rem; }
+.haslo .lead { font-size: 1rem; color: var(--text); font-weight: 600; display: inline-block; max-width: none;
+               background: color-mix(in srgb, var(--c) 12%, var(--surface)); border-radius: 10px; padding: 6px 12px; margin: .3rem 0 .4rem; }
+.haslo .znacznik { margin-left: .4rem; vertical-align: .2em; }
+.przyklady { padding-left: 0; list-style: none; margin: .4rem 0 .5rem; }
+.przyklady li { border-top: 1px solid var(--line); padding: .55rem 0; margin: 0; }
+.przyklady [lang="ja"] { font-size: 1.15rem; line-height: 1.9; }
+.przyklady .pelna { color: var(--text-muted); }
+.przyklady .tlum { display: block; color: var(--text-muted); font-size: .93rem; }
+ruby rt { font-size: .5em; color: var(--text-muted); }
+.tabela { overflow-x: auto; margin: .75rem 0 1.25rem; -webkit-overflow-scrolling: touch;
+          background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
 .tabela table { border-collapse: collapse; min-width: 100%; font-size: .95rem; }
-.tabela th, .tabela td { border-bottom: 1px solid var(--linia); padding: .45rem .6rem;
+.tabela th, .tabela td { border-bottom: 1px solid var(--line); padding: .5rem .7rem;
                           text-align: left; vertical-align: top; white-space: nowrap; }
+.tabela tr:last-child th, .tabela tr:last-child td { border-bottom: 0; }
 .tabela td.tekst { white-space: normal; min-width: 9rem; }
 @media (max-width: 30rem) {
   .tabela th, .tabela td { padding: .4rem .35rem; }
   .tabela td.tekst { min-width: 7rem; }
 }
-.tabela thead th { color: var(--cichy); font-weight: 600; font-size: .85rem; }
-.tabela tbody th { color: var(--cichy); font-weight: 400; font-size: .85rem; }
-.tabela tbody th[lang="ja"] { color: var(--tekst); font-size: 1rem; }
-.tabela .podpis { display: block; color: var(--cichy); font-size: .78rem; font-weight: 400;
+.tabela thead th { color: var(--text-muted); font-weight: 600; font-size: .85rem; background: var(--surface-2); }
+.tabela tbody th { color: var(--text-muted); font-weight: 400; font-size: .85rem; }
+.tabela tbody th[lang="ja"] { color: var(--text); font-size: 1rem; }
+.tabela .podpis { display: block; color: var(--text-muted); font-size: .78rem; font-weight: 400;
                   white-space: normal; min-width: 5.5rem; max-width: 8rem; line-height: 1.3; }
-.odmiana { font-size: 1.05rem; }
-.odmiana .strz { color: var(--cichy); }
-.zaproszenie { border: 1px solid var(--linia); border-radius: 12px; background: var(--karta);
+.odmiana { font-size: 1.05rem; background: var(--surface-2); border-radius: 12px; padding: 10px 14px; }
+.odmiana .strz { color: var(--text-muted); }
+.zaproszenie { border: 1px solid var(--line); border-radius: 16px; background: var(--surface);
                padding: .9rem 1rem; margin: 1.5rem 0; }
 .zaproszenie p { margin: .3rem 0; }
-.darmowe { display: block; color: var(--cichy); font-size: .88rem; font-weight: 400;
-           margin-top: .5rem; }
 .cwiczenia summary { font-weight: 400; }
-footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
-         font-size: .88rem; color: var(--cichy); }
-footer a { color: var(--akcent); }
+.cta { margin-top: 2.2rem; background: var(--c); color: #fff; border-radius: 22px; padding: 20px;
+       display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.cta > div { flex: 1 1 260px; }
+.cta + .mini { margin-top: 14px; }
+.szyld-tematu + .lead { margin-bottom: 1.4rem; }
+.cta h2 { margin: 0 0 4px; font-size: 1.2rem; }
+.cta p { margin: 0; }
+.cta .sklep { margin: 0; }
+.cta .znacznik { color: #fff; background: rgb(255 255 255 / .18); }
+.cta .darmowe { color: rgb(255 255 255 / .9); }
+
+/* strony pozostałe (W02) */
+.glowa { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; padding: 18px 0 8px; }
+@media (max-width: 700px) { .glowa { grid-template-columns: 1fr; } .glowa .mowi { justify-self: end; } }
+.glowa .dymek { margin-bottom: 44px; }
+.proza { max-width: 66ch; font-size: 1.06rem; line-height: 1.65; }
+.proza h2 { font-size: 1.4rem; margin: 2rem 0 .5rem; }
+.pytania-dalej { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 1.6rem; }
+@media (max-width: 700px) { .pytania-dalej { grid-template-columns: 1fr; } }
+.pytanie { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 18px 16px;
+           display: grid; gap: 8px; align-content: start; }
+.pytanie h2 { font-size: 1.2rem; margin: 0; }
+.pytanie p { margin: 0; color: var(--text-muted); font-size: .97rem; line-height: 1.55; }
+.pytanie .idz { justify-self: start; margin-top: 4px; font-weight: 600; color: var(--ca); text-decoration: none;
+                background: var(--surface-2); border-radius: 999px; padding: 8px 14px; font-size: .9rem; }
+.o-autorze { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 36px; align-items: start; }
+@media (max-width: 820px) { .o-autorze { grid-template-columns: 1fr; gap: 10px; } }
+.fakty { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; margin-top: 2rem; }
+.fakty h2 { font-size: 1rem; margin: 0 0 10px; }
+.fakty ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.fakty li { display: flex; gap: 10px; align-items: center; font-size: .95rem; }
+.fakty li::before { content: "✓"; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; flex: none;
+                    font-weight: 700; color: #2E7A4C; background: #E3F1E8; }
+@media (prefers-color-scheme: dark) { .fakty li::before { color: #63BE88; background: #1E3328; } }
+.spis { display: grid; gap: 10px; max-width: 860px; margin-top: 1.4rem; }
+.wiersz-dok { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 14px; align-items: center;
+              background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 14px; padding: 12px 14px; }
+.wiersz-dok img { width: 42px; height: 42px; border-radius: 12px; display: block; }
+.wiersz-dok h2 { margin: 0; font-size: 1.05rem; }
+.wiersz-dok h2 small { display: block; font: 400 .82rem/1.4 var(--font-jp); color: var(--text-muted); margin-top: 2px; }
+.wiersz-dok .dl { grid-column: 2; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
+@media (max-width: 700px) { .wiersz-dok .dl { grid-column: 1 / -1; } }
+.dl a span { color: var(--text-muted); font-size: .78rem; margin-left: 4px; }
+
+/* stopka */
+footer { margin-top: 56px; border-top: 1px solid var(--line); padding: 26px 0 40px; display: flex; flex-wrap: wrap;
+         gap: 10px 22px; font-size: .88rem; color: var(--text-muted); align-items: center; }
+footer a { color: inherit; }
+footer .wydawca { flex-basis: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+footer .wydawca p { margin: 0; }
+footer .wydawca a { color: var(--ca); font-weight: 600; }
+.nota { font-size: .8rem; margin-top: 2rem; }
 code { font-size: .9em; }
 </style>
 <script type="application/ld+json">
@@ -239,10 +417,11 @@ code { font-size: .9em; }
 }
 </script>
 </head>
-<body>
+<body style="--cl:#A95295;--cal:#9B4B88;--cd:#723C68;--cad:#C274AE">
+<svg class="symbole" width="0" height="0" aria-hidden="true" focusable="false"><symbol id="kinako-radosny" viewBox="0 0 42 42"><path style="fill:#C8922B" d="M16 30h4v1h-4zM16 31h4v1h-4z"/><path style="fill:var(--ko,#1F1A1B)" d="M4 0h4v1h-4zM28 0h4v1h-4zM4 1h4v1h-4zM28 1h4v1h-4zM2 2h2v1h-2zM8 2h2v1h-2zM26 2h2v1h-2zM32 2h2v1h-2zM2 3h2v1h-2zM8 3h2v1h-2zM26 3h2v1h-2zM32 3h2v1h-2zM2 4h2v1h-2zM10 4h2v1h-2zM24 4h2v1h-2zM32 4h2v1h-2zM2 5h2v1h-2zM10 5h2v1h-2zM24 5h2v1h-2zM32 5h2v1h-2zM2 6h2v1h-2zM10 6h16v1h-16zM32 6h2v1h-2zM2 7h2v1h-2zM10 7h16v1h-16zM32 7h2v1h-2zM2 8h2v1h-2zM32 8h2v1h-2zM2 9h2v1h-2zM32 9h2v1h-2zM2 10h2v1h-2zM32 10h2v1h-2zM2 11h2v1h-2zM32 11h2v1h-2zM0 12h2v1h-2zM34 12h2v1h-2zM0 13h2v1h-2zM34 13h2v1h-2zM0 14h2v1h-2zM34 14h2v1h-2zM0 15h2v1h-2zM34 15h2v1h-2zM0 16h2v1h-2zM34 16h2v1h-2zM0 17h2v1h-2zM34 17h2v1h-2zM0 18h2v1h-2zM34 18h6v1h-6zM0 19h2v1h-2zM34 19h6v1h-6zM0 20h2v1h-2zM40 20h2v1h-2zM0 21h2v1h-2zM40 21h2v1h-2zM2 22h2v1h-2zM32 22h4v1h-4zM38 22h2v1h-2zM2 23h2v1h-2zM32 23h4v1h-4zM38 23h2v1h-2zM4 24h2v1h-2zM30 24h2v1h-2zM36 24h2v1h-2zM4 25h2v1h-2zM30 25h2v1h-2zM36 25h2v1h-2zM6 26h2v1h-2zM28 26h2v1h-2zM36 26h2v1h-2zM6 27h2v1h-2zM28 27h2v1h-2zM36 27h2v1h-2zM6 28h2v1h-2zM28 28h2v1h-2zM36 28h2v1h-2zM6 29h2v1h-2zM28 29h2v1h-2zM36 29h2v1h-2zM4 30h2v1h-2zM30 30h2v1h-2zM36 30h2v1h-2zM4 31h2v1h-2zM30 31h2v1h-2zM36 31h2v1h-2zM2 32h2v1h-2zM32 32h2v1h-2zM36 32h2v1h-2zM2 33h2v1h-2zM32 33h2v1h-2zM36 33h2v1h-2zM2 34h2v1h-2zM32 34h4v1h-4zM2 35h2v1h-2zM32 35h4v1h-4zM2 36h2v1h-2zM32 36h2v1h-2zM2 37h2v1h-2zM32 37h2v1h-2zM4 38h28v1h-28zM4 39h28v1h-28z"/><path style="fill:var(--c,#C4525A)" d="M8 26h20v1h-20zM8 27h20v1h-20z"/><path style="fill:#C8935F" d="M4 8h2v1h-2zM8 8h4v1h-4zM24 8h4v1h-4zM30 8h2v1h-2zM4 9h2v1h-2zM8 9h4v1h-4zM24 9h4v1h-4zM30 9h2v1h-2zM4 10h8v1h-8zM24 10h8v1h-8zM4 11h8v1h-8zM24 11h8v1h-8zM2 12h6v1h-6zM28 12h6v1h-6zM2 13h6v1h-6zM28 13h6v1h-6zM2 14h4v1h-4zM30 14h4v1h-4zM2 15h4v1h-4zM30 15h4v1h-4zM2 16h2v1h-2zM32 16h2v1h-2zM2 17h2v1h-2zM32 17h2v1h-2zM36 20h4v1h-4zM36 21h4v1h-4zM36 22h2v1h-2zM36 23h2v1h-2zM34 24h2v1h-2zM34 25h2v1h-2zM34 26h2v1h-2zM34 27h2v1h-2zM34 28h2v1h-2zM34 29h2v1h-2zM6 30h2v1h-2zM28 30h2v1h-2zM34 30h2v1h-2zM6 31h2v1h-2zM28 31h2v1h-2zM34 31h2v1h-2zM4 32h4v1h-4zM28 32h4v1h-4zM34 32h2v1h-2zM4 33h4v1h-4zM28 33h4v1h-4zM34 33h2v1h-2zM4 34h4v1h-4zM28 34h4v1h-4zM4 35h4v1h-4zM28 35h4v1h-4z"/><path style="fill:#6B3F22" d="M4 2h2v1h-2zM30 2h2v1h-2zM4 3h2v1h-2zM30 3h2v1h-2zM4 4h2v1h-2zM30 4h2v1h-2zM4 5h2v1h-2zM30 5h2v1h-2zM4 6h2v1h-2zM30 6h2v1h-2zM4 7h2v1h-2zM30 7h2v1h-2zM12 8h12v1h-12zM12 9h12v1h-12zM16 10h4v1h-4zM16 11h4v1h-4z"/><path style="fill:#F2C14E" d="M16 28h4v1h-4zM16 29h4v1h-4z"/><path style="fill:#F4A9BE" d="M4 18h4v1h-4zM28 18h4v1h-4zM4 19h4v1h-4zM28 19h4v1h-4z"/><path style="fill:#1F1A1B" d="M9 15h2v1h-2zM25 15h2v1h-2zM8 16h1v1h-1zM11 16h1v1h-1zM24 16h1v1h-1zM27 16h1v1h-1zM15 18h6v1h-6zM16 19h4v1h-4zM12 20h1v1h-1zM17 20h2v1h-2zM23 20h1v1h-1zM34 20h2v1h-2zM13 21h1v1h-1zM17 21h2v1h-2zM22 21h1v1h-1zM34 21h2v1h-2zM14 22h8v1h-8zM12 32h2v1h-2zM22 32h2v1h-2zM12 33h2v1h-2zM22 33h2v1h-2zM12 34h2v1h-2zM22 34h2v1h-2zM12 35h2v1h-2zM22 35h2v1h-2zM12 36h2v1h-2zM22 36h2v1h-2zM12 37h2v1h-2zM22 37h2v1h-2z"/><path style="fill:#F6D3E3" d="M6 2h2v1h-2zM28 2h2v1h-2zM6 3h2v1h-2zM28 3h2v1h-2zM6 4h4v1h-4zM26 4h4v1h-4zM6 5h4v1h-4zM26 5h4v1h-4zM6 6h4v1h-4zM26 6h4v1h-4zM6 7h4v1h-4zM26 7h4v1h-4zM6 8h2v1h-2zM28 8h2v1h-2zM6 9h2v1h-2zM28 9h2v1h-2z"/><path style="fill:#78706E66" d="M2 40h32v1h-32zM2 41h32v1h-32z"/><path style="fill:#FFFDFB" d="M12 10h4v1h-4zM20 10h4v1h-4zM12 11h4v1h-4zM20 11h4v1h-4zM8 12h20v1h-20zM8 13h20v1h-20zM6 14h24v1h-24zM6 15h3v1h-3zM11 15h14v1h-14zM27 15h3v1h-3zM4 16h4v1h-4zM9 16h2v1h-2zM12 16h12v1h-12zM25 16h2v1h-2zM28 16h4v1h-4zM4 17h28v1h-28zM2 18h2v1h-2zM8 18h7v1h-7zM21 18h7v1h-7zM32 18h2v1h-2zM2 19h2v1h-2zM8 19h8v1h-8zM20 19h8v1h-8zM32 19h2v1h-2zM2 20h10v1h-10zM13 20h4v1h-4zM19 20h4v1h-4zM24 20h10v1h-10zM2 21h11v1h-11zM14 21h3v1h-3zM19 21h3v1h-3zM23 21h11v1h-11zM4 22h10v1h-10zM22 22h10v1h-10zM4 23h28v1h-28zM6 24h24v1h-24zM6 25h24v1h-24zM8 28h8v1h-8zM20 28h8v1h-8zM8 29h8v1h-8zM20 29h8v1h-8zM8 30h8v1h-8zM20 30h8v1h-8zM8 31h8v1h-8zM20 31h8v1h-8zM8 32h4v1h-4zM14 32h8v1h-8zM24 32h4v1h-4zM8 33h4v1h-4zM14 33h8v1h-8zM24 33h4v1h-4zM8 34h4v1h-4zM14 34h8v1h-8zM24 34h4v1h-4zM8 35h4v1h-4zM14 35h8v1h-8zM24 35h4v1h-4zM4 36h8v1h-8zM14 36h8v1h-8zM24 36h8v1h-8zM4 37h8v1h-8zM14 37h8v1h-8zM24 37h8v1h-8z"/></symbol><symbol id="kinako-spiacy" viewBox="0 0 42 42"><path style="fill:#C8922B" d="M16 30h4v1h-4zM16 31h4v1h-4z"/><path style="fill:var(--ko,#1F1A1B)" d="M4 0h4v1h-4zM28 0h4v1h-4zM4 1h4v1h-4zM28 1h4v1h-4zM2 2h2v1h-2zM8 2h2v1h-2zM26 2h2v1h-2zM32 2h2v1h-2zM2 3h2v1h-2zM8 3h2v1h-2zM26 3h2v1h-2zM32 3h2v1h-2zM2 4h2v1h-2zM10 4h2v1h-2zM24 4h2v1h-2zM32 4h2v1h-2zM2 5h2v1h-2zM10 5h2v1h-2zM24 5h2v1h-2zM32 5h2v1h-2zM2 6h2v1h-2zM10 6h16v1h-16zM32 6h2v1h-2zM2 7h2v1h-2zM10 7h16v1h-16zM32 7h2v1h-2zM2 8h2v1h-2zM32 8h2v1h-2zM2 9h2v1h-2zM32 9h2v1h-2zM2 10h2v1h-2zM32 10h2v1h-2zM2 11h2v1h-2zM32 11h2v1h-2zM0 12h2v1h-2zM34 12h2v1h-2zM0 13h2v1h-2zM34 13h2v1h-2zM0 14h2v1h-2zM34 14h2v1h-2zM0 15h2v1h-2zM34 15h2v1h-2zM0 16h2v1h-2zM34 16h2v1h-2zM0 17h2v1h-2zM34 17h2v1h-2zM0 18h2v1h-2zM34 18h6v1h-6zM0 19h2v1h-2zM34 19h6v1h-6zM0 20h2v1h-2zM40 20h2v1h-2zM0 21h2v1h-2zM40 21h2v1h-2zM2 22h2v1h-2zM32 22h4v1h-4zM38 22h2v1h-2zM2 23h2v1h-2zM32 23h4v1h-4zM38 23h2v1h-2zM4 24h2v1h-2zM30 24h2v1h-2zM36 24h2v1h-2zM4 25h2v1h-2zM30 25h2v1h-2zM36 25h2v1h-2zM6 26h2v1h-2zM28 26h2v1h-2zM36 26h2v1h-2zM6 27h2v1h-2zM28 27h2v1h-2zM36 27h2v1h-2zM6 28h2v1h-2zM28 28h2v1h-2zM36 28h2v1h-2zM6 29h2v1h-2zM28 29h2v1h-2zM36 29h2v1h-2zM4 30h2v1h-2zM30 30h2v1h-2zM36 30h2v1h-2zM4 31h2v1h-2zM30 31h2v1h-2zM36 31h2v1h-2zM2 32h2v1h-2zM32 32h2v1h-2zM36 32h2v1h-2zM2 33h2v1h-2zM32 33h2v1h-2zM36 33h2v1h-2zM2 34h2v1h-2zM32 34h4v1h-4zM2 35h2v1h-2zM32 35h4v1h-4zM2 36h2v1h-2zM32 36h2v1h-2zM2 37h2v1h-2zM32 37h2v1h-2zM4 38h28v1h-28zM4 39h28v1h-28z"/><path style="fill:var(--c,#C4525A)" d="M8 26h20v1h-20zM8 27h20v1h-20z"/><path style="fill:#C8935F" d="M4 8h2v1h-2zM8 8h4v1h-4zM24 8h4v1h-4zM30 8h2v1h-2zM4 9h2v1h-2zM8 9h4v1h-4zM24 9h4v1h-4zM30 9h2v1h-2zM4 10h8v1h-8zM24 10h8v1h-8zM4 11h8v1h-8zM24 11h8v1h-8zM2 12h6v1h-6zM28 12h6v1h-6zM2 13h6v1h-6zM28 13h6v1h-6zM2 14h4v1h-4zM30 14h4v1h-4zM2 15h4v1h-4zM30 15h4v1h-4zM2 16h2v1h-2zM32 16h2v1h-2zM2 17h2v1h-2zM32 17h2v1h-2zM36 20h4v1h-4zM36 21h4v1h-4zM36 22h2v1h-2zM36 23h2v1h-2zM34 24h2v1h-2zM34 25h2v1h-2zM34 26h2v1h-2zM34 27h2v1h-2zM34 28h2v1h-2zM34 29h2v1h-2zM6 30h2v1h-2zM28 30h2v1h-2zM34 30h2v1h-2zM6 31h2v1h-2zM28 31h2v1h-2zM34 31h2v1h-2zM4 32h4v1h-4zM28 32h4v1h-4zM34 32h2v1h-2zM4 33h4v1h-4zM28 33h4v1h-4zM34 33h2v1h-2zM4 34h4v1h-4zM28 34h4v1h-4zM4 35h4v1h-4zM28 35h4v1h-4z"/><path style="fill:#6B3F22" d="M4 2h2v1h-2zM30 2h2v1h-2zM4 3h2v1h-2zM30 3h2v1h-2zM4 4h2v1h-2zM30 4h2v1h-2zM4 5h2v1h-2zM30 5h2v1h-2zM4 6h2v1h-2zM30 6h2v1h-2zM4 7h2v1h-2zM30 7h2v1h-2zM12 8h12v1h-12zM12 9h12v1h-12zM16 10h4v1h-4zM16 11h4v1h-4z"/><path style="fill:#F2C14E" d="M16 28h4v1h-4zM16 29h4v1h-4z"/><path style="fill:#9A8E90" d="M39 0h3v1h-3zM40 1h1v1h-1zM39 2h3v1h-3zM36 4h4v1h-4zM38 5h1v1h-1zM37 6h1v1h-1zM36 7h4v1h-4z"/><path style="fill:#1F1A1B" d="M8 15h1v1h-1zM11 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM9 16h2v1h-2zM25 16h2v1h-2zM15 18h6v1h-6zM16 19h4v1h-4zM13 20h1v1h-1zM17 20h2v1h-2zM22 20h1v1h-1zM34 20h2v1h-2zM13 21h1v1h-1zM17 21h2v1h-2zM22 21h1v1h-1zM34 21h2v1h-2zM13 22h10v1h-10zM12 32h2v1h-2zM22 32h2v1h-2zM12 33h2v1h-2zM22 33h2v1h-2zM12 34h2v1h-2zM22 34h2v1h-2zM12 35h2v1h-2zM22 35h2v1h-2zM12 36h2v1h-2zM22 36h2v1h-2zM12 37h2v1h-2zM22 37h2v1h-2z"/><path style="fill:#F6D3E3" d="M6 2h2v1h-2zM28 2h2v1h-2zM6 3h2v1h-2zM28 3h2v1h-2zM6 4h4v1h-4zM26 4h4v1h-4zM6 5h4v1h-4zM26 5h4v1h-4zM6 6h4v1h-4zM26 6h4v1h-4zM6 7h4v1h-4zM26 7h4v1h-4zM6 8h2v1h-2zM28 8h2v1h-2zM6 9h2v1h-2zM28 9h2v1h-2z"/><path style="fill:#78706E66" d="M2 40h32v1h-32zM2 41h32v1h-32z"/><path style="fill:#FFFDFB" d="M12 10h4v1h-4zM20 10h4v1h-4zM12 11h4v1h-4zM20 11h4v1h-4zM8 12h20v1h-20zM8 13h20v1h-20zM6 14h24v1h-24zM6 15h2v1h-2zM9 15h2v1h-2zM12 15h12v1h-12zM25 15h2v1h-2zM28 15h2v1h-2zM4 16h5v1h-5zM11 16h14v1h-14zM27 16h5v1h-5zM4 17h28v1h-28zM2 18h13v1h-13zM21 18h13v1h-13zM2 19h14v1h-14zM20 19h14v1h-14zM2 20h11v1h-11zM14 20h3v1h-3zM19 20h3v1h-3zM23 20h11v1h-11zM2 21h11v1h-11zM14 21h3v1h-3zM19 21h3v1h-3zM23 21h11v1h-11zM4 22h9v1h-9zM23 22h9v1h-9zM4 23h28v1h-28zM6 24h24v1h-24zM6 25h24v1h-24zM8 28h8v1h-8zM20 28h8v1h-8zM8 29h8v1h-8zM20 29h8v1h-8zM8 30h8v1h-8zM20 30h8v1h-8zM8 31h8v1h-8zM20 31h8v1h-8zM8 32h4v1h-4zM14 32h8v1h-8zM24 32h4v1h-4zM8 33h4v1h-4zM14 33h8v1h-8zM24 33h4v1h-4zM8 34h4v1h-4zM14 34h8v1h-8zM24 34h4v1h-4zM8 35h4v1h-4zM14 35h8v1h-8zM24 35h4v1h-4zM4 36h8v1h-8zM14 36h8v1h-8zM24 36h8v1h-8zM4 37h8v1h-8zM14 37h8v1h-8zM24 37h8v1h-8z"/></symbol></svg>
 <a class="do-tresci" href="#tresc">Skip to content</a>
-<nav class="gora" aria-label="Site"><span><a class="znak" href="../../../../en/" aria-hidden="true" tabindex="-1"><img src="../../../../assets/znak-48.png" alt="" width="22" height="22"></a><a href="../../../../en/learn/japanese-mimetics/">← Japanese mimetics</a></span><span class="gora-prawo"><a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne-ta-ho/">Polski</a></span></nav>
-<main id="tresc"><div class="szyld"><img src="../../../../assets/ikony/onomatope.webp" alt="" width="72" height="72"><div><h1>Voicing pairs: た–ほ – Japanese mimetics</h1><p class="podtytul">とろとろ and どろどろ, はらはら and ばらばら – four pairs from た to ほ, where the voicing mark makes things thicker and heavier.</p></div></div><nav aria-label="On this page"><ul class="zwykla"><li><a href="#l2-word-taratara">たらたら · to run down in a thin thread</a></li><li><a href="#l2-word-daradara">だらだら · to drag on endlessly</a></li><li><a href="#l2-word-torotoro">とろとろ · to be thick and smooth</a></li><li><a href="#l2-word-dorodoro">どろどろ · to be muddy</a></li><li><a href="#l2-word-harahara">はらはら · to drift down one by one (petals, tears)</a></li><li><a href="#l2-word-barabara">ばらばら · to fall apart</a></li><li><a href="#l2-word-horohoro">ほろほろ · to crumble gently</a></li><li><a href="#l2-word-boroboro">ぼろぼろ · to be tattered</a></li></ul></nav><section class="haslo"><h2 id="l2-word-taratara"><span lang="ja">たらたら</span> · to run down in a thin thread</h2><p class="lead">Rainwater running down a wall, blood from a split lip.</p><p>たらたら is an unbroken thin thread — rainwater off the eaves, water from a tap, blood from a split lip. Sweat runs both ways in Japanese, 汗がたらたら and 汗がだらだら, so sweat is not what tells these two apart. Drop-by-drop dripping is ぽたぽた, not this word.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>傷口<rt>きずぐち</rt></ruby>から<ruby>血<rt>ち</rt></ruby>が<ruby>止<rt>と</rt></ruby>まらず、<ruby>細<rt>ほそ</rt></ruby>くたらたらと<ruby>流<rt>なが</rt></ruby>れる。</span><span class="tlum">Blood keeps running from the cut in a thin thread.</span></li><li><span lang="ja"><ruby>壁<rt>かべ</rt></ruby>を<ruby>雨水<rt>あまみず</rt></ruby>が<ruby>細<rt>ほそ</rt></ruby>い<ruby>筋<rt>すじ</rt></ruby>になってたらたらと<ruby>伝<rt>つた</rt></ruby>う。</span><span class="tlum">Rainwater runs down the wall in a thin thread.</span></li></ul></section><section class="haslo"><h2 id="l2-word-daradara"><span lang="ja">だらだら</span> · to drag on endlessly</h2><p class="lead">A three-hour meeting.</p><p>Voiced だ adds weight and reluctance: たらたら stays with the thin thread, while 汗がだらだら流れる is still liquid, only too much of it for too long. From there it is a short step to 会議がだらだら続く. The neighbours are about other things: ぐずぐず is an accusation levelled at a person who cannot get started (ぐずぐずするな), whereas だらだら describes the event itself dragging on; ずるずる always drags something along — noodles pulled in with a slurp, or a deadline that keeps being pushed back — while だらだら drags nothing, it simply goes on and will not end.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>緊張感<rt>きんちょうかん</rt></ruby>のない<ruby>会議<rt>かいぎ</rt></ruby>が<ruby>三時間<rt>さんじかん</rt></ruby>もだらだらと<ruby>続<rt>つづ</rt></ruby>いた。</span><span class="tlum">The slack meeting dragged on for three hours.</span></li><li><span lang="ja"><ruby>結論<rt>けつろん</rt></ruby>の<ruby>出<rt>で</rt></ruby>ない<ruby>会議<rt>かいぎ</rt></ruby>が<ruby>午後<rt>ごご</rt></ruby>じゅうだらだらしている。</span><span class="tlum">A meeting with no conclusion drags all afternoon.</span></li></ul></section><section class="haslo"><h2 id="l2-word-torotoro"><span lang="ja">とろとろ</span> · to be thick and smooth</h2><p class="lead">Melted cheese, a soft-set egg yolk.</p><p>Voiceless と keeps the thickness light and edible — voiced ど, the other half of this pair, turns it into どろどろ, mud you do not eat. Nor is it ぐつぐつ: that word says nothing about thickness, only that the pot is bubbling (鍋がぐつぐつ煮える). Of a dish you say とろとろだ, とろとろした (卵, チーズ), とろとろになる or とろとろと煮る. Note: とろとろする on its own, said of a person, means “to doze off” (授業中にとろとろする).</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">ゆっくり<ruby>溶<rt>と</rt></ruby>かしたチョコは<ruby>甘<rt>あま</rt></ruby>く、とろとろだ。</span><span class="tlum">Slowly melted chocolate is sweet and silky-thick.</span></li><li><span lang="ja"><ruby>焼<rt>や</rt></ruby>きたてのチーズが<ruby>溶<rt>と</rt></ruby>けてとろとろだ。</span><span class="tlum">Fresh from the oven, the cheese has melted gooey.</span></li></ul></section><section class="haslo"><h2 id="l2-word-dorodoro"><span lang="ja">どろどろ</span> · to be muddy</h2><p class="lead">Ground after a downpour, boots off a field.</p><p>Voiced ど adds weight and dirt — the same thickness, now inedible: とろとろ stays light enough to eat (melted cheese), どろどろ is mud you do not.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>雨<rt>あめ</rt></ruby>を<ruby>吸<rt>す</rt></ruby>った<ruby>畑<rt>はたけ</rt></ruby>は<ruby>重<rt>おも</rt></ruby>く、どろどろだ。</span><span class="tlum">The rain-soaked field is heavy and muddy.</span></li><li><span lang="ja"><ruby>水<rt>みず</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>んだ<ruby>重<rt>おも</rt></ruby>い<ruby>泥<rt>どろ</rt></ruby>が<ruby>靴<rt>くつ</rt></ruby>の<ruby>底<rt>そこ</rt></ruby>でどろどろしている。</span><span class="tlum">Heavy, wet mud turns to sludge under the sole.</span></li></ul></section><section class="haslo"><h2 id="l2-word-harahara"><span lang="ja">はらはら</span> · to drift down one by one (petals, tears)</h2><p class="lead">Tears one after another, ash off an incense stick.</p><p>はらはら is the slow fall of small things, one after another — and that is what this card teaches. ひらひら describes the manner in which one thing moves, turning over in the air (a ribbon, a handkerchief), while はらはら is a succession of many falling one behind the other. ちらちら comes in gaps and never settles, like the fine snow you see one moment and not the next. Note: the word has a second and today commoner sense, and that is the one that takes する: はらはらする means “to fret, to watch anxiously” (試合を見ていてはらはらした) — close there to ひやひや, except that ひやひや is a cold dread of the risk that runs down your back, and はらはら the worry of an onlooker watching from the side. It is not the same thing said differently — 涙がはらはらする is not Japanese. Falling is はらはらと散る, はらはらと落ちる — this card teaches the と form; plain はらはら散る also occurs, but never with する.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>風<rt>かぜ</rt></ruby>もなく<ruby>金木犀<rt>きんもくせい</rt></ruby>の<ruby>花<rt>はな</rt></ruby>がゆっくりはらはらと<ruby>散<rt>ち</rt></ruby>り<ruby>落<rt>お</rt></ruby>ちる。</span><span class="tlum">With no wind, osmanthus flowers slowly drop.</span></li><li><span lang="ja"><ruby>切<rt>き</rt></ruby>った<ruby>細<rt>ほそ</rt></ruby>い<ruby>髪<rt>かみ</rt></ruby>が、ゆっくり<ruby>肩<rt>かた</rt></ruby>にはらはらと<ruby>落<rt>お</rt></ruby>ちる。</span><span class="tlum">Fine cut hair drifts slowly onto the shoulder.</span></li></ul></section><section class="haslo"><h2 id="l2-word-barabara"><span lang="ja">ばらばら</span> · to fall apart</h2><p class="lead">A smashed plate, a collapsing model.</p><p>ばらばら is scattering and coming apart — 皿がばらばらになる, 意見がばらばら. It makes no pair with はらはら: there something drifts down, here something stops being whole. ガシャン is no state at all but a single blow to the ear — the crash of breaking glass at the moment the plate hits the floor; ばらばら names what is left afterwards.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>落<rt>お</rt></ruby>とした<ruby>皿<rt>さら</rt></ruby>がすっかり<ruby>割<rt>わ</rt></ruby>れてばらばらになった。</span><span class="tlum">The dropped plate smashed completely to pieces.</span></li><li><span lang="ja"><ruby>大<rt>おお</rt></ruby>きな<ruby>硬<rt>かた</rt></ruby>い<ruby>模型<rt>もけい</rt></ruby>が<ruby>壊<rt>こわ</rt></ruby>れて、<ruby>部品<rt>ぶひん</rt></ruby>がばらばらだ。</span><span class="tlum">The big, hard model broke; its parts lie loose.</span></li></ul></section><section class="haslo"><h2 id="l2-word-horohoro"><span lang="ja">ほろほろ</span> · to crumble gently</h2><p class="lead">Stewed meat, steamed fish.</p><p>Voiceless ほ keeps the crumbling soft and wanted — that is how good meat should give way; ぼろぼろ is a coming-apart nobody wanted and nobody can undo, worn-through shoes rather than stewed beef.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">クッキーが<ruby>口<rt>くち</rt></ruby>の<ruby>中<rt>なか</rt></ruby>でほろほろと<ruby>崩<rt>くず</rt></ruby>れた。</span><span class="tlum">The cookie crumbled gently in my mouth.</span></li><li><span lang="ja"><ruby>蒸<rt>む</rt></ruby>した<ruby>魚<rt>さかな</rt></ruby>の<ruby>身<rt>み</rt></ruby>が、ほろほろとほぐれる。</span><span class="tlum">The steamed fish flakes gently apart.</span></li></ul></section><section class="haslo"><h2 id="l2-word-boroboro"><span lang="ja">ぼろぼろ</span> · to be tattered</h2><p class="lead">A ten-year-old bag, worn-through shoes.</p><p>Voiced ぼ turns pleasant crumbling into ruin: ほろほろ falls apart the way it was meant to — stewed meat under a fork — and ぼろぼろ the way it was not; the same falling apart, only slow and past saving.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>十年<rt>じゅうねん</rt></ruby><ruby>使<rt>つか</rt></ruby>った<ruby>鞄<rt>かばん</rt></ruby>はすっかりぼろぼろだ。</span><span class="tlum">A bag used for ten years is in tatters.</span></li><li><span lang="ja"><ruby>長年<rt>ながねん</rt></ruby><ruby>履<rt>は</rt></ruby>いた<ruby>靴<rt>くつ</rt></ruby>が、すっかりぼろぼろになった。</span><span class="tlum">Shoes worn for years have fallen apart.</span></li></ul></section><h2>Where this comes from</h2><p>Everything above comes from the free part of the Onomatope app and has passed its content review.</p><ul class="karty"><li class="karta"><img src="../../../../assets/ikony/onomatope.webp" alt="" width="52" height="52"><div><a class="nazwa" href="../../../../en/apps/onomatope/">Onomatope: Japanese Mimetics</a><span class="co">Manga and anime vocabulary</span></div></li></ul><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/apple-store/id6808981682?pt=129317804&amp;ct=web-onomatopeje-l2.b&amp;mt=8">App Store →</a><span class="znacznik">Free app with an in-app purchase</span></p><h2>See also</h2><ul class="zwykla"><li><a href="../../../../en/learn/casual-japanese/voicing/">Voicing – casual Japanese</a> – voicing in casual speech – the same 濁点, in contractions rather than in mimetics</li></ul><h2>Learning Japanese</h2><ul class="zwykla"><li><a href="../../../../en/learn/japanese-mimetics/voicing-pairs/">← Previous section: Voicing pairs: き–し</a></li><li><a href="../../../../en/learn/japanese-mimetics/sound-pairs/">Next section: Sound pairs: the か row →</a></li><li><a href="../../../../en/learn/japanese-mimetics/">Japanese mimetics – the sounds in manga and anime</a></li></ul></main>
-<footer>Jakub Dwojak · <a href="../../../../en/about/">About</a> · <a href="../../../../en/whats-next/">What is next</a> · <a href="../../../../en/learn/">Learning Japanese</a> · <a href="../../../../en/documents.html">Document index</a> · <a href="mailto:onomatope@jd-japanese.pl">onomatope@jd-japanese.pl</a> · <a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>@jd_japanese</span></a></footer>
+<div class="cienki"><div class="in"><nav class="gora" aria-label="Site"><a class="logo" href="../../../../en/"><img src="../../../../assets/znak-180.png" alt="" width="32" height="32"><span>jd-japanese</span></a><a class="zbedne" href="../../../../en/">Apps</a><a class="zbedne" href="../../../../en/learn/">Learning Japanese</a><a class="zbedne" href="../../../../en/about/">About</a><a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://jd-japanese.pl/nauka/onomatopeje/pary-dzwieczne-ta-ho/" lang="pl">Polski</a><a class="powrot" href="../../../../en/learn/japanese-mimetics/">← Japanese mimetics</a></nav></div></div>
+<main id="tresc"><div class="in"><div class="waska"><div class="szyld-tematu"><img src="../../../../assets/ikony/onomatope.webp" alt="" width="64" height="64"><h1>Voicing pairs: た–ほ – Japanese mimetics</h1></div><p class="lead">とろとろ and どろどろ, はらはら and ばらばら – four pairs from た to ほ, where the voicing mark makes things thicker and heavier.</p><nav class="spis-tematu" aria-label="On this page"><ul><li><a href="#l2-word-taratara">たらたら · to run down in a thin thread</a></li><li><a href="#l2-word-daradara">だらだら · to drag on endlessly</a></li><li><a href="#l2-word-torotoro">とろとろ · to be thick and smooth</a></li><li><a href="#l2-word-dorodoro">どろどろ · to be muddy</a></li><li><a href="#l2-word-harahara">はらはら · to drift down one by one (petals, tears)</a></li><li><a href="#l2-word-barabara">ばらばら · to fall apart</a></li><li><a href="#l2-word-horohoro">ほろほろ · to crumble gently</a></li><li><a href="#l2-word-boroboro">ぼろぼろ · to be tattered</a></li></ul></nav><section class="haslo"><h2 id="l2-word-taratara"><span lang="ja">たらたら</span> · to run down in a thin thread</h2><p class="lead">Rainwater running down a wall, blood from a split lip.</p><p>たらたら is an unbroken thin thread — rainwater off the eaves, water from a tap, blood from a split lip. Sweat runs both ways in Japanese, 汗がたらたら and 汗がだらだら, so sweat is not what tells these two apart. Drop-by-drop dripping is ぽたぽた, not this word.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>傷口<rt>きずぐち</rt></ruby>から<ruby>血<rt>ち</rt></ruby>が<ruby>止<rt>と</rt></ruby>まらず、<ruby>細<rt>ほそ</rt></ruby>くたらたらと<ruby>流<rt>なが</rt></ruby>れる。</span><span class="tlum">Blood keeps running from the cut in a thin thread.</span></li><li><span lang="ja"><ruby>壁<rt>かべ</rt></ruby>を<ruby>雨水<rt>あまみず</rt></ruby>が<ruby>細<rt>ほそ</rt></ruby>い<ruby>筋<rt>すじ</rt></ruby>になってたらたらと<ruby>伝<rt>つた</rt></ruby>う。</span><span class="tlum">Rainwater runs down the wall in a thin thread.</span></li></ul></section><section class="haslo"><h2 id="l2-word-daradara"><span lang="ja">だらだら</span> · to drag on endlessly</h2><p class="lead">A three-hour meeting.</p><p>Voiced だ adds weight and reluctance: たらたら stays with the thin thread, while 汗がだらだら流れる is still liquid, only too much of it for too long. From there it is a short step to 会議がだらだら続く. The neighbours are about other things: ぐずぐず is an accusation levelled at a person who cannot get started (ぐずぐずするな), whereas だらだら describes the event itself dragging on; ずるずる always drags something along — noodles pulled in with a slurp, or a deadline that keeps being pushed back — while だらだら drags nothing, it simply goes on and will not end.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>緊張感<rt>きんちょうかん</rt></ruby>のない<ruby>会議<rt>かいぎ</rt></ruby>が<ruby>三時間<rt>さんじかん</rt></ruby>もだらだらと<ruby>続<rt>つづ</rt></ruby>いた。</span><span class="tlum">The slack meeting dragged on for three hours.</span></li><li><span lang="ja"><ruby>結論<rt>けつろん</rt></ruby>の<ruby>出<rt>で</rt></ruby>ない<ruby>会議<rt>かいぎ</rt></ruby>が<ruby>午後<rt>ごご</rt></ruby>じゅうだらだらしている。</span><span class="tlum">A meeting with no conclusion drags all afternoon.</span></li></ul></section><section class="haslo"><h2 id="l2-word-torotoro"><span lang="ja">とろとろ</span> · to be thick and smooth</h2><p class="lead">Melted cheese, a soft-set egg yolk.</p><p>Voiceless と keeps the thickness light and edible — voiced ど, the other half of this pair, turns it into どろどろ, mud you do not eat. Nor is it ぐつぐつ: that word says nothing about thickness, only that the pot is bubbling (鍋がぐつぐつ煮える). Of a dish you say とろとろだ, とろとろした (卵, チーズ), とろとろになる or とろとろと煮る. Note: とろとろする on its own, said of a person, means “to doze off” (授業中にとろとろする).</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">ゆっくり<ruby>溶<rt>と</rt></ruby>かしたチョコは<ruby>甘<rt>あま</rt></ruby>く、とろとろだ。</span><span class="tlum">Slowly melted chocolate is sweet and silky-thick.</span></li><li><span lang="ja"><ruby>焼<rt>や</rt></ruby>きたてのチーズが<ruby>溶<rt>と</rt></ruby>けてとろとろだ。</span><span class="tlum">Fresh from the oven, the cheese has melted gooey.</span></li></ul></section><section class="haslo"><h2 id="l2-word-dorodoro"><span lang="ja">どろどろ</span> · to be muddy</h2><p class="lead">Ground after a downpour, boots off a field.</p><p>Voiced ど adds weight and dirt — the same thickness, now inedible: とろとろ stays light enough to eat (melted cheese), どろどろ is mud you do not.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>雨<rt>あめ</rt></ruby>を<ruby>吸<rt>す</rt></ruby>った<ruby>畑<rt>はたけ</rt></ruby>は<ruby>重<rt>おも</rt></ruby>く、どろどろだ。</span><span class="tlum">The rain-soaked field is heavy and muddy.</span></li><li><span lang="ja"><ruby>水<rt>みず</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>んだ<ruby>重<rt>おも</rt></ruby>い<ruby>泥<rt>どろ</rt></ruby>が<ruby>靴<rt>くつ</rt></ruby>の<ruby>底<rt>そこ</rt></ruby>でどろどろしている。</span><span class="tlum">Heavy, wet mud turns to sludge under the sole.</span></li></ul></section><section class="haslo"><h2 id="l2-word-harahara"><span lang="ja">はらはら</span> · to drift down one by one (petals, tears)</h2><p class="lead">Tears one after another, ash off an incense stick.</p><p>はらはら is the slow fall of small things, one after another — and that is what this card teaches. ひらひら describes the manner in which one thing moves, turning over in the air (a ribbon, a handkerchief), while はらはら is a succession of many falling one behind the other. ちらちら comes in gaps and never settles, like the fine snow you see one moment and not the next. Note: the word has a second and today commoner sense, and that is the one that takes する: はらはらする means “to fret, to watch anxiously” (試合を見ていてはらはらした) — close there to ひやひや, except that ひやひや is a cold dread of the risk that runs down your back, and はらはら the worry of an onlooker watching from the side. It is not the same thing said differently — 涙がはらはらする is not Japanese. Falling is はらはらと散る, はらはらと落ちる — this card teaches the と form; plain はらはら散る also occurs, but never with する.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>風<rt>かぜ</rt></ruby>もなく<ruby>金木犀<rt>きんもくせい</rt></ruby>の<ruby>花<rt>はな</rt></ruby>がゆっくりはらはらと<ruby>散<rt>ち</rt></ruby>り<ruby>落<rt>お</rt></ruby>ちる。</span><span class="tlum">With no wind, osmanthus flowers slowly drop.</span></li><li><span lang="ja"><ruby>切<rt>き</rt></ruby>った<ruby>細<rt>ほそ</rt></ruby>い<ruby>髪<rt>かみ</rt></ruby>が、ゆっくり<ruby>肩<rt>かた</rt></ruby>にはらはらと<ruby>落<rt>お</rt></ruby>ちる。</span><span class="tlum">Fine cut hair drifts slowly onto the shoulder.</span></li></ul></section><section class="haslo"><h2 id="l2-word-barabara"><span lang="ja">ばらばら</span> · to fall apart</h2><p class="lead">A smashed plate, a collapsing model.</p><p>ばらばら is scattering and coming apart — 皿がばらばらになる, 意見がばらばら. It makes no pair with はらはら: there something drifts down, here something stops being whole. ガシャン is no state at all but a single blow to the ear — the crash of breaking glass at the moment the plate hits the floor; ばらばら names what is left afterwards.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>落<rt>お</rt></ruby>とした<ruby>皿<rt>さら</rt></ruby>がすっかり<ruby>割<rt>わ</rt></ruby>れてばらばらになった。</span><span class="tlum">The dropped plate smashed completely to pieces.</span></li><li><span lang="ja"><ruby>大<rt>おお</rt></ruby>きな<ruby>硬<rt>かた</rt></ruby>い<ruby>模型<rt>もけい</rt></ruby>が<ruby>壊<rt>こわ</rt></ruby>れて、<ruby>部品<rt>ぶひん</rt></ruby>がばらばらだ。</span><span class="tlum">The big, hard model broke; its parts lie loose.</span></li></ul></section><section class="haslo"><h2 id="l2-word-horohoro"><span lang="ja">ほろほろ</span> · to crumble gently</h2><p class="lead">Stewed meat, steamed fish.</p><p>Voiceless ほ keeps the crumbling soft and wanted — that is how good meat should give way; ぼろぼろ is a coming-apart nobody wanted and nobody can undo, worn-through shoes rather than stewed beef.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja">クッキーが<ruby>口<rt>くち</rt></ruby>の<ruby>中<rt>なか</rt></ruby>でほろほろと<ruby>崩<rt>くず</rt></ruby>れた。</span><span class="tlum">The cookie crumbled gently in my mouth.</span></li><li><span lang="ja"><ruby>蒸<rt>む</rt></ruby>した<ruby>魚<rt>さかな</rt></ruby>の<ruby>身<rt>み</rt></ruby>が、ほろほろとほぐれる。</span><span class="tlum">The steamed fish flakes gently apart.</span></li></ul></section><section class="haslo"><h2 id="l2-word-boroboro"><span lang="ja">ぼろぼろ</span> · to be tattered</h2><p class="lead">A ten-year-old bag, worn-through shoes.</p><p>Voiced ぼ turns pleasant crumbling into ruin: ほろほろ falls apart the way it was meant to — stewed meat under a fork — and ぼろぼろ the way it was not; the same falling apart, only slow and past saving.</p><p class="podtytul">Examples</p><ul class="przyklady"><li><span lang="ja"><ruby>十年<rt>じゅうねん</rt></ruby><ruby>使<rt>つか</rt></ruby>った<ruby>鞄<rt>かばん</rt></ruby>はすっかりぼろぼろだ。</span><span class="tlum">A bag used for ten years is in tatters.</span></li><li><span lang="ja"><ruby>長年<rt>ながねん</rt></ruby><ruby>履<rt>は</rt></ruby>いた<ruby>靴<rt>くつ</rt></ruby>が、すっかりぼろぼろになった。</span><span class="tlum">Shoes worn for years have fallen apart.</span></li></ul></section><section class="cta"><svg class="kinako" width="64" height="64" aria-hidden="true" focusable="false"><use href="#kinako-radosny"/></svg><div><h2>Where this comes from</h2><p>Everything above comes from the free part of the Onomatope app and has passed its content review.</p><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/apple-store/id6808981682?pt=129317804&amp;ct=web-onomatopeje-l2.b&amp;mt=8">App Store →</a><span class="znacznik">Free app with an in-app purchase</span></p></div></section><ul class="mini"><li style="--cl:#A95295;--cal:#9B4B88;--cd:#723C68;--cad:#C274AE"><img src="../../../../assets/ikony/onomatope.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../../en/apps/onomatope/">Onomatope</a><span class="co">Manga and anime vocabulary</span></span></li></ul><h2>See also</h2><ul class="zwykla"><li><a href="../../../../en/learn/casual-japanese/voicing/">Voicing – casual Japanese</a> – voicing in casual speech – the same 濁点, in contractions rather than in mimetics</li></ul><h2>Learning Japanese</h2><ul class="zwykla"><li><a href="../../../../en/learn/japanese-mimetics/voicing-pairs/">← Previous section: Voicing pairs: き–し</a></li><li><a href="../../../../en/learn/japanese-mimetics/sound-pairs/">Next section: Sound pairs: the か row →</a></li><li><a href="../../../../en/learn/japanese-mimetics/">Japanese mimetics – the sounds in manga and anime</a></li></ul></div></div></main>
+<div class="in"><footer><span>Jakub Dwojak · jd-japanese.pl</span><a href="../../../../en/about/">About</a><a href="../../../../en/whats-next/">What is next</a><a href="../../../../en/learn/">Learning Japanese</a><a href="../../../../en/documents.html">Document index</a><a href="mailto:onomatope@jd-japanese.pl">onomatope@jd-japanese.pl</a><a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>@jd_japanese</span></a><div class="wydawca"><p>Published by <a href="https://aseity.com.pl/en/">Aseity</a></p><svg class="kinako" width="28" height="28" aria-hidden="true" focusable="false"><use href="#kinako-spiacy"/></svg></div></footer></div>
 </body>
 </html>

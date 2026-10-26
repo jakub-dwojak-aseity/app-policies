@@ -70,6 +70,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import metadane  # noqa: E402
+import wyglad  # noqa: E402
 from napisy import NAPISY  # noqa: E402
 
 KORZEN = Path(__file__).resolve().parent.parent
@@ -107,6 +108,39 @@ OG = ('<meta property="og:title" content="{tytul}">',
 # Wyjście z dokumentu prawnego na witrynę. Etykietami są **nazwa aplikacji ze sklepu**
 # i nazwa witryny z `napisy.py` — obie już istnieją, więc ta stopka nie dokłada ani
 # jednego własnego zdania.
+#: Znacznik wiersza z wyglądem witryny 2.0. **Jeden wiersz, oznaczony**, bo
+#: `generuj-strony.py::bez_glowy_witryny` wycina go przed porównaniem z kopią
+#: w repozytorium apki — dokument ma się różnić od kopii wyłącznie tym, co dokłada
+#: witryna, a nie treścią. Liczba w znaczniku to wersja: przy zmianie arkusza wiersz
+#: wymienia się sam, a nie dokleja drugi.
+ZNACZNIK_STYLU = '<style data-witryna="2.0">'
+
+
+def styl_dokumentu(wzgledna: str) -> str:
+    """Wygląd 2.0 dla dokumentu pisanego ręcznie: tło, czcionki, kolor apki i cienki pas.
+
+    Wiersz stoi PRZED własnym `<style>` dokumentu, więc wygrywa nie kolejnością,
+    tylko precyzją (`html body`, nie `body`). Treści i układu dokumentu nie rusza —
+    makieta W02 rysowała spis z boku i ramkę-streszczenie, a to byłaby edycja
+    tekstu prawnego, na który wskazuje App Store Connect.
+    """
+    slug = wzgledna.split("/")[0]
+    kolor = wyglad.zmienne(slug if wyglad.ma_kolor(slug) else wyglad.DOMYSLNA)
+    css = (wyglad.css_neutralne()
+           + f":root {{ {kolor}; --c: var(--cl); --ca: var(--cal); }}"
+           " @media (prefers-color-scheme: dark) { :root { --c: var(--cd); --ca: var(--cad); } }"
+           " html { background: var(--bg); border-top: 6px solid var(--c); }"
+           " html body { color: var(--text); background: var(--bg); max-width: 46rem;"
+           " font-family: -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI\", Roboto, system-ui, sans-serif; }"
+           " html body h1, html body h2, html body h3 { font-family: ui-rounded, \"SF Pro Rounded\","
+           " \"Hiragino Maru Gothic ProN\", system-ui, sans-serif; }"
+           " html body a { color: var(--ca); }"
+           " html body .updated, html body footer { color: var(--text-muted); }"
+           " html body footer { border-top-color: var(--line); }"
+           " html body .note { border-left-color: var(--c); color: var(--text-muted); }")
+    return ZNACZNIK_STYLU + " ".join(css.split()) + "</style>"
+
+
 WYJSCIE = ('<br><a href="{apka}">{nazwa}</a> · <a href="{mapa}">{witryna}</a>')
 
 
@@ -347,6 +381,18 @@ def main() -> int:
         if not ma_hreflang and (para := pary.get(wzgledna)):
             potrzebne.extend(wzor.format(**para) for wzor in HREFLANG)
 
+        # Wygląd 2.0: wiersz dopisany, gdy go nie ma, i wymieniony, gdy jest inny —
+        # ten sam przebieg musi umieć jedno i drugie, bo arkusz się zmienia, a drugi
+        # wiersz obok pierwszego byłby cichym rozjazdem.
+        styl = styl_dokumentu(wzgledna)
+        stary_styl = next((l for l in tresc.splitlines() if ZNACZNIK_STYLU in l), None)
+        wymieniony = False
+        if stary_styl is None:
+            potrzebne.append(styl)
+        elif stary_styl.strip() != styl:
+            tresc = tresc.replace(stary_styl, stary_styl[: len(stary_styl) - len(stary_styl.lstrip())] + styl, 1)
+            wymieniony = True
+
         # **Odjęcie `hreflang`, nie tylko dopisanie — dopisane 17.09.2026.**
         #
         # Do dziś to narzędzie umiało głowę wyłącznie uzupełniać, a bramka w
@@ -395,7 +441,7 @@ def main() -> int:
                 mapa=f"{baza}/{przedrostek}",
                 witryna=html.escape(NAPISY[jezyk]["tytul_mapy"]))
 
-        if not potrzebne and not wyjscie and not odjete:
+        if not potrzebne and not wyjscie and not odjete and not wymieniony:
             pominiete += 1
             continue
 

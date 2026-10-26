@@ -48,6 +48,7 @@ NARZEDZIA = KORZEN / "Tools"
 sys.path.insert(0, str(NARZEDZIA))
 import glowy_dokumentow  # noqa: E402
 import metadane  # noqa: E402
+import wyglad  # noqa: E402
 
 #: Korzeń drzew rodziny. **Na Macu rozwija się dokładnie w to, co stało tu wpisane
 #: na sztywno** (`/Users/jakub/aseity`), więc zmiana jest bezobjawowa po tamtej stronie.
@@ -85,137 +86,310 @@ TEMATY_MAILA = {
 
 from napisy import NAPISY  # noqa: E402
 
-STYL = """\
-:root { color-scheme: light dark; --tlo:#fff; --tekst:#1c1c1e; --cichy:#6b6b70;
-        --linia:#e3e3e6; --akcent:#a34f5a; --karta:#faf9f9; }
+STYL = wyglad.css_neutralne() + """\
+/* Witryna 2.0 — język z makiet W01/W02 (`jp-grammar/.planning/witryna/`).
+   Neutralne i kolory apek przychodzą z `wyglad.json`; tu stoi tylko układ.
+   Element w kolorze apki niesie cztery zmienne w `style`, a para jasna/ciemna
+   wybiera się niżej, jednym selektorem dla całej rodziny. */
+[style*="--cl:"], :root { --c: var(--cl); --ca: var(--cal); }
 @media (prefers-color-scheme: dark) {
-  :root { --tlo:#131315; --tekst:#ececef; --cichy:#9a9aa0; --linia:#2c2c30;
-          --akcent:#e08a94; --karta:#1b1b1e; }
+  [style*="--cl:"], :root { --c: var(--cd); --ca: var(--cad); }
 }
+:root { --font-display: ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN", system-ui, sans-serif;
+        --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, system-ui, sans-serif;
+        --font-jp: "Hiragino Maru Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif; }
 * { box-sizing: border-box; }
-body { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
-       font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-       color: var(--tekst); background: var(--tlo); }
-h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 .35rem; }
-h2 { font-size: 1.15rem; margin: 2.5rem 0 .75rem; }
-h3 { font-size: 1rem; margin: 1.75rem 0 .4rem; letter-spacing: .01em; }
+html, body { margin: 0; }
+body { font: 1rem/1.6 var(--font-body); color: var(--text); background: var(--bg);
+       overflow-wrap: break-word; }
+[lang="ja"] { font-family: var(--font-jp); }
+a { color: var(--ca); }
+img { max-width: 100%; }
+.symbole { position: absolute; width: 0; height: 0; overflow: hidden; }
+.kinako { display: block; flex: none; image-rendering: pixelated; shape-rendering: crispEdges; }
+.in { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+@media (max-width: 600px) { .in { padding: 0 16px; } }
+.waska { max-width: 46rem; }
+.do-tresci { position: absolute; left: -9999px; }
+.do-tresci:focus { position: static; display: inline-block; margin: .5rem 1rem; }
+:focus-visible { outline: 2px solid var(--ca); outline-offset: 2px; border-radius: 4px; }
+.czytnik { position: absolute; left: -9999px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
+h1 { font-size: clamp(1.9rem, 4.6vw, 3.1rem); line-height: 1.1; margin: 0; letter-spacing: -.01em; }
+h2 { font-size: 1.6rem; line-height: 1.2; margin: 2.75rem 0 .4rem; }
+h3 { font-size: 1.15rem; margin: 1.75rem 0 .4rem; }
 p { margin: .75rem 0; }
-a { color: var(--akcent); }
-.podtytul { color: var(--cichy); margin: 0 0 1rem; font-size: 1.05rem; }
-.lead { border-left: 3px solid var(--akcent); padding: .1rem 0 .1rem 1rem;
-        margin: 1.5rem 0; color: var(--tekst); }
-.gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
-        margin-bottom: 2rem; color: var(--cichy); }
-.gora a { text-decoration: none; }
-.gora-prawo { display: flex; align-items: center; gap: .75rem; }
+.lead { font-size: 1.15rem; line-height: 1.55; color: var(--text-muted); max-width: 46ch; margin: .9rem 0 0; }
+.podtytul { color: var(--text-muted); margin: .4rem 0 1rem; }
+.pod-naglowkiem { color: var(--text-muted); margin: 0 0 1.1rem; }
+.jp { color: var(--text-muted); font-weight: 400; font-size: .7em; margin-left: .4em; }
+
+/* pasek witryny */
+.gora { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem 1.1rem; padding: 16px 0;
+        font-size: .92rem; }
+.gora a { color: var(--text-muted); text-decoration: none; }
+.gora a:hover { color: var(--text); }
+.gora .logo { display: inline-flex; align-items: center; gap: .5rem; margin-right: auto;
+              font: 700 1.05rem/1 var(--font-display); color: var(--text); }
+.gora .logo img { width: 32px; height: 32px; border-radius: 8px; display: block; image-rendering: pixelated; }
+.gora .tu { color: var(--text); font-weight: 600; }
+.gora .powrot { flex-basis: 100%; order: 9; color: var(--ca); font-size: .9rem; }
 .instagram { display: inline-flex; align-items: center; justify-content: center;
              gap: .5rem; min-width: 44px; min-height: 44px; vertical-align: middle; }
-.instagram svg { width: 22px; height: 22px; flex: none; }
-.instagram:hover { color: var(--tekst); }
-.do-tresci { position: absolute; left: -9999px; }
-.do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
-:focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
-footer { overflow-wrap: anywhere; }
-.gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
-.gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
-.szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
-.szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
-.jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
-.karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
-.karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
-         border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
-.karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
-.karta { position: relative; }
-.karta .nazwa { font-weight: 600; }
-/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
-   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
-   Gramatyka japońska", a nie cały akapit o problemie.
-   **Tylko tam, gdzie nazwa jest linkiem.** Karta aplikacji zapowiedzianej ma nazwę
-   w `<span>`, a selektor `.karta .nazwa` łapał i ją — więc kafelek bez dokąd pójścia
-   dostawał niewidzialny cel dotknięcia na całej powierzchni, identyczny z tym
-   w dziesięciu kartach nad nim. Zmierzone okiem 13.09.2026 na telefonie: ten sam
-   kształt, ten sam rozmiar celu, jedna reaguje, druga nie. §15 konwencji mówi o tym
-   wprost: co wygląda na dotykalne, musi być dotykalne. */
-a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
-.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
-.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
-.znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
-            border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
-            margin-left: .4rem; vertical-align: .1em; }
-/* Ikonki platform. Kolor z `currentColor` przez `--cichy`, więc tryb ciemny działa
-   bez osobnej reguły — i to jest jedyny powód, dla którego znak jest rysowany, a nie
-   wstawiony plikiem: `<img>` koloru nie dziedziczy i w ciemnym znika.
-   Rozmiar w `em`, żeby znak skalował się razem z tytułem karty, a nie obok niego.
-   Znak leży POD niewidzialną warstwą linku karty (`a.nazwa::after`) i nie dostaje
-   ani `position`, ani własnego odsyłacza — inaczej rozciąłby cel dotknięcia na dwa. */
-.platformy { display: inline-flex; gap: .3em; margin-left: .4rem;
-             vertical-align: .02em; color: var(--cichy); }
+.instagram svg { width: 20px; height: 20px; flex: none; }
+@media (max-width: 600px) { .gora .zbedne { display: none; } }
+.pas { background: var(--c); color: #fff; }
+.pas .gora a, .pas .gora .logo { color: rgb(255 255 255 / .88); }
+.pas .gora .powrot { color: #fff; }
+.pas a { color: #fff; }
+.cienki { border-top: 6px solid var(--c); }
+
+/* przyciski */
+.przyciski { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 1.4rem; }
+.btn, .przycisk { display: inline-flex; align-items: center; gap: .5rem; border-radius: 999px;
+                  padding: 13px 20px; font: 600 1rem/1 var(--font-display); text-decoration: none;
+                  background: var(--c); color: #fff; }
+.btn.drugi { background: var(--surface-2); color: var(--text); }
+.pas .przycisk, .cta .przycisk { background: #fff; color: var(--ca); }
+@media (prefers-color-scheme: dark) { .pas .przycisk, .cta .przycisk { color: var(--cl); } }
+.znacznik { display: inline-flex; align-items: center; font-size: .8rem; font-weight: 600;
+            padding: .3rem .65rem; border-radius: 999px; color: var(--ca);
+            background: color-mix(in srgb, var(--c) 12%, var(--surface)); }
+.pas .znacznik { color: #fff; background: rgb(255 255 255 / .18); }
+.sklep { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 1.4rem 0 0; }
+.darmowe { flex-basis: 100%; color: var(--text-muted); font-size: .9rem; }
+.pas .darmowe { color: rgb(255 255 255 / .9); }
+.platformy { display: inline-flex; gap: .3em; vertical-align: .02em; color: var(--text-muted); }
+.pas .platformy { color: #fff; }
 .platforma { display: inline-flex; }
-.platformy svg { width: .85em; height: .85em; display: block; }
-/* Tekst wyłącznie dla czytnika ekranu — ten sam idiom, co skip-link wyżej, bez
-   reguły `:focus`, bo ten element nie jest ogniskowalny. */
-.czytnik { position: absolute; left: -9999px; }
-.sklep { display: block; margin: .35rem 0 1.25rem; font-weight: 600; }
-.nota { font-size: .8rem; margin-top: 2rem; }
-.przycisk { display: inline-block; background: var(--akcent); color: var(--tlo);
-            padding: .55rem 1.1rem; border-radius: 10px; text-decoration: none; }
-.spis-sekcji ul { list-style: none; padding: 0; margin: 0 0 1.75rem;
-                  display: flex; flex-wrap: wrap; gap: .35rem .9rem; font-size: .92rem; }
-.spis-sekcji li { margin: 0; }
-details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
-details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
-                  position: relative; }
+.platformy svg { width: .95em; height: .95em; display: block; }
+
+/* strona główna */
+.hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: center; padding: 26px 0 30px; }
+.scena { position: relative; height: 230px; }
+.scena .grunt { position: absolute; left: 6%; right: 6%; bottom: 18px; height: 3px; border-radius: 2px; background: var(--line); }
+.scena .kropki { position: absolute; left: 12%; right: 30%; bottom: 40px; display: flex; justify-content: space-between; }
+.scena .kropki i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+.scena .kropki i.byla { background: var(--c); }
+.scena .torii { position: absolute; right: 12%; bottom: 18px; }
+.scena .kinako { position: absolute; left: 18%; bottom: 20px; }
+@media (max-width: 700px) {
+  .hero { grid-template-columns: 1fr; padding-top: 6px; gap: 8px; }
+  .scena { order: -1; height: 160px; }
+  .scena .kinako { width: 96px; height: 96px; }
+}
+.start { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; background: var(--surface);
+         border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; }
+.start > div { flex: 1 1 280px; }
+.start b { display: block; font: 700 1rem/1.2 var(--font-display); margin-bottom: 3px; }
+.start ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 2px 10px;
+            color: var(--text-muted); font-size: .92rem; }
+.start ol li::before { content: counter(list-item) " · "; }
+.start ol li + li::before { content: "→ " counter(list-item) " · "; }
+.start .btn { padding: 10px 16px; font-size: .92rem; }
+.siatka { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 0; margin: 0; list-style: none; }
+@media (max-width: 900px) { .siatka { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .siatka { grid-template-columns: 1fr; } }
+.apka { position: relative; border-radius: 20px; overflow: hidden; background: var(--surface);
+        border: 1px solid var(--line); display: flex; flex-direction: column; transition: transform .15s; }
+.apka:hover { transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .apka { transition: none; } .apka:hover { transform: none; } }
+.apka .gorna { background: var(--c); color: #fff; padding: 16px 16px 14px; position: relative; overflow: hidden;
+               display: flex; gap: 12px; align-items: center; min-height: 86px; }
+.apka .znak-wodny { position: absolute; right: -6px; bottom: -22px; font: 700 92px/1 var(--font-jp); opacity: .14;
+                    pointer-events: none; }
+.apka .gorna img { width: 52px; height: 52px; border-radius: 14px; flex: none; position: relative;
+                   box-shadow: 0 0 0 2px rgb(255 255 255 / .35); }
+.apka .gorna > div { position: relative; min-width: 0; }
+.apka .nazwa { display: block; color: #fff; text-decoration: none; font: 700 1.15rem/1.15 var(--font-display); }
+.apka .co { display: block; opacity: .9; font-size: .85rem; margin-top: 2px; }
+.apka .gorna .platformy, .apka .gorna .znacznik { color: #fff; }
+.apka .gorna .znacznik { background: rgb(255 255 255 / .18); margin-top: 6px; }
+.apka .dol { padding: 14px 16px 16px; display: grid; gap: 10px; flex: 1; }
+.apka .dol .znacznik { justify-self: start; }
+.apka .dol p { margin: 0; font-size: .93rem; line-height: 1.5; color: var(--text-muted); }
+.apka .stopka-karty { margin-top: auto; display: flex; justify-content: space-between; gap: 8px;
+                      font-size: .85rem; font-weight: 600; color: var(--ca); }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu słyszy samą nazwę.
+   Tylko tam, gdzie nazwa jest linkiem (§15 konwencji: co wygląda na dotykalne,
+   musi być dotykalne — i odwrotnie). */
+a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.zapowiedz { border-style: dashed; border-width: 2px; }
+.zapowiedz:hover { transform: none; }
+.zapowiedz .gorna { background: repeating-linear-gradient(135deg, var(--c) 0 14px, color-mix(in srgb, var(--c) 86%, #000) 14px 28px); }
+.zapowiedz .nazwa { cursor: default; }
+.zapowiedz a.chce { position: relative; z-index: 1; color: var(--ca); font-weight: 600; font-size: .9rem; text-decoration: none; }
+
+/* tematy: karta-hub (strona główna, rozdroże nauki) */
+.huby { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0; margin: 0; list-style: none; }
+@media (max-width: 700px) { .huby { grid-template-columns: 1fr; } }
+.hub { background: var(--surface); border: 1px solid var(--line); border-top: 5px solid var(--c);
+       border-radius: 18px; padding: 16px; display: grid; gap: 8px; align-content: start; }
+.hub h3 { margin: 0; font-size: 1.1rem; line-height: 1.3; }
+.hub h3 a { color: var(--text); text-decoration: none; }
+.hub p { margin: 0; color: var(--text-muted); font-size: .93rem; line-height: 1.5; }
+.hub details { border: 0; padding: 0; }
+.hub summary { font-size: .82rem; color: var(--ca); font-weight: 600; }
+.pigulki { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 8px 0 0; list-style: none; }
+.pigulki a { display: inline-block; text-decoration: none; font-size: .85rem; color: var(--text);
+             background: color-mix(in srgb, var(--c) 10%, var(--surface)); border-radius: 999px; padding: 5px 10px; }
+.skoki { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 1.2rem 0 0; list-style: none; }
+.skoki a { text-decoration: none; color: var(--text); background: var(--surface); border: 1px solid var(--line);
+           border-radius: 999px; padding: 6px 12px 6px 6px; font-size: .9rem; display: inline-flex; gap: 8px; align-items: center; }
+.skoki img { width: 24px; height: 24px; border-radius: 7px; }
+.grupa-apki { margin-top: 2.2rem; }
+.grupa-apki > header { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+.grupa-apki > header img { width: 44px; height: 44px; border-radius: 12px; flex: none; }
+.grupa-apki > header h2 { margin: 0; font-size: 1.35rem; }
+.grupa-apki > header small { display: block; color: var(--text-muted); font: 400 .85rem/1.4 var(--font-body); }
+.grupa-apki > header a { margin-left: auto; font-size: .9rem; font-weight: 600; color: var(--ca); text-decoration: none; white-space: nowrap; }
+@media (max-width: 600px) { .grupa-apki > header a { display: none; } }
+.cicho { margin-top: 2rem; border: 2px dashed var(--line); border-radius: 18px; padding: 14px 16px;
+         color: var(--text-muted); font-size: .95rem; display: flex; gap: 12px; align-items: center; }
+.cicho p { margin: 0; }
+
+/* mini-karty apek */
+.mini { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; padding: 0; margin: 0; list-style: none; }
+.mini li { position: relative; display: flex; gap: 12px; align-items: center; background: var(--surface);
+           border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 16px; padding: 10px 12px; }
+.mini img { width: 44px; height: 44px; border-radius: 12px; flex: none; }
+.mini .nazwa { display: block; color: var(--text); text-decoration: none; font: 600 .98rem/1.2 var(--font-display); }
+.mini .co { display: block; color: var(--text-muted); font-size: .8rem; margin-top: 2px; }
+
+/* strona apki */
+.pas-apki { position: relative; overflow: hidden; }
+.pas-apki .znak-wodny { position: absolute; right: 2%; bottom: -60px; font: 700 300px/1 var(--font-jp);
+                        opacity: .1; pointer-events: none; }
+.szyld-apki { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; padding: 14px 0 36px; position: relative; }
+@media (max-width: 700px) { .szyld-apki { grid-template-columns: 1fr; } .szyld-apki .mowi { justify-self: end; } }
+.szyld-apki .ikona { width: 84px; height: 84px; border-radius: 22px; display: block; margin-bottom: 16px;
+                     box-shadow: 0 0 0 3px rgb(255 255 255 / .3); }
+.szyld-apki .jp { color: rgb(255 255 255 / .8); }
+.szyld-apki .podtytul { color: rgb(255 255 255 / .92); font-size: 1.1rem; margin: .5rem 0 0; }
+.pas .lead { color: rgb(255 255 255 / .92); }
+.mowi { display: flex; gap: 10px; align-items: flex-end; }
+.dymek { background: var(--surface); color: var(--text); border: 1px solid var(--line);
+         border-radius: 16px 16px 16px 4px; padding: 10px 12px; font-size: .9rem; line-height: 1.4;
+         max-width: 220px; margin: 0 0 60px; }
+.pas .dymek { border-color: transparent; background: #fff; color: #2A2022; }
+.zrzuty { display: flex; gap: 14px; overflow-x: auto; margin: 1rem 0 0; padding: 4px 2px 12px; scroll-snap-type: x mandatory; }
+.zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; border-radius: 22px; padding: 12px 12px 10px;
+                 background: linear-gradient(180deg, var(--c), color-mix(in srgb, var(--c) 60%, #000)); color: #fff; }
+.zrzuty img { width: 186px; height: auto; border-radius: 14px; display: block; }
+.zrzuty a { color: #fff; }
+.zrzuty figcaption { font-size: .82rem; margin-top: .55rem; line-height: 1.4; }
+.zrzuty figcaption strong { font-family: var(--font-display); }
+.opis h3 { font-size: 1.05rem; text-transform: none; letter-spacing: .01em; }
+.spis-sekcji ul, .spis-tematu ul { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: .6rem 0 1.4rem; list-style: none; }
+.spis-sekcji a, .spis-tematu a { display: inline-block; text-decoration: none; color: var(--text); font-size: .9rem;
+                                 background: color-mix(in srgb, var(--c) 10%, var(--surface)); border-radius: 999px; padding: 7px 12px; }
+details { border-bottom: 1px solid var(--line); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem; position: relative; }
 details summary::-webkit-details-marker { display: none; }
-details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
-                         font-weight: 400; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--text-muted); font-weight: 400; }
 details[open] summary::after { content: "–"; }
 details p { margin: .6rem 0 .3rem; }
-.zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
-          padding-bottom: .5rem; scroll-snap-type: x mandatory; }
-.zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
-.zrzuty img { width: 210px; height: auto; border-radius: 14px;
-              border: 1px solid var(--linia); display: block; }
-.zrzuty figcaption { font-size: .85rem; color: var(--cichy); margin-top: .45rem;
-                     line-height: 1.4; }
+.pytania details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 8px; }
+.pytania summary { font: 600 1rem/1.3 var(--font-display); }
+.pytania details p { color: var(--text-muted); line-height: 1.55; }
+.dokumenty-apki { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: .5rem 0 0; list-style: none; }
+.dokumenty-apki a, .dl a { display: inline-block; text-decoration: none; color: var(--text); font-size: .9rem;
+                           border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; background: var(--surface); }
 ul.zwykla { padding-left: 1.15rem; }
 ul.zwykla li { margin: .3rem 0; }
-/* Strony tematyczne. Pięć reguł i ani jednej więcej: hasło ma wyglądać jak
-   sekcja opisu sklepowego, a nie jak inny gatunek strony. Rubin dostaje własny
-   rozmiar, bo domyślny w Safari bywa większy niż linia tekstu wokół. */
-.haslo + .haslo { border-top: 1px solid var(--linia); padding-top: .5rem; }
-.haslo h2 { margin-top: 1.75rem; }
-.przyklady { padding-left: 0; list-style: none; margin: .4rem 0 1.25rem; }
-.przyklady li { margin: .6rem 0; }
-.przyklady .pelna { color: var(--cichy); }
-.przyklady .tlum { display: block; color: var(--cichy); font-size: .93rem; }
-ruby rt { font-size: .55em; color: var(--cichy); }
-/* Poradnik [poz. 691]: tabela przewija się sama, strona nie — 16px marginesu
-   i żadnego poziomego przewijania całej strony na telefonie. */
-.tabela { overflow-x: auto; margin: .75rem 0 1.25rem; -webkit-overflow-scrolling: touch; }
+
+/* strony tematyczne */
+.szyld-tematu { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; padding: 10px 0 4px; }
+.szyld-tematu img { width: 64px; height: 64px; border-radius: 18px; display: block; }
+.szyld-tematu h1 { font-size: clamp(1.6rem, 3.6vw, 2.5rem); }
+@media (max-width: 600px) { .szyld-tematu { grid-template-columns: 1fr; gap: 10px; } .szyld-tematu img { width: 52px; height: 52px; } }
+.haslo { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 4px 22px 14px; margin-top: 16px; }
+.haslo h2, .haslo h3 { margin-top: 1.1rem; color: var(--ca); }
+.haslo h2 { font-size: 1.5rem; }
+.haslo .lead { font-size: 1rem; color: var(--text); font-weight: 600; display: inline-block; max-width: none;
+               background: color-mix(in srgb, var(--c) 12%, var(--surface)); border-radius: 10px; padding: 6px 12px; margin: .3rem 0 .4rem; }
+.haslo .znacznik { margin-left: .4rem; vertical-align: .2em; }
+.przyklady { padding-left: 0; list-style: none; margin: .4rem 0 .5rem; }
+.przyklady li { border-top: 1px solid var(--line); padding: .55rem 0; margin: 0; }
+.przyklady [lang="ja"] { font-size: 1.15rem; line-height: 1.9; }
+.przyklady .pelna { color: var(--text-muted); }
+.przyklady .tlum { display: block; color: var(--text-muted); font-size: .93rem; }
+ruby rt { font-size: .5em; color: var(--text-muted); }
+.tabela { overflow-x: auto; margin: .75rem 0 1.25rem; -webkit-overflow-scrolling: touch;
+          background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
 .tabela table { border-collapse: collapse; min-width: 100%; font-size: .95rem; }
-.tabela th, .tabela td { border-bottom: 1px solid var(--linia); padding: .45rem .6rem;
+.tabela th, .tabela td { border-bottom: 1px solid var(--line); padding: .5rem .7rem;
                           text-align: left; vertical-align: top; white-space: nowrap; }
+.tabela tr:last-child th, .tabela tr:last-child td { border-bottom: 0; }
 .tabela td.tekst { white-space: normal; min-width: 9rem; }
 @media (max-width: 30rem) {
   .tabela th, .tabela td { padding: .4rem .35rem; }
   .tabela td.tekst { min-width: 7rem; }
 }
-.tabela thead th { color: var(--cichy); font-weight: 600; font-size: .85rem; }
-.tabela tbody th { color: var(--cichy); font-weight: 400; font-size: .85rem; }
-.tabela tbody th[lang="ja"] { color: var(--tekst); font-size: 1rem; }
-.tabela .podpis { display: block; color: var(--cichy); font-size: .78rem; font-weight: 400;
+.tabela thead th { color: var(--text-muted); font-weight: 600; font-size: .85rem; background: var(--surface-2); }
+.tabela tbody th { color: var(--text-muted); font-weight: 400; font-size: .85rem; }
+.tabela tbody th[lang="ja"] { color: var(--text); font-size: 1rem; }
+.tabela .podpis { display: block; color: var(--text-muted); font-size: .78rem; font-weight: 400;
                   white-space: normal; min-width: 5.5rem; max-width: 8rem; line-height: 1.3; }
-.odmiana { font-size: 1.05rem; }
-.odmiana .strz { color: var(--cichy); }
-.zaproszenie { border: 1px solid var(--linia); border-radius: 12px; background: var(--karta);
+.odmiana { font-size: 1.05rem; background: var(--surface-2); border-radius: 12px; padding: 10px 14px; }
+.odmiana .strz { color: var(--text-muted); }
+.zaproszenie { border: 1px solid var(--line); border-radius: 16px; background: var(--surface);
                padding: .9rem 1rem; margin: 1.5rem 0; }
 .zaproszenie p { margin: .3rem 0; }
-.darmowe { display: block; color: var(--cichy); font-size: .88rem; font-weight: 400;
-           margin-top: .5rem; }
 .cwiczenia summary { font-weight: 400; }
-footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
-         font-size: .88rem; color: var(--cichy); }
-footer a { color: var(--akcent); }
+.cta { margin-top: 2.2rem; background: var(--c); color: #fff; border-radius: 22px; padding: 20px;
+       display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.cta > div { flex: 1 1 260px; }
+.cta + .mini { margin-top: 14px; }
+.szyld-tematu + .lead { margin-bottom: 1.4rem; }
+.cta h2 { margin: 0 0 4px; font-size: 1.2rem; }
+.cta p { margin: 0; }
+.cta .sklep { margin: 0; }
+.cta .znacznik { color: #fff; background: rgb(255 255 255 / .18); }
+.cta .darmowe { color: rgb(255 255 255 / .9); }
+
+/* strony pozostałe (W02) */
+.glowa { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; padding: 18px 0 8px; }
+@media (max-width: 700px) { .glowa { grid-template-columns: 1fr; } .glowa .mowi { justify-self: end; } }
+.glowa .dymek { margin-bottom: 44px; }
+.proza { max-width: 66ch; font-size: 1.06rem; line-height: 1.65; }
+.proza h2 { font-size: 1.4rem; margin: 2rem 0 .5rem; }
+.pytania-dalej { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 1.6rem; }
+@media (max-width: 700px) { .pytania-dalej { grid-template-columns: 1fr; } }
+.pytanie { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 18px 16px;
+           display: grid; gap: 8px; align-content: start; }
+.pytanie h2 { font-size: 1.2rem; margin: 0; }
+.pytanie p { margin: 0; color: var(--text-muted); font-size: .97rem; line-height: 1.55; }
+.pytanie .idz { justify-self: start; margin-top: 4px; font-weight: 600; color: var(--ca); text-decoration: none;
+                background: var(--surface-2); border-radius: 999px; padding: 8px 14px; font-size: .9rem; }
+.o-autorze { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 36px; align-items: start; }
+@media (max-width: 820px) { .o-autorze { grid-template-columns: 1fr; gap: 10px; } }
+.fakty { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; margin-top: 2rem; }
+.fakty h2 { font-size: 1rem; margin: 0 0 10px; }
+.fakty ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.fakty li { display: flex; gap: 10px; align-items: center; font-size: .95rem; }
+.fakty li::before { content: "✓"; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; flex: none;
+                    font-weight: 700; color: #2E7A4C; background: #E3F1E8; }
+@media (prefers-color-scheme: dark) { .fakty li::before { color: #63BE88; background: #1E3328; } }
+.spis { display: grid; gap: 10px; max-width: 860px; margin-top: 1.4rem; }
+.wiersz-dok { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 14px; align-items: center;
+              background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 14px; padding: 12px 14px; }
+.wiersz-dok img { width: 42px; height: 42px; border-radius: 12px; display: block; }
+.wiersz-dok h2 { margin: 0; font-size: 1.05rem; }
+.wiersz-dok h2 small { display: block; font: 400 .82rem/1.4 var(--font-jp); color: var(--text-muted); margin-top: 2px; }
+.wiersz-dok .dl { grid-column: 2; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
+@media (max-width: 700px) { .wiersz-dok .dl { grid-column: 1 / -1; } }
+.dl a span { color: var(--text-muted); font-size: .78rem; margin-left: 4px; }
+
+/* stopka */
+footer { margin-top: 56px; border-top: 1px solid var(--line); padding: 26px 0 40px; display: flex; flex-wrap: wrap;
+         gap: 10px 22px; font-size: .88rem; color: var(--text-muted); align-items: center; }
+footer a { color: inherit; }
+footer .wydawca { flex-basis: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+footer .wydawca p { margin: 0; }
+footer .wydawca a { color: var(--ca); font-weight: 600; }
+.nota { font-size: .8rem; margin-top: 2rem; }
 code { font-size: .9em; }
 """
 
@@ -438,7 +612,11 @@ def publiczny(adres: str) -> str:
 
 
 def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
-           manifest, jsonld=None, dodatkowa_glowa="", nawigacja="", stopka_html=""):
+           manifest, jsonld=None, dodatkowa_glowa="", nawigacja="", stopka_html="",
+           kolor=None, pas=False):
+    """Szkielet strony. `kolor` to slug apki, w której barwach stoi strona (zmienne
+    na `<body>`), a `pas=True` stawia pasek witryny na kolorowym tle — tak zaczyna
+    się strona apki, bo pas w kolorze apki to jej szyld (makieta W01)."""
     n = NAPISY[jezyk]
     baza = manifest["bazaAdresu"]
     kanoniczny, alternatywny = publiczny(kanoniczny), publiczny(alternatywny)
@@ -462,7 +640,12 @@ def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
         f'<meta property="og:site_name" content="{html.escape(n["tytul_mapy"], quote=True)}">',
         f'<meta property="og:locale" content="{"pl_PL" if jezyk == "pl" else "en_US"}">',
         f'<meta property="og:locale:alternate" content="{"en_US" if jezyk == "pl" else "pl_PL"}">',
-        '<meta name="theme-color" content="#a34f5a">',
+        # Kolor paska przeglądarki = tło strony, jasne i ciemne. Do 2.0 stała tu
+        # czerwień Kaname na każdej stronie, także na stronie Joshiego.
+        f'<meta name="theme-color" media="(prefers-color-scheme: light)" '
+        f'content="{wyglad.DANE["neutralne"]["background"]["light"]}">',
+        f'<meta name="theme-color" media="(prefers-color-scheme: dark)" '
+        f'content="{wyglad.DANE["neutralne"]["background"]["dark"]}">',
         # Ikona witryny. Google pokazuje ją obok wyniku na telefonie i **wymaga
         # co najmniej 48 px**; kafelek 180 px obsługuje iOS i podwójną gęstość.
         #
@@ -501,47 +684,69 @@ def strona(*, jezyk, tytul, opis, kanoniczny, alternatywny, tresc, glebokosc,
     nota = ""
     if ZNAKI_PLATFORM == "logo" and 'data-platforma="android"' in tresc:
         nota = f'<p class="podtytul nota">{e(n["android_cc_by"])}</p>'
-    czesci += ["</head>", "<body>", do_tresci, nawigacja,
+    if nawigacja:
+        if pas == "cienki":
+            nawigacja = f'<div class="cienki"><div class="in">{nawigacja}</div></div>'
+        elif pas:
+            nawigacja = f'<div class="pas"><div class="in">{nawigacja}</div></div>'
+        else:
+            nawigacja = f'<div class="in">{nawigacja}</div>'
+    if nota:
+        nota = f'<div class="in">{nota}</div>'
+    if stopka_html:
+        stopka_html = f'<div class="in">{stopka_html}</div>'
+    # Pozy Kinako liczone z WYTWORU, nie deklarowane przez wołającego: definicja,
+    # której nikt nie używa, to kilobajty na stronie, a użycie bez definicji to
+    # pusty kwadrat — oba błędy znikają, gdy listę składa to, co naprawdę stoi w HTML.
+    cialo = do_tresci + nawigacja + tresc + nota + stopka_html
+    czesci += ["</head>", f"<body{wyglad.kolor(kolor) if kolor else ''}>",
+               wyglad.symbole(wyglad.uzyte_pozy(cialo)), do_tresci, nawigacja,
                f'<main id="tresc">{tresc}</main>', nota, stopka_html,
                "</body>", "</html>", ""]
     return "\n".join(cz for cz in czesci if cz)
 
 
-def gora(jezyk, glebokosc, alternatywny, manifest, mapa=True, powrot=None):
-    """Pasek: znak witryny i powrót po lewej, przełącznik języka po prawej.
+def gora(jezyk, glebokosc, alternatywny, manifest, mapa=True, powrot=None, tu=None):
+    """Pasek witryny: znak z nazwą, trzy wejścia, Instagram i przełącznik języka.
 
     Znak jest linkiem do mapy rodziny na podstronach, a na samej mapie zwykłym
     obrazkiem — link prowadzący do strony, na której się stoi, jest dla czytnika
-    ekranu szumem. Opis alternatywny to nazwa witryny, czyli tekst, który i tak
-    już stoi w `NAPISY`; znak nie dokłada ani jednego nowego zdania.
+    ekranu szumem. `tu` podświetla wejście bieżącej części witryny i z tego samego
+    powodu zdejmuje z niego link.
+
+    **Powrót prowadzi do rodzica, a nie zawsze do mapy aplikacji.** Strona grupy N5
+    leży dwa piętra pod `/nauka/` — wyprowadzanie jej na mapę dziesiątki kazałoby
+    wracać przez korzeń. Stoi w osobnym wierszu pod paskiem, jak okruszek w makiecie.
     """
     n = NAPISY[jezyk]
     dom = wzgledny(glebokosc, "index.html" if jezyk == "pl" else "en/index.html")
-    # Na podstronie znak stoi tuż obok linku tekstowego prowadzącego w to samo
-    # miejsce, więc jego opis alternatywny jest **pusty**: czytnik ekranu przeczytałby
-    # inaczej dwa razy pod rząd ten sam cel. Na mapie sąsiada nie ma i opisem jest
-    # nazwa witryny — tekst, który i tak stoi w `NAPISY`.
-    def obrazek(opis):
-        return (f'<img src="{wzgledny(glebokosc, "assets/znak-48.png")}" '
-                f'alt="{opis}" width="22" height="22">')
+    autor = "o-autorze/index.html" if jezyk == "pl" else "en/about/index.html"
+    # Opis znaku jest **pusty**, gdy obok stoi nazwa witryny tekstem: czytnik
+    # przeczytałby inaczej dwa razy pod rząd to samo.
+    obrazek = (f'<img src="{wzgledny(glebokosc, "assets/znak-180.png")}" '
+               f'alt="" width="32" height="32">')
+    nazwa = f'{obrazek}<span>{e(manifest["nazwaWitryny"])}</span>'
+    logo = (f'<a class="logo" href="{dom}">{nazwa}</a>' if mapa
+            else f'<span class="logo">{nazwa}</span>')
 
-    znak_html = (f'<a class="znak" href="{dom}" aria-hidden="true" tabindex="-1">{obrazek("")}</a>'
-                 if mapa else f'<span class="znak">{obrazek(e(n["tytul_mapy"]))}</span>')
-    # **Powrót prowadzi do rodzica, a nie zawsze do mapy aplikacji.** Strona
-    # o licznikach leży pod rozdrożem `/nauka/`, a strona grupy N5 jeszcze piętro
-    # niżej — wyprowadzanie ich obu na mapę dziesiątki kazałoby czytelnikowi
-    # wracać przez korzeń za każdym razem, a przy trzech poziomach to jest
-    # nawigacja, która gubi, zamiast prowadzić.
+    def wejscie(klucz, cel, etykieta):
+        if tu == klucz:
+            return f'<span class="tu zbedne" aria-current="page">{e(etykieta)}</span>'
+        return f'<a class="zbedne" href="{wzgledny(glebokosc, cel)}">{e(etykieta)}</a>'
+
+    wejscia = (wejscie("aplikacje", "index.html" if jezyk == "pl" else "en/index.html",
+                       n["nav_aplikacje"])
+               + wejscie("nauka", ROZDROZE[jezyk], n["nauka_link"])
+               + wejscie("autor", autor, n["autor_link"]))
     if powrot:
         cel_powrotu, etykieta_powrotu = powrot
-        powrot = f'<a href="{cel_powrotu}">← {e(etykieta_powrotu)}</a>'
+        powrot = f'<a class="powrot" href="{cel_powrotu}">← {e(etykieta_powrotu)}</a>'
     else:
-        powrot = f'<a href="{dom}">← {e(n["wroc"])}</a>' if mapa else ""
-    prawo = (f'<a href="{manifest["bazaAdresu"]}/{publiczny(alternatywny)}">'
-             f'{e(n["inny_jezyk"])}</a>')
+        powrot = f'<a class="powrot" href="{dom}">← {e(n["wroc"])}</a>' if mapa and not tu else ""
+    jezyk_html = (f'<a href="{manifest["bazaAdresu"]}/{publiczny(alternatywny)}" '
+                  f'lang="{"en" if jezyk == "pl" else "pl"}">{e(n["inny_jezyk"])}</a>')
     return (f'<nav class="gora" aria-label="{e(n["nawigacja"])}">'
-            f'<span>{znak_html}{powrot}</span>'
-            f'<span class="gora-prawo">{link_instagram()}{prawo}</span></nav>')
+            f'{logo}{wejscia}{link_instagram()}{jezyk_html}{powrot}</nav>')
 
 
 def link_instagram(z_tekstem=False):
@@ -587,8 +792,19 @@ def stopka(jezyk, glebokosc, manifest, kontakt=None, spis_dokumentow=False,
     if kontakt:
         linki.append(f'<a href="mailto:{kontakt}">{e(kontakt)}</a>')
     linki.append(link_instagram(z_tekstem=True))
-    czlony = [e(manifest["autor"])] + linki
-    return f"<footer>{' · '.join(czlony)}</footer>"
+    czlony = [f"<span>{e(manifest['autor'])} · {e(manifest['nazwaWitryny'])}.pl</span>"] + linki
+    return (f"<footer>{''.join(czlony)}<div class=\"wydawca\">{wydawca_html(jezyk, manifest)}"
+            f"{wyglad.kinako('spiacy', 28)}</div></footer>")
+
+
+def wydawca_html(jezyk, manifest):
+    """Kto wydaje aplikacje — [poz. 779]. Link idzie do Aseity i **tylko do Aseity**:
+    rodzina JP nie linkuje do cwicz.to i cwicz.to nie linkuje do niej (decyzja
+    Jakuba, 26.10.2026); bramka 25 pilnuje obu kierunków na wytworze witryny."""
+    n = NAPISY[jezyk]
+    w = manifest["wydawca"]
+    return (f'<p>{e(n["wydawca_przed"])} '
+            f'<a href="{w["url"][jezyk]}">{e(w["nazwa"])}</a></p>')
 
 
 # ---------------------------------------------------------------- strony
@@ -793,6 +1009,105 @@ def wyjscie_do_sklepu(a, n, kampania=None):
             f'<span class="znacznik">{e(n["darmowa"])}</span></p>')
 
 
+#: Drugi krok paska „Od czego zacząć” — fundament z makiety W01 (wariant B, przystanek 2).
+FUNDAMENT = ("kaname", "joshi", "katsuyokei", "kazoekata")
+
+#: Pikselowa brama z makiety (scenka torii, 015). Kolor z `--c`, czyli z apki strony.
+TORII = ('<svg class="torii" width="96" height="84" viewBox="0 0 24 21" aria-hidden="true" '
+         'focusable="false" shape-rendering="crispEdges"><g style="fill:var(--c)">'
+         '<rect x="0" y="0" width="24" height="2"/><rect x="2" y="2" width="20" height="1"/>'
+         '<rect x="2" y="5" width="20" height="2"/><rect x="4" y="3" width="2" height="18"/>'
+         '<rect x="18" y="3" width="2" height="18"/><rect x="11" y="3" width="2" height="2"/>'
+         '</g></svg>')
+
+
+def scena_startu():
+    """Kinako na drodze do bramy: trzy kropki za nim, trzy przed nim. Sama ozdoba."""
+    kropki = "".join(f'<i class="{"byla" if i < 3 else ""}"></i>' for i in range(6))
+    return (f'<div class="scena" aria-hidden="true"><div class="grunt"></div>'
+            f'<div class="kropki">{kropki}</div>{TORII}{wyglad.kinako("standard", 120)}</div>')
+
+
+def znak_wodny(a):
+    """Pierwszy znak japońskiej nazwy — tło karty i pasa apki (ozdoba, `aria-hidden`)."""
+    return f'<span class="znak-wodny" aria-hidden="true" lang="ja">{e(a["japonska"][:1])}</span>'
+
+
+def karta_apki(a, jezyk, glebokosc):
+    """Karta apki na mapie rodziny: kolorowa góra jak zakładka w apce (makieta W01).
+
+    Znacznik na karcie niesie DWIE różne rzeczy i kolejność jest tu istotna:
+    „Wkrótce w App Store" mówi o stanie w sklepie i **wygrywa**, bo aplikacji, której
+    jeszcze nie ma, nie opisuje się listą platform. Ikonki platform stoją przy nazwie
+    od 16.09.2026 (rozstrzygnięcie Jakuba): znak ~14 px czyta się jak atrybut, nie
+    jak zdanie, a po porcie „nie u ciebie" jest prawdą, którą czytelnik chce znać
+    PRZED kliknięciem.
+    """
+    n = NAPISY[jezyk]
+    t = a["teksty"][jezyk]
+    cel = wzgledny(glebokosc, sciezki(a["slug"], jezyk)[0])
+    ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
+    znacznik = (f'<span class="znacznik">{e(n["wkrotce"])}</span>' if not a["wSklepie"]
+                else znaczki_platform(a, jezyk))
+    return (f'<li class="apka"{wyglad.kolor(a["slug"])}><div class="gorna">{znak_wodny(a)}'
+            f'<img src="{ikona}" alt="" width="52" height="52" loading="lazy">'
+            f'<div><a class="nazwa" href="{cel}">{e(t["nazwa"])}</a>'
+            f'<span class="co"><span lang="ja">{e(a["japonska"])}</span> {znacznik}</span></div></div>'
+            f'<div class="dol"><p>{e(t["promo"])}</p>'
+            f'<span class="stopka-karty"><span>{e(t["podtytul"])}</span><span aria-hidden="true">›</span></span>'
+            f"</div></li>")
+
+
+def karta_zapowiedzi(z, jezyk, glebokosc, z_prosba=False):
+    """Karta aplikacji zapowiedzianej: paski i przerywana ramka (makieta W02).
+
+    Nazwa jest w `<span>`, nie w linku — kafelek bez dokąd pójścia nie dostaje celu
+    dotknięcia (§15). Na „Co dalej” karta niesie prośbę mailową „Chcę ją pierwszą”,
+    jedyny czynny element, z tematem osi „zapowiedziane”.
+    """
+    n = NAPISY[jezyk]
+    t = z["teksty"][jezyk]
+    ikona = wzgledny(glebokosc, f"assets/ikony/{z['slug']}.webp")
+    prosba = ""
+    if z_prosba:
+        temat = f'{TEMATY_MAILA[jezyk]["szostka"]}: {t["nazwa"].split(":")[0].strip()}'
+        prosba = (f'<a class="chce" href="mailto:{ADRES_ZWROTNY}?subject='
+                  f'{urllib.parse.quote(temat)}">{e(n["dalej_chce"])} ›</a>')
+    return (f'<li class="apka zapowiedz"{wyglad.kolor(z["slug"])}><div class="gorna">{znak_wodny(z)}'
+            f'<img src="{ikona}" alt="" width="52" height="52" loading="lazy">'
+            f'<div><span class="nazwa">{e(t["nazwa"])}</span>'
+            f'<span class="co"><span lang="ja">{e(z["japonska"])}</span></span></div></div>'
+            f'<div class="dol"><span class="znacznik">{e(n["w_przygotowaniu"])}</span>'
+            f'<p>{e(t["podtytul"])}</p>{prosba}</div></li>')
+
+
+def mini_karta(a, jezyk, glebokosc):
+    """Mała karta apki — „Pozostałe aplikacje”, O autorze, wyjście ze strony tematu."""
+    t = a["teksty"][jezyk]
+    cel = wzgledny(glebokosc, sciezki(a["slug"], jezyk)[0])
+    ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
+    return (f'<li{wyglad.kolor(a["slug"])}><img src="{ikona}" alt="" width="44" height="44" loading="lazy">'
+            f'<span><a class="nazwa" href="{cel}">{e(t["nazwa"].split(":")[0].strip())}</a>'
+            f'<span class="co">{e(t["podtytul"])}</span></span></li>')
+
+
+def hub_tematu(temat, a, eksport, jezyk, glebokosc, z_opisem=True):
+    """Karta tematu w kolorze apki, z sekcjami jako pigułkami pod `<details>`."""
+    n = NAPISY[jezyk]
+    cel = wzgledny(glebokosc, sciezki_tematu(temat, jezyk)[0])
+    grupy = grupy_zywe(temat, eksport)
+    sekcje = ""
+    if grupy:
+        pigulki = "".join(
+            f'<li><a href="{wzgledny(glebokosc, sciezki_tematu(temat, jezyk, g)[0])}">'
+            f'{e(nazwa_grupy(eksport, g, jezyk))}</a></li>' for g in grupy)
+        sekcje = (f'<details><summary>{e(n["nauka_sekcje"])} ({len(grupy)})</summary>'
+                  f'<ul class="pigulki">{pigulki}</ul></details>')
+    opis = f'<p>{e(n["temat_%s_opis" % temat["klucz"]])}</p>' if z_opisem else ""
+    return (f'<li class="hub"{wyglad.kolor(a["slug"])}><h3><a href="{cel}">'
+            f'{e(n["temat_%s_tytul" % temat["klucz"]])}</a></h3>{opis}{sekcje}</li>')
+
+
 def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
     n = NAPISY[jezyk]
     kanoniczny = "index.html" if jezyk == "pl" else "en/index.html"
@@ -804,70 +1119,20 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
     # tylko nazwa), a pod nią karty z ikonami. Na telefonie było to około dwudziestu
     # przewinięć przez to samo. Karta niesie teraz oba wkłady: ikonę, po której apkę
     # się rozpoznaje, i zdanie o problemie, po którym się ją wybiera.
-    karty = []
-    for a in apki:
-        t = a["teksty"][jezyk]
-        cel = wzgledny(glebokosc, sciezki(a["slug"], jezyk)[0])
-        ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
-        # Znacznik na karcie niesie DWIE różne rzeczy i kolejność jest tu istotna.
-        #
-        # „Wkrótce w App Store" mówi o stanie w sklepie i **wygrywa**, bo aplikacji, której
-        # jeszcze nie ma, nie opisuje się listą platform.
-        #
-        # **ODWRÓCONE 16.09.2026 rozstrzygnięciem Jakuba — i to jest zapis powodu, żeby
-        # nie żył wyłącznie w git logu.** Do tego dnia znacznik platformy pojawiał się
-        # dopiero przy drugim sklepie ([poz. 307]), z uzasadnieniem: „przy jednym byłby
-        # szumem, dziś wszystkie dziesięć kart niosłoby ten sam napis, a po porcie
-        # dziewięć mówiłoby »nie u ciebie«".
-        #
-        # Tamten argument był policzony dla NAPISU w ramce („App Store · Google Play",
-        # ~90 px na każdej z dziesięciu kart) i na napis się trzyma. Na ikonę nie:
-        # znak ~14 px czyta się jak atrybut, nie jak zdanie. Druga połowa argumentu —
-        # „dziewięć powie »nie u ciebie«" — jest po porcie **prawdą, którą czytelnik
-        # chce znać PRZED kliknięciem**, a nie wadą; zgłoszenie Jakuba brzmiało
-        # dokładnie „nie widzę niczego takiego".
-        #
-        # Napis o dwóch sklepach zniknął razem z tym: dwa komunikaty o tej samej rzeczy
-        # obok siebie byłyby wadą, a ikona mówi to samo w jednej linii tytułu.
-        if not a["wSklepie"]:
-            znacznik = f'<span class="znacznik">{e(n["wkrotce"])}</span>'
-        else:
-            znacznik = znaczki_platform(a, jezyk)
-        karty.append(
-            f'<li class="karta"><img src="{ikona}" alt="" width="52" height="52" loading="lazy">'
-            f'<div><a class="nazwa" href="{cel}">{e(t["nazwa"])}</a>'
-            f'<span class="jp" lang="ja">{e(a["japonska"])}</span>{znacznik}'
-            f'<span class="co">{e(t["podtytul"])}</span>'
-            f"<p>{e(t['promo'])}</p></div></li>")
+    karty = [karta_apki(a, jezyk, glebokosc) for a in apki]
 
-    # Wyjście na strony tematyczne — z mapy, nie tylko ze stopki. To jedyna strona
-    # witryny, na którą ktoś trafia sam, więc linki stąd są jedynym, co prowadzi
-    # dalej niż do kart aplikacji. Zwykła lista, nie karty: karty na tej stronie
-    # znaczą „aplikacja", a to nie są aplikacje.
     # **Co dojdzie do rodziny — osobna sekcja pod dziesiątką, nie karty wmieszane w nią.**
-    # Do 13.09.2026 stał tu akapit „czego rodzina jeszcze nie uczy", wymieniający cztery
-    # dziedziny bez nazw; teraz te aplikacje mają nazwę, znak i kolor, więc mają czym stanąć.
-    #
-    # Osobno, bo poz. 112 backlogu notuje ryzyko wprost: sześć „wkrótce" wmieszanych między
-    # dziesięć gotowych czyta się jak rodzina niedokończona, a nie rosnąca. Dziesiątka
-    # zostaje nietknięta u góry, a to, czego nie ma, stoi poniżej i jest nazwane tym, czym
-    # jest. **Plakietka mówi „w przygotowaniu", nie „wkrótce w App Store"** — ta druga
-    # znaczy w tej witrynie „złożona, czeka na recenzję" i byłaby obietnicą terminu.
+    # Poz. 112 backlogu notuje ryzyko wprost: sześć „wkrótce" wmieszanych między dziesięć
+    # gotowych czyta się jak rodzina niedokończona, a nie rosnąca. **Plakietka mówi
+    # „w przygotowaniu", nie „wkrótce w App Store"** — ta druga znaczy w tej witrynie
+    # „złożona, czeka na recenzję" i byłaby obietnicą terminu.
     dojdzie_html = ""
     if zapowiedziane:
-        karty_z = []
-        for z in zapowiedziane:
-            t = z["teksty"][jezyk]
-            ikona = wzgledny(glebokosc, f"assets/ikony/{z['slug']}.webp")
-            karty_z.append(
-                f'<li class="karta"><img src="{ikona}" alt="" width="52" height="52" loading="lazy">'
-                f'<div><span class="nazwa">{e(t["nazwa"])}</span>'
-                f'<span class="jp" lang="ja">{e(z["japonska"])}</span>'
-                f'<span class="znacznik">{e(n["w_przygotowaniu"])}</span>'
-                f'<span class="co">{e(t["podtytul"])}</span></div></li>')
-        dojdzie_html = (f"<h2>{e(n['dojdzie_naglowek'])}</h2>"
-                        f'<p>{e(n["dojdzie_opis"])}</p>'
-                        f'<ul class="karty">{"".join(karty_z)}</ul>')
+        dojdzie_html = (f'<h2 id="zapowiedziane">{e(n["dojdzie_naglowek"])}</h2>'
+                        f'<p class="pod-naglowkiem">{e(n["dojdzie_opis"])}</p>'
+                        f'<ul class="siatka">'
+                        + "".join(karta_zapowiedzi(z, jezyk, glebokosc) for z in zapowiedziane)
+                        + "</ul>")
 
     # **Sekcje tematu stoją tutaj, a nie tylko na stronie tematu** — i to jest
     # naprawa z pomiaru 16.09.2026, nie ozdoba. Search Console zgłosił wtedy
@@ -877,43 +1142,49 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
     # w tych samych commitach — 18 stron na głębokości 1 weszło do indeksu,
     # 44 na głębokości 2 nie weszły.
     #
-    # Trzy inne tłumaczenia obalono pomiarem, żeby nikt tu nie wracał: objętość
-    # treści (mediana 5988 znaków wobec 5849), podobieństwo sióstr (3–8% przy tle
-    # 1,4%, a najwyższe miały strony ZAINDEKSOWANE) i liczba wejść — ta wyglądała
-    # na miarę, dopóki nie zawęziło się porównania do samych stron z głębokości 2,
-    # gdzie rozkłady są identyczne.
-    #
     # Rozdroże ani spis treści tego nie załatwią: **same leżą na głębokości 1**,
     # więc to, co linkują, ląduje na 2. Odsyłacz musi wyjść z korzenia i innego
     # miejsca nie ma. `<details>` zamiast gołej listy, bo 62 pozycje rozbiłyby
     # mapę rodziny na czytanie, a robot czyta treść zwiniętą tak samo jak otwartą.
+    # W 2.0 temat jest kartą w kolorze apki (makieta W01, „pigułki” tematów).
     nauka_html = ""
     if zywe:
-        pozycje = []
-        for temat, _, eksport in zywe:
-            cel = wzgledny(glebokosc, sciezki_tematu(temat, jezyk)[0])
-            tytul_t = e(n["temat_%s_tytul" % temat["klucz"]])
-            opis_t = e(n["temat_%s_opis" % temat["klucz"]])
-            grupy = grupy_zywe(temat, eksport)
-            sekcje = ""
-            if grupy:
-                wiersze_g = "".join(
-                    f'<li><a href="{wzgledny(glebokosc, sciezki_tematu(temat, jezyk, g)[0])}">'
-                    f'{e(nazwa_grupy(eksport, g, jezyk))}</a></li>'
-                    for g in grupy)
-                sekcje = (f'<details><summary>{e(n["nauka_sekcje"])} ({len(grupy)})</summary>'
-                          f'<ul class="zwykla">{wiersze_g}</ul></details>')
-            pozycje.append(f'<li><a href="{cel}">{tytul_t}</a> – {opis_t}{sekcje}</li>')
-        nauka_html = (f"<h2>{e(n['nauka_link'])}</h2>"
-                      f'<ul class="zwykla">{"".join(pozycje)}</ul>')
+        nauka_html = (f'<h2>{e(n["nauka_link"])}</h2>'
+                      f'<p class="pod-naglowkiem">{e(n["nauka_mapa_opis"])}</p>'
+                      f'<ul class="huby">'
+                      + "".join(hub_tematu(temat, a_, eksport, jezyk, glebokosc)
+                                for temat, a_, eksport in zywe)
+                      + "</ul>")
 
+    shindan = next((a for a in apki if a["slug"] == "shindan"), None)
+    cel_poziomu = wzgledny(glebokosc, sciezki("shindan", jezyk)[0]) if shindan else "#aplikacje"
+    fundament = ", ".join(a["teksty"][jezyk]["nazwa"].split(":")[0].strip()
+                          for a in apki if a["slug"] in FUNDAMENT)
+    kolor_poziomu = wyglad.kolor("shindan")
     tresc = (
+        '<div class="in">'
+        '<section class="hero"><div>'
         f"<h1>{e(n['tytul_mapy'])}</h1>"
-        + f'<p class="podtytul">{e(n["opis_mapy"])}</p>'
-        + f"<h2>{e(n['naglowek_wyboru'])}</h2>"
-        + '<ul class="karty">' + "".join(karty) + "</ul>"
+        f'<p class="lead">{e(n["opis_mapy"])}</p>'
+        f'<p class="przyciski"><a class="btn"{kolor_poziomu} href="{cel_poziomu}">'
+        f'{e(n["przycisk_poziom"])}</a>'
+        f'<a class="btn drugi" href="#aplikacje">{e(n["przycisk_aplikacje"])} ↓</a></p></div>'
+        + scena_startu()
+        + "</section>"
+        # Pasek „Od czego zacząć” z wariantu B makiety — Jakub 22.10: „jedziemy
+        # z rekomendacją”. Trzy kroki bez obietnicy: kolejność jest radą, nie wymogiem.
+        + f'<div class="start">{wyglad.kinako("standard", 40)}<div>'
+        f'<b>{e(n["start_naglowek"])}</b><ol>'
+        f'<li>{e(n["start_krok_1"])}</li>'
+        f'<li>{e(n["start_krok_2"].format(apki=fundament))}</li>'
+        f'<li>{e(n["start_krok_3"])}</li></ol></div>'
+        f'<a class="btn"{kolor_poziomu} href="{cel_poziomu}">{e(n["start_przycisk"])}</a></div>'
+        + f'<h2 id="aplikacje">{e(n["naglowek_wyboru"])}</h2>'
+        + f'<p class="pod-naglowkiem">{e(n["wybor_opis"])}</p>'
+        + '<ul class="siatka">' + "".join(karty) + "</ul>"
+        + dojdzie_html
         + nauka_html
-        + dojdzie_html)
+        + "</div>")
 
     # Pytanie, które model dostaje o rodzinę aplikacji, brzmi „którą wybrać" — i tabela
     # wyżej jest na nie odpowiedzią, tylko zapisaną znacznikami tabeli. Tu ta sama treść
@@ -947,7 +1218,8 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
                "description": n["opis_mapy"],
                "url": f"{manifest['bazaAdresu']}/{publiczny(kanoniczny)}",
                "inLanguage": jezyk,
-               "author": {"@type": "Person", "name": manifest["autor"]}}
+               "author": {"@type": "Person", "name": manifest["autor"]},
+               "publisher": wydawca_ld(manifest, jezyk)}
     jsonld = {"@context": "https://schema.org",
               "@graph": [witryna,
                          {k: v for k, v in jsonld.items() if k != "@context"}, faq]}
@@ -961,12 +1233,13 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
                                                '<meta property="og:image:width" content="1200">'
                                                '<meta property="og:image:height" content="630">'
                                                '<meta name="twitter:card" content="summary_large_image">'),
-                              nawigacja=gora(jezyk, glebokosc, alternatywny, manifest, mapa=False),
+                              nawigacja=gora(jezyk, glebokosc, alternatywny, manifest, mapa=False,
+                                             tu="aplikacje"),
                               stopka_html=stopka(jezyk, glebokosc, manifest))
 
 
 def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
-              glebokosc=None, temat=None):
+              glebokosc=None, tematy=()):
     n = NAPISY[jezyk]
     wlasny, wlasna_glebokosc = sciezki(a["slug"], jezyk)
     sciezka = sciezka or wlasny
@@ -996,21 +1269,18 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
         for plik, klucz in (("privacy.html", "polityka"), ("terms.html", "warunki"),
                             ("support.html", "wsparcie")))
 
-    rodzenstwo = "".join(
-        f'<li><a href="{wzgledny(glebokosc, sciezki(inna["slug"], jezyk)[0])}">'
-        f'{e(inna["teksty"][jezyk]["nazwa"])}</a> — {e(inna["teksty"][jezyk]["podtytul"])}</li>'
-        for inna in apki if inna["slug"] != a["slug"])
+    rodzenstwo = "".join(mini_karta(inna, jezyk, glebokosc)
+                         for inna in apki if inna["slug"] != a["slug"])
 
     # Wyjście na stronę tematyczną tej aplikacji — tylko wtedy, gdy taka strona
     # istnieje. Stoi obok opisu, a nie wyłącznie w stopce, bo czytelnik podstrony
     # jest dokładnie tym, kto chce przeczytać o samym materiale.
     nauka_html = ""
-    if temat:
-        cel_tematu = wzgledny(glebokosc, sciezki_tematu(temat, jezyk)[0])
-        nauka_html = (f"<h2>{e(n['nauka_link'])}</h2><ul class=\"zwykla\">"
-                      f'<li><a href="{cel_tematu}">'
-                      f'{e(n["temat_%s_tytul" % temat["klucz"]])}</a> – '
-                      f'{e(n["temat_%s_opis" % temat["klucz"]])}</li></ul>')
+    if tematy:
+        nauka_html = (f"<h2>{e(n['nauka_link'])}</h2><ul class=\"huby\">"
+                      + "".join(hub_tematu(temat, a, eksport, jezyk, glebokosc)
+                                for temat, eksport in tematy)
+                      + "</ul>")
 
     opis, naglowki = opis_html(t["opis"])
     # Spis sekcji tylko wtedy, gdy jest co spisywać: przy trzech nagłówkach byłby
@@ -1023,13 +1293,20 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
         spis_sekcji = (f'<nav class="spis-sekcji" aria-label="{e(n["opis_naglowek"])}">'
                        f"<ul>{pozycje}</ul></nav>")
 
+    # Pas w kolorze apki to szyld strony (makieta W01): ikona, nazwa, podtytuł,
+    # zdanie promocyjne i blok sklepu na kolorze, a obok Kinako z jednym zdaniem.
     tresc = (
-        f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
-        + f'<div><h1>{e(t["nazwa"])}<span class="jp" lang="ja">{e(a["japonska"])}</span></h1>'
-        + f'<p class="podtytul">{e(t["podtytul"])}</p></div></div>'
-        + sklep
+        f'<div class="pas pas-apki">{znak_wodny(a)}<div class="in"><section class="szyld-apki"><div>'
+        + f'<img class="ikona" src="{ikona}" alt="" width="84" height="84">'
+        + f'<h1>{e(t["nazwa"])}<span class="jp" lang="ja">{e(a["japonska"])}</span></h1>'
+        + f'<p class="podtytul">{e(t["podtytul"])}</p>'
         + f'<p class="lead">{e(t["promo"])}</p>'
+        + sklep
+        + f'</div><div class="mowi"><p class="dymek">{e(n["kinako_apka"])}</p>'
+        + f'{wyglad.kinako("standard", 110)}</div></section></div></div>'
+        + '<div class="in">'
         + galerie(a, jezyk, glebokosc)
+        + '<section class="opis waska">'
         + f"<h2>{e(n['opis_naglowek'])}</h2>"
         + spis_sekcji
         + opis
@@ -1038,10 +1315,12 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
         # który doszedł tu do końca, miał dotąd jedyny przycisk App Store dziesięć
         # przewinięć wyżej — i musiał po niego wrócić na samą górę.
         + sklep
-        + faq_html(pary, jezyk)
+        + "</section>"
+        + (f'<section class="pytania waska">{faq_html(pary, jezyk)}</section>' if pary else "")
         + nauka_html
-        + f"<h2>{e(n['dokumenty'])}</h2><ul class=\"zwykla\">{dokumenty}</ul>"
-        + f"<h2>{e(n['rodzina'])}</h2><ul class=\"zwykla\">{rodzenstwo}</ul>")
+        + f"<h2>{e(n['dokumenty'])}</h2><ul class=\"dokumenty-apki\">{dokumenty}</ul>"
+        + f'<h2>{e(n["rodzina"])}</h2><ul class="mini">{rodzenstwo}</ul>'
+        + "</div>")
 
     jsonld = {
         "@context": "https://schema.org",
@@ -1057,6 +1336,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
         "description": metadane.pierwsze_zdanie(t["opis"]),
         "inLanguage": ["pl", "en"],
         "author": {"@type": "Person", "name": manifest["autor"]},
+        "publisher": wydawca_ld(manifest, jezyk),
         "offers": {"@type": "Offer", "price": "0", "priceCurrency": "PLN"},
     }
     if a["wSklepie"]:
@@ -1107,6 +1387,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
                            jsonld=jsonld,
                            nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
                            stopka_html=stopka(jezyk, glebokosc, manifest, a["kontakt"]),
+                           kolor=a["slug"], pas=True,
                            dodatkowa_glowa=(f'<meta property="og:image" content="{obrazek}">'
                                             '<meta property="og:image:width" content="1200">'
                                             '<meta property="og:image:height" content="630">'
@@ -1182,12 +1463,15 @@ def spis_dokumentow(apki, jezyk, manifest):
         pozycje = []
         for plik, klucz in (("privacy.html", "polityka"), ("terms.html", "warunki"),
                             ("support.html", "wsparcie")):
-            pary = " · ".join(
-                f'<a href="{wzgledny(glebokosc, a["dokumenty"][j])}/{plik}">'
-                f'{e(NAPISY[j][klucz])}</a>' for j in JEZYKI)
-            pozycje.append(f"<li>{pary}</li>")
-        sekcje.append(f'<h2>{e(t["nazwa"])}<span class="jp" lang="ja">{e(a["japonska"])}</span></h2>'
-                      f'<ul class="zwykla">{"".join(pozycje)}</ul>')
+            for j in JEZYKI:
+                pozycje.append(f'<li><a href="{wzgledny(glebokosc, a["dokumenty"][j])}/{plik}" '
+                               f'hreflang="{j}">{e(NAPISY[j][klucz])}'
+                               f'<span>{j.upper()}</span></a></li>')
+        ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
+        sekcje.append(f'<section class="wiersz-dok"{wyglad.kolor(a["slug"])}>'
+                      f'<img src="{ikona}" alt="" width="42" height="42" loading="lazy">'
+                      f'<h2>{e(t["nazwa"])}<small lang="ja">{e(a["japonska"])}</small></h2>'
+                      f'<ul class="dl">{"".join(pozycje)}</ul></section>')
 
     # Aplikacje spoza rodziny japońskiej mają w tym repozytorium tylko dokumenty
     # i tylko w jednym języku. Stoją w spisie, bo dziś stoją w `index.html`, a spis,
@@ -1199,12 +1483,15 @@ def spis_dokumentow(apki, jezyk, manifest):
                                 ("support.html", "wsparcie")):
                 pozycje.append(f'<li><a href="{wzgledny(glebokosc, katalog)}/{plik}">'
                                f'{e(NAPISY[jezyk_dok][klucz])}</a></li>')
-        sekcje.append(f'<h2>{e(inna["nazwa"][jezyk])}</h2>'
-                      f'<ul class="zwykla">{"".join(pozycje)}</ul>')
+        sekcje.append(f'<section class="wiersz-dok"><span></span>'
+                      f'<h2>{e(inna["nazwa"][jezyk])}</h2>'
+                      f'<ul class="dl">{"".join(pozycje)}</ul></section>')
 
-    tresc = (f"<h1>{e(n['spis_tytul'])}</h1>"
-             + f'<p class="podtytul">{e(n["spis_opis"])}</p>'
-             + "".join(sekcje))
+    tresc = ('<div class="in">'
+             + f"<section class=\"glowa\"><div><h1>{e(n['spis_tytul'])}</h1>"
+             + f'<p class="lead">{e(n["spis_opis"])}</p></div></section>'
+             + f'<div class="spis">{"".join(sekcje)}</div>'
+             + "</div>")
     return kanoniczny, strona(jezyk=jezyk, tytul=n["spis_tytul"], opis=n["spis_opis"],
                               kanoniczny=kanoniczny, alternatywny=alternatywny,
                               tresc=tresc, glebokosc=glebokosc, manifest=manifest,
@@ -1834,6 +2121,12 @@ def tabela_grupy(moje, jezyk, n):
             f'<tbody>{"".join(wiersze)}</tbody></table></div>')
 
 
+def szyld_tematu(ikona, tytul, podtytul):
+    """Szyld strony tematycznej: ikona apki obok tytułu, podtytuł pod spodem."""
+    return (f'<div class="szyld-tematu"><img src="{ikona}" alt="" width="64" height="64">'
+            f'<h1>{e(tytul)}</h1></div><p class="lead">{e(podtytul)}</p>')
+
+
 def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None):
     """Strona tematyczna: hasła z eksportu plus wyjście do aplikacji, z której są.
 
@@ -1908,8 +2201,12 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
     # nawigacje na jednej witrynie i kazało czytelnikowi uczyć się ich osobno —
     # przy dwudziestu dwóch licznikach wiersz i tak zawija się w akapit, tylko
     # bez możliwości wodzenia okiem w dół.
-    spis_sekcji = (f'<nav aria-label="{e(n["nauka_spis"])}">'
-                   f'<ul class="zwykla">{"".join(spis)}</ul></nav>')
+    # **2.0 (makieta W01, zatwierdzona 22.10): pigułki w kolorze apki.** Pion z 13.09
+    # stał po to, żeby witryna miała JEDNĄ nawigację po sekcjach — i ma ją dalej, bo
+    # pigułki stoją teraz także na stronie apki i na rozdrożu. Spór między tamtym
+    # rozstrzygnięciem a makietą idzie do Jakuba na liście domysłów.
+    spis_sekcji = (f'<nav class="spis-tematu" aria-label="{e(n["nauka_spis"])}">'
+                   f'<ul>{"".join(spis)}</ul></nav>')
 
     sklep = wyjscie_do_sklepu(
         a, n, kampania="web-%s" % (temat["klucz"] + ("-" + grupa["grupa"] if grupa else "")))
@@ -1917,11 +2214,7 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
     # Wyjście do aplikacji, z której ten materiał pochodzi. Ta sama karta, co na
     # mapie rodziny — bo to jest ta sama rzecz, a druga jej postać byłaby drugim
     # językiem wizualnym na tej samej witrynie.
-    cel_apki = wzgledny(glebokosc, sciezki(a["slug"], jezyk)[0])
-    karta = (f'<ul class="karty"><li class="karta">'
-             f'<img src="{ikona}" alt="" width="52" height="52">'
-             f'<div><a class="nazwa" href="{cel_apki}">{e(t["nazwa"])}</a>'
-             f'<span class="co">{e(t["podtytul"])}</span></div></li></ul>')
+    karta = f'<ul class="mini">{mini_karta(a, jezyk, glebokosc)}</ul>'
 
     # Wyjście na pozostałe tematy. Czytelnik, który przyszedł tu po liczniki, jest
     # najbardziej prawdopodobnym czytelnikiem strony o partykułach — a bez tych
@@ -2002,22 +2295,28 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
         pozostale_html = (f'<h2>{e(n["nauka_link"])}</h2>'
                           f'<ul class="zwykla">{"".join(pozycje_t)}</ul>')
 
+    apka = t["nazwa"].split(":")[0].strip()
     tresc = (
-        f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
-        f'<div><h1>{e(tytul)}</h1>'
-        f'<p class="podtytul">{e(podtytul)}</p></div></div>'
+        '<div class="in"><div class="waska">'
+        + szyld_tematu(ikona, tytul, podtytul)
         + spis_sekcji
         + "".join(hasla)
+        # Wyjście do aplikacji jako jedno wezwanie z Kinako (makieta W01): nagłówek
+        # „Skąd ten materiał”, zdanie o pochodzeniu i blok sklepu — ten sam tekst,
+        # co dotąd, w jednej karcie w kolorze apki zamiast trzech luźnych akapitów.
+        + f'<section class="cta">{wyglad.kinako("radosny", 64)}<div>'
         + f"<h2>{e(n['nauka_skad'])}</h2>"
         # Sama nazwa własna, bez podtytułu ze sklepu: „z darmowej części aplikacji
         # Kazoekata: Liczniki japońskie i przeszło jej przegląd" rozpada się na
         # dwukropku. Nazwa przed dwukropkiem jest tą, której aplikacja używa o sobie.
-        + f'<p>{e(n["nauka_skad_opis_poradnik" if poradnik else "nauka_skad_opis"].format(apka=t["nazwa"].split(":")[0].strip()))}</p>'
-        + karta
+        + f'<p>{e(n["nauka_skad_opis_poradnik" if poradnik else "nauka_skad_opis"].format(apka=apka))}</p>'
         + sklep
+        + "</div></section>"
+        + karta
         + powiazane_html
         + sasiedzi_html
-        + pozostale_html)
+        + pozostale_html
+        + "</div></div>")
 
     baza = manifest["bazaAdresu"]
     dom = "index.html" if jezyk == "pl" else "en/index.html"
@@ -2080,7 +2379,8 @@ def strona_tematu(temat, a, eksport, jezyk, manifest, apki, zywe=(), grupa=None)
                                n.get("temat_%s_sufiks" % temat["klucz"],
                                      n["temat_%s_tytul" % temat["klucz"]])) if grupa
                        else (wzgledny(glebokosc, ROZDROZE[jezyk]), n["nauka_link"])),
-        stopka_html=stopka(jezyk, glebokosc, manifest, kontakt=a["kontakt"]))
+        stopka_html=stopka(jezyk, glebokosc, manifest, kontakt=a["kontakt"]),
+        kolor=a["slug"], pas="cienki")
 
 
 def rozdroze_tematu(temat, a, eksport, jezyk, manifest):
@@ -2118,18 +2418,15 @@ def rozdroze_tematu(temat, a, eksport, jezyk, manifest):
                    if j.get("termin")]
         podpis = ", ".join(terminy[:8]) + ("…" if len(terminy) > 8 else "")
         karty.append(
-            f'<li class="karta"><img src="{ikona}" alt="" width="52" height="52">'
-            f'<div><a class="nazwa" href="{cel}">{e(nazwa)}</a>'
+            f'<li class="hub"><h3><a href="{cel}">{e(nazwa)}</a></h3>'
             # `ruby_html`, nie `e` — to jedyne miejsce rozdroża, gdzie stoi
             # tekst Z KATALOGU, więc jedyne, które może nieść czytania.
             # Zgłoszenie Jakuba 19.09.2026: na karcie „Słowa" stało
             # `ご覧[らん]になる` z nawiasami kwadratowymi.
-            f'<span class="co" lang="ja">{ruby_html(podpis)}</span></div></li>')
+            f'<p lang="ja">{ruby_html(podpis)}</p></li>')
 
-    szyld = (f'<div class="szyld"><img src="{ikona}" alt="" width="72" height="72">'
-             f'<div><h1>{e(tytul)}</h1>'
-             f'<p class="podtytul">{e(opis)}</p></div></div>')
-    karty_html = f'<ul class="karty">{"".join(karty)}</ul>'
+    szyld = szyld_tematu(ikona, tytul, opis)
+    karty_html = f'<ul class="huby">{"".join(karty)}</ul>'
     apka = t["nazwa"].split(":")[0].strip()
     poradnik = eksport.get("poradnik")
     if poradnik:
@@ -2139,15 +2436,19 @@ def rozdroze_tematu(temat, a, eksport, jezyk, manifest):
         tresc_p, spis = poradnik_html(poradnik, eksport, jezyk, n, a, temat, {}, set(),
                                       karty_html=karty_html)
         tresc = (szyld
-                 + f'<nav aria-label="{e(n["nauka_spis"])}"><ul class="zwykla">{"".join(spis)}</ul></nav>'
+                 + f'<nav class="spis-tematu" aria-label="{e(n["nauka_spis"])}"><ul>{"".join(spis)}</ul></nav>'
                  + tresc_p
+                 + f'<section class="cta">{wyglad.kinako("radosny", 64)}<div>'
                  + f"<h2>{e(n['nauka_skad'])}</h2>"
                  + f'<p>{e(n.get("nauka_skad_opis_poradnik_%s" % temat["klucz"], n["nauka_skad_opis_poradnik"]).format(apka=apka))}</p>'
-                 + wyjscie_do_sklepu(a, n, kampania="web-%s" % temat["klucz"]))
+                 + wyjscie_do_sklepu(a, n, kampania="web-%s" % temat["klucz"])
+                 + "</div></section>")
     else:
         tresc = (szyld + karty_html
+                 + f'<section class="cta">{wyglad.kinako("radosny", 64)}<div>'
                  + f"<h2>{e(n['nauka_skad'])}</h2>"
-                 + f'<p>{e(n["nauka_skad_opis"].format(apka=apka))}</p>')
+                 + f'<p>{e(n["nauka_skad_opis"].format(apka=apka))}</p></div></section>')
+    tresc = f'<div class="in"><div class="waska">{tresc}</div></div>'
 
     jsonld = {
         "@context": "https://schema.org",
@@ -2178,10 +2479,17 @@ def rozdroze_tematu(temat, a, eksport, jezyk, manifest):
         manifest=manifest, jsonld=jsonld, dodatkowa_glowa=dodatkowa,
         nawigacja=gora(jezyk, glebokosc, alternatywny, manifest,
                        powrot=(wzgledny(glebokosc, ROZDROZE[jezyk]), n["nauka_link"])),
-        stopka_html=stopka(jezyk, glebokosc, manifest, kontakt=a["kontakt"]))
+        stopka_html=stopka(jezyk, glebokosc, manifest, kontakt=a["kontakt"]),
+        kolor=a["slug"], pas="cienki")
 
 
-def rozdroze_nauki(zywe, jezyk, manifest):
+def glowa(tytul, lead, dymek, poza="standard"):
+    """Nagłówek stron W02: tytuł i zdanie wprowadzające, obok Kinako z dymkiem."""
+    return (f'<section class="glowa"><div><h1>{e(tytul)}</h1><p class="lead">{e(lead)}</p></div>'
+            f'<div class="mowi"><p class="dymek">{e(dymek)}</p>{wyglad.kinako(poza, 96)}</div></section>')
+
+
+def rozdroze_nauki(zywe, jezyk, manifest, apki=()):
     """Rozdroże `/nauka/`: pięć kart, po jednej na temat.
 
     Istnieje po to, żeby strony tematyczne nie były sierotami. Lekcja z 09.09:
@@ -2193,20 +2501,39 @@ def rozdroze_nauki(zywe, jezyk, manifest):
     alternatywny = ROZDROZE["en" if jezyk == "pl" else "pl"]
     glebokosc = sciezka.count("/")
 
-    karty = []
+    # W 2.0 tematy stoją pogrupowane po apce, z której pochodzą (makieta W02):
+    # pigułki skoku na górze, pod nimi apka po apce, a każdy temat z sekcjami.
+    # Kolejność apek = kolejność pierwszego tematu w `zywe`, więc stała.
+    po_apce = {}
     for temat, a, eksport in zywe:
-        cel = wzgledny(glebokosc, sciezki_tematu(temat, jezyk)[0])
-        ikona = wzgledny(glebokosc, f"assets/ikony/{a['slug']}.webp")
-        tytul_tematu = e(n["temat_%s_tytul" % temat["klucz"]])
-        opis_tematu = e(n["temat_%s_opis" % temat["klucz"]])
-        karty.append(
-            f'<li class="karta"><img src="{ikona}" alt="" width="52" height="52">'
-            f'<div><a class="nazwa" href="{cel}">{tytul_tematu}</a>'
-            f'<p>{opis_tematu}</p></div></li>')
+        po_apce.setdefault(a["slug"], (a, []))[1].append((temat, eksport))
+    skoki, grupy_html = [], []
+    for slug, (a, tematy) in po_apce.items():
+        t = a["teksty"][jezyk]
+        krotka = t["nazwa"].split(":")[0].strip()
+        ikona = wzgledny(glebokosc, f"assets/ikony/{slug}.webp")
+        skoki.append(f'<li><a href="#n-{slug}"><img src="{ikona}" alt="" width="24" height="24" '
+                     f'loading="lazy">{e(t["podtytul"])}</a></li>')
+        grupy_html.append(
+            f'<section class="grupa-apki" id="n-{slug}"{wyglad.kolor(slug)}><header>'
+            f'<img src="{ikona}" alt="" width="44" height="44" loading="lazy">'
+            f'<h2>{e(t["podtytul"])}<small>{e(n["nauka_z_apki"].format(apka=krotka))}</small></h2>'
+            f'<a href="{wzgledny(glebokosc, sciezki(slug, jezyk)[0])}"">{e(krotka)} ›</a></header>'
+            f'<ul class="huby">'
+            + "".join(hub_tematu(temat, a, eksport, jezyk, glebokosc) for temat, eksport in tematy)
+            + "</ul></section>")
+    bez_stron = [a["teksty"][jezyk]["nazwa"].split(":")[0].strip()
+                 for a in apki if a["slug"] not in po_apce]
+    cicho = (f'<div class="cicho">{wyglad.kinako("spiacy", 40)}'
+             f'<p>{e(n["nauka_bez_stron"].format(apki=", ".join(bez_stron)))}</p></div>'
+             if bez_stron else "")
 
-    tresc = (f'<h1>{e(n["nauka_tytul"])}</h1>'
-             f'<p class="podtytul">{e(n["nauka_opis"])}</p>'
-             f'<ul class="karty">{"".join(karty)}</ul>')
+    tresc = ('<div class="in">'
+             + glowa(n["nauka_tytul"], n["nauka_opis"], n["kinako_nauka"], "radosny")
+             + f'<ul class="skoki">{"".join(skoki)}</ul>'
+             + "".join(grupy_html)
+             + cicho
+             + "</div>")
 
     baza = manifest["bazaAdresu"]
     dom = "index.html" if jezyk == "pl" else "en/index.html"
@@ -2240,7 +2567,7 @@ def rozdroze_nauki(zywe, jezyk, manifest):
         kanoniczny=sciezka, alternatywny=alternatywny, tresc=tresc,
         glebokosc=glebokosc, manifest=manifest, jsonld=jsonld,
         dodatkowa_glowa=dodatkowa,
-        nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
+        nawigacja=gora(jezyk, glebokosc, alternatywny, manifest, tu="nauka"),
         stopka_html=stopka(jezyk, glebokosc, manifest, nauka=False))
 
 
@@ -2265,9 +2592,9 @@ def strona_przekierowania(wpis, jezyk, manifest):
     baza = manifest["bazaAdresu"]
     tytul_celu = n[f"temat_{temat['klucz']}_tytul"]
 
-    tresc = (f'<h1>{e(n["przeniesione_tytul"])}</h1>'
-             f'<p class="podtytul">{e(n["przeniesione_opis"])}</p>'
-             f'<p><a href="{"../" * glebokosc}{publiczny(cel)}">{e(tytul_celu)}</a></p>')
+    tresc = (f'<div class="in"><section class="glowa"><div><h1>{e(n["przeniesione_tytul"])}</h1>'
+             f'<p class="lead">{e(n["przeniesione_opis"])}</p>'
+             f'<p><a href="{"../" * glebokosc}{publiczny(cel)}">{e(tytul_celu)} →</a></p></div></section></div>')
 
     return skad, strona(
         jezyk=jezyk, tytul=n["przeniesione_tytul"],
@@ -2333,6 +2660,8 @@ def llms_txt(apki, manifest, zywe=(), zapowiedziane=()):
                "Autor: " + manifest["autor"] + ". Aplikacje na iPhone'a, po polsku "
                "i po angielsku. Każdy opis niżej jest tym samym tekstem, który stoi "
                "na karcie aplikacji w App Store.", "",
+               # [poz. 779] — wydawca, z adresem spółki.
+               f"Wydawca: {manifest['wydawca']['nazwa']} ({manifest['wydawca']['url']['pl']}).", "",
                "## Aplikacje", ""]
     for a in apki:
         t = a["teksty"]["pl"]
@@ -2406,33 +2735,51 @@ def strona_autora(apki, jezyk, manifest):
     glebokosc = 1 if jezyk == "pl" else 2
     baza = manifest["bazaAdresu"]
 
-    apki_lista = "".join(
-        f'<li><a href="{wzgledny(glebokosc, sciezki(a["slug"], jezyk)[0])}">'
-        f'{e(a["teksty"][jezyk]["nazwa"])}</a></li>' for a in apki)
+    apki_lista = "".join(mini_karta(a, jezyk, glebokosc) for a in apki)
+    w = manifest["wydawca"]
+    # Ramka „W każdej aplikacji” powtarza zdanie z `autor_jak` w punktach — nie
+    # dokłada obietnicy, której ta strona już nie składa.
+    fakty = "".join(f"<li>{e(f)}</li>" for f in n["fakty"])
 
-    tresc = (f"<h1>{e(n['autor_tytul'])}</h1>"
-             + f'<p class="lead">{e(n["autor_kim"])}</p>'
+    tresc = ('<div class="in">'
+             + glowa(n["autor_tytul"], n["autor_kim"], n["kinako_autor"])
+             + '<div class="o-autorze"><div class="proza">'
              + f"<h2>{e(n['autor_naglowek_dlaczego'])}</h2>"
              + f"<p>{e(n['autor_dlaczego_1'])}</p><p>{e(n['autor_dlaczego_2'])}</p>"
              + f"<h2>{e(n['autor_naglowek_jak'])}</h2><p>{e(n['autor_jak'])}</p>"
+             # [poz. 779]: kto wydaje. Jedyne miejsce witryny, które mówi o spółce
+             # zdaniem, a nie samym linkiem w stopce.
+             + f"<h2>{e(n['autor_naglowek_wydawca'])}</h2><p>{e(n['autor_wydawca'])}</p>"
+             + f'<p><a href="{w["url"][jezyk]}">{e(w["url"][jezyk].split("//")[1].rstrip("/").split("/")[0])} →</a></p>'
              + f"<h2>{e(n['autor_naglowek_kontakt'])}</h2><p>{e(n['autor_kontakt'])}</p>"
+             + f'</div><aside class="fakty"><h2>{e(n["fakty_naglowek"])}</h2><ul>{fakty}</ul></aside></div>'
              + f"<h2>{e(n['naglowek_kart'])}</h2>"
-             + f'<ul class="zwykla">{apki_lista}</ul>')
+             + f'<ul class="mini">{apki_lista}</ul>'
+             + "</div>")
 
     osoba = {"@context": "https://schema.org", "@type": "Person",
              "name": manifest["autor"],
              "url": f"{baza}/{publiczny(kanoniczny)}",
              "sameAs": [manifest["profil"]],
-             "description": n["autor_opis"]}
+             "description": n["autor_opis"],
+             "worksFor": wydawca_ld(manifest, jezyk)}
     return kanoniczny, strona(jezyk=jezyk, tytul=n["autor_tytul"], opis=n["autor_opis"],
                               kanoniczny=kanoniczny, alternatywny=alternatywny,
                               tresc=tresc, glebokosc=glebokosc, manifest=manifest,
                               jsonld=osoba,
-                              nawigacja=gora(jezyk, glebokosc, alternatywny, manifest),
+                              nawigacja=gora(jezyk, glebokosc, alternatywny, manifest, tu="autor"),
                               stopka_html=stopka(jezyk, glebokosc, manifest))
 
 
-def strona_co_dalej(jezyk, manifest):
+def wydawca_ld(manifest, jezyk):
+    """Wydawca w danych strukturalnych — [poz. 779]. `Organization`, bo Aseity jest
+    spółką; `url` prowadzi na stronę spółki w języku strony. Pełnej firmy (sp.j.)
+    nie podajemy — Jakub 26.10: „wystarczy samo Aseity”."""
+    w = manifest["wydawca"]
+    return {"@type": "Organization", "name": w["nazwa"], "url": w["url"][jezyk]}
+
+
+def strona_co_dalej(jezyk, manifest, zapowiedziane=()):
     """Kanał zwrotny — [poz. 295]. Drugi i ostatni wyjątek od reguły `NAPISY`.
 
     **Ta strona mówi o tym, co Jakub postanowił, a nie o tym, co dostanie produkt** —
@@ -2464,17 +2811,32 @@ def strona_co_dalej(jezyk, manifest):
 
     def blok(klucz, temat):
         adres = f"mailto:{adres_zwrotny}?subject={urllib.parse.quote(temat)}"
-        return (f"<h2>{e(n[klucz + '_naglowek'])}</h2>"
+        return (f'<section class="pytanie"><h2>{e(n[klucz + "_naglowek"])}</h2>'
                 f"<p>{e(n[klucz])}</p>"
-                f'<p><a href="{adres}">{e(n["dalej_napisz"])} →</a></p>')
+                f'<a class="idz" href="{adres}">{e(n["dalej_napisz"])} →</a></section>')
 
-    tresc = (f"<h1>{e(n['dalej_tytul'])}</h1>"
-             + f'<p class="lead">{e(n["dalej_lead"])}</p>'
+    # Zapowiedziane stoją tu drugi raz (pierwszy: mapa rodziny), bo oś „która
+    # pierwsza” pyta właśnie o nie — z prośbą mailową na każdej karcie. Temat maila
+    # zaczyna się od tematu osi, więc filtr w skrzynce liczy je razem z resztą.
+    szostka = ""
+    if zapowiedziane:
+        szostka = (f'<h2 id="zapowiedziane">{e(n["dojdzie_naglowek"])}</h2>'
+                   f'<p class="pod-naglowkiem">{e(n["dojdzie_opis"])}</p><ul class="siatka">'
+                   + "".join(karta_zapowiedzi(z, jezyk, glebokosc, z_prosba=True)
+                             for z in zapowiedziane)
+                   + "</ul>")
+
+    tresc = ('<div class="in">'
+             + glowa(n["dalej_tytul"], n["dalej_lead"], n["kinako_dalej"])
+             + '<div class="pytania-dalej">'
              + blok("dalej_android", TEMATY_MAILA[jezyk]["android"])
              + blok("dalej_jezyki", TEMATY_MAILA[jezyk]["jezyki"])
              + blok("dalej_szostka", TEMATY_MAILA[jezyk]["szostka"])
              + blok("dalej_otwarte", TEMATY_MAILA[jezyk]["otwarte"])
-             + f'<p class="podtytul">{e(n["dalej_bez_licznika"])}</p>')
+             + "</div>"
+             + szostka
+             + f'<div class="cicho">{wyglad.kinako("spiacy", 36)}<p>{e(n["dalej_bez_licznika"])}</p></div>'
+             + "</div>")
 
     # Głowa tej strony wypadła z wzorca, bo powstała jako KOPIA strony o autorze —
     # git widzi ją jako `C071`. Kopia wzięła układ i zgubiła dwie rzeczy, które
@@ -2540,15 +2902,16 @@ def strona_404(apki, manifest, zywe=()):
         tematy_html = (f'<h2>{e(n["nauka_link"])}</h2>'
                        f'<ul class="zwykla">{pozycje_t}</ul>')
 
-    tresc = ("<h1>Nie ma takiej strony</h1>"
-             '<p class="podtytul">Adres mógł się zmienić — dokumenty prawne dostały numer '
-             "wersji w adresie, a cała witryna przeniosła się na tę domenę. Poniżej "
-             "wszystko, co tu jest.</p>"
-             f'<h2>{e(n["naglowek_kart"])}</h2><ul class="zwykla">{pozycje}</ul>'
-             f'{tematy_html}'
-             f'<h2>{e(n["dokumenty"])}</h2><ul class="zwykla">'
-             f'<li><a href="{baza}/dokumenty.html">{e(n["spis_tytul"])}</a></li>'
-             f'<li><a href="{baza}/">{e(n["tytul_mapy"])}</a></li></ul>')
+    tresc = ('<div class="in">'
+             + glowa("Nie ma takiej strony",
+                     "Adres mógł się zmienić — dokumenty prawne dostały numer wersji "
+                     "w adresie, a cała witryna przeniosła się na tę domenę. Poniżej "
+                     "wszystko, co tu jest.", n["kinako_404"], "smutny")
+             + f'<h2>{e(n["naglowek_kart"])}</h2><ul class="zwykla">{pozycje}</ul>'
+             + f'{tematy_html}'
+             + f'<h2>{e(n["dokumenty"])}</h2><ul class="zwykla">'
+             + f'<li><a href="{baza}/dokumenty.html">{e(n["spis_tytul"])}</a></li>'
+             + f'<li><a href="{baza}/">{e(n["tytul_mapy"])}</a></li></ul></div>')
     return strona(jezyk="pl", tytul="Nie ma takiej strony",
                   opis="Adres nie istnieje. Spis wszystkich aplikacji i dokumentów rodziny.",
                   kanoniczny="404.html", alternatywny="en/index.html",
@@ -2901,13 +3264,9 @@ KARTA_SVG = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 
-ZNAK_SVG = """<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
-  <rect width="180" height="180" rx="40" ry="40" fill="#a34f5a"/>
-  <text x="90" y="122" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
-        font-size="92" font-weight="600" fill="#ffffff" text-anchor="middle">jd</text>
-</svg>
-"""
+#: Znak witryny od 26.10.2026: awatar Kinako (decyzja Jakuba — „logo oraz favicon”;
+#: ikony aplikacji bez zmian). Do tej pory litery `jd` na tym samym tle `#a34f5a`.
+ZNAK_SVG = wyglad.znak_svg("#a34f5a")
 
 ZNAK_ROZMIARY = (48, 180)
 
@@ -3137,7 +3496,8 @@ def bez_glowy_witryny(tresc: str) -> str:
         if 'rel="canonical"' not in w and 'name="robots"' not in w
         and 'rel="icon"' not in w and 'rel="apple-touch-icon"' not in w
         and 'name="description"' not in w and 'property="og:' not in w
-        and 'name="twitter:card"' not in w and 'rel="alternate"' not in w)
+        and 'name="twitter:card"' not in w and 'rel="alternate"' not in w
+        and 'data-witryna=' not in w)
     # Wyjście na witrynę dopisujemy **wewnątrz** istniejącej stopki, więc przy stopce
     # jednolinijkowej siedzi w tej samej linii co `</footer>` i wycinanie po liniach
     # zabrałoby razem z nim koniec stopki. Stąd wzorzec, a nie filtr linii.
@@ -3161,6 +3521,17 @@ def kopie_zrodlowe(a):
         return {}, katalog
     return ({skrot_dokumentu(p): p
              for p in sorted(katalog.rglob("*.html"))}, katalog)
+
+
+def wyglad_swiezosc():
+    """Czy `Tools/wyglad.json` odpowiada HEAD-owi `japanese-ui`. Pusty napis albo
+    `None` (nie sprawdziłem: brak repo) nie podnoszą uwagi; brak drzewa pakietu na
+    maszynie windowsowej nie jest wadą witryny."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("wyglad_z_ui", NARZEDZIA / "wyglad-z-ui.py")
+    modul = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(modul)
+    return modul.swiezosc()
 
 
 def bramki(apki, pliki, manifest, zapowiedziane=()):
@@ -3774,6 +4145,30 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
             bledy.append(f"„Co dalej” {jezyk}: {len(bez_wejscia)} stron bez wejścia "
                          f"w stopce, m.in. {bez_wejscia[0]}")
 
+    # 25. Wydawca i granice linkowania — [poz. 779], plus czystość nowego wyglądu.
+    #
+    #     Liczone na WYTWORZE: każda strona HTML witryny (poza przekierowaniami, które
+    #     nie mają stopki z rozmysłu — mają przenieść, nie zatrzymać) niesie link do
+    #     Aseity, a **żadna** nie niesie cwicz.to — decyzja Jakuba z 26.10.2026,
+    #     linkowanie w jedną stronę. Do tego wygląd 2.0 nie wciąga niczego z zewnątrz:
+    #     makiety ładowały Google Fonts i skrypty, a ta witryna ma zero obcych zasobów.
+    wydawca_url = manifest["wydawca"]["url"]
+    for adres_, tresc in pliki.items():
+        if not adres_.endswith(".html"):
+            continue
+        if "cwicz.to" in tresc:
+            bledy.append(f"{adres_}: link do cwicz.to — rodzina JP linkuje tylko do Aseity")
+        if re.search(r'<script\b[^>]*\bsrc=|fonts\.googleapis|fonts\.gstatic|<link[^>]+rel="stylesheet"', tresc):
+            bledy.append(f"{adres_}: zewnętrzny zasób (skrypt, font albo arkusz)")
+        if 'http-equiv="refresh"' in tresc:
+            continue
+        if not any(f'href="{u}"' in tresc for u in wydawca_url.values()):
+            bledy.append(f"{adres_}: brak linku do wydawcy ({wydawca_url['pl']})")
+    stan_wygladu = wyglad_swiezosc()
+    if stan_wygladu:
+        uwagi.append(f"wygląd: kopia z japanese-ui nieaktualna ({stan_wygladu}) — "
+                     f"python3 Tools/wyglad-z-ui.py --wykonaj")
+
     # 22. Jawny blok `sklepy` nie rozjeżdża się z polami, które czyta reszta rodziny.
     #
     #     Dopóki aplikacja stoi w jednym sklepie, `sklepy` wyprowadza się z `appId`
@@ -4003,7 +4398,11 @@ def zbuduj(apki, manifest, zapowiedziane=()):
     # produktowa — ta druga po to, żeby wyjście na temat stało obok opisu aplikacji,
     # a nie tylko w stopce.
     zywe = tematy_zywe(apki, wczytaj_eksporty(apki))
-    temat_apki = {temat["apka"]: temat for temat, _, _ in zywe}
+    # Wszystkie tematy apki, nie ostatni: Joshi ma dwa (partykuły i mylące pary),
+    # a słownik `apka → temat` zostawiał na jego stronie tylko drugi.
+    tematy_apki = {}
+    for temat, _, eksport in zywe:
+        tematy_apki.setdefault(temat["apka"], []).append((temat, eksport))
     for jezyk in JEZYKI:
         adres, tresc = mapa_rodziny(apki, jezyk, manifest, zywe, zapowiedziane)
         pliki[adres] = tresc
@@ -4014,12 +4413,12 @@ def zbuduj(apki, manifest, zapowiedziane=()):
         adres, tresc = strona_autora(apki, jezyk, manifest)
         pliki[adres] = tresc
         daty[adres] = max(a["data"] for a in apki)
-        adres, tresc = strona_co_dalej(jezyk, manifest)
+        adres, tresc = strona_co_dalej(jezyk, manifest, zapowiedziane)
         pliki[adres] = tresc
         daty[adres] = max(a["data"] for a in apki)
         for a in apki:
             adres, tresc = podstrona(a, jezyk, manifest, apki,
-                                     temat=temat_apki.get(a["slug"]))
+                                     tematy=tematy_apki.get(a["slug"], ()))
             pliki[adres] = tresc
             daty[adres] = a["data"]
 
@@ -4046,7 +4445,7 @@ def zbuduj(apki, manifest, zapowiedziane=()):
             pliki[adres] = tresc
             daty[adres] = data_eksportu
         if zywe:
-            adres, tresc = rozdroze_nauki(zywe, jezyk, manifest)
+            adres, tresc = rozdroze_nauki(zywe, jezyk, manifest, apki)
             pliki[adres] = tresc
             daty[adres] = max(daty[sciezki_tematu(t, jezyk)[0]] for t, _, _ in zywe)
 

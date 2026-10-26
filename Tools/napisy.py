@@ -21,6 +21,34 @@ i cicho się rozjechał, a tablica przestała być miarą czegokolwiek.
 NAPISY = {
     "pl": {
         "html_lang": "pl",
+        # Witryna 2.0 (makiety W01/W02, 26.10.2026). Dymki mówi Kinako —
+        # `jp-grammar/docs/GLOS_KINAKO.md`: pierwsza osoba, „ty”, bez rodzaju ucznia.
+        "nav_aplikacje": "Aplikacje",
+        "przycisk_poziom": "Sprawdź swój poziom",
+        "przycisk_aplikacje": "Zobacz aplikacje",
+        "start_naglowek": "Nie wiesz, od czego zacząć?",
+        "start_krok_1": "Sprawdź poziom w Shindanie",
+        "start_krok_2": "Fundament: {apki}",
+        "start_krok_3": "Reszta, kiedy przyjdzie pora",
+        "start_przycisk": "Test poziomu",
+        "wybor_opis": "Każda aplikacja uczy jednej rzeczy. Kolor mówi, której.",
+        "nauka_mapa_opis": "Strony z regułami, tabelami i przykładami. Za darmo i bez aplikacji.",
+        "kinako_apka": "Jestem Kinako. Prowadzę cię w każdej aplikacji rodziny.",
+        "kinako_autor": "A ja jestem Kinako. Prowadzę cię po każdej z nich.",
+        "kinako_dalej": "Napisz, czego ci brakuje. Każdy mail trafia do Jakuba.",
+        "kinako_nauka": "Wszystko tu jest za darmo. Bez aplikacji też się nauczysz.",
+        "kinako_404": "Tej strony tu nie ma. Wszystko, co jest, stoi niżej.",
+        "fakty_naglowek": "W każdej aplikacji",
+        "fakty": ["Bez konta", "Bez reklam", "Bez śledzenia", "Nauka i powtórki offline"],
+        "cta_cwicz": "Ćwicz to w aplikacji {apka}",
+        "dalej_chce": "Chcę ją pierwszą",
+        "nauka_z_apki": "z aplikacji {apka}",
+        "nauka_bez_stron": "Jeszcze bez własnych stron: {apki}.",
+        # [poz. 779] — wydawca. Link tylko do Aseity, nigdy do cwicz.to.
+        "wydawca_przed": "Wydaje",
+        "autor_naglowek_wydawca": "Kto wydaje te aplikacje",
+        "autor_wydawca": "Ja piszę aplikacje, a wydaje je Aseity, firma, którą współprowadzę. "
+                         "Na jej stronie są też inne projekty.",
         # **Bez liczby aplikacji w tytule.** Do 13.09.2026 stało tu „w dziesięciu
         # aplikacjach" — liczba prawdziwa w dniu pisania i fałszywa od dnia, w którym
         # rodzina urosła. Tytuł strony głównej jest najdroższym napisem witryny
@@ -91,8 +119,8 @@ NAPISY = {
         "autor_link": "O autorze",
         "autor_tytul": "O autorze",
         "autor_opis": "Kto pisze te aplikacje i dlaczego jest ich tyle, a nie jedna.",
-        "autor_kim": "Nazywam się Jakub Dwojak i piszę te aplikacje sam – kod, treść "
-                     "i wszystko, co widać na ekranie.",
+        "autor_kim": "Nazywam się Jakub Dwojak i piszę te aplikacje: kod, treść i wszystko, "
+                     "co widać na ekranie. Wydaje je Aseity, firma, którą współprowadzę.",
         "autor_naglowek_dlaczego": "Dlaczego osobne aplikacje, a nie jedna",
         "autor_dlaczego_1": "Bo to, czego uczą, to osobne umiejętności, "
                             "a nie zakładki jednego programu. Gramatyka, odmiana, "
@@ -332,6 +360,31 @@ NAPISY = {
     },
     "en": {
         "html_lang": "en",
+        "nav_aplikacje": "Apps",
+        "przycisk_poziom": "Check your level",
+        "przycisk_aplikacje": "See the apps",
+        "start_naglowek": "Not sure where to start?",
+        "start_krok_1": "Check your level in Shindan",
+        "start_krok_2": "Foundations: {apki}",
+        "start_krok_3": "The rest, when you get there",
+        "start_przycisk": "Level test",
+        "wybor_opis": "Each app teaches one thing. The colour tells you which.",
+        "nauka_mapa_opis": "Pages with rules, charts and examples. Free, no app needed.",
+        "kinako_apka": "I'm Kinako. I guide you through every app in the family.",
+        "kinako_autor": "And I'm Kinako. I guide you through each of them.",
+        "kinako_dalej": "Tell us what you're missing. Every email reaches Jakub.",
+        "kinako_nauka": "Everything here is free. You can learn without an app, too.",
+        "kinako_404": "This page isn't here. Everything that is, is below.",
+        "fakty_naglowek": "In every app",
+        "fakty": ["No account", "No ads", "No tracking", "Learning and reviews offline"],
+        "cta_cwicz": "Practise this in {apka}",
+        "dalej_chce": "I want this one first",
+        "nauka_z_apki": "from {apka}",
+        "nauka_bez_stron": "No pages of their own yet: {apki}.",
+        "wydawca_przed": "Published by",
+        "autor_naglowek_wydawca": "Who publishes these apps",
+        "autor_wydawca": "I write the apps, and Aseity, the company I co-run, publishes them. "
+                         "Its site shows its other work too.",
         "tytul_mapy": "Japanese in separate apps",
         # Patrz komentarz przy polskim `opis_mapy`: lista bez spójnika zamykającego.
         "opis_mapy": "Apps for learning Japanese, each about one thing: "
@@ -376,8 +429,8 @@ NAPISY = {
         "autor_link": "About",
         "autor_tytul": "About the author",
         "autor_opis": "Who writes these apps, and why there are several rather than one.",
-        "autor_kim": "I am Jakub Dwojak and I write these apps myself – the code, the content "
-                     "and everything you see on screen.",
+        "autor_kim": "I am Jakub Dwojak and I write these apps: the code, the content and "
+                     "everything you see on screen. They are published by Aseity, the company I co-run.",
         "autor_naglowek_dlaczego": "Why separate apps rather than one",
         "autor_dlaczego_1": "Because what they teach is separate skills, not tabs of "
                             "one program. Grammar, conjugation, particles, counters, reading "

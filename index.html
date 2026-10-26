@@ -16,141 +16,319 @@
 <meta property="og:site_name" content="Japoński w osobnych aplikacjach">
 <meta property="og:locale" content="pl_PL">
 <meta property="og:locale:alternate" content="en_US">
-<meta name="theme-color" content="#a34f5a">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#FBF7F5">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161112">
 <link rel="icon" type="image/png" sizes="48x48" href="https://jd-japanese.pl/assets/znak-48.png">
 <link rel="apple-touch-icon" href="https://jd-japanese.pl/assets/znak-180.png">
 <meta property="og:image" content="https://jd-japanese.pl/assets/karty/rodzina-pl.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <style>
-:root { color-scheme: light dark; --tlo:#fff; --tekst:#1c1c1e; --cichy:#6b6b70;
-        --linia:#e3e3e6; --akcent:#a34f5a; --karta:#faf9f9; }
+:root { color-scheme: light dark; --bg:#FBF7F5; --surface:#FFFFFF; --surface-2:#F4EDEA; --line:#E9DEDA; --text:#2A2022; --text-muted:#6F6164; --cl:#BC4F56;--cal:#AC484F;--cd:#8E446D;--cad:#D36F73; --ko:#1F1A1B; }
 @media (prefers-color-scheme: dark) {
-  :root { --tlo:#131315; --tekst:#ececef; --cichy:#9a9aa0; --linia:#2c2c30;
-          --akcent:#e08a94; --karta:#1b1b1e; }
+  :root { --bg:#161112; --surface:#221A1C; --surface-2:#2B2224; --line:#3A2E31; --text:#F4ECEB; --text-muted:#B6A6A8; --ko:#747172; }
 }
+/* Witryna 2.0 — język z makiet W01/W02 (`jp-grammar/.planning/witryna/`).
+   Neutralne i kolory apek przychodzą z `wyglad.json`; tu stoi tylko układ.
+   Element w kolorze apki niesie cztery zmienne w `style`, a para jasna/ciemna
+   wybiera się niżej, jednym selektorem dla całej rodziny. */
+[style*="--cl:"], :root { --c: var(--cl); --ca: var(--cal); }
+@media (prefers-color-scheme: dark) {
+  [style*="--cl:"], :root { --c: var(--cd); --ca: var(--cad); }
+}
+:root { --font-display: ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN", system-ui, sans-serif;
+        --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, system-ui, sans-serif;
+        --font-jp: "Hiragino Maru Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif; }
 * { box-sizing: border-box; }
-body { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
-       font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-       color: var(--tekst); background: var(--tlo); }
-h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 .35rem; }
-h2 { font-size: 1.15rem; margin: 2.5rem 0 .75rem; }
-h3 { font-size: 1rem; margin: 1.75rem 0 .4rem; letter-spacing: .01em; }
+html, body { margin: 0; }
+body { font: 1rem/1.6 var(--font-body); color: var(--text); background: var(--bg);
+       overflow-wrap: break-word; }
+[lang="ja"] { font-family: var(--font-jp); }
+a { color: var(--ca); }
+img { max-width: 100%; }
+.symbole { position: absolute; width: 0; height: 0; overflow: hidden; }
+.kinako { display: block; flex: none; image-rendering: pixelated; shape-rendering: crispEdges; }
+.in { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+@media (max-width: 600px) { .in { padding: 0 16px; } }
+.waska { max-width: 46rem; }
+.do-tresci { position: absolute; left: -9999px; }
+.do-tresci:focus { position: static; display: inline-block; margin: .5rem 1rem; }
+:focus-visible { outline: 2px solid var(--ca); outline-offset: 2px; border-radius: 4px; }
+.czytnik { position: absolute; left: -9999px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
+h1 { font-size: clamp(1.9rem, 4.6vw, 3.1rem); line-height: 1.1; margin: 0; letter-spacing: -.01em; }
+h2 { font-size: 1.6rem; line-height: 1.2; margin: 2.75rem 0 .4rem; }
+h3 { font-size: 1.15rem; margin: 1.75rem 0 .4rem; }
 p { margin: .75rem 0; }
-a { color: var(--akcent); }
-.podtytul { color: var(--cichy); margin: 0 0 1rem; font-size: 1.05rem; }
-.lead { border-left: 3px solid var(--akcent); padding: .1rem 0 .1rem 1rem;
-        margin: 1.5rem 0; color: var(--tekst); }
-.gora { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem;
-        margin-bottom: 2rem; color: var(--cichy); }
-.gora a { text-decoration: none; }
-.gora-prawo { display: flex; align-items: center; gap: .75rem; }
+.lead { font-size: 1.15rem; line-height: 1.55; color: var(--text-muted); max-width: 46ch; margin: .9rem 0 0; }
+.podtytul { color: var(--text-muted); margin: .4rem 0 1rem; }
+.pod-naglowkiem { color: var(--text-muted); margin: 0 0 1.1rem; }
+.jp { color: var(--text-muted); font-weight: 400; font-size: .7em; margin-left: .4em; }
+
+/* pasek witryny */
+.gora { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem 1.1rem; padding: 16px 0;
+        font-size: .92rem; }
+.gora a { color: var(--text-muted); text-decoration: none; }
+.gora a:hover { color: var(--text); }
+.gora .logo { display: inline-flex; align-items: center; gap: .5rem; margin-right: auto;
+              font: 700 1.05rem/1 var(--font-display); color: var(--text); }
+.gora .logo img { width: 32px; height: 32px; border-radius: 8px; display: block; image-rendering: pixelated; }
+.gora .tu { color: var(--text); font-weight: 600; }
+.gora .powrot { flex-basis: 100%; order: 9; color: var(--ca); font-size: .9rem; }
 .instagram { display: inline-flex; align-items: center; justify-content: center;
              gap: .5rem; min-width: 44px; min-height: 44px; vertical-align: middle; }
-.instagram svg { width: 22px; height: 22px; flex: none; }
-.instagram:hover { color: var(--tekst); }
-.do-tresci { position: absolute; left: -9999px; }
-.do-tresci:focus { position: static; display: inline-block; margin-bottom: 1rem; }
-:focus-visible { outline: 2px solid var(--akcent); outline-offset: 2px; border-radius: 4px; }
-footer { overflow-wrap: anywhere; }
-.gora .znak { display: inline-block; margin-right: .6rem; vertical-align: -.35rem; }
-.gora .znak img { width: 22px; height: 22px; border-radius: 6px; display: block; }
-.szyld { display: flex; gap: 1rem; align-items: center; margin-bottom: .5rem; }
-.szyld img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
-.jp { color: var(--cichy); font-weight: 400; font-size: .75em; margin-left: .4em; }
-.karty { display: grid; gap: .5rem; padding: 0; list-style: none; }
-.karta { display: flex; gap: .9rem; align-items: flex-start; padding: .85rem;
-         border: 1px solid var(--linia); border-radius: 12px; background: var(--karta); }
-.karta img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
-.karta { position: relative; }
-.karta .nazwa { font-weight: 600; }
-/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
-   rozciągnięta na kafelek daje duży cel, a czytnik ekranu dalej słyszy „Kaname:
-   Gramatyka japońska", a nie cały akapit o problemie.
-   **Tylko tam, gdzie nazwa jest linkiem.** Karta aplikacji zapowiedzianej ma nazwę
-   w `<span>`, a selektor `.karta .nazwa` łapał i ją — więc kafelek bez dokąd pójścia
-   dostawał niewidzialny cel dotknięcia na całej powierzchni, identyczny z tym
-   w dziesięciu kartach nad nim. Zmierzone okiem 13.09.2026 na telefonie: ten sam
-   kształt, ten sam rozmiar celu, jedna reaguje, druga nie. §15 konwencji mówi o tym
-   wprost: co wygląda na dotykalne, musi być dotykalne. */
-a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
-.karta .co { display: block; color: var(--cichy); font-size: .9em; margin-top: .1rem; }
-.karta p { margin: .35rem 0 0; color: var(--cichy); font-size: .93rem; }
-.znacznik { display: inline-block; font-size: .75rem; padding: .1rem .45rem;
-            border: 1px solid var(--linia); border-radius: 6px; color: var(--cichy);
-            margin-left: .4rem; vertical-align: .1em; }
-/* Ikonki platform. Kolor z `currentColor` przez `--cichy`, więc tryb ciemny działa
-   bez osobnej reguły — i to jest jedyny powód, dla którego znak jest rysowany, a nie
-   wstawiony plikiem: `<img>` koloru nie dziedziczy i w ciemnym znika.
-   Rozmiar w `em`, żeby znak skalował się razem z tytułem karty, a nie obok niego.
-   Znak leży POD niewidzialną warstwą linku karty (`a.nazwa::after`) i nie dostaje
-   ani `position`, ani własnego odsyłacza — inaczej rozciąłby cel dotknięcia na dwa. */
-.platformy { display: inline-flex; gap: .3em; margin-left: .4rem;
-             vertical-align: .02em; color: var(--cichy); }
+.instagram svg { width: 20px; height: 20px; flex: none; }
+@media (max-width: 600px) { .gora .zbedne { display: none; } }
+.pas { background: var(--c); color: #fff; }
+.pas .gora a, .pas .gora .logo { color: rgb(255 255 255 / .88); }
+.pas .gora .powrot { color: #fff; }
+.pas a { color: #fff; }
+.cienki { border-top: 6px solid var(--c); }
+
+/* przyciski */
+.przyciski { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 1.4rem; }
+.btn, .przycisk { display: inline-flex; align-items: center; gap: .5rem; border-radius: 999px;
+                  padding: 13px 20px; font: 600 1rem/1 var(--font-display); text-decoration: none;
+                  background: var(--c); color: #fff; }
+.btn.drugi { background: var(--surface-2); color: var(--text); }
+.pas .przycisk, .cta .przycisk { background: #fff; color: var(--ca); }
+@media (prefers-color-scheme: dark) { .pas .przycisk, .cta .przycisk { color: var(--cl); } }
+.znacznik { display: inline-flex; align-items: center; font-size: .8rem; font-weight: 600;
+            padding: .3rem .65rem; border-radius: 999px; color: var(--ca);
+            background: color-mix(in srgb, var(--c) 12%, var(--surface)); }
+.pas .znacznik { color: #fff; background: rgb(255 255 255 / .18); }
+.sklep { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 1.4rem 0 0; }
+.darmowe { flex-basis: 100%; color: var(--text-muted); font-size: .9rem; }
+.pas .darmowe { color: rgb(255 255 255 / .9); }
+.platformy { display: inline-flex; gap: .3em; vertical-align: .02em; color: var(--text-muted); }
+.pas .platformy { color: #fff; }
 .platforma { display: inline-flex; }
-.platformy svg { width: .85em; height: .85em; display: block; }
-/* Tekst wyłącznie dla czytnika ekranu — ten sam idiom, co skip-link wyżej, bez
-   reguły `:focus`, bo ten element nie jest ogniskowalny. */
-.czytnik { position: absolute; left: -9999px; }
-.sklep { display: block; margin: .35rem 0 1.25rem; font-weight: 600; }
-.nota { font-size: .8rem; margin-top: 2rem; }
-.przycisk { display: inline-block; background: var(--akcent); color: var(--tlo);
-            padding: .55rem 1.1rem; border-radius: 10px; text-decoration: none; }
-.spis-sekcji ul { list-style: none; padding: 0; margin: 0 0 1.75rem;
-                  display: flex; flex-wrap: wrap; gap: .35rem .9rem; font-size: .92rem; }
-.spis-sekcji li { margin: 0; }
-details { border-bottom: 1px solid var(--linia); padding: .55rem 0; }
-details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem;
-                  position: relative; }
+.platformy svg { width: .95em; height: .95em; display: block; }
+
+/* strona główna */
+.hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: center; padding: 26px 0 30px; }
+.scena { position: relative; height: 230px; }
+.scena .grunt { position: absolute; left: 6%; right: 6%; bottom: 18px; height: 3px; border-radius: 2px; background: var(--line); }
+.scena .kropki { position: absolute; left: 12%; right: 30%; bottom: 40px; display: flex; justify-content: space-between; }
+.scena .kropki i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+.scena .kropki i.byla { background: var(--c); }
+.scena .torii { position: absolute; right: 12%; bottom: 18px; }
+.scena .kinako { position: absolute; left: 18%; bottom: 20px; }
+@media (max-width: 700px) {
+  .hero { grid-template-columns: 1fr; padding-top: 6px; gap: 8px; }
+  .scena { order: -1; height: 160px; }
+  .scena .kinako { width: 96px; height: 96px; }
+}
+.start { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; background: var(--surface);
+         border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; }
+.start > div { flex: 1 1 280px; }
+.start b { display: block; font: 700 1rem/1.2 var(--font-display); margin-bottom: 3px; }
+.start ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 2px 10px;
+            color: var(--text-muted); font-size: .92rem; }
+.start ol li::before { content: counter(list-item) " · "; }
+.start ol li + li::before { content: "→ " counter(list-item) " · "; }
+.start .btn { padding: 10px 16px; font-size: .92rem; }
+.siatka { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 0; margin: 0; list-style: none; }
+@media (max-width: 900px) { .siatka { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .siatka { grid-template-columns: 1fr; } }
+.apka { position: relative; border-radius: 20px; overflow: hidden; background: var(--surface);
+        border: 1px solid var(--line); display: flex; flex-direction: column; transition: transform .15s; }
+.apka:hover { transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .apka { transition: none; } .apka:hover { transform: none; } }
+.apka .gorna { background: var(--c); color: #fff; padding: 16px 16px 14px; position: relative; overflow: hidden;
+               display: flex; gap: 12px; align-items: center; min-height: 86px; }
+.apka .znak-wodny { position: absolute; right: -6px; bottom: -22px; font: 700 92px/1 var(--font-jp); opacity: .14;
+                    pointer-events: none; }
+.apka .gorna img { width: 52px; height: 52px; border-radius: 14px; flex: none; position: relative;
+                   box-shadow: 0 0 0 2px rgb(255 255 255 / .35); }
+.apka .gorna > div { position: relative; min-width: 0; }
+.apka .nazwa { display: block; color: #fff; text-decoration: none; font: 700 1.15rem/1.15 var(--font-display); }
+.apka .co { display: block; opacity: .9; font-size: .85rem; margin-top: 2px; }
+.apka .gorna .platformy, .apka .gorna .znacznik { color: #fff; }
+.apka .gorna .znacznik { background: rgb(255 255 255 / .18); margin-top: 6px; }
+.apka .dol { padding: 14px 16px 16px; display: grid; gap: 10px; flex: 1; }
+.apka .dol .znacznik { justify-self: start; }
+.apka .dol p { margin: 0; font-size: .93rem; line-height: 1.5; color: var(--text-muted); }
+.apka .stopka-karty { margin-top: auto; display: flex; justify-content: space-between; gap: 8px;
+                      font-size: .85rem; font-weight: 600; color: var(--ca); }
+/* Cała karta jest celem dotknięcia, ale linkiem pozostaje sama nazwa: warstwa
+   rozciągnięta na kafelek daje duży cel, a czytnik ekranu słyszy samą nazwę.
+   Tylko tam, gdzie nazwa jest linkiem (§15 konwencji: co wygląda na dotykalne,
+   musi być dotykalne — i odwrotnie). */
+a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.zapowiedz { border-style: dashed; border-width: 2px; }
+.zapowiedz:hover { transform: none; }
+.zapowiedz .gorna { background: repeating-linear-gradient(135deg, var(--c) 0 14px, color-mix(in srgb, var(--c) 86%, #000) 14px 28px); }
+.zapowiedz .nazwa { cursor: default; }
+.zapowiedz a.chce { position: relative; z-index: 1; color: var(--ca); font-weight: 600; font-size: .9rem; text-decoration: none; }
+
+/* tematy: karta-hub (strona główna, rozdroże nauki) */
+.huby { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0; margin: 0; list-style: none; }
+@media (max-width: 700px) { .huby { grid-template-columns: 1fr; } }
+.hub { background: var(--surface); border: 1px solid var(--line); border-top: 5px solid var(--c);
+       border-radius: 18px; padding: 16px; display: grid; gap: 8px; align-content: start; }
+.hub h3 { margin: 0; font-size: 1.1rem; line-height: 1.3; }
+.hub h3 a { color: var(--text); text-decoration: none; }
+.hub p { margin: 0; color: var(--text-muted); font-size: .93rem; line-height: 1.5; }
+.hub details { border: 0; padding: 0; }
+.hub summary { font-size: .82rem; color: var(--ca); font-weight: 600; }
+.pigulki { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 8px 0 0; list-style: none; }
+.pigulki a { display: inline-block; text-decoration: none; font-size: .85rem; color: var(--text);
+             background: color-mix(in srgb, var(--c) 10%, var(--surface)); border-radius: 999px; padding: 5px 10px; }
+.skoki { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 1.2rem 0 0; list-style: none; }
+.skoki a { text-decoration: none; color: var(--text); background: var(--surface); border: 1px solid var(--line);
+           border-radius: 999px; padding: 6px 12px 6px 6px; font-size: .9rem; display: inline-flex; gap: 8px; align-items: center; }
+.skoki img { width: 24px; height: 24px; border-radius: 7px; }
+.grupa-apki { margin-top: 2.2rem; }
+.grupa-apki > header { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+.grupa-apki > header img { width: 44px; height: 44px; border-radius: 12px; flex: none; }
+.grupa-apki > header h2 { margin: 0; font-size: 1.35rem; }
+.grupa-apki > header small { display: block; color: var(--text-muted); font: 400 .85rem/1.4 var(--font-body); }
+.grupa-apki > header a { margin-left: auto; font-size: .9rem; font-weight: 600; color: var(--ca); text-decoration: none; white-space: nowrap; }
+@media (max-width: 600px) { .grupa-apki > header a { display: none; } }
+.cicho { margin-top: 2rem; border: 2px dashed var(--line); border-radius: 18px; padding: 14px 16px;
+         color: var(--text-muted); font-size: .95rem; display: flex; gap: 12px; align-items: center; }
+.cicho p { margin: 0; }
+
+/* mini-karty apek */
+.mini { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; padding: 0; margin: 0; list-style: none; }
+.mini li { position: relative; display: flex; gap: 12px; align-items: center; background: var(--surface);
+           border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 16px; padding: 10px 12px; }
+.mini img { width: 44px; height: 44px; border-radius: 12px; flex: none; }
+.mini .nazwa { display: block; color: var(--text); text-decoration: none; font: 600 .98rem/1.2 var(--font-display); }
+.mini .co { display: block; color: var(--text-muted); font-size: .8rem; margin-top: 2px; }
+
+/* strona apki */
+.pas-apki { position: relative; overflow: hidden; }
+.pas-apki .znak-wodny { position: absolute; right: 2%; bottom: -60px; font: 700 300px/1 var(--font-jp);
+                        opacity: .1; pointer-events: none; }
+.szyld-apki { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; padding: 14px 0 36px; position: relative; }
+@media (max-width: 700px) { .szyld-apki { grid-template-columns: 1fr; } .szyld-apki .mowi { justify-self: end; } }
+.szyld-apki .ikona { width: 84px; height: 84px; border-radius: 22px; display: block; margin-bottom: 16px;
+                     box-shadow: 0 0 0 3px rgb(255 255 255 / .3); }
+.szyld-apki .jp { color: rgb(255 255 255 / .8); }
+.szyld-apki .podtytul { color: rgb(255 255 255 / .92); font-size: 1.1rem; margin: .5rem 0 0; }
+.pas .lead { color: rgb(255 255 255 / .92); }
+.mowi { display: flex; gap: 10px; align-items: flex-end; }
+.dymek { background: var(--surface); color: var(--text); border: 1px solid var(--line);
+         border-radius: 16px 16px 16px 4px; padding: 10px 12px; font-size: .9rem; line-height: 1.4;
+         max-width: 220px; margin: 0 0 60px; }
+.pas .dymek { border-color: transparent; background: #fff; color: #2A2022; }
+.zrzuty { display: flex; gap: 14px; overflow-x: auto; margin: 1rem 0 0; padding: 4px 2px 12px; scroll-snap-type: x mandatory; }
+.zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; border-radius: 22px; padding: 12px 12px 10px;
+                 background: linear-gradient(180deg, var(--c), color-mix(in srgb, var(--c) 60%, #000)); color: #fff; }
+.zrzuty img { width: 186px; height: auto; border-radius: 14px; display: block; }
+.zrzuty a { color: #fff; }
+.zrzuty figcaption { font-size: .82rem; margin-top: .55rem; line-height: 1.4; }
+.zrzuty figcaption strong { font-family: var(--font-display); }
+.opis h3 { font-size: 1.05rem; text-transform: none; letter-spacing: .01em; }
+.spis-sekcji ul, .spis-tematu ul { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: .6rem 0 1.4rem; list-style: none; }
+.spis-sekcji a, .spis-tematu a { display: inline-block; text-decoration: none; color: var(--text); font-size: .9rem;
+                                 background: color-mix(in srgb, var(--c) 10%, var(--surface)); border-radius: 999px; padding: 7px 12px; }
+details { border-bottom: 1px solid var(--line); padding: .55rem 0; }
+details summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem; position: relative; }
 details summary::-webkit-details-marker { display: none; }
-details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--cichy);
-                         font-weight: 400; }
+details summary::after { content: "+"; position: absolute; right: .25rem; color: var(--text-muted); font-weight: 400; }
 details[open] summary::after { content: "–"; }
 details p { margin: .6rem 0 .3rem; }
-.zrzuty { display: flex; gap: 1rem; overflow-x: auto; margin: 1rem 0 2rem;
-          padding-bottom: .5rem; scroll-snap-type: x mandatory; }
-.zrzuty figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
-.zrzuty img { width: 210px; height: auto; border-radius: 14px;
-              border: 1px solid var(--linia); display: block; }
-.zrzuty figcaption { font-size: .85rem; color: var(--cichy); margin-top: .45rem;
-                     line-height: 1.4; }
+.pytania details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 8px; }
+.pytania summary { font: 600 1rem/1.3 var(--font-display); }
+.pytania details p { color: var(--text-muted); line-height: 1.55; }
+.dokumenty-apki { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: .5rem 0 0; list-style: none; }
+.dokumenty-apki a, .dl a { display: inline-block; text-decoration: none; color: var(--text); font-size: .9rem;
+                           border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; background: var(--surface); }
 ul.zwykla { padding-left: 1.15rem; }
 ul.zwykla li { margin: .3rem 0; }
-/* Strony tematyczne. Pięć reguł i ani jednej więcej: hasło ma wyglądać jak
-   sekcja opisu sklepowego, a nie jak inny gatunek strony. Rubin dostaje własny
-   rozmiar, bo domyślny w Safari bywa większy niż linia tekstu wokół. */
-.haslo + .haslo { border-top: 1px solid var(--linia); padding-top: .5rem; }
-.haslo h2 { margin-top: 1.75rem; }
-.przyklady { padding-left: 0; list-style: none; margin: .4rem 0 1.25rem; }
-.przyklady li { margin: .6rem 0; }
-.przyklady .pelna { color: var(--cichy); }
-.przyklady .tlum { display: block; color: var(--cichy); font-size: .93rem; }
-ruby rt { font-size: .55em; color: var(--cichy); }
-/* Poradnik [poz. 691]: tabela przewija się sama, strona nie — 16px marginesu
-   i żadnego poziomego przewijania całej strony na telefonie. */
-.tabela { overflow-x: auto; margin: .75rem 0 1.25rem; -webkit-overflow-scrolling: touch; }
+
+/* strony tematyczne */
+.szyld-tematu { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; padding: 10px 0 4px; }
+.szyld-tematu img { width: 64px; height: 64px; border-radius: 18px; display: block; }
+.szyld-tematu h1 { font-size: clamp(1.6rem, 3.6vw, 2.5rem); }
+@media (max-width: 600px) { .szyld-tematu { grid-template-columns: 1fr; gap: 10px; } .szyld-tematu img { width: 52px; height: 52px; } }
+.haslo { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 4px 22px 14px; margin-top: 16px; }
+.haslo h2, .haslo h3 { margin-top: 1.1rem; color: var(--ca); }
+.haslo h2 { font-size: 1.5rem; }
+.haslo .lead { font-size: 1rem; color: var(--text); font-weight: 600; display: inline-block; max-width: none;
+               background: color-mix(in srgb, var(--c) 12%, var(--surface)); border-radius: 10px; padding: 6px 12px; margin: .3rem 0 .4rem; }
+.haslo .znacznik { margin-left: .4rem; vertical-align: .2em; }
+.przyklady { padding-left: 0; list-style: none; margin: .4rem 0 .5rem; }
+.przyklady li { border-top: 1px solid var(--line); padding: .55rem 0; margin: 0; }
+.przyklady [lang="ja"] { font-size: 1.15rem; line-height: 1.9; }
+.przyklady .pelna { color: var(--text-muted); }
+.przyklady .tlum { display: block; color: var(--text-muted); font-size: .93rem; }
+ruby rt { font-size: .5em; color: var(--text-muted); }
+.tabela { overflow-x: auto; margin: .75rem 0 1.25rem; -webkit-overflow-scrolling: touch;
+          background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
 .tabela table { border-collapse: collapse; min-width: 100%; font-size: .95rem; }
-.tabela th, .tabela td { border-bottom: 1px solid var(--linia); padding: .45rem .6rem;
+.tabela th, .tabela td { border-bottom: 1px solid var(--line); padding: .5rem .7rem;
                           text-align: left; vertical-align: top; white-space: nowrap; }
+.tabela tr:last-child th, .tabela tr:last-child td { border-bottom: 0; }
 .tabela td.tekst { white-space: normal; min-width: 9rem; }
 @media (max-width: 30rem) {
   .tabela th, .tabela td { padding: .4rem .35rem; }
   .tabela td.tekst { min-width: 7rem; }
 }
-.tabela thead th { color: var(--cichy); font-weight: 600; font-size: .85rem; }
-.tabela tbody th { color: var(--cichy); font-weight: 400; font-size: .85rem; }
-.tabela tbody th[lang="ja"] { color: var(--tekst); font-size: 1rem; }
-.tabela .podpis { display: block; color: var(--cichy); font-size: .78rem; font-weight: 400;
+.tabela thead th { color: var(--text-muted); font-weight: 600; font-size: .85rem; background: var(--surface-2); }
+.tabela tbody th { color: var(--text-muted); font-weight: 400; font-size: .85rem; }
+.tabela tbody th[lang="ja"] { color: var(--text); font-size: 1rem; }
+.tabela .podpis { display: block; color: var(--text-muted); font-size: .78rem; font-weight: 400;
                   white-space: normal; min-width: 5.5rem; max-width: 8rem; line-height: 1.3; }
-.odmiana { font-size: 1.05rem; }
-.odmiana .strz { color: var(--cichy); }
-.zaproszenie { border: 1px solid var(--linia); border-radius: 12px; background: var(--karta);
+.odmiana { font-size: 1.05rem; background: var(--surface-2); border-radius: 12px; padding: 10px 14px; }
+.odmiana .strz { color: var(--text-muted); }
+.zaproszenie { border: 1px solid var(--line); border-radius: 16px; background: var(--surface);
                padding: .9rem 1rem; margin: 1.5rem 0; }
 .zaproszenie p { margin: .3rem 0; }
-.darmowe { display: block; color: var(--cichy); font-size: .88rem; font-weight: 400;
-           margin-top: .5rem; }
 .cwiczenia summary { font-weight: 400; }
-footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--linia);
-         font-size: .88rem; color: var(--cichy); }
-footer a { color: var(--akcent); }
+.cta { margin-top: 2.2rem; background: var(--c); color: #fff; border-radius: 22px; padding: 20px;
+       display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.cta > div { flex: 1 1 260px; }
+.cta + .mini { margin-top: 14px; }
+.szyld-tematu + .lead { margin-bottom: 1.4rem; }
+.cta h2 { margin: 0 0 4px; font-size: 1.2rem; }
+.cta p { margin: 0; }
+.cta .sklep { margin: 0; }
+.cta .znacznik { color: #fff; background: rgb(255 255 255 / .18); }
+.cta .darmowe { color: rgb(255 255 255 / .9); }
+
+/* strony pozostałe (W02) */
+.glowa { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; padding: 18px 0 8px; }
+@media (max-width: 700px) { .glowa { grid-template-columns: 1fr; } .glowa .mowi { justify-self: end; } }
+.glowa .dymek { margin-bottom: 44px; }
+.proza { max-width: 66ch; font-size: 1.06rem; line-height: 1.65; }
+.proza h2 { font-size: 1.4rem; margin: 2rem 0 .5rem; }
+.pytania-dalej { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 1.6rem; }
+@media (max-width: 700px) { .pytania-dalej { grid-template-columns: 1fr; } }
+.pytanie { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 18px 16px;
+           display: grid; gap: 8px; align-content: start; }
+.pytanie h2 { font-size: 1.2rem; margin: 0; }
+.pytanie p { margin: 0; color: var(--text-muted); font-size: .97rem; line-height: 1.55; }
+.pytanie .idz { justify-self: start; margin-top: 4px; font-weight: 600; color: var(--ca); text-decoration: none;
+                background: var(--surface-2); border-radius: 999px; padding: 8px 14px; font-size: .9rem; }
+.o-autorze { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 36px; align-items: start; }
+@media (max-width: 820px) { .o-autorze { grid-template-columns: 1fr; gap: 10px; } }
+.fakty { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; margin-top: 2rem; }
+.fakty h2 { font-size: 1rem; margin: 0 0 10px; }
+.fakty ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.fakty li { display: flex; gap: 10px; align-items: center; font-size: .95rem; }
+.fakty li::before { content: "✓"; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; flex: none;
+                    font-weight: 700; color: #2E7A4C; background: #E3F1E8; }
+@media (prefers-color-scheme: dark) { .fakty li::before { color: #63BE88; background: #1E3328; } }
+.spis { display: grid; gap: 10px; max-width: 860px; margin-top: 1.4rem; }
+.wiersz-dok { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 14px; align-items: center;
+              background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 14px; padding: 12px 14px; }
+.wiersz-dok img { width: 42px; height: 42px; border-radius: 12px; display: block; }
+.wiersz-dok h2 { margin: 0; font-size: 1.05rem; }
+.wiersz-dok h2 small { display: block; font: 400 .82rem/1.4 var(--font-jp); color: var(--text-muted); margin-top: 2px; }
+.wiersz-dok .dl { grid-column: 2; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
+@media (max-width: 700px) { .wiersz-dok .dl { grid-column: 1 / -1; } }
+.dl a span { color: var(--text-muted); font-size: .78rem; margin-left: 4px; }
+
+/* stopka */
+footer { margin-top: 56px; border-top: 1px solid var(--line); padding: 26px 0 40px; display: flex; flex-wrap: wrap;
+         gap: 10px 22px; font-size: .88rem; color: var(--text-muted); align-items: center; }
+footer a { color: inherit; }
+footer .wydawca { flex-basis: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+footer .wydawca p { margin: 0; }
+footer .wydawca a { color: var(--ca); font-weight: 600; }
+.nota { font-size: .8rem; margin-top: 2rem; }
 code { font-size: .9em; }
 </style>
 <script type="application/ld+json">
@@ -166,6 +344,11 @@ code { font-size: .9em; }
       "author": {
         "@type": "Person",
         "name": "Jakub Dwojak"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Aseity",
+        "url": "https://aseity.com.pl/pl/"
       },
       "image": "https://jd-japanese.pl/assets/karty/rodzina-pl.png"
     },
@@ -255,12 +438,13 @@ code { font-size: .9em; }
 </script>
 </head>
 <body>
+<svg class="symbole" width="0" height="0" aria-hidden="true" focusable="false"><symbol id="kinako-spiacy" viewBox="0 0 42 42"><path style="fill:#C8922B" d="M16 30h4v1h-4zM16 31h4v1h-4z"/><path style="fill:var(--ko,#1F1A1B)" d="M4 0h4v1h-4zM28 0h4v1h-4zM4 1h4v1h-4zM28 1h4v1h-4zM2 2h2v1h-2zM8 2h2v1h-2zM26 2h2v1h-2zM32 2h2v1h-2zM2 3h2v1h-2zM8 3h2v1h-2zM26 3h2v1h-2zM32 3h2v1h-2zM2 4h2v1h-2zM10 4h2v1h-2zM24 4h2v1h-2zM32 4h2v1h-2zM2 5h2v1h-2zM10 5h2v1h-2zM24 5h2v1h-2zM32 5h2v1h-2zM2 6h2v1h-2zM10 6h16v1h-16zM32 6h2v1h-2zM2 7h2v1h-2zM10 7h16v1h-16zM32 7h2v1h-2zM2 8h2v1h-2zM32 8h2v1h-2zM2 9h2v1h-2zM32 9h2v1h-2zM2 10h2v1h-2zM32 10h2v1h-2zM2 11h2v1h-2zM32 11h2v1h-2zM0 12h2v1h-2zM34 12h2v1h-2zM0 13h2v1h-2zM34 13h2v1h-2zM0 14h2v1h-2zM34 14h2v1h-2zM0 15h2v1h-2zM34 15h2v1h-2zM0 16h2v1h-2zM34 16h2v1h-2zM0 17h2v1h-2zM34 17h2v1h-2zM0 18h2v1h-2zM34 18h6v1h-6zM0 19h2v1h-2zM34 19h6v1h-6zM0 20h2v1h-2zM40 20h2v1h-2zM0 21h2v1h-2zM40 21h2v1h-2zM2 22h2v1h-2zM32 22h4v1h-4zM38 22h2v1h-2zM2 23h2v1h-2zM32 23h4v1h-4zM38 23h2v1h-2zM4 24h2v1h-2zM30 24h2v1h-2zM36 24h2v1h-2zM4 25h2v1h-2zM30 25h2v1h-2zM36 25h2v1h-2zM6 26h2v1h-2zM28 26h2v1h-2zM36 26h2v1h-2zM6 27h2v1h-2zM28 27h2v1h-2zM36 27h2v1h-2zM6 28h2v1h-2zM28 28h2v1h-2zM36 28h2v1h-2zM6 29h2v1h-2zM28 29h2v1h-2zM36 29h2v1h-2zM4 30h2v1h-2zM30 30h2v1h-2zM36 30h2v1h-2zM4 31h2v1h-2zM30 31h2v1h-2zM36 31h2v1h-2zM2 32h2v1h-2zM32 32h2v1h-2zM36 32h2v1h-2zM2 33h2v1h-2zM32 33h2v1h-2zM36 33h2v1h-2zM2 34h2v1h-2zM32 34h4v1h-4zM2 35h2v1h-2zM32 35h4v1h-4zM2 36h2v1h-2zM32 36h2v1h-2zM2 37h2v1h-2zM32 37h2v1h-2zM4 38h28v1h-28zM4 39h28v1h-28z"/><path style="fill:var(--c,#C4525A)" d="M8 26h20v1h-20zM8 27h20v1h-20z"/><path style="fill:#C8935F" d="M4 8h2v1h-2zM8 8h4v1h-4zM24 8h4v1h-4zM30 8h2v1h-2zM4 9h2v1h-2zM8 9h4v1h-4zM24 9h4v1h-4zM30 9h2v1h-2zM4 10h8v1h-8zM24 10h8v1h-8zM4 11h8v1h-8zM24 11h8v1h-8zM2 12h6v1h-6zM28 12h6v1h-6zM2 13h6v1h-6zM28 13h6v1h-6zM2 14h4v1h-4zM30 14h4v1h-4zM2 15h4v1h-4zM30 15h4v1h-4zM2 16h2v1h-2zM32 16h2v1h-2zM2 17h2v1h-2zM32 17h2v1h-2zM36 20h4v1h-4zM36 21h4v1h-4zM36 22h2v1h-2zM36 23h2v1h-2zM34 24h2v1h-2zM34 25h2v1h-2zM34 26h2v1h-2zM34 27h2v1h-2zM34 28h2v1h-2zM34 29h2v1h-2zM6 30h2v1h-2zM28 30h2v1h-2zM34 30h2v1h-2zM6 31h2v1h-2zM28 31h2v1h-2zM34 31h2v1h-2zM4 32h4v1h-4zM28 32h4v1h-4zM34 32h2v1h-2zM4 33h4v1h-4zM28 33h4v1h-4zM34 33h2v1h-2zM4 34h4v1h-4zM28 34h4v1h-4zM4 35h4v1h-4zM28 35h4v1h-4z"/><path style="fill:#6B3F22" d="M4 2h2v1h-2zM30 2h2v1h-2zM4 3h2v1h-2zM30 3h2v1h-2zM4 4h2v1h-2zM30 4h2v1h-2zM4 5h2v1h-2zM30 5h2v1h-2zM4 6h2v1h-2zM30 6h2v1h-2zM4 7h2v1h-2zM30 7h2v1h-2zM12 8h12v1h-12zM12 9h12v1h-12zM16 10h4v1h-4zM16 11h4v1h-4z"/><path style="fill:#F2C14E" d="M16 28h4v1h-4zM16 29h4v1h-4z"/><path style="fill:#9A8E90" d="M39 0h3v1h-3zM40 1h1v1h-1zM39 2h3v1h-3zM36 4h4v1h-4zM38 5h1v1h-1zM37 6h1v1h-1zM36 7h4v1h-4z"/><path style="fill:#1F1A1B" d="M8 15h1v1h-1zM11 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM9 16h2v1h-2zM25 16h2v1h-2zM15 18h6v1h-6zM16 19h4v1h-4zM13 20h1v1h-1zM17 20h2v1h-2zM22 20h1v1h-1zM34 20h2v1h-2zM13 21h1v1h-1zM17 21h2v1h-2zM22 21h1v1h-1zM34 21h2v1h-2zM13 22h10v1h-10zM12 32h2v1h-2zM22 32h2v1h-2zM12 33h2v1h-2zM22 33h2v1h-2zM12 34h2v1h-2zM22 34h2v1h-2zM12 35h2v1h-2zM22 35h2v1h-2zM12 36h2v1h-2zM22 36h2v1h-2zM12 37h2v1h-2zM22 37h2v1h-2z"/><path style="fill:#F6D3E3" d="M6 2h2v1h-2zM28 2h2v1h-2zM6 3h2v1h-2zM28 3h2v1h-2zM6 4h4v1h-4zM26 4h4v1h-4zM6 5h4v1h-4zM26 5h4v1h-4zM6 6h4v1h-4zM26 6h4v1h-4zM6 7h4v1h-4zM26 7h4v1h-4zM6 8h2v1h-2zM28 8h2v1h-2zM6 9h2v1h-2zM28 9h2v1h-2z"/><path style="fill:#78706E66" d="M2 40h32v1h-32zM2 41h32v1h-32z"/><path style="fill:#FFFDFB" d="M12 10h4v1h-4zM20 10h4v1h-4zM12 11h4v1h-4zM20 11h4v1h-4zM8 12h20v1h-20zM8 13h20v1h-20zM6 14h24v1h-24zM6 15h2v1h-2zM9 15h2v1h-2zM12 15h12v1h-12zM25 15h2v1h-2zM28 15h2v1h-2zM4 16h5v1h-5zM11 16h14v1h-14zM27 16h5v1h-5zM4 17h28v1h-28zM2 18h13v1h-13zM21 18h13v1h-13zM2 19h14v1h-14zM20 19h14v1h-14zM2 20h11v1h-11zM14 20h3v1h-3zM19 20h3v1h-3zM23 20h11v1h-11zM2 21h11v1h-11zM14 21h3v1h-3zM19 21h3v1h-3zM23 21h11v1h-11zM4 22h9v1h-9zM23 22h9v1h-9zM4 23h28v1h-28zM6 24h24v1h-24zM6 25h24v1h-24zM8 28h8v1h-8zM20 28h8v1h-8zM8 29h8v1h-8zM20 29h8v1h-8zM8 30h8v1h-8zM20 30h8v1h-8zM8 31h8v1h-8zM20 31h8v1h-8zM8 32h4v1h-4zM14 32h8v1h-8zM24 32h4v1h-4zM8 33h4v1h-4zM14 33h8v1h-8zM24 33h4v1h-4zM8 34h4v1h-4zM14 34h8v1h-8zM24 34h4v1h-4zM8 35h4v1h-4zM14 35h8v1h-8zM24 35h4v1h-4zM4 36h8v1h-8zM14 36h8v1h-8zM24 36h8v1h-8zM4 37h8v1h-8zM14 37h8v1h-8zM24 37h8v1h-8z"/></symbol><symbol id="kinako-standard" viewBox="0 0 42 42"><path style="fill:#C8922B" d="M16 30h4v1h-4zM16 31h4v1h-4z"/><path style="fill:var(--ko,#1F1A1B)" d="M4 0h4v1h-4zM28 0h4v1h-4zM4 1h4v1h-4zM28 1h4v1h-4zM2 2h2v1h-2zM8 2h2v1h-2zM26 2h2v1h-2zM32 2h2v1h-2zM2 3h2v1h-2zM8 3h2v1h-2zM26 3h2v1h-2zM32 3h2v1h-2zM2 4h2v1h-2zM10 4h2v1h-2zM24 4h2v1h-2zM32 4h2v1h-2zM2 5h2v1h-2zM10 5h2v1h-2zM24 5h2v1h-2zM32 5h2v1h-2zM2 6h2v1h-2zM10 6h16v1h-16zM32 6h2v1h-2zM2 7h2v1h-2zM10 7h16v1h-16zM32 7h2v1h-2zM2 8h2v1h-2zM32 8h2v1h-2zM2 9h2v1h-2zM32 9h2v1h-2zM2 10h2v1h-2zM32 10h2v1h-2zM2 11h2v1h-2zM32 11h2v1h-2zM0 12h2v1h-2zM34 12h2v1h-2zM0 13h2v1h-2zM34 13h2v1h-2zM0 14h2v1h-2zM34 14h2v1h-2zM0 15h2v1h-2zM34 15h2v1h-2zM0 16h2v1h-2zM34 16h2v1h-2zM0 17h2v1h-2zM34 17h2v1h-2zM0 18h2v1h-2zM34 18h6v1h-6zM0 19h2v1h-2zM34 19h6v1h-6zM0 20h2v1h-2zM40 20h2v1h-2zM0 21h2v1h-2zM40 21h2v1h-2zM2 22h2v1h-2zM32 22h4v1h-4zM38 22h2v1h-2zM2 23h2v1h-2zM32 23h4v1h-4zM38 23h2v1h-2zM4 24h2v1h-2zM30 24h2v1h-2zM36 24h2v1h-2zM4 25h2v1h-2zM30 25h2v1h-2zM36 25h2v1h-2zM6 26h2v1h-2zM28 26h2v1h-2zM36 26h2v1h-2zM6 27h2v1h-2zM28 27h2v1h-2zM36 27h2v1h-2zM6 28h2v1h-2zM28 28h2v1h-2zM36 28h2v1h-2zM6 29h2v1h-2zM28 29h2v1h-2zM36 29h2v1h-2zM4 30h2v1h-2zM30 30h2v1h-2zM36 30h2v1h-2zM4 31h2v1h-2zM30 31h2v1h-2zM36 31h2v1h-2zM2 32h2v1h-2zM32 32h2v1h-2zM36 32h2v1h-2zM2 33h2v1h-2zM32 33h2v1h-2zM36 33h2v1h-2zM2 34h2v1h-2zM32 34h4v1h-4zM2 35h2v1h-2zM32 35h4v1h-4zM2 36h2v1h-2zM32 36h2v1h-2zM2 37h2v1h-2zM32 37h2v1h-2zM4 38h28v1h-28zM4 39h28v1h-28z"/><path style="fill:var(--c,#C4525A)" d="M8 26h20v1h-20zM8 27h20v1h-20z"/><path style="fill:#C8935F" d="M4 8h2v1h-2zM8 8h4v1h-4zM24 8h4v1h-4zM30 8h2v1h-2zM4 9h2v1h-2zM8 9h4v1h-4zM24 9h4v1h-4zM30 9h2v1h-2zM4 10h8v1h-8zM24 10h8v1h-8zM4 11h8v1h-8zM24 11h8v1h-8zM2 12h6v1h-6zM28 12h6v1h-6zM2 13h6v1h-6zM28 13h6v1h-6zM2 14h4v1h-4zM30 14h4v1h-4zM2 15h4v1h-4zM30 15h4v1h-4zM2 16h2v1h-2zM32 16h2v1h-2zM2 17h2v1h-2zM32 17h2v1h-2zM36 20h4v1h-4zM36 21h4v1h-4zM36 22h2v1h-2zM36 23h2v1h-2zM34 24h2v1h-2zM34 25h2v1h-2zM34 26h2v1h-2zM34 27h2v1h-2zM34 28h2v1h-2zM34 29h2v1h-2zM6 30h2v1h-2zM28 30h2v1h-2zM34 30h2v1h-2zM6 31h2v1h-2zM28 31h2v1h-2zM34 31h2v1h-2zM4 32h4v1h-4zM28 32h4v1h-4zM34 32h2v1h-2zM4 33h4v1h-4zM28 33h4v1h-4zM34 33h2v1h-2zM4 34h4v1h-4zM28 34h4v1h-4zM4 35h4v1h-4zM28 35h4v1h-4z"/><path style="fill:#6B3F22" d="M4 2h2v1h-2zM30 2h2v1h-2zM4 3h2v1h-2zM30 3h2v1h-2zM4 4h2v1h-2zM30 4h2v1h-2zM4 5h2v1h-2zM30 5h2v1h-2zM4 6h2v1h-2zM30 6h2v1h-2zM4 7h2v1h-2zM30 7h2v1h-2zM12 8h12v1h-12zM12 9h12v1h-12zM16 10h4v1h-4zM16 11h4v1h-4z"/><path style="fill:#F2C14E" d="M16 28h4v1h-4zM16 29h4v1h-4z"/><path style="fill:#F4A9BE" d="M4 18h4v1h-4zM28 18h4v1h-4zM4 19h4v1h-4zM28 19h4v1h-4z"/><path style="fill:#1F1A1B" d="M8 14h4v1h-4zM24 14h4v1h-4zM8 15h4v1h-4zM24 15h4v1h-4zM8 16h4v1h-4zM24 16h4v1h-4zM8 17h4v1h-4zM24 17h4v1h-4zM15 18h6v1h-6zM16 19h4v1h-4zM13 20h1v1h-1zM17 20h2v1h-2zM22 20h1v1h-1zM34 20h2v1h-2zM13 21h1v1h-1zM17 21h2v1h-2zM22 21h1v1h-1zM34 21h2v1h-2zM13 22h10v1h-10zM12 32h2v1h-2zM22 32h2v1h-2zM12 33h2v1h-2zM22 33h2v1h-2zM12 34h2v1h-2zM22 34h2v1h-2zM12 35h2v1h-2zM22 35h2v1h-2zM12 36h2v1h-2zM22 36h2v1h-2zM12 37h2v1h-2zM22 37h2v1h-2z"/><path style="fill:#F6D3E3" d="M6 2h2v1h-2zM28 2h2v1h-2zM6 3h2v1h-2zM28 3h2v1h-2zM6 4h4v1h-4zM26 4h4v1h-4zM6 5h4v1h-4zM26 5h4v1h-4zM6 6h4v1h-4zM26 6h4v1h-4zM6 7h4v1h-4zM26 7h4v1h-4zM6 8h2v1h-2zM28 8h2v1h-2zM6 9h2v1h-2zM28 9h2v1h-2z"/><path style="fill:#78706E66" d="M2 40h32v1h-32zM2 41h32v1h-32z"/><path style="fill:#FFFDFB" d="M12 10h4v1h-4zM20 10h4v1h-4zM12 11h4v1h-4zM20 11h4v1h-4zM8 12h20v1h-20zM8 13h20v1h-20zM6 14h2v1h-2zM12 14h12v1h-12zM28 14h2v1h-2zM6 15h2v1h-2zM12 15h12v1h-12zM28 15h2v1h-2zM4 16h4v1h-4zM12 16h12v1h-12zM28 16h4v1h-4zM4 17h4v1h-4zM12 17h12v1h-12zM28 17h4v1h-4zM2 18h2v1h-2zM8 18h7v1h-7zM21 18h7v1h-7zM32 18h2v1h-2zM2 19h2v1h-2zM8 19h8v1h-8zM20 19h8v1h-8zM32 19h2v1h-2zM2 20h11v1h-11zM14 20h3v1h-3zM19 20h3v1h-3zM23 20h11v1h-11zM2 21h11v1h-11zM14 21h3v1h-3zM19 21h3v1h-3zM23 21h11v1h-11zM4 22h9v1h-9zM23 22h9v1h-9zM4 23h28v1h-28zM6 24h24v1h-24zM6 25h24v1h-24zM8 28h8v1h-8zM20 28h8v1h-8zM8 29h8v1h-8zM20 29h8v1h-8zM8 30h8v1h-8zM20 30h8v1h-8zM8 31h8v1h-8zM20 31h8v1h-8zM8 32h4v1h-4zM14 32h8v1h-8zM24 32h4v1h-4zM8 33h4v1h-4zM14 33h8v1h-8zM24 33h4v1h-4zM8 34h4v1h-4zM14 34h8v1h-8zM24 34h4v1h-4zM8 35h4v1h-4zM14 35h8v1h-8zM24 35h4v1h-4zM4 36h8v1h-8zM14 36h8v1h-8zM24 36h8v1h-8zM4 37h8v1h-8zM14 37h8v1h-8zM24 37h8v1h-8z"/></symbol></svg>
 <a class="do-tresci" href="#tresc">Przejdź do treści</a>
-<nav class="gora" aria-label="Witryna"><span><span class="znak"><img src="assets/znak-48.png" alt="Japoński w osobnych aplikacjach" width="22" height="22"></span></span><span class="gora-prawo"><a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://jd-japanese.pl/en/">English</a></span></nav>
-<main id="tresc"><h1>Japoński w osobnych aplikacjach</h1><p class="podtytul">Aplikacje do nauki japońskiego, każda o jednej rzeczy: gramatyka, kanji, odmiana, partykuły, keigo, akcent. Jest też test poziomu, od którego można zacząć.</p><h2>Którą aplikację wybrać</h2><ul class="karty"><li class="karta"><img src="assets/ikony/kaname.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/kaname/">Kaname: Gramatyka japońska</a><span class="jp" lang="ja">要</span><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="co">Powtórki JLPT: N5 N4 N3 N2 N1</span><p>Od reguły do własnego zdania. Porównuj podobne konstrukcje, ćwicz użycie gramatyki i wracaj do powtórek. Cały N5 ze wszystkimi ćwiczeniami za darmo.</p></div></li><li class="karta"><img src="assets/ikony/bunmyaku.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/bunmyaku/">Bunmyaku: Japoński w zdaniu</a><span class="jp" lang="ja">文脈</span><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="co">Słówka, kanji i furigana</span><p>Znasz znak. Znasz słowo. Ale czy przeczytasz je, gdy wyskoczy w środku zdania? To osobna pamięć – i ta aplikacja ją ćwiczy.</p></div></li><li class="karta"><img src="assets/ikony/katsuyokei.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/katsuyokei/">Katsuyokei: Odmiana japońska</a><span class="jp" lang="ja">活用形</span><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="co">Czasowniki, formy, fiszki</span><p>Formy biorą się z reguł, nie z pamięci. Ćwicz je, aż 書いて pojawi się, zanim zdążysz
-o nim pomyśleć.</p></div></li><li class="karta"><img src="assets/ikony/joshi.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/joshi/">Joshi: Partykuły japońskie</a><span class="jp" lang="ja">助詞</span><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="co">Gramatyka i ćwiczenia JLPT</span><p>Wiedzieć, co znaczy に, to nie to samo co wiedzieć, kiedy jest で. Dziewięćset zdań, jedna luka, cztery partykuły – aż właściwa przychodzi sama.</p></div></li><li class="karta"><img src="assets/ikony/kazoekata.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/kazoekata/">Kazoekata: Liczniki japońskie</a><span class="jp" lang="ja">数え方</span><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="co">Liczenie, kanji, ćwiczenia</span><p>Przestań zgadywać, jak czyta się japońskie liczniki. 三本 to さんぼん, 六本 to ろっぽん – i stoi za tym reguła.</p></div></li><li class="karta"><img src="assets/ikony/kuzushi.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/kuzushi/">Kuzushi: Mowa potoczna</a><span class="jp" lang="ja">崩し</span><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="co">Anime, dorama i skróty</span><p>Podręcznik uczy 〜ている. Ludzie mówią 〜てる. Kuzushi ćwiczy tę lukę: rozpoznawanie skrótu i wytwarzanie go są liczone osobno, bo to dwie różne umiejętności.</p></div></li><li class="karta"><img src="assets/ikony/shindan.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/shindan/">Shindan: Poziom japońskiego</a><span class="jp" lang="ja">診断</span><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="co">Test JLPT: N5 N4 N3 N2 N1</span><p>Sprawdź, co ćwiczyć dalej w japońskim. Rozwiąż diagnozę na czas, poznaj słabe strony i szacowany poziom w skali JLPT. Pierwszy arkusz jest darmowy.</p></div></li><li class="karta"><img src="assets/ikony/keigo.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/keigo/">Keigo: Grzeczność japońska</a><span class="jp" lang="ja">敬語</span><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="co">Japoński formalny do pracy</span><p>Znać formę to nie to samo co wiedzieć, wobec kogo jej użyć. Za dużo keigo jest błędem
-dokładnie tak samo jak za mało – i to jest ta połowa, której nie uczy nikt.</p></div></li><li class="karta"><img src="assets/ikony/kifuku.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/kifuku/">Kifuku: Akcent japoński</a><span class="jp" lang="ja">起伏</span><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="co">Wymowa, intonacja, słuchanie</span><p>Poznaj akcent japońskich słów. Porównuj wzorce, ćwicz odmianę i sprawdzaj słuch na nagraniach. Pięć poziomów, nauka offline.</p></div></li><li class="karta"><img src="assets/ikony/onomatope.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/onomatope/">Onomatope: Dźwięki i wyrażenia</a><span class="jp" lang="ja">オノマトペ</span><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="co">Słówka z mangi i anime</span><p>Onomatopeje nie są losowe. 濁点 robi rzecz większą, cięższą i mniej przyjemną – kto to
-rozumie, zgadnie słowo, którego nigdy nie widział. Reszta uczy się trzystu słówek.</p></div></li></ul><h2>Nauka japońskiego</h2><ul class="zwykla"><li><a href="nauka/partykuly-japonskie/">Partykuły japońskie: は, が, を, に, で, へ</a> – Partykuły, które niosą zwykłe japońskie zdanie, i role, w jakich stoją – z przykładami i tłumaczeniem.</li><li><a href="nauka/mylace-pary/">Mylące pary w japońskim: は czy が, もう czy まだ</a> – Pary, które wyglądają wymiennie i nie są – przy każdym zdaniu sytuacja i powód, dla którego druga forma nie pasuje.</li><li><a href="nauka/formy-czasownika/">Odmiana czasownika japońskiego: tabela form ます, て, た, ない</a> – Tabela odmiany 書く, 食べる, する i 来る, reguły grup godan i ichidan, każda forma z przykładem i ćwiczenia z odpowiedziami.</li><li><a href="nauka/liczniki-japonskie/">Liczniki japońskie: tabele 1–10, odczyty i przykłady</a> – Jak przeczytać 3本, 4人 czy 8匹: tabele 1–10 dla つ, 人, 本, 枚, 匹 i 冊, wzory zmian dźwiękowych, 22 liczniki ze zdaniami i ćwiczenia.</li><li><a href="nauka/mowa-potoczna/">Japoński potoczny – skróty z anime i rozmowy</a> – Skróty, które słychać na co dzień, każdy obok pełnej formy, z której powstał.<details><summary>Sekcje (5)</summary><ul class="zwykla"><li><a href="nauka/mowa-potoczna/sciagniecia/">Ściągnięcia</a></li><li><a href="nauka/mowa-potoczna/zlania/">Zlania</a></li><li><a href="nauka/mowa-potoczna/udzwiecznienia/">Udźwięcznienia</a></li><li><a href="nauka/mowa-potoczna/zlozone/">Skróty złożone</a></li><li><a href="nauka/mowa-potoczna/opuszczenia/">Opuszczenia</a></li></ul></details></li><li><a href="nauka/keigo/">Keigo – japońska grzeczność w praktyce</a> – Formy czczące i skromne oraz wzorce, które nakłada się na większość słów – co powiedzieć i dlaczego akurat to.<details><summary>Sekcje (2)</summary><ul class="zwykla"><li><a href="nauka/keigo/slowa/">Słowa czczące i skromne</a></li><li><a href="nauka/keigo/wzorce/">Wzorce grzecznościowe</a></li></ul></details></li><li><a href="nauka/onomatopeje/">Onomatopeje japońskie – dźwięki z mangi i anime</a> – Słowa, które naśladują dźwięk i stan – co znaczą i co robi z nimi 濁点.<details><summary>Sekcje (8)</summary><ul class="zwykla"><li><a href="nauka/onomatopeje/bol/">Ból</a></li><li><a href="nauka/onomatopeje/drzenie/">Drżenie, dreszcze i zawroty</a></li><li><a href="nauka/onomatopeje/zmeczenie/">Zmęczenie i sen</a></li><li><a href="nauka/onomatopeje/cialo-i-samopoczucie/">Ciało i samopoczucie</a></li><li><a href="nauka/onomatopeje/pary-dzwieczne/">Pary dźwięczne: き–し</a></li><li><a href="nauka/onomatopeje/pary-dzwieczne-ta-ho/">Pary dźwięczne: た–ほ</a></li><li><a href="nauka/onomatopeje/pary-dzwiekowe/">Pary dźwiękonaśladowcze: wiersz か</a></li><li><a href="nauka/onomatopeje/pary-dzwiekowe-ko-to/">Pary dźwiękonaśladowcze: こ–と</a></li></ul></details></li><li><a href="nauka/gramatyka-n5/">Gramatyka japońska N5 – wszystkie punkty z poziomu</a> – Siedem grup gramatyki N5, od szkieletu zdania po ton wypowiedzi – każdy punkt ze znaczeniem, budową i przykładami.<details><summary>Sekcje (7)</summary><ul class="zwykla"><li><a href="nauka/gramatyka-n5/szkielet-zdania/">Szkielet zdania i partykuły</a></li><li><a href="nauka/gramatyka-n5/czas-i-miejsce/">Czas, miejsce i istnienie</a></li><li><a href="nauka/gramatyka-n5/formy-czasownika/">Formy czasownika</a></li><li><a href="nauka/gramatyka-n5/prosby-i-zakazy/">Prośby, pozwolenia i zakazy</a></li><li><a href="nauka/gramatyka-n5/przymiotniki/">Przymiotniki i porównania</a></li><li><a href="nauka/gramatyka-n5/checi-i-zaproszenia/">Chęci, zaproszenia i umiejętności</a></li><li><a href="nauka/gramatyka-n5/powod-i-ton/">Powód, natężenie i ton wypowiedzi</a></li></ul></details></li></ul><h2>Co dojdzie do rodziny</h2><p>Seria domyka się na szesnastu aplikacjach. Sześć poniżej ma już nazwę, znak i zakres, ale nie ma jeszcze kodu – i dlatego nie mają dat. Kiedy powstaną, staną wyżej, wśród tamtych.</p><ul class="karty"><li class="karta"><img src="assets/ikony/kikitori.webp" alt="" width="52" height="52" loading="lazy"><div><span class="nazwa">Kikitori: Japoński ze słuchu</span><span class="jp" lang="ja">聞き取り</span><span class="znacznik">W przygotowaniu</span><span class="co">Rozumienie ze słuchu</span></div></li><li class="karta"><img src="assets/ikony/danraku.webp" alt="" width="52" height="52" loading="lazy"><div><span class="nazwa">Danraku: Japoński w akapicie</span><span class="jp" lang="ja">段落</span><span class="znacznik">W przygotowaniu</span><span class="co">Czytanie dłuższego tekstu</span></div></li><li class="karta"><img src="assets/ikony/sakubun.webp" alt="" width="52" height="52" loading="lazy"><div><span class="nazwa">Sakubun: Układanie zdań</span><span class="jp" lang="ja">作文</span><span class="znacznik">W przygotowaniu</span><span class="co">Budowanie zdań od zera</span></div></li><li class="karta"><img src="assets/ikony/hatsuwa.webp" alt="" width="52" height="52" loading="lazy"><div><span class="nazwa">Hatsuwa: Japoński mówiony</span><span class="jp" lang="ja">発話</span><span class="znacznik">W przygotowaniu</span><span class="co">Mówienie, nie tylko wymowa</span></div></li><li class="karta"><img src="assets/ikony/hitsujun.webp" alt="" width="52" height="52" loading="lazy"><div><span class="nazwa">Hitsujun: Kolejność kresek</span><span class="jp" lang="ja">筆順</span><span class="znacznik">W przygotowaniu</span><span class="co">Hiragana i katakana od zera</span></div></li><li class="karta"><img src="assets/ikony/bushu.webp" alt="" width="52" height="52" loading="lazy"><div><span class="nazwa">Bushu: Klucze kanji</span><span class="jp" lang="ja">部首</span><span class="znacznik">W przygotowaniu</span><span class="co">Z czego zbudowany jest znak</span></div></li></ul></main>
-<footer>Jakub Dwojak · <a href="o-autorze/">O autorze</a> · <a href="co-dalej/">Co dalej</a> · <a href="nauka/">Nauka japońskiego</a> · <a href="dokumenty.html">Spis dokumentów</a> · <a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>@jd_japanese</span></a></footer>
+<div class="in"><nav class="gora" aria-label="Witryna"><span class="logo"><img src="assets/znak-180.png" alt="" width="32" height="32"><span>jd-japanese</span></span><span class="tu zbedne" aria-current="page">Aplikacje</span><a class="zbedne" href="nauka/">Nauka japońskiego</a><a class="zbedne" href="o-autorze/">O autorze</a><a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://jd-japanese.pl/en/" lang="en">English</a></nav></div>
+<main id="tresc"><div class="in"><section class="hero"><div><h1>Japoński w osobnych aplikacjach</h1><p class="lead">Aplikacje do nauki japońskiego, każda o jednej rzeczy: gramatyka, kanji, odmiana, partykuły, keigo, akcent. Jest też test poziomu, od którego można zacząć.</p><p class="przyciski"><a class="btn" style="--cl:#906A16;--cal:#886414;--cd:#8D6C16;--cad:#D3A327" href="apps/shindan/">Sprawdź swój poziom</a><a class="btn drugi" href="#aplikacje">Zobacz aplikacje ↓</a></p></div><div class="scena" aria-hidden="true"><div class="grunt"></div><div class="kropki"><i class="byla"></i><i class="byla"></i><i class="byla"></i><i class=""></i><i class=""></i><i class=""></i></div><svg class="torii" width="96" height="84" viewBox="0 0 24 21" aria-hidden="true" focusable="false" shape-rendering="crispEdges"><g style="fill:var(--c)"><rect x="0" y="0" width="24" height="2"/><rect x="2" y="2" width="20" height="1"/><rect x="2" y="5" width="20" height="2"/><rect x="4" y="3" width="2" height="18"/><rect x="18" y="3" width="2" height="18"/><rect x="11" y="3" width="2" height="2"/></g></svg><svg class="kinako" width="120" height="120" aria-hidden="true" focusable="false"><use href="#kinako-standard"/></svg></div></section><div class="start"><svg class="kinako" width="40" height="40" aria-hidden="true" focusable="false"><use href="#kinako-standard"/></svg><div><b>Nie wiesz, od czego zacząć?</b><ol><li>Sprawdź poziom w Shindanie</li><li>Fundament: Kaname, Katsuyokei, Joshi, Kazoekata</li><li>Reszta, kiedy przyjdzie pora</li></ol></div><a class="btn" style="--cl:#906A16;--cal:#886414;--cd:#8D6C16;--cad:#D3A327" href="apps/shindan/">Test poziomu</a></div><h2 id="aplikacje">Którą aplikację wybrać</h2><p class="pod-naglowkiem">Każda aplikacja uczy jednej rzeczy. Kolor mówi, której.</p><ul class="siatka"><li class="apka" style="--cl:#BC4F56;--cal:#AC484F;--cd:#8E446D;--cad:#D36F73"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">要</span><img src="assets/ikony/kaname.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/kaname/">Kaname: Gramatyka japońska</a><span class="co"><span lang="ja">要</span> <span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span></span></div></div><div class="dol"><p>Od reguły do własnego zdania. Porównuj podobne konstrukcje, ćwicz użycie gramatyki i wracaj do powtórek. Cały N5 ze wszystkimi ćwiczeniami za darmo.</p><span class="stopka-karty"><span>Powtórki JLPT: N5 N4 N3 N2 N1</span><span aria-hidden="true">›</span></span></div></li><li class="apka" style="--cl:#2F74B8;--cal:#2B6AA9;--cd:#265D8B;--cad:#4593CE"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">文</span><img src="assets/ikony/bunmyaku.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/bunmyaku/">Bunmyaku: Japoński w zdaniu</a><span class="co"><span lang="ja">文脈</span> <span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span></span></div></div><div class="dol"><p>Znasz znak. Znasz słowo. Ale czy przeczytasz je, gdy wyskoczy w środku zdania? To osobna pamięć – i ta aplikacja ją ćwiczy.</p><span class="stopka-karty"><span>Słówka, kanji i furigana</span><span aria-hidden="true">›</span></span></div></li><li class="apka" style="--cl:#1D7F7B;--cal:#1A7471;--cd:#385398;--cad:#329D9C"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">活</span><img src="assets/ikony/katsuyokei.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/katsuyokei/">Katsuyokei: Odmiana japońska</a><span class="co"><span lang="ja">活用形</span> <span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span></span></div></div><div class="dol"><p>Formy biorą się z reguł, nie z pamięci. Ćwicz je, aż 書いて pojawi się, zanim zdążysz
+o nim pomyśleć.</p><span class="stopka-karty"><span>Czasowniki, formy, fiszki</span><span aria-hidden="true">›</span></span></div></li><li class="apka" style="--cl:#7E5CC8;--cal:#7455B8;--cd:#4E3265;--cad:#9A80D6"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">助</span><img src="assets/ikony/joshi.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/joshi/">Joshi: Partykuły japońskie</a><span class="co"><span lang="ja">助詞</span> <span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span></span></div></div><div class="dol"><p>Wiedzieć, co znaczy に, to nie to samo co wiedzieć, kiedy jest で. Dziewięćset zdań, jedna luka, cztery partykuły – aż właściwa przychodzi sama.</p><span class="stopka-karty"><span>Gramatyka i ćwiczenia JLPT</span><span aria-hidden="true">›</span></span></div></li><li class="apka" style="--cl:#318326;--cal:#2D7923;--cd:#2E5E38;--cad:#539F4B"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">数</span><img src="assets/ikony/kazoekata.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/kazoekata/">Kazoekata: Liczniki japońskie</a><span class="co"><span lang="ja">数え方</span> <span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span></span></div></div><div class="dol"><p>Przestań zgadywać, jak czyta się japońskie liczniki. 三本 to さんぼん, 六本 to ろっぽん – i stoi za tym reguła.</p><span class="stopka-karty"><span>Liczenie, kanji, ćwiczenia</span><span aria-hidden="true">›</span></span></div></li><li class="apka" style="--cl:#B05E19;--cal:#A15617;--cd:#8E4C27;--cad:#C77B2A"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">崩</span><img src="assets/ikony/kuzushi.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/kuzushi/">Kuzushi: Mowa potoczna</a><span class="co"><span lang="ja">崩し</span> <span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span></span></div></div><div class="dol"><p>Podręcznik uczy 〜ている. Ludzie mówią 〜てる. Kuzushi ćwiczy tę lukę: rozpoznawanie skrótu i wytwarzanie go są liczone osobno, bo to dwie różne umiejętności.</p><span class="stopka-karty"><span>Anime, dorama i skróty</span><span aria-hidden="true">›</span></span></div></li><li class="apka" style="--cl:#906A16;--cal:#886414;--cd:#8D6C16;--cad:#D3A327"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">診</span><img src="assets/ikony/shindan.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/shindan/">Shindan: Poziom japońskiego</a><span class="co"><span lang="ja">診断</span> <span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span></span></div></div><div class="dol"><p>Sprawdź, co ćwiczyć dalej w japońskim. Rozwiąż diagnozę na czas, poznaj słabe strony i szacowany poziom w skali JLPT. Pierwszy arkusz jest darmowy.</p><span class="stopka-karty"><span>Test JLPT: N5 N4 N3 N2 N1</span><span aria-hidden="true">›</span></span></div></li><li class="apka" style="--cl:#325370;--cal:#325370;--cd:#192E3E;--cad:#7692A6"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">敬</span><img src="assets/ikony/keigo.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/keigo/">Keigo: Grzeczność japońska</a><span class="co"><span lang="ja">敬語</span> <span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span></span></div></div><div class="dol"><p>Znać formę to nie to samo co wiedzieć, wobec kogo jej użyć. Za dużo keigo jest błędem
+dokładnie tak samo jak za mało – i to jest ta połowa, której nie uczy nikt.</p><span class="stopka-karty"><span>Japoński formalny do pracy</span><span aria-hidden="true">›</span></span></div></li><li class="apka" style="--cl:#63781E;--cal:#5B6E1C;--cd:#3C4610;--cad:#869642"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">起</span><img src="assets/ikony/kifuku.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/kifuku/">Kifuku: Akcent japoński</a><span class="co"><span lang="ja">起伏</span> <span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span></span></div></div><div class="dol"><p>Poznaj akcent japońskich słów. Porównuj wzorce, ćwicz odmianę i sprawdzaj słuch na nagraniach. Pięć poziomów, nauka offline.</p><span class="stopka-karty"><span>Wymowa, intonacja, słuchanie</span><span aria-hidden="true">›</span></span></div></li><li class="apka" style="--cl:#A95295;--cal:#9B4B88;--cd:#723C68;--cad:#C274AE"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">オ</span><img src="assets/ikony/onomatope.webp" alt="" width="52" height="52" loading="lazy"><div><a class="nazwa" href="apps/onomatope/">Onomatope: Dźwięki i wyrażenia</a><span class="co"><span lang="ja">オノマトペ</span> <span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span></span></div></div><div class="dol"><p>Onomatopeje nie są losowe. 濁点 robi rzecz większą, cięższą i mniej przyjemną – kto to
+rozumie, zgadnie słowo, którego nigdy nie widział. Reszta uczy się trzystu słówek.</p><span class="stopka-karty"><span>Słówka z mangi i anime</span><span aria-hidden="true">›</span></span></div></li></ul><h2 id="zapowiedziane">Co dojdzie do rodziny</h2><p class="pod-naglowkiem">Seria domyka się na szesnastu aplikacjach. Sześć poniżej ma już nazwę, znak i zakres, ale nie ma jeszcze kodu – i dlatego nie mają dat. Kiedy powstaną, staną wyżej, wśród tamtych.</p><ul class="siatka"><li class="apka zapowiedz" style="--cl:#26834D;--cal:#237947;--cd:#0A5330;--cad:#45A073"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">聞</span><img src="assets/ikony/kikitori.webp" alt="" width="52" height="52" loading="lazy"><div><span class="nazwa">Kikitori: Japoński ze słuchu</span><span class="co"><span lang="ja">聞き取り</span></span></div></div><div class="dol"><span class="znacznik">W przygotowaniu</span><p>Rozumienie ze słuchu</p></div></li><li class="apka zapowiedz" style="--cl:#5B66CB;--cal:#5762C3;--cd:#243485;--cad:#7A87D8"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">段</span><img src="assets/ikony/danraku.webp" alt="" width="52" height="52" loading="lazy"><div><span class="nazwa">Danraku: Japoński w akapicie</span><span class="co"><span lang="ja">段落</span></span></div></div><div class="dol"><span class="znacznik">W przygotowaniu</span><p>Czytanie dłuższego tekstu</p></div></li><li class="apka zapowiedz" style="--cl:#BC4C7B;--cal:#AC4671;--cd:#7F294D;--cad:#D36D96"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">作</span><img src="assets/ikony/sakubun.webp" alt="" width="52" height="52" loading="lazy"><div><span class="nazwa">Sakubun: Układanie zdań</span><span class="co"><span lang="ja">作文</span></span></div></div><div class="dol"><span class="znacznik">W przygotowaniu</span><p>Budowanie zdań od zera</p></div></li><li class="apka zapowiedz" style="--cl:#BF4C31;--cal:#AF462D;--cd:#7F3116;--cad:#DC6F4B"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">発</span><img src="assets/ikony/hatsuwa.webp" alt="" width="52" height="52" loading="lazy"><div><span class="nazwa">Hatsuwa: Japoński mówiony</span><span class="co"><span lang="ja">発話</span></span></div></div><div class="dol"><span class="znacznik">W przygotowaniu</span><p>Mówienie, nie tylko wymowa</p></div></li><li class="apka zapowiedz" style="--cl:#A552BD;--cal:#9148A6;--cd:#682E78;--cad:#B972CB"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">筆</span><img src="assets/ikony/hitsujun.webp" alt="" width="52" height="52" loading="lazy"><div><span class="nazwa">Hitsujun: Kolejność kresek</span><span class="co"><span lang="ja">筆順</span></span></div></div><div class="dol"><span class="znacznik">W przygotowaniu</span><p>Hiragana i katakana od zera</p></div></li><li class="apka zapowiedz" style="--cl:#4D7B29;--cal:#4A7627;--cd:#2F4F13;--cad:#71994E"><div class="gorna"><span class="znak-wodny" aria-hidden="true" lang="ja">部</span><img src="assets/ikony/bushu.webp" alt="" width="52" height="52" loading="lazy"><div><span class="nazwa">Bushu: Klucze kanji</span><span class="co"><span lang="ja">部首</span></span></div></div><div class="dol"><span class="znacznik">W przygotowaniu</span><p>Z czego zbudowany jest znak</p></div></li></ul><h2>Nauka japońskiego</h2><p class="pod-naglowkiem">Strony z regułami, tabelami i przykładami. Za darmo i bez aplikacji.</p><ul class="huby"><li class="hub" style="--cl:#7E5CC8;--cal:#7455B8;--cd:#4E3265;--cad:#9A80D6"><h3><a href="nauka/partykuly-japonskie/">Partykuły japońskie: は, が, を, に, で, へ</a></h3><p>Partykuły, które niosą zwykłe japońskie zdanie, i role, w jakich stoją – z przykładami i tłumaczeniem.</p></li><li class="hub" style="--cl:#BC4F56;--cal:#AC484F;--cd:#8E446D;--cad:#D36F73"><h3><a href="nauka/mylace-pary/">Mylące pary w japońskim: は czy が, もう czy まだ</a></h3><p>Pary, które wyglądają wymiennie i nie są – przy każdym zdaniu sytuacja i powód, dla którego druga forma nie pasuje.</p></li><li class="hub" style="--cl:#1D7F7B;--cal:#1A7471;--cd:#385398;--cad:#329D9C"><h3><a href="nauka/formy-czasownika/">Odmiana czasownika japońskiego: tabela form ます, て, た, ない</a></h3><p>Tabela odmiany 書く, 食べる, する i 来る, reguły grup godan i ichidan, każda forma z przykładem i ćwiczenia z odpowiedziami.</p></li><li class="hub" style="--cl:#318326;--cal:#2D7923;--cd:#2E5E38;--cad:#539F4B"><h3><a href="nauka/liczniki-japonskie/">Liczniki japońskie: tabele 1–10, odczyty i przykłady</a></h3><p>Jak przeczytać 3本, 4人 czy 8匹: tabele 1–10 dla つ, 人, 本, 枚, 匹 i 冊, wzory zmian dźwiękowych, 22 liczniki ze zdaniami i ćwiczenia.</p></li><li class="hub" style="--cl:#B05E19;--cal:#A15617;--cd:#8E4C27;--cad:#C77B2A"><h3><a href="nauka/mowa-potoczna/">Japoński potoczny – skróty z anime i rozmowy</a></h3><p>Skróty, które słychać na co dzień, każdy obok pełnej formy, z której powstał.</p><details><summary>Sekcje (5)</summary><ul class="pigulki"><li><a href="nauka/mowa-potoczna/sciagniecia/">Ściągnięcia</a></li><li><a href="nauka/mowa-potoczna/zlania/">Zlania</a></li><li><a href="nauka/mowa-potoczna/udzwiecznienia/">Udźwięcznienia</a></li><li><a href="nauka/mowa-potoczna/zlozone/">Skróty złożone</a></li><li><a href="nauka/mowa-potoczna/opuszczenia/">Opuszczenia</a></li></ul></details></li><li class="hub" style="--cl:#325370;--cal:#325370;--cd:#192E3E;--cad:#7692A6"><h3><a href="nauka/keigo/">Keigo – japońska grzeczność w praktyce</a></h3><p>Formy czczące i skromne oraz wzorce, które nakłada się na większość słów – co powiedzieć i dlaczego akurat to.</p><details><summary>Sekcje (2)</summary><ul class="pigulki"><li><a href="nauka/keigo/slowa/">Słowa czczące i skromne</a></li><li><a href="nauka/keigo/wzorce/">Wzorce grzecznościowe</a></li></ul></details></li><li class="hub" style="--cl:#A95295;--cal:#9B4B88;--cd:#723C68;--cad:#C274AE"><h3><a href="nauka/onomatopeje/">Onomatopeje japońskie – dźwięki z mangi i anime</a></h3><p>Słowa, które naśladują dźwięk i stan – co znaczą i co robi z nimi 濁点.</p><details><summary>Sekcje (8)</summary><ul class="pigulki"><li><a href="nauka/onomatopeje/bol/">Ból</a></li><li><a href="nauka/onomatopeje/drzenie/">Drżenie, dreszcze i zawroty</a></li><li><a href="nauka/onomatopeje/zmeczenie/">Zmęczenie i sen</a></li><li><a href="nauka/onomatopeje/cialo-i-samopoczucie/">Ciało i samopoczucie</a></li><li><a href="nauka/onomatopeje/pary-dzwieczne/">Pary dźwięczne: き–し</a></li><li><a href="nauka/onomatopeje/pary-dzwieczne-ta-ho/">Pary dźwięczne: た–ほ</a></li><li><a href="nauka/onomatopeje/pary-dzwiekowe/">Pary dźwiękonaśladowcze: wiersz か</a></li><li><a href="nauka/onomatopeje/pary-dzwiekowe-ko-to/">Pary dźwiękonaśladowcze: こ–と</a></li></ul></details></li><li class="hub" style="--cl:#BC4F56;--cal:#AC484F;--cd:#8E446D;--cad:#D36F73"><h3><a href="nauka/gramatyka-n5/">Gramatyka japońska N5 – wszystkie punkty z poziomu</a></h3><p>Siedem grup gramatyki N5, od szkieletu zdania po ton wypowiedzi – każdy punkt ze znaczeniem, budową i przykładami.</p><details><summary>Sekcje (7)</summary><ul class="pigulki"><li><a href="nauka/gramatyka-n5/szkielet-zdania/">Szkielet zdania i partykuły</a></li><li><a href="nauka/gramatyka-n5/czas-i-miejsce/">Czas, miejsce i istnienie</a></li><li><a href="nauka/gramatyka-n5/formy-czasownika/">Formy czasownika</a></li><li><a href="nauka/gramatyka-n5/prosby-i-zakazy/">Prośby, pozwolenia i zakazy</a></li><li><a href="nauka/gramatyka-n5/przymiotniki/">Przymiotniki i porównania</a></li><li><a href="nauka/gramatyka-n5/checi-i-zaproszenia/">Chęci, zaproszenia i umiejętności</a></li><li><a href="nauka/gramatyka-n5/powod-i-ton/">Powód, natężenie i ton wypowiedzi</a></li></ul></details></li></ul></div></main>
+<div class="in"><footer><span>Jakub Dwojak · jd-japanese.pl</span><a href="o-autorze/">O autorze</a><a href="co-dalej/">Co dalej</a><a href="nauka/">Nauka japońskiego</a><a href="dokumenty.html">Spis dokumentów</a><a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>@jd_japanese</span></a><div class="wydawca"><p>Wydaje <a href="https://aseity.com.pl/pl/">Aseity</a></p><svg class="kinako" width="28" height="28" aria-hidden="true" focusable="false"><use href="#kinako-spiacy"/></svg></div></footer></div>
 </body>
 </html>

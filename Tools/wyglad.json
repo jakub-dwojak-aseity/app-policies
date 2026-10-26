@@ -1,0 +1,400 @@
+{
+ "_": "Wygenerowane przez Tools/wyglad-z-ui.py z japanese-ui (HEAD) — nie edytować ręcznie.",
+ "zrodla": {
+  "tokens": {
+   "plik": "tokens/tokens.json",
+   "skrot": "3d5c5b34a9bb73a7"
+  },
+  "kinako": {
+   "plik": "Sources/JapaneseUI/Resources/kinako.json",
+   "skrot": "a2cb98144b1fd7fd"
+  }
+ },
+ "apki": {
+  "bunmyaku": {
+   "band": {
+    "light": "#2F74B8",
+    "dark": "#265D8B"
+   },
+   "accentText": {
+    "light": "#2B6AA9",
+    "dark": "#4593CE"
+   }
+  },
+  "bushu": {
+   "band": {
+    "light": "#4D7B29",
+    "dark": "#2F4F13"
+   },
+   "accentText": {
+    "light": "#4A7627",
+    "dark": "#71994E"
+   }
+  },
+  "danraku": {
+   "band": {
+    "light": "#5B66CB",
+    "dark": "#243485"
+   },
+   "accentText": {
+    "light": "#5762C3",
+    "dark": "#7A87D8"
+   }
+  },
+  "hatsuwa": {
+   "band": {
+    "light": "#BF4C31",
+    "dark": "#7F3116"
+   },
+   "accentText": {
+    "light": "#AF462D",
+    "dark": "#DC6F4B"
+   }
+  },
+  "hitsujun": {
+   "band": {
+    "light": "#A552BD",
+    "dark": "#682E78"
+   },
+   "accentText": {
+    "light": "#9148A6",
+    "dark": "#B972CB"
+   }
+  },
+  "joshi": {
+   "band": {
+    "light": "#7E5CC8",
+    "dark": "#4E3265"
+   },
+   "accentText": {
+    "light": "#7455B8",
+    "dark": "#9A80D6"
+   }
+  },
+  "kaname": {
+   "band": {
+    "light": "#BC4F56",
+    "dark": "#8E446D"
+   },
+   "accentText": {
+    "light": "#AC484F",
+    "dark": "#D36F73"
+   }
+  },
+  "katsuyokei": {
+   "band": {
+    "light": "#1D7F7B",
+    "dark": "#385398"
+   },
+   "accentText": {
+    "light": "#1A7471",
+    "dark": "#329D9C"
+   }
+  },
+  "kazoekata": {
+   "band": {
+    "light": "#318326",
+    "dark": "#2E5E38"
+   },
+   "accentText": {
+    "light": "#2D7923",
+    "dark": "#539F4B"
+   }
+  },
+  "keigo": {
+   "band": {
+    "light": "#325370",
+    "dark": "#192E3E"
+   },
+   "accentText": {
+    "light": "#325370",
+    "dark": "#7692A6"
+   }
+  },
+  "kifuku": {
+   "band": {
+    "light": "#63781E",
+    "dark": "#3C4610"
+   },
+   "accentText": {
+    "light": "#5B6E1C",
+    "dark": "#869642"
+   }
+  },
+  "kikitori": {
+   "band": {
+    "light": "#26834D",
+    "dark": "#0A5330"
+   },
+   "accentText": {
+    "light": "#237947",
+    "dark": "#45A073"
+   }
+  },
+  "kuzushi": {
+   "band": {
+    "light": "#B05E19",
+    "dark": "#8E4C27"
+   },
+   "accentText": {
+    "light": "#A15617",
+    "dark": "#C77B2A"
+   }
+  },
+  "onomatope": {
+   "band": {
+    "light": "#A95295",
+    "dark": "#723C68"
+   },
+   "accentText": {
+    "light": "#9B4B88",
+    "dark": "#C274AE"
+   }
+  },
+  "sakubun": {
+   "band": {
+    "light": "#BC4C7B",
+    "dark": "#7F294D"
+   },
+   "accentText": {
+    "light": "#AC4671",
+    "dark": "#D36D96"
+   }
+  },
+  "shindan": {
+   "band": {
+    "light": "#906A16",
+    "dark": "#8D6C16"
+   },
+   "accentText": {
+    "light": "#886414",
+    "dark": "#D3A327"
+   }
+  }
+ },
+ "neutralne": {
+  "background": {
+   "light": "#FBF7F5",
+   "dark": "#161112"
+  },
+  "surface": {
+   "light": "#FFFFFF",
+   "dark": "#221A1C"
+  },
+  "surface2": {
+   "light": "#F4EDEA",
+   "dark": "#2B2224"
+  },
+  "line": {
+   "light": "#E9DEDA",
+   "dark": "#3A2E31"
+  },
+  "text": {
+   "light": "#2A2022",
+   "dark": "#F4ECEB"
+  },
+  "textMuted": {
+   "light": "#6F6164",
+   "dark": "#B6A6A8"
+  }
+ },
+ "kinako": {
+  "rozmiar": 42,
+  "paleta": {
+   "o": "#1F1A1B",
+   "w": "#FFFDFB",
+   "b": "#C8935F",
+   "d": "#6B3F22",
+   "p": "#F6D3E3",
+   "k": "#F4A9BE",
+   "a": "akcent",
+   "g": "#F2C14E",
+   "G": "#C8922B",
+   "s": "#78706E66",
+   "t": "#8EC5E8",
+   "m": "#9A8E90",
+   "O": "#1F1A1B"
+  },
+  "paleta_ciemna": {
+   "O": "#747172"
+  },
+  "emocje": {
+   "standard": [
+    "....OOOO....................OOOO..........",
+    "....OOOO....................OOOO..........",
+    "..OOddppOO................OOppddOO........",
+    "..OOddppOO................OOppddOO........",
+    "..OOddppppOO............OOppppddOO........",
+    "..OOddppppOO............OOppppddOO........",
+    "..OOddppppOOOOOOOOOOOOOOOOppppddOO........",
+    "..OOddppppOOOOOOOOOOOOOOOOppppddOO........",
+    "..OObbppbbbbddddddddddddbbbbppbbOO........",
+    "..OObbppbbbbddddddddddddbbbbppbbOO........",
+    "..OObbbbbbbbwwwwddddwwwwbbbbbbbbOO........",
+    "..OObbbbbbbbwwwwddddwwwwbbbbbbbbOO........",
+    "OObbbbbbwwwwwwwwwwwwwwwwwwwwbbbbbbOO......",
+    "OObbbbbbwwwwwwwwwwwwwwwwwwwwbbbbbbOO......",
+    "OObbbbwwoooowwwwwwwwwwwwoooowwbbbbOO......",
+    "OObbbbwwoooowwwwwwwwwwwwoooowwbbbbOO......",
+    "OObbwwwwoooowwwwwwwwwwwwoooowwwwbbOO......",
+    "OObbwwwwoooowwwwwwwwwwwwoooowwwwbbOO......",
+    "OOwwkkkkwwwwwwwoooooowwwwwwwkkkkwwOOOOOO..",
+    "OOwwkkkkwwwwwwwwoooowwwwwwwwkkkkwwOOOOOO..",
+    "OOwwwwwwwwwwwowwwoowwwowwwwwwwwwwwoobbbbOO",
+    "OOwwwwwwwwwwwowwwoowwwowwwwwwwwwwwoobbbbOO",
+    "..OOwwwwwwwwwoooooooooowwwwwwwwwOOOObbOO..",
+    "..OOwwwwwwwwwwwwwwwwwwwwwwwwwwwwOOOObbOO..",
+    "....OOwwwwwwwwwwwwwwwwwwwwwwwwOO..bbOO....",
+    "....OOwwwwwwwwwwwwwwwwwwwwwwwwOO..bbOO....",
+    "......OOaaaaaaaaaaaaaaaaaaaaOO....bbOO....",
+    "......OOaaaaaaaaaaaaaaaaaaaaOO....bbOO....",
+    "......OOwwwwwwwwggggwwwwwwwwOO....bbOO....",
+    "......OOwwwwwwwwggggwwwwwwwwOO....bbOO....",
+    "....OObbwwwwwwwwGGGGwwwwwwwwbbOO..bbOO....",
+    "....OObbwwwwwwwwGGGGwwwwwwwwbbOO..bbOO....",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOObbOO....",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOObbOO....",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOOOO......",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOOOO......",
+    "..OOwwwwwwwwoowwwwwwwwoowwwwwwwwOO........",
+    "..OOwwwwwwwwoowwwwwwwwoowwwwwwwwOO........",
+    "....OOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+    "....OOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+    "..ssssssssssssssssssssssssssssssss........",
+    "..ssssssssssssssssssssssssssssssss........"
+   ],
+   "radosny": [
+    "....OOOO....................OOOO..........",
+    "....OOOO....................OOOO..........",
+    "..OOddppOO................OOppddOO........",
+    "..OOddppOO................OOppddOO........",
+    "..OOddppppOO............OOppppddOO........",
+    "..OOddppppOO............OOppppddOO........",
+    "..OOddppppOOOOOOOOOOOOOOOOppppddOO........",
+    "..OOddppppOOOOOOOOOOOOOOOOppppddOO........",
+    "..OObbppbbbbddddddddddddbbbbppbbOO........",
+    "..OObbppbbbbddddddddddddbbbbppbbOO........",
+    "..OObbbbbbbbwwwwddddwwwwbbbbbbbbOO........",
+    "..OObbbbbbbbwwwwddddwwwwbbbbbbbbOO........",
+    "OObbbbbbwwwwwwwwwwwwwwwwwwwwbbbbbbOO......",
+    "OObbbbbbwwwwwwwwwwwwwwwwwwwwbbbbbbOO......",
+    "OObbbbwwwwwwwwwwwwwwwwwwwwwwwwbbbbOO......",
+    "OObbbbwwwoowwwwwwwwwwwwwwoowwwbbbbOO......",
+    "OObbwwwwowwowwwwwwwwwwwwowwowwwwbbOO......",
+    "OObbwwwwwwwwwwwwwwwwwwwwwwwwwwwwbbOO......",
+    "OOwwkkkkwwwwwwwoooooowwwwwwwkkkkwwOOOOOO..",
+    "OOwwkkkkwwwwwwwwoooowwwwwwwwkkkkwwOOOOOO..",
+    "OOwwwwwwwwwwowwwwoowwwwowwwwwwwwwwoobbbbOO",
+    "OOwwwwwwwwwwwowwwoowwwowwwwwwwwwwwoobbbbOO",
+    "..OOwwwwwwwwwwoooooooowwwwwwwwwwOOOObbOO..",
+    "..OOwwwwwwwwwwwwwwwwwwwwwwwwwwwwOOOObbOO..",
+    "....OOwwwwwwwwwwwwwwwwwwwwwwwwOO..bbOO....",
+    "....OOwwwwwwwwwwwwwwwwwwwwwwwwOO..bbOO....",
+    "......OOaaaaaaaaaaaaaaaaaaaaOO....bbOO....",
+    "......OOaaaaaaaaaaaaaaaaaaaaOO....bbOO....",
+    "......OOwwwwwwwwggggwwwwwwwwOO....bbOO....",
+    "......OOwwwwwwwwggggwwwwwwwwOO....bbOO....",
+    "....OObbwwwwwwwwGGGGwwwwwwwwbbOO..bbOO....",
+    "....OObbwwwwwwwwGGGGwwwwwwwwbbOO..bbOO....",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOObbOO....",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOObbOO....",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOOOO......",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOOOO......",
+    "..OOwwwwwwwwoowwwwwwwwoowwwwwwwwOO........",
+    "..OOwwwwwwwwoowwwwwwwwoowwwwwwwwOO........",
+    "....OOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+    "....OOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+    "..ssssssssssssssssssssssssssssssss........",
+    "..ssssssssssssssssssssssssssssssss........"
+   ],
+   "smutny": [
+    "....OOOO....................OOOO..........",
+    "....OOOO....................OOOO..........",
+    "..OOddppOO................OOppddOO........",
+    "..OOddppOO................OOppddOO........",
+    "..OOddppppOO............OOppppddOO........",
+    "..OOddppppOO............OOppppddOO........",
+    "..OOddppppOOOOOOOOOOOOOOOOppppddOO........",
+    "..OOddppppOOOOOOOOOOOOOOOOppppddOO........",
+    "..OObbppbbbbddddddddddddbbbbppbbOO........",
+    "..OObbppbbbbddddddddddddbbbbppbbOO........",
+    "..OObbbbbbbbwwwwddddwwwwbbbbbbbbOO........",
+    "..OObbbbbbbbwwwwddddwwwwbbbbbbbbOO........",
+    "OObbbbbbwwoowwwwwwwwwwwwoowwbbbbbbOO......",
+    "OObbbbbboowwwwwwwwwwwwwwwwoobbbbbbOO......",
+    "OObbbbwwwwwwwwwwwwwwwwwwwwwwwwbbbbOO......",
+    "OObbbbwwoooowwwwwwwwwwwwoooowwbbbbOO......",
+    "OObbwwwwoooowwwwwwwwwwwwoooowwwwbbOO......",
+    "OObbwwwwoooowwwwwwwwwwwwoooowwwwbbOO......",
+    "OOwwwwwwtwwwwwwoooooowwwwwwwwwwwwwOOOOOO..",
+    "OOwwwwwwtwwwwwwwoooowwwwwwwwwwwwwwOOOOOO..",
+    "OOwwwwwwwwwwwwwwwoowwwwwwwwwwwwwwwoobbbbOO",
+    "OOwwwwwwwwwwwwoooooooowwwwwwwwwwwwoobbbbOO",
+    "..OOwwwwwwwwwowwwwwwwwowwwwwwwwwOOOObbOO..",
+    "..OOwwwwwwwwwwwwwwwwwwwwwwwwwwwwOOOObbOO..",
+    "....OOwwwwwwwwwwwwwwwwwwwwwwwwOO..bbOO....",
+    "....OOwwwwwwwwwwwwwwwwwwwwwwwwOO..bbOO....",
+    "......OOaaaaaaaaaaaaaaaaaaaaOO....bbOO....",
+    "......OOaaaaaaaaaaaaaaaaaaaaOO....bbOO....",
+    "......OOwwwwwwwwggggwwwwwwwwOO....bbOO....",
+    "......OOwwwwwwwwggggwwwwwwwwOO....bbOO....",
+    "....OObbwwwwwwwwGGGGwwwwwwwwbbOO..bbOO....",
+    "....OObbwwwwwwwwGGGGwwwwwwwwbbOO..bbOO....",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOObbOO....",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOObbOO....",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOOOO......",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOOOO......",
+    "..OOwwwwwwwwoowwwwwwwwoowwwwwwwwOO........",
+    "..OOwwwwwwwwoowwwwwwwwoowwwwwwwwOO........",
+    "....OOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+    "....OOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+    "..ssssssssssssssssssssssssssssssss........",
+    "..ssssssssssssssssssssssssssssssss........"
+   ],
+   "spiacy": [
+    "....OOOO....................OOOO.......mmm",
+    "....OOOO....................OOOO........m.",
+    "..OOddppOO................OOppddOO.....mmm",
+    "..OOddppOO................OOppddOO........",
+    "..OOddppppOO............OOppppddOO..mmmm..",
+    "..OOddppppOO............OOppppddOO....m...",
+    "..OOddppppOOOOOOOOOOOOOOOOppppddOO...m....",
+    "..OOddppppOOOOOOOOOOOOOOOOppppddOO..mmmm..",
+    "..OObbppbbbbddddddddddddbbbbppbbOO........",
+    "..OObbppbbbbddddddddddddbbbbppbbOO........",
+    "..OObbbbbbbbwwwwddddwwwwbbbbbbbbOO........",
+    "..OObbbbbbbbwwwwddddwwwwbbbbbbbbOO........",
+    "OObbbbbbwwwwwwwwwwwwwwwwwwwwbbbbbbOO......",
+    "OObbbbbbwwwwwwwwwwwwwwwwwwwwbbbbbbOO......",
+    "OObbbbwwwwwwwwwwwwwwwwwwwwwwwwbbbbOO......",
+    "OObbbbwwowwowwwwwwwwwwwwowwowwbbbbOO......",
+    "OObbwwwwwoowwwwwwwwwwwwwwoowwwwwbbOO......",
+    "OObbwwwwwwwwwwwwwwwwwwwwwwwwwwwwbbOO......",
+    "OOwwwwwwwwwwwwwoooooowwwwwwwwwwwwwOOOOOO..",
+    "OOwwwwwwwwwwwwwwoooowwwwwwwwwwwwwwOOOOOO..",
+    "OOwwwwwwwwwwwowwwoowwwowwwwwwwwwwwoobbbbOO",
+    "OOwwwwwwwwwwwowwwoowwwowwwwwwwwwwwoobbbbOO",
+    "..OOwwwwwwwwwoooooooooowwwwwwwwwOOOObbOO..",
+    "..OOwwwwwwwwwwwwwwwwwwwwwwwwwwwwOOOObbOO..",
+    "....OOwwwwwwwwwwwwwwwwwwwwwwwwOO..bbOO....",
+    "....OOwwwwwwwwwwwwwwwwwwwwwwwwOO..bbOO....",
+    "......OOaaaaaaaaaaaaaaaaaaaaOO....bbOO....",
+    "......OOaaaaaaaaaaaaaaaaaaaaOO....bbOO....",
+    "......OOwwwwwwwwggggwwwwwwwwOO....bbOO....",
+    "......OOwwwwwwwwggggwwwwwwwwOO....bbOO....",
+    "....OObbwwwwwwwwGGGGwwwwwwwwbbOO..bbOO....",
+    "....OObbwwwwwwwwGGGGwwwwwwwwbbOO..bbOO....",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOObbOO....",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOObbOO....",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOOOO......",
+    "..OObbbbwwwwoowwwwwwwwoowwwwbbbbOOOO......",
+    "..OOwwwwwwwwoowwwwwwwwoowwwwwwwwOO........",
+    "..OOwwwwwwwwoowwwwwwwwoowwwwwwwwOO........",
+    "....OOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+    "....OOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+    "..ssssssssssssssssssssssssssssssss........",
+    "..ssssssssssssssssssssssssssssssss........"
+   ]
+  }
+ }
+}

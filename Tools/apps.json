@@ -31,6 +31,11 @@
   ],
   "bazaAdresu": "https://jd-japanese.pl",
   "autor": "Jakub Dwojak",
+  "nazwaWitryny": "jd-japanese",
+  "wydawca": {
+    "nazwa": "Aseity",
+    "url": {"pl": "https://aseity.com.pl/pl/", "en": "https://aseity.com.pl/en/"}
+  },
   "_kontaktOgolny": [
     "Adres zwrotny witryny — ogolny, nieprzypisany do zadnej aplikacji, w odroznieniu od pola `kontakt` przy kazdej z dziesiatki. Stad bierze go strona Co dalej (poz. 295).",
     "",

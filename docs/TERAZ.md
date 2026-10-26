@@ -7,6 +7,20 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
 **112** (zapowiadanie apek), **113** (wizytówka poza witryną), **189** (strony tematyczne),
 **330** (indeksowanie stron tematycznych).
 
+## Witryna 2.0 — wdrożona 26.10.2026 (`f82c768`, `035e49c`)
+
+Wygląd z makiet `jp-grammar/.planning/witryna/W01`+`W02` (Jakub: „jest ok, wrzucamy”).
+**Kolory apek i Kinako** przychodzą z HEAD `japanese-ui`: `python3 Tools/wyglad-z-ui.py --wykonaj`
+→ `Tools/wyglad.json`; generator **ostrzega**, gdy pakiet poszedł dalej (nie blokuje).
+Kinako na stronach to `<symbol>` ścieżkami (`Tools/wyglad.py`), obroża w kolorze apki.
+**Znak i favicon** = awatar Kinako, głowa na środku (`wyglad.znak_svg`); ikony apek bez zmian.
+**Dokumenty prawne** dostają jeden wiersz `<style data-witryna="2.0">` z `glowy_dokumentow.py`
+(treść nietknięta, `bez_glowy_witryny` go wycina); SpoolCalc go nie dostaje.
+**[779]**: „Wydaje Aseity” w stopce, sekcja w O autorze, `publisher`/`worksFor` — **samo „Aseity”,
+bez sp.j.**; bramka 25: link do Aseity na każdej stronie, `cwicz.to` nigdzie, zero obcych zasobów.
+**SpoolCalc** zdjęty ze spisu dokumentów (Jakub), pliki zostają pod adresami z ASC.
+Odbiór: bramki zielone, `--powtarzalnie` bit w bit, `indeks-witryny.py` kod 0 na żywo.
+
 ## Zgłoszenia odpowiedzi Kaname [713]
 
 Opublikowany komplet `kaname/1.12/` i `kaname/1.12/en/`: polityka, warunki, wsparcie.

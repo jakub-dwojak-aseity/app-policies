@@ -1473,19 +1473,10 @@ def spis_dokumentow(apki, jezyk, manifest):
                       f'<h2>{e(t["nazwa"])}<small lang="ja">{e(a["japonska"])}</small></h2>'
                       f'<ul class="dl">{"".join(pozycje)}</ul></section>')
 
-    # Aplikacje spoza rodziny japońskiej mają w tym repozytorium tylko dokumenty
-    # i tylko w jednym języku. Stoją w spisie, bo dziś stoją w `index.html`, a spis,
-    # który gubi aplikację, jest gorszy od spisu pisanego ręcznie.
-    for inna in manifest.get("pozostale", []):
-        pozycje = []
-        for jezyk_dok, katalog in inna["dokumenty"].items():
-            for plik, klucz in (("privacy.html", "polityka"), ("terms.html", "warunki"),
-                                ("support.html", "wsparcie")):
-                pozycje.append(f'<li><a href="{wzgledny(glebokosc, katalog)}/{plik}">'
-                               f'{e(NAPISY[jezyk_dok][klucz])}</a></li>')
-        sekcje.append(f'<section class="wiersz-dok"><span></span>'
-                      f'<h2>{e(inna["nazwa"][jezyk])}</h2>'
-                      f'<ul class="dl">{"".join(pozycje)}</ul></section>')
+    # Aplikacje spoza rodziny (`pozostale`, dziś SpoolCalc) **nie stoją w spisie** —
+    # Jakub 26.10.2026: „usuń spool calc stamtąd, nie wiem co tam robi”. Ich dokumenty
+    # zostają pod swoimi adresami, bo wskazuje na nie App Store Connect tamtej
+    # aplikacji; znika tylko wejście z witryny rodziny japońskiej.
 
     tresc = ('<div class="in">'
              + f"<section class=\"glowa\"><div><h1>{e(n['spis_tytul'])}</h1>"

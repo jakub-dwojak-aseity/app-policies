@@ -384,13 +384,21 @@ def main() -> int:
         # Wygląd 2.0: wiersz dopisany, gdy go nie ma, i wymieniony, gdy jest inny —
         # ten sam przebieg musi umieć jedno i drugie, bo arkusz się zmienia, a drugi
         # wiersz obok pierwszego byłby cichym rozjazdem.
-        styl = styl_dokumentu(wzgledna)
-        stary_styl = next((l for l in tresc.splitlines() if ZNACZNIK_STYLU in l), None)
+        # Tylko dokumenty rodziny: SpoolCalc (`pozostale`) nie jest apką jd-japanese
+        # i nie nosi jej barw — wiersz, jeśli stoi, jest zdejmowany.
+        rodzina = wyglad.ma_kolor(wzgledna.split("/")[0])
+        styl = styl_dokumentu(wzgledna) if rodzina else None
+        stary_styl = next((l for l in tresc.splitlines(keepends=True) if ZNACZNIK_STYLU in l), None)
         wymieniony = False
-        if stary_styl is None:
+        if stary_styl is not None and styl is None:
+            tresc = tresc.replace(stary_styl, "", 1)
+            wymieniony = True
+        elif stary_styl is None and styl:
             potrzebne.append(styl)
-        elif stary_styl.strip() != styl:
-            tresc = tresc.replace(stary_styl, stary_styl[: len(stary_styl) - len(stary_styl.lstrip())] + styl, 1)
+        elif stary_styl is None:
+            pass
+        elif styl and stary_styl.strip() != styl:
+            tresc = tresc.replace(stary_styl, stary_styl[: len(stary_styl) - len(stary_styl.lstrip())] + styl + "\n", 1)
             wymieniony = True
 
         # **Odjęcie `hreflang`, nie tylko dopisanie — dopisane 17.09.2026.**

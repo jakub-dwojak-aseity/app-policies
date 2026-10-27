@@ -27,8 +27,13 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
   liczebnik we wstępie grupy nauki = liczba haseł (bramka 27); `--zrzuty --apka <slug>` (drzewa sióstr niosą
   kadry NIEWYDANYCH wersji — import całej rodziny je wciąga).
 
-**Zostaje, poza tym repo:** treść /nauka/ z eksportów sióstr ([811]–[818]), Katsuyokei bez `sklep/1.5.0`
-(build z numerem nadpisanym przy archiwizacji — [819]), pytania do Jakuba w [819].
+**Opublikowane 27.10** (`20ab045`, `1bd5048`, wyjątek `indeks-wyjatki.json` na wersje trzyczłonowe):
+Pages zielone, `indeks-witryny.py` na żywo kod 0 (6/6). **Role ([819], Jakub):** autor i sprzedawca Jakub
+Dwojak, jak w ASC; Aseity — firma, którą współprowadzi (stopka, O autorze, `llms.txt`, `publisher: Person`).
+Katsuyokei `sklep/1.5.0` na `38c5e45`; Joshi `sklep/1.5.1` przesunięty na `64af508` (druga maszyna:
+`git fetch --tags --force`). **Zostaje, poza tym repo:** treść /nauka/ z eksportów sióstr ([811]–[818]) —
+po zmianie u siostry: `review-content.py --eksport-www` + przeliczenie witryny; lustra dokumentów w repo
+sióstr (bramka 10, Kazoekata 22/38). ASC Kaname: `supportUrl` 1.10 → 1.12 przy najbliższym złożeniu ([811]).
 
 ## Witryna 2.0 — wdrożona 26.10.2026 (`f82c768`, `035e49c`)
 

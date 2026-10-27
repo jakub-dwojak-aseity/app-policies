@@ -34,6 +34,14 @@ Katsuyokei `sklep/1.5.0` na `38c5e45`; Joshi `sklep/1.5.1` przesunięty na `64af
 `git fetch --tags --force`). **Zostaje, poza tym repo:** treść /nauka/ z eksportów sióstr ([811]–[818]) —
 po zmianie u siostry: `review-content.py --eksport-www` + przeliczenie witryny; lustra dokumentów w repo
 sióstr (bramka 10, Kazoekata 22/38). ASC Kaname: `supportUrl` 1.10 → 1.12 przy najbliższym złożeniu ([811]).
+**Druga i trzecia kontrola live 27.10 (`b999f93`, `f76ff08`, `93444a6`, `336a2d9`):** Shindan 1.2 — polityka,
+warunki, wsparcie i FAQ zgodne z kodem 1.4.0 (przypomnienie lokalne w pełnej wersji; omówienie powstaje SAMO
+raz na nowy wynik; 1 darmowe/mies., pełna 5/dzień i 20/mies.; wsparcie wymienia wyczerpany limit); kopia
+`shindan-ios/docs/app-store/1.2`, `1.4.0` scalone do `main`. Kazoekata 1.4 i Kifuku 1.0: eksport kopii jako
+jedyny wyjątek od „nie opuszcza urządzenia”. Keigo: tekst promocyjny 1.6.0 zapisany w ASC i repo
+(`sklep-opis/1.6.0`), opis 1.6.1 poprawiony w ASC i repo — **na stronę wejdzie z wydaniem 1.6.1**
+(`synchronizuj-sklep.py` → `sklep-opis/1.6.1`). `lastmod` landingu = nowsza z dat opisu i rekordu FAQ
+(`data_faq`, per apka z gita). **APP-12 Kaname otwarte** — przekazane sesji 2.0 ([811]).
 
 ## Witryna 2.0 — wdrożona 26.10.2026 (`f82c768`, `035e49c`)
 

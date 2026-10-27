@@ -47,10 +47,10 @@ NAPISY = {
         "nauka_z_apki": "z aplikacji {apka}",
         "nauka_bez_stron": "Jeszcze bez własnych stron: {apki}.",
         # [poz. 779] — wydawca. Link tylko do Aseity, nigdy do cwicz.to.
-        "wydawca_przed": "Wydaje",
-        "autor_naglowek_wydawca": "Kto wydaje te aplikacje",
-        "autor_wydawca": "Ja piszę aplikacje, a wydaje je Aseity, firma, którą współprowadzę. "
-                         "Na jej stronie są też inne projekty.",
+        "wydawca_przed": "Autor i sprzedawca: {autor}. Współprowadzę też firmę",
+        "autor_naglowek_wydawca": "Kto sprzedaje te aplikacje",
+        "autor_wydawca": ("Aplikacje piszę i sprzedaję ja – w App Store stoją pod moim nazwiskiem. "
+                         "Współprowadzę też firmę Aseity; na jej stronie są inne projekty."),
         # **Bez liczby aplikacji w tytule.** Do 13.09.2026 stało tu „w dziesięciu
         # aplikacjach" — liczba prawdziwa w dniu pisania i fałszywa od dnia, w którym
         # rodzina urosła. Tytuł strony głównej jest najdroższym napisem witryny
@@ -122,8 +122,8 @@ NAPISY = {
         "autor_link": "O autorze",
         "autor_tytul": "O autorze",
         "autor_opis": "Kto pisze te aplikacje i dlaczego jest ich tyle, a nie jedna.",
-        "autor_kim": "Nazywam się Jakub Dwojak i piszę te aplikacje: kod, treść i wszystko, "
-                     "co widać na ekranie. Wydaje je Aseity, firma, którą współprowadzę.",
+        "autor_kim": ("Nazywam się Jakub Dwojak i piszę te aplikacje: kod, treść i wszystko, "
+                     "co widać na ekranie. W App Store sprzedaję je pod własnym nazwiskiem."),
         "autor_naglowek_dlaczego": "Dlaczego osobne aplikacje, a nie jedna",
         "autor_dlaczego_1": "Bo to, czego uczą, to osobne umiejętności, "
                             "a nie zakładki jednego programu. Gramatyka, odmiana, "
@@ -385,10 +385,10 @@ NAPISY = {
         "dalej_chce": "I want this one first",
         "nauka_z_apki": "from {apka}",
         "nauka_bez_stron": "No pages of their own yet: {apki}.",
-        "wydawca_przed": "Published by",
-        "autor_naglowek_wydawca": "Who publishes these apps",
-        "autor_wydawca": "I write the apps, and Aseity, the company I co-run, publishes them. "
-                         "Its site shows its other work too.",
+        "wydawca_przed": "Author and seller: {autor}. I also co-run",
+        "autor_naglowek_wydawca": "Who sells these apps",
+        "autor_wydawca": ("I write and sell the apps myself – they are listed under my name in the App Store. "
+                         "I also co-run Aseity; its site shows its other work."),
         "tytul_mapy": "Japanese in separate apps",
         # Patrz komentarz przy polskim `opis_mapy`: lista bez spójnika zamykającego.
         "opis_mapy": "Apps for learning Japanese, each about one thing: "
@@ -434,8 +434,8 @@ NAPISY = {
         "autor_link": "About",
         "autor_tytul": "About the author",
         "autor_opis": "Who writes these apps, and why there are several rather than one.",
-        "autor_kim": "I am Jakub Dwojak and I write these apps: the code, the content and "
-                     "everything you see on screen. They are published by Aseity, the company I co-run.",
+        "autor_kim": ("I am Jakub Dwojak and I write these apps: the code, the content and "
+                     "everything you see on screen. I sell them in the App Store under my own name."),
         "autor_naglowek_dlaczego": "Why separate apps rather than one",
         "autor_dlaczego_1": "Because what they teach is separate skills, not tabs of "
                             "one program. Grammar, conjugation, particles, counters, reading "

@@ -2,9 +2,9 @@
 
 > Aplikacje do nauki japońskiego, każda o jednej rzeczy: gramatyka, kanji, odmiana, partykuły, keigo, akcent. Jest też test poziomu, od którego można zacząć.
 
-Autor: Jakub Dwojak. Aplikacje na iPhone'a, po polsku i po angielsku. Każdy opis niżej jest tym samym tekstem, który stoi na karcie aplikacji w App Store.
+Autor i sprzedawca: Jakub Dwojak. Aplikacje na iPhone'a, po polsku i po angielsku. Każdy opis niżej to tekst karty aplikacji w App Store dla wersji wydanej.
 
-Wydawca: Aseity (https://aseity.com.pl/pl/).
+Autor współprowadzi firmę Aseity (https://aseity.com.pl/pl/).
 
 ## Aplikacje
 

@@ -859,8 +859,11 @@ def wydawca_html(jezyk, manifest):
     Jakuba, 26.10.2026); bramka 25 pilnuje obu kierunków na wytworze witryny."""
     n = NAPISY[jezyk]
     w = manifest["wydawca"]
-    return (f'<p>{e(n["wydawca_przed"])} '
-            f'<a href="{w["url"][jezyk]}">{e(w["nazwa"])}</a></p>')
+    # Role od 27.10.2026 (audyt TRUST-01, decyzja Jakuba): autorem i sprzedawcą jest
+    # Jakub — tak, jak pokazuje karta App Store (Provider: osoba). Aseity zostaje
+    # z linkiem jako firma, którą współprowadzi, a nie jako wydawca aplikacji.
+    return (f'<p>{e(n["wydawca_przed"].format(autor=manifest["autor"]))} '
+            f'<a href="{w["url"][jezyk]}">{e(w["nazwa"])}</a>.</p>')
 
 
 # ---------------------------------------------------------------- strony
@@ -1280,7 +1283,7 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
                "url": f"{manifest['bazaAdresu']}/{publiczny(kanoniczny)}",
                "inLanguage": jezyk,
                "author": {"@type": "Person", "name": manifest["autor"]},
-               "publisher": wydawca_ld(manifest, jezyk)}
+               "publisher": {"@type": "Person", "name": manifest["autor"]}}
     jsonld = {"@context": "https://schema.org",
               "@graph": [witryna,
                          {k: v for k, v in jsonld.items() if k != "@context"}, faq]}
@@ -1398,7 +1401,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
         "description": metadane.pierwsze_zdanie(t["opis"]),
         "inLanguage": ["pl", "en"],
         "author": {"@type": "Person", "name": manifest["autor"]},
-        "publisher": wydawca_ld(manifest, jezyk),
+        "publisher": {"@type": "Person", "name": manifest["autor"]},
         "offers": {"@type": "Offer", "price": "0", "priceCurrency": "PLN"},
     }
     if a["wSklepie"]:
@@ -2713,11 +2716,11 @@ def llms_txt(apki, manifest, zywe=(), zapowiedziane=()):
     baza = manifest["bazaAdresu"]
     wiersze = [f"# {n['tytul_mapy']}", "",
                f"> {n['opis_mapy']}", "",
-               "Autor: " + manifest["autor"] + ". Aplikacje na iPhone'a, po polsku "
-               "i po angielsku. Każdy opis niżej jest tym samym tekstem, który stoi "
-               "na karcie aplikacji w App Store.", "",
-               # [poz. 779] — wydawca, z adresem spółki.
-               f"Wydawca: {manifest['wydawca']['nazwa']} ({manifest['wydawca']['url']['pl']}).", "",
+               "Autor i sprzedawca: " + manifest["autor"] + ". Aplikacje na iPhone'a, po polsku "
+               "i po angielsku. Każdy opis niżej to tekst karty aplikacji w App Store "
+               "dla wersji wydanej.", "",
+               # [poz. 779], [819] — Aseity jako firma współprowadzona przez autora, nie wydawca.
+               f"Autor współprowadzi firmę {manifest['wydawca']['nazwa']} ({manifest['wydawca']['url']['pl']}).", "",
                "## Aplikacje", ""]
     for a in apki:
         t = a["teksty"]["pl"]

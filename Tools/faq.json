@@ -996,14 +996,15 @@
         "pytanie": "Co jest darmowe i jak działa płatny dostęp?",
         "akapity": [
           "Pierwszy arkusz, z którego da się policzyć wynik, jest bezpłatny. Za darmo widzisz najnowszy wynik.",
-          "Pełna wersja to jednorazowy zakup: każdy kolejny arkusz, pełna historia wyników, wyjaśnienia odpowiedzi, przypomnienie o następnym sprawdzeniu i omówienie wyniku przez AI. Bez abonamentu. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+          "Pełna wersja to jednorazowy zakup: każdy kolejny arkusz, pełna historia wyników, wyjaśnienia odpowiedzi, przypomnienie o następnym sprawdzeniu i więcej omówień wyniku przez AI. Bez abonamentu. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
         ]
       },
       {
         "temat": "ai",
         "pytanie": "Jak działa omówienie wyniku przez AI?",
         "akapity": [
-          "Omówienie należy do pełnej wersji i powstaje raz po każdym nowym wyniku, najwyżej 5 razy dziennie i 20 razy w miesiącu kalendarzowym. Wysyła wyłącznie pomiar – poziom, wyniki obszarów i najczęściej mylone pary odpowiedzi, bez treści pytań. Wymaga internetu; historia czyta zapisane omówienie bez łączenia się z serwerem."
+          "Omówienie powstaje samo, raz po każdym nowym wyniku, gdy jest połączenie z siecią. Za darmo przysługuje jedno omówienie w miesiącu kalendarzowym; pełna wersja daje do 5 dziennie i 20 w miesiącu kalendarzowym.",
+          "Wysyła wyłącznie pomiar – poziom, wyniki obszarów i najczęściej mylone pary odpowiedzi, bez treści pytań. Historia pokazuje zapisane omówienie bez łączenia się z serwerem."
         ]
       },
       {
@@ -1065,14 +1066,15 @@
         "pytanie": "What is free and how does paid access work?",
         "akapity": [
           "Your first sheet that produces a result is free, and you can see your latest result.",
-          "The full version is a one-time purchase: every further sheet, your full result history, answer explanations, a reminder for the next check-up and an AI debrief of your result. No subscription. You will see the current price in your App Store currency in the app before you confirm the purchase."
+          "The full version is a one-time purchase: every further sheet, your full result history, answer explanations, a reminder for the next check-up and more AI debriefs of your results. No subscription. You will see the current price in your App Store currency in the app before you confirm the purchase."
         ]
       },
       {
         "temat": "ai",
         "pytanie": "How does the AI debrief work?",
         "akapity": [
-          "The debrief is part of the full version and is created once for each new result, at most 5 times a day and 20 times per calendar month. It sends only the measurement – your level, area scores and your most-confused answer pairs, no question content. It needs a connection; history shows the saved debrief without contacting the server."
+          "The debrief is created automatically, once for each new result, when there is a network connection. One debrief per calendar month is free; the full version gives up to 5 a day and 20 per calendar month.",
+          "It sends only the measurement – your level, area scores and your most-confused answer pairs, no question content. History shows the saved debrief without contacting the server."
         ]
       },
       {

@@ -40,16 +40,16 @@
 <body>
 <main>
 <h1>Polityka prywatności</h1>
-<p class="updated"><strong>Shindan 診断</strong> · wersja 1.2 · ostatnia zmiana: 17 września 2026</p>
+<p class="updated"><strong>Shindan 診断</strong> · wersja 1.2 · ostatnia zmiana: 27 października 2026</p>
 
 <p>Shindan 診断 mierzy twój japoński: jeden arkusz pod zegarem, a na końcu poziom i jedna rzecz
 warta poprawienia najpierw. <strong>Cały pomiar dzieje się na twoim urządzeniu i bez internetu.</strong>
-Od wersji 1.2 dochodzi jedna funkcja opcjonalna, która się z niego korzysta — omówienie wyniku.
+Od wersji 1.2 dochodzi jedna funkcja, która korzysta z internetu — omówienie wyniku.
 Opisuje ją osobna sekcja niżej i jest to <strong>jedyne miejsce, w którym cokolwiek wychodzi
 z telefonu</strong>.</p>
 
 <div class="note">Krótko: bez konta, bez analityki, bez reklam, bez śledzenia. Poza omówieniem
-wyniku, które uruchamiasz sam, aplikacja nie wysyła żadnego żądania sieciowego — pozostały ruch
+wyniku, które powstaje po zakończonym arkuszu, aplikacja nie wysyła żadnego żądania sieciowego — pozostały ruch
 obsługuje App Store przy zakupie.</div>
 
 <h2>Twoje konto</h2>
@@ -59,7 +59,7 @@ rozpoznać.</p>
 <h2>Gdzie trafiają twoje wyniki</h2>
 <p>Zostają na urządzeniu. Twoje odpowiedzi, wyniki i historia arkuszy nie są nigdzie wysyłane,
 nie synchronizują się z iCloud i nie mam do nich dostępu — nie ma konta, więc nie ma czego
-synchronizować. Jedyny wyjątek jest nazwany wprost i uruchamiasz go sam: omówienie wyniku, opisane
+synchronizować. Jedyny wyjątek jest nazwany wprost: omówienie wyniku, opisane
 niżej. Usunięcie aplikacji kasuje te dane razem z nią.</p>
 
 <h2>Moje pozostałe aplikacje</h2>
@@ -76,8 +76,9 @@ i nic nie jest strumieniowane</strong>.</p>
 <p>Od wersji 1.2 po zamkniętym arkuszu możesz dostać <strong>zdanie o tym, co łączy twoje
 pomyłki</strong> — wzorzec, który przez nie przechodzi, zamiast samego rankingu sekcji.
 Przygotowuje je model językowy i to jest <strong>jedyna funkcja aplikacji, która łączy się
-z siecią</strong>. Uruchamia się wyłącznie wtedy, gdy sam ją otworzysz; nigdy w tle i nigdy
-sama.</p>
+z siecią</strong>. Powstaje raz na każdy nowy wynik: gdy po zakończonym arkuszu otworzy się ekran wyniku
+i jest połączenie z siecią. Nigdy w tle i nigdy przy przeglądaniu historii — ta pokazuje
+tylko zapisane omówienie.</p>
 
 <p><strong>Co jedzie:</strong> wynik pomiaru. Twój poziom, a dla każdej sekcji jej znak
 (助詞, 活用), ile pytań zadano, ile poszło dobrze, i najwyżej cztery <strong>pomylone
@@ -114,7 +115,11 @@ identyfikatora śledzącego.</p>
 Shindan nigdy nie widzi twoich danych płatniczych — pyta wyłącznie StoreKit, czy zakup istnieje.</p>
 
 <h2>Powiadomienia</h2>
-<p>Nie ma żadnych. Shindan mierzy raz; nie ma o czym przypominać.</p>
+<p>Jedyne powiadomienie to <strong>przypomnienie o następnym pomiarze</strong> — należy do pełnej
+wersji i jest domyślnie wyłączone. Gdy je włączysz, aplikacja poprosi o zgodę na powiadomienia
+i zaplanuje je lokalnie, na telefonie: pierwsze w wybranym terminie, a jeśli je przegapisz,
+jeszcze trzy, co tydzień. Przypomnienie nie korzysta z internetu i nic z jego powodu nie
+wychodzi z telefonu. Wyłączysz je w Ustawieniach aplikacji albo systemu.</p>
 
 <h2>Dzieci</h2>
 <p>Aplikacja ma kategorię 4+ i nie zbiera danych pozwalających kogokolwiek zidentyfikować —

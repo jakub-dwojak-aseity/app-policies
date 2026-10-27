@@ -503,7 +503,9 @@ def zbierz(manifest):
         apki.append({**wpis, "teksty": teksty, "repoSciezka": repo, "podpisy": podpisy,
                      "faq": faq, "wymagania": wymagania_systemu(repo, ref),
                      "stanSklepowy": ref, "stanOpisu": ref_opisu,
-                     "data": data_zrodla(repo, plik, ref_opisu)})
+                     # Strona zmienia się z opisem ALBO z FAQ — data jest późniejszą z dwóch.
+                     "data": max(filter(None, (data_zrodla(repo, plik, ref_opisu),
+                                               data_faq(wpis["slug"]))))})
     return apki
 
 
@@ -3088,6 +3090,34 @@ def wymagania_systemu(repo: Path, ref: str) -> dict:
     ios = max(cele, key=klucz)
     ios = ios[:-2] if ios.endswith(".0") else ios
     return {"ios": ios, "ipad": any("2" in r.split(",") for r in rodziny)}
+
+
+def data_faq(slug: str) -> str | None:
+    """Dzień, w którym rekord FAQ tej apki przybrał dzisiejsze brzmienie — z historii gita.
+
+    `lastmod` strony produktowej szedł do 27.10.2026 wyłącznie z daty tekstów sklepowych,
+    więc przepisane tego dnia FAQ dwudziestu stron nie dawało wyszukiwarce żadnego sygnału.
+    Liczymy PER APKA (porównanie treści rekordu, nie samego pliku), żeby zmiana FAQ jednej
+    apki nie podbijała daty dziewięciu pozostałym. Rekord jeszcze niezacommitowany dostaje
+    dzisiejszą datę — to jedyny przypadek, w którym wynik zależy od dnia, i znika po commicie.
+    """
+    import datetime
+    biezacy = faq_rekordy().get(slug)
+    sciezka = FAQ.relative_to(KORZEN).as_posix()
+    w_head = subprocess.run(["git", "-C", str(KORZEN), "show", f"HEAD:{sciezka}"],
+                            capture_output=True, text=True)
+    if w_head.returncode != 0 or json.loads(w_head.stdout).get(slug) != biezacy:
+        return datetime.date.today().isoformat()
+    data = None
+    for wiersz in subprocess.run(["git", "-C", str(KORZEN), "log", "--format=%H %cs", "--", sciezka],
+                                 capture_output=True, text=True).stdout.splitlines():
+        h, dzien = wiersz.split()
+        tresc = subprocess.run(["git", "-C", str(KORZEN), "show", f"{h}:{sciezka}"],
+                               capture_output=True, text=True).stdout
+        if json.loads(tresc).get(slug) != biezacy:
+            break
+        data = dzien
+    return data
 
 
 def pytania_apki(a, jezyk):

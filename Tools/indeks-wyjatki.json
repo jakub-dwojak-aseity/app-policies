@@ -10,8 +10,8 @@
 
   "poza-mapa-swiadomie": [
     {
-      "wzorzec": "^[a-z0-9-]+/(\\d+\\.\\d+/)?(pl/|en/)?(privacy|terms|support)\\.html$",
-      "powod": "Dokumenty prawne są podlinkowane ze spisu i indeksowalne, ale do mapy witryny nie należą — ich adresy siedzą w `privacyPolicyUrl` w App Store Connect i są wersjonowane per wydanie, więc mapa niosłaby historię zamiast stanu. Nieobecność jest decyzją, nie luką: Tools/glowy_dokumentow.py:8-12.",
+      "wzorzec": "^[a-z0-9-]+/(\\d+(\\.\\d+)+/)?(pl/|en/)?(privacy|terms|support)\\.html$",
+      "powod": "Dokumenty prawne są podlinkowane ze spisu i indeksowalne, ale do mapy witryny nie należą — ich adresy siedzą w `privacyPolicyUrl` w App Store Connect i są wersjonowane per wydanie, więc mapa niosłaby historię zamiast stanu. Nieobecność jest decyzją, nie luką: Tools/glowy_dokumentow.py:8-12. Wersja katalogu bywa trzyczłonowa (joshi/1.5.1, katsuyokei/1.5.0) — wzorzec przyjmuje obie postacie od 27.10.2026 [810].",
       "pozycja": "§8 konwencji"
     }
   ],

@@ -142,6 +142,52 @@ def styl_dokumentu(wzgledna: str) -> str:
 
 
 WYJSCIE = ('<br><a href="{apka}">{nazwa}</a> · <a href="{mapa}">{witryna}</a>')
+#: Baner wersji archiwalnej (audyt witryny 26.10.2026, DOC-01). Jeden wiersz pod `<h1>`,
+#: oznaczony `data-witryna=`, więc `bez_glowy_witryny` wycina go przed porównaniem
+#: z kopią w repozytorium apki — treść archiwum zostaje bajt w bajt. Tylko wersje
+#: STARSZE od bieżącej: dokument przyszły (wersja w recenzji) archiwum nie jest.
+ZNACZNIK_ARCHIWUM = 'data-witryna="archiwum"'
+ARCHIWUM = {
+    "pl": ('<p class="note" ' + ZNACZNIK_ARCHIWUM + '>Wersja archiwalna — dotyczy starszych '
+           'wydań aplikacji. Aktualny dokument: <a href="{adres}">{adres_krotki}</a>.</p>'),
+    "en": ('<p class="note" ' + ZNACZNIK_ARCHIWUM + '>Archived version — applies to earlier '
+           'releases of the app. Current document: <a href="{adres}">{adres_krotki}</a>.</p>'),
+}
+
+
+def wersja_katalogu(wzgledna: str) -> tuple:
+    """Numer wersji z drugiego członu ścieżki (`kaname/1.12/…` → (1, 12)); katalog bez numeru → ()."""
+    czlony = wzgledna.split("/")
+    if len(czlony) > 2 and re.fullmatch(r"\d+(\.\d+)+", czlony[1]):
+        return tuple(int(x) for x in czlony[1].split("."))
+    return ()
+
+
+def baner_archiwum(wzgledna: str, wpis, m: dict, baza: str) -> str | None:
+    """Wiersz banera dla dokumentu starszego niż bieżący tej samej apki i języka — albo None."""
+    if not wpis:
+        return None
+    slug, jezyk = wpis
+    apka = next((a for a in m["aplikacje"] if a["slug"] == slug), None)
+    if not apka or jezyk not in apka["dokumenty"]:
+        return None
+    biezacy = apka["dokumenty"][jezyk]
+    plik = wzgledna.rsplit("/", 1)[-1]
+    if wersja_katalogu(wzgledna) >= wersja_katalogu(biezacy + "/x") and wersja_katalogu(wzgledna):
+        return None                       # dokument przyszły albo równoległy — nie archiwum
+    adres = f"{baza}/{biezacy}/{plik}"
+    return ARCHIWUM[jezyk].format(adres=adres, adres_krotki=html.escape(adres.split("://", 1)[1]))
+
+
+def wstaw_pod_h1(tresc: str, wiersz: str) -> str:
+    """Wiersz zaraz pod JEDNOLINIJKOWYM `<h1>…</h1>`, z jego wcięciem — inaczej odmowa."""
+    linie = tresc.split("\n")
+    trafienia = [i for i, w in enumerate(linie) if "<h1" in w]
+    if len(trafienia) != 1 or "</h1>" not in linie[trafienia[0]]:
+        raise ValueError("baner archiwum: oczekiwano jednego jednolinijkowego <h1>")
+    i = trafienia[0]
+    wciecie = linie[i][: len(linie[i]) - len(linie[i].lstrip())]
+    return "\n".join(linie[: i + 1] + [wciecie + wiersz] + linie[i + 1:])
 
 
 def manifest() -> dict:
@@ -367,9 +413,17 @@ def main() -> int:
         if ma_canonical and adres not in tresc:
             bledy.append(f"{wzgledna}: ma canonical na inny adres niż własny")
             continue
+        # Dokument, który właśnie stał się bieżący (apps.json przestawiony na nowszy
+        # katalog), niesie jeszcze `noindex` z czasów, gdy był przyszły. Zdejmujemy
+        # wyłącznie NASZ wiersz, co do znaku — każdy inny `noindex` to ręka i błąd.
+        zdjety_noindex = False
         if ma_noindex and not przestarzaly:
-            bledy.append(f"{wzgledna}: dokument bieżący ma noindex")
-            continue
+            nasz = [l for l in tresc.splitlines(keepends=True) if l.strip() == NOINDEX]
+            if not nasz or tresc.count("noindex") != 1:
+                bledy.append(f"{wzgledna}: dokument bieżący ma noindex")
+                continue
+            tresc = tresc.replace(nasz[0], "", 1)
+            ma_noindex, zdjety_noindex = False, True
 
         potrzebne = []
         if not ma_canonical:
@@ -423,6 +477,18 @@ def main() -> int:
                 tresc = tresc.replace(wiersz, "", 1)
 
         wpis = ctx["apka"].get(wzgledna)
+
+        # Baner archiwum: dopisany, wymieniony albo zdjęty — tak samo jak wiersz stylu.
+        baner = baner_archiwum(wzgledna, wpis, m, baza) if przestarzaly else None
+        stary_baner = next((l for l in tresc.splitlines(keepends=True) if ZNACZNIK_ARCHIWUM in l), None)
+        baner_do_wstawienia = None
+        if stary_baner is not None and (baner is None or stary_baner.strip() != baner):
+            tresc = tresc.replace(stary_baner, "", 1)
+            wymieniony = True
+            stary_baner = None
+        if baner and stary_baner is None:
+            baner_do_wstawienia = baner
+
         zajawka = opis_dokumentu(tresc) if not (ma_opis and ma_og) else ""
         if not ma_opis and zajawka:
             potrzebne.append(OPIS.format(tresc=html.escape(zajawka, quote=True)))
@@ -449,7 +515,8 @@ def main() -> int:
                 mapa=f"{baza}/{przedrostek}",
                 witryna=html.escape(NAPISY[jezyk]["tytul_mapy"]))
 
-        if not potrzebne and not wyjscie and not odjete and not wymieniony:
+        if not potrzebne and not wyjscie and not odjete and not wymieniony \
+                and not zdjety_noindex and not baner_do_wstawienia:
             pominiete += 1
             continue
 
@@ -460,6 +527,8 @@ def main() -> int:
             nowa = wstaw(tresc, potrzebne) if potrzebne else tresc
             if wyjscie:
                 nowa = dopisz_do_stopki(nowa, wyjscie)
+            if baner_do_wstawienia:
+                nowa = wstaw_pod_h1(nowa, baner_do_wstawienia)
         except ValueError as blad:
             bledy.append(f"{wzgledna}: {blad}")
             continue

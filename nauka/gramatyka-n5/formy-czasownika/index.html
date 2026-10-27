@@ -78,7 +78,7 @@ p { margin: .75rem 0; }
 .instagram svg { width: 20px; height: 20px; flex: none; }
 @media (max-width: 600px) { .gora .zbedne { display: none; } }
 .pas { background: var(--c); color: #fff; }
-.pas .gora a, .pas .gora .logo { color: rgb(255 255 255 / .88); }
+.pas .gora a, .pas .gora .logo { color: #fff; }
 .pas .gora .powrot { color: #fff; }
 .pas a { color: #fff; }
 .cienki { border-top: 6px solid var(--c); }
@@ -94,10 +94,13 @@ p { margin: .75rem 0; }
 .znacznik { display: inline-flex; align-items: center; font-size: .8rem; font-weight: 600;
             padding: .3rem .65rem; border-radius: 999px; color: var(--ca);
             background: color-mix(in srgb, var(--c) 12%, var(--surface)); }
-.pas .znacznik { color: #fff; background: rgb(255 255 255 / .18); }
+/* Tło znacznika na paśmie: pasmo przyciemnione, nie biel .18 — ta rozjaśniała tło pod białym
+   tekstem do 3,4–3,5:1 (audyt 26.10.2026, WEB-03). Pilnuje bramka 26. */
+.pas .znacznik { color: #fff; background: color-mix(in srgb, var(--c) 80%, #000); }
 .sklep { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 1.4rem 0 0; }
 .darmowe { flex-basis: 100%; color: var(--text-muted); font-size: .9rem; }
-.pas .darmowe { color: rgb(255 255 255 / .9); }
+.wymagania { font-size: .85rem; font-weight: 600; }
+.pas .darmowe { color: #fff; }
 .platformy { display: inline-flex; gap: .3em; vertical-align: .02em; color: var(--text-muted); }
 .pas .platformy { color: #fff; }
 .platforma { display: inline-flex; }
@@ -126,6 +129,7 @@ p { margin: .75rem 0; }
 .start ol li::before { content: counter(list-item) " · "; }
 .start ol li + li::before { content: "→ " counter(list-item) " · "; }
 .start .btn { padding: 10px 16px; font-size: .92rem; }
+.start-podstawy { margin: 4px 0 0; font-size: .85rem; color: var(--text-muted); }
 .siatka { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 0; margin: 0; list-style: none; }
 @media (max-width: 900px) { .siatka { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .siatka { grid-template-columns: 1fr; } }
@@ -133,17 +137,21 @@ p { margin: .75rem 0; }
         border: 1px solid var(--line); display: flex; flex-direction: column; transition: transform .15s; }
 .apka:hover { transform: translateY(-2px); }
 @media (prefers-reduced-motion: reduce) { .apka { transition: none; } .apka:hover { transform: none; } }
-.apka .gorna { background: var(--c); color: #fff; padding: 16px 16px 14px; position: relative; overflow: hidden;
+.apka .gorna { background: var(--c); color: #fff; padding: 16px 16px 14px; overflow: hidden;
                display: flex; gap: 12px; align-items: center; min-height: 86px; }
-.apka .znak-wodny { position: absolute; right: -6px; bottom: -22px; font: 700 92px/1 var(--font-jp); opacity: .14;
-                    pointer-events: none; }
+/* Znak wodny liczony od KARTY, nie od pasma: pasmo nie może być pozycjonowane, bo łapałoby
+   warstwę linku nazwy (niżej) — do 27.10.2026 klikał się tylko blok tytułu, ~221×66 px
+   z ~319×271 (audyt WEB-01). Wysokość z `overflow: hidden` przycina znak tak jak dawniej
+   pasmo: 16 + 70 = 86 px, czyli `min-height` pasma. */
+.apka .znak-wodny { position: absolute; right: -6px; top: 16px; height: 70px; overflow: hidden;
+                    font: 700 92px/92px var(--font-jp); opacity: .14; pointer-events: none; }
 .apka .gorna img { width: 52px; height: 52px; border-radius: 14px; flex: none; position: relative;
                    box-shadow: 0 0 0 2px rgb(255 255 255 / .35); }
-.apka .gorna > div { position: relative; min-width: 0; }
+.apka .gorna > div { min-width: 0; }
 .apka .nazwa { display: block; color: #fff; text-decoration: none; font: 700 1.15rem/1.15 var(--font-display); }
-.apka .co { display: block; opacity: .9; font-size: .85rem; margin-top: 2px; }
+.apka .co { display: block; font-size: .85rem; margin-top: 2px; }
 .apka .gorna .platformy, .apka .gorna .znacznik { color: #fff; }
-.apka .gorna .znacznik { background: rgb(255 255 255 / .18); margin-top: 6px; }
+.apka .gorna .znacznik { background: color-mix(in srgb, var(--c) 80%, #000); margin-top: 6px; }
 .apka .dol { padding: 14px 16px 16px; display: grid; gap: 10px; flex: 1; }
 .apka .dol .znacznik { justify-self: start; }
 .apka .dol p { margin: 0; font-size: .93rem; line-height: 1.5; color: var(--text-muted); }
@@ -154,6 +162,8 @@ p { margin: .75rem 0; }
    Tylko tam, gdzie nazwa jest linkiem (§15 konwencji: co wygląda na dotykalne,
    musi być dotykalne — i odwrotnie). */
 a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.apka:has(a.nazwa:focus-visible) { outline: 3px solid var(--ca); outline-offset: 2px; }
+.apka a.nazwa:focus-visible { outline: none; }
 .zapowiedz { border-style: dashed; border-width: 2px; }
 .zapowiedz:hover { transform: none; }
 .zapowiedz .gorna { background: repeating-linear-gradient(135deg, var(--c) 0 14px, color-mix(in srgb, var(--c) 86%, #000) 14px 28px); }
@@ -204,9 +214,9 @@ a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: inher
 @media (max-width: 700px) { .szyld-apki { grid-template-columns: 1fr; } .szyld-apki .mowi { justify-self: end; } }
 .szyld-apki .ikona { width: 84px; height: 84px; border-radius: 22px; display: block; margin-bottom: 16px;
                      box-shadow: 0 0 0 3px rgb(255 255 255 / .3); }
-.szyld-apki .jp { color: rgb(255 255 255 / .8); }
-.szyld-apki .podtytul { color: rgb(255 255 255 / .92); font-size: 1.1rem; margin: .5rem 0 0; }
-.pas .lead { color: rgb(255 255 255 / .92); }
+.szyld-apki .jp { color: #fff; }
+.szyld-apki .podtytul { color: #fff; font-size: 1.1rem; margin: .5rem 0 0; }
+.pas .lead { color: #fff; }
 .mowi { display: flex; gap: 10px; align-items: flex-end; }
 .dymek { background: var(--surface); color: var(--text); border: 1px solid var(--line);
          border-radius: 16px 16px 16px 4px; padding: 10px 12px; font-size: .9rem; line-height: 1.4;
@@ -285,8 +295,8 @@ ruby rt { font-size: .5em; color: var(--text-muted); }
 .cta h2 { margin: 0 0 4px; font-size: 1.2rem; }
 .cta p { margin: 0; }
 .cta .sklep { margin: 0; }
-.cta .znacznik { color: #fff; background: rgb(255 255 255 / .18); }
-.cta .darmowe { color: rgb(255 255 255 / .9); }
+.cta .znacznik { color: #fff; background: color-mix(in srgb, var(--c) 80%, #000); }
+.cta .darmowe { color: #fff; }
 
 /* strony pozostałe (W02) */
 .glowa { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; padding: 18px 0 8px; }

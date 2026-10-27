@@ -28,13 +28,15 @@ NAPISY = {
         "przycisk_aplikacje": "Zobacz aplikacje",
         "start_naglowek": "Nie wiesz, od czego zacząć?",
         "start_krok_1": "Sprawdź poziom w Shindanie",
-        "start_krok_2": "Fundament: {apki}",
+        "start_krok_2": "Potem aplikacja na to, co Cię blokuje: {apki}",
         "start_krok_3": "Reszta, kiedy przyjdzie pora",
+        "start_podstawy": "Aplikacje zakładają, że czytasz hiraganę i katakanę.",
+        "start_cele": {"kaname": "gramatyka", "katsuyokei": "odmiana", "joshi": "partykuły", "kazoekata": "liczniki"},
         "start_przycisk": "Test poziomu",
         "wybor_opis": "Każda aplikacja uczy jednej rzeczy. Kolor mówi, której.",
         "nauka_mapa_opis": "Strony z regułami, tabelami i przykładami. Za darmo i bez aplikacji.",
-        "kinako_apka": "Jestem Kinako. Prowadzę cię w każdej aplikacji rodziny.",
-        "kinako_autor": "A ja jestem Kinako. Prowadzę cię po każdej z nich.",
+        "kinako_apka": "Jestem Kinako. Prowadzę Cię po tej witrynie.",
+        "kinako_autor": "A ja jestem Kinako. Pokazuję Ci drogę po tej witrynie.",
         "kinako_dalej": "Napisz, czego ci brakuje. Każdy mail trafia do Jakuba.",
         "kinako_nauka": "Wszystko tu jest za darmo. Bez aplikacji też się nauczysz.",
         "kinako_404": "Tej strony tu nie ma. Wszystko, co jest, stoi niżej.",
@@ -77,7 +79,8 @@ NAPISY = {
         "w_sklepie_google": "Google Play",
         # Nagłówki nad galeriami. Stoją nad kadrami tylko wtedy, gdy platform jest
         # więcej niż jedna — przy jednej byłyby szumem nad rzeczą oczywistą.
-        "urzadzenie_ios": "iPhone i iPad",
+        "urzadzenie_ios": "iPhone",
+        "wymagania_ios": "iPhone · iOS {ios}+",
         "urzadzenie_android": "Android",
         # Nazwa systemu dla CZYTNIKA EKRANU przy ikonce platformy. Osobna od
         # `urzadzenie_*`, bo tamto jest nagłówkiem nad galerią („iPhone i iPad"),
@@ -102,8 +105,8 @@ NAPISY = {
         "odpowiedz_wyboru": "Każda uczy jednej rzeczy i mierzy ją osobno:",
         "zrzut": "zrzut ekranu",
         "opis_naglowek": "Opis ze sklepu",
-        "opis_stopka": "Powyższy opis jest tym samym tekstem, który stoi na karcie aplikacji "
-                       "w App Store – pochodzi z tego samego pliku.",
+        "opis_stopka": "Powyższy opis to tekst karty aplikacji w App Store dla wersji {wersja}.",
+        "powieksz_zrzut": "Powiększ zrzut ekranu: {podpis}",
         "dokumenty": "Dokumenty",
         "polityka": "Polityka prywatności",
         "warunki": "Warunki korzystania",
@@ -127,10 +130,10 @@ NAPISY = {
                             "partykuły, liczniki, czytanie w kontekście, mowa potoczna, keigo, "
                             "akcent i onomatopeje ćwiczą się inaczej, mierzą się inaczej "
                             "i przydają się w innym momencie nauki.",
-        "autor_dlaczego_2": "Aplikacja, która robi to wszystko naraz, zaczyna się od ekranu "
-                            "z wyborem i każdą z tych rzeczy robi trochę gorzej. Osobne "
-                            "aplikacje kosztują tyle kompletów wydań i dokumentów, ile "
-                            "jest aplikacji – ale ten koszt płacę ja, nie Ty.",
+        "autor_dlaczego_2": ("Dlatego każda z tych umiejętności ma własną aplikację, z własnym sposobem "
+                            "ćwiczenia i pomiaru, zamiast jednego ekranu z wyborem na starcie. "
+                            "Osobne aplikacje kosztują tyle kompletów wydań i dokumentów, ile "
+                            "jest aplikacji – ale ten koszt płacę ja, nie Ty."),
         "autor_naglowek_jak": "Jak są zrobione",
         "autor_jak": "Wszystkie działają bez konta, bez reklam i bez śledzenia, a nauka "
                      "i powtórki nie potrzebują internetu. Nie jest to obietnica na tej "
@@ -172,18 +175,18 @@ NAPISY = {
                         "przetłumaczenia i sprawdzenia. Jeden mail z prośbą jest wart więcej "
                         "niż moje domysły o tym, czy ktoś tego chce.",
         "dalej_szostka_naglowek": "Która z zapowiedzianych pierwsza",
-        "dalej_szostka": "Sześć aplikacji ma już nazwę, znak i zakres, a nie ma jeszcze kodu "
-                         "– stoją niżej na mapie rodziny. Kolejność, w jakiej powstaną, nie "
-                         "jest przesądzona. Jeśli któraś jest Ci potrzebna wcześniej niż "
-                         "reszta, powiedz która.",
+        "dalej_szostka": ("Sześć aplikacji ma już nazwę, znak i zakres – są w sekcji „Co dojdzie "
+                         "do rodziny”. Kolejność, w jakiej powstaną, nie jest przesądzona. "
+                         "Jeśli któraś jest Ci potrzebna wcześniej niż reszta, powiedz która."),
         "dalej_otwarte_naglowek": "Czego brakuje",
         "dalej_otwarte": "Pole otwarte na to, czego nie przewidziałem. Błąd w treści, "
                          "brakująca funkcja, coś, co przeszkadza codziennie – wszystko jedno.",
         "dalej_napisz": "Napisz",
-        "dalej_bez_licznika": "Nie ma tu licznika ani żadnego śledzenia – ta witryna nie "
-                              "zapisuje niczego o odwiedzających. Liczę maile, i tyle.",
-        "autor_kontakt": "Najszybciej mailem. Każda aplikacja ma własny adres – znajdziesz "
-                         "go na jej stronie i w jej dokumentach.",
+        "dalej_bez_licznika": ("Ta witryna nie ma licznika odwiedzin, analityki, ciasteczek ani reklam. "
+                              "Serwer, na którym stoi (GitHub Pages), prowadzi własne dzienniki "
+                              "techniczne. Liczę maile, i tyle."),
+        "autor_kontakt": ("Najszybciej mailem: {adres}. Sprawę jednej aplikacji najlepiej wyślij "
+                         "na jej własny adres – znajdziesz go na jej stronie i w jej dokumentach."),
         "do_tresci": "Przejdź do treści",
         "nawigacja": "Witryna",
 
@@ -199,9 +202,8 @@ NAPISY = {
         # jest kartami. **Sześć, nie cztery:** tamten akapit gubił pismo od zera
         # i kanji, a mówił 会話 tam, gdzie dziś stoi 発話.
         "dojdzie_naglowek": "Co dojdzie do rodziny",
-        "dojdzie_opis": "Seria domyka się na szesnastu aplikacjach. Sześć poniżej ma już "
-                        "nazwę, znak i zakres, ale nie ma jeszcze kodu – i dlatego nie mają "
-                        "dat. Kiedy powstaną, staną wyżej, wśród tamtych.",
+        "dojdzie_opis": "Seria domyka się na szesnastu aplikacjach. Te sześć jest zaplanowanych i nie ma jeszcze terminów.",
+        "dojdzie_obecne": "Aplikacje dostępne dziś",
         "w_przygotowaniu": "W przygotowaniu",
         "nauka_tytul": "Nauka japońskiego – partykuły, liczniki, formy, keigo",
         "nauka_opis": "Materiał wyjęty z darmowej części aplikacji rodziny: partykuły, "
@@ -250,10 +252,10 @@ NAPISY = {
         "grupa_onomatope_l1.drzenie": "Drżenie, dreszcze i zawroty",
         "grupa_onomatope_l1.zmeczenie": "Zmęczenie i sen",
         "grupa_onomatope_l1": "Ciało i samopoczucie",
-        "grupa_onomatope_l1.bol_opis": "Jak po japońsku powiedzieć, że boli: "
-                                       "ずきずき, きりきり, がんがん i cztery inne "
-                                       "słowa na ból, każde o innym bólu.",
-        "grupa_onomatope_l1.drzenie_opis": "Osiem słów o trzęsieniu się i kręceniu "
+        "grupa_onomatope_l1.bol_opis": "Jak po japońsku powiedzieć, że boli: siedem "
+                                       "słów, każde o innym bólu – od ずきずき przez "
+                                       "きりきり po がんがん.",
+        "grupa_onomatope_l1.drzenie_opis": "Dziewięć słów o trzęsieniu się i kręceniu "
                                            "w głowie: ぶるぶる, ぞくぞく, くらくら "
                                            "– z czego bierze się drżenie w każdym.",
         "grupa_onomatope_l1.zmeczenie_opis": "へとへと, くたくた, うとうと – sześć "
@@ -271,13 +273,13 @@ NAPISY = {
         "grupa_onomatope_l2.dzwiek_opis": "からから, かちかち, かりかり – pary z wiersza か, które są jednocześnie odgłosem i stanem; 濁点 pogrubia sam dźwięk.",
         "grupa_onomatope_l2.dzwiek.b_opis": "ころころ i ごろごろ, とんとん i どんどん – pary od こ do と, w których słychać, co puka, toczy się albo szeleści.",
         "grupa_contraction_opis": "〜ている → 〜てる, 〜なければ → 〜なきゃ – piętnaście skrótów, które powstają przez wypadnięcie głoski ze środka formy.",
-        "grupa_fusion_opis": "では → じゃ, という → って, のです → んです – dziewięć miejsc, w których dwie sylaby zlewają się w jedną.",
-        "grupa_voicing_opis": "〜でいる → 〜でる i dwa inne skróty po dźwięcznym 〜で – ten sam mechanizm co przy 〜ている, tylko po 濁点.",
-        "grupa_layered_opis": "なければならない → なきゃ – cztery powinności ścinane dwa razy, aż z całego zdania zostaje jedno słowo.",
+        "grupa_fusion_opis": "では → じゃ, という → って, のです → んです – dwanaście miejsc, w których dwie sylaby zlewają się w jedną.",
+        "grupa_voicing_opis": "〜でいる → 〜でる, 〜ではいけない → 〜じゃいけない – cztery skróty po dźwięcznym 〜で: te same mechanizmy co po 〜て, tylko po 濁点.",
+        "grupa_layered_opis": "なければならない → なきゃ, のではないか → んじゃないか – cztery konstrukcje, w których skraca się dwa miejsca naraz.",
         "grupa_omission_opis": "ないといけない → ないと – trzy formy, w których druga połowa zdania po prostu nie pada, a znaczenie zostaje.",
         "grupa_pattern_opis": "です/ます, お〜になる, 美化語 – jedenaście ram, które nakłada się na większość słów, każda ze zdaniem, w którym stoi.",
         "grupa_lexeme_opis": "いらっしゃる, 召し上がる, 伺う – dwadzieścia słów czczących i skromnych, każde z czasownikiem zwykłym obok i zdaniem, w którym stoi.",
-        "grupa_n5.g1.particles_opis": "は, が, を, に, で, と, も, の, か – piętnaście ról partykuł, z których składa się zwykłe japońskie zdanie.",
+        "grupa_n5.g1.particles_opis": "は, が, を, に, で, と, も, の, や, だけ – czternaście ról partykuł, z których składa się zwykłe japońskie zdanie.",
         "grupa_n5.g2.time-place_opis": "に, から〜まで, ごろ, ぐらい, へ, あります i います – dziewięć punktów o tym, kiedy, gdzie i czy coś w ogóle jest.",
         "grupa_n5.g3.verb-forms_opis": "〜ます, 〜て, 〜ています, 〜ない, 〜た – dwanaście form czasownika N5, z różnicą między czynnością w toku a jej skutkiem.",
         "grupa_n5.g4.requests_opis": "〜てください, 〜てもいいです, 〜てはいけません – siedem sposobów na prośbę, pozwolenie i zakaz, od najgrzeczniejszego.",
@@ -365,13 +367,15 @@ NAPISY = {
         "przycisk_aplikacje": "See the apps",
         "start_naglowek": "Not sure where to start?",
         "start_krok_1": "Check your level in Shindan",
-        "start_krok_2": "Foundations: {apki}",
+        "start_krok_2": "Then the app for what holds you back: {apki}",
         "start_krok_3": "The rest, when you get there",
+        "start_podstawy": "The apps assume you can read hiragana and katakana.",
+        "start_cele": {"kaname": "grammar", "katsuyokei": "conjugation", "joshi": "particles", "kazoekata": "counters"},
         "start_przycisk": "Level test",
         "wybor_opis": "Each app teaches one thing. The colour tells you which.",
         "nauka_mapa_opis": "Pages with rules, charts and examples. Free, no app needed.",
-        "kinako_apka": "I'm Kinako. I guide you through every app in the family.",
-        "kinako_autor": "And I'm Kinako. I guide you through each of them.",
+        "kinako_apka": "I'm Kinako. I'll show you around this site.",
+        "kinako_autor": "And I'm Kinako. I show you around this site.",
         "kinako_dalej": "Tell us what you're missing. Every email reaches Jakub.",
         "kinako_nauka": "Everything here is free. You can learn without an app, too.",
         "kinako_404": "This page isn't here. Everything that is, is below.",
@@ -394,7 +398,8 @@ NAPISY = {
         "naglowek_kart": "All apps",
         "w_sklepie": "App Store",
         "w_sklepie_google": "Google Play",
-        "urzadzenie_ios": "iPhone and iPad",
+        "urzadzenie_ios": "iPhone",
+        "wymagania_ios": "iPhone · iOS {ios}+",
         "urzadzenie_android": "Android",
         "platforma_ios": "iOS",
         "platforma_android": "Android",
@@ -413,8 +418,8 @@ NAPISY = {
         "odpowiedz_wyboru": "Each one teaches a single thing and measures it separately:",
         "zrzut": "screenshot",
         "opis_naglowek": "Description from the store",
-        "opis_stopka": "The description above is the same text that stands on the App Store "
-                       "product page – it comes from the same file.",
+        "opis_stopka": "The description above is the App Store product page text for version {wersja}.",
+        "powieksz_zrzut": "Enlarge screenshot: {podpis}",
         "dokumenty": "Documents",
         "polityka": "Privacy Policy",
         "warunki": "Terms of Use",
@@ -437,10 +442,10 @@ NAPISY = {
                             "in context, casual speech, keigo, pitch accent and mimetics are "
                             "drilled differently, measured differently, and each becomes "
                             "useful at a different point.",
-        "autor_dlaczego_2": "An app that does all of it at once opens on a menu and does each "
-                            "of those things slightly worse. Separate apps cost one set of "
-                            "releases and documents per app – but that cost is mine, "
-                            "not yours.",
+        "autor_dlaczego_2": ("So each of these skills gets its own app, with its own way of practising "
+                            "and measuring, instead of one menu at the start. Separate apps cost "
+                            "one set of releases and documents per app – but that cost is mine, "
+                            "not yours."),
         "autor_naglowek_jak": "How they are built",
         "autor_jak": "All of them work without an account, without ads and without tracking, "
                      "and studying works offline. That is not a promise made on this page – "
@@ -464,27 +469,25 @@ NAPISY = {
                         "check. One email asking for it is worth more than my guesses about "
                         "whether anyone wants it.",
         "dalej_szostka_naglowek": "Which of the announced apps first",
-        "dalej_szostka": "Six apps already have a name, a character and a scope, but no code "
-                         "yet – they stand lower on the family map. The order in which they "
+        "dalej_szostka": ("Six apps already have a name, a character and a scope – they are in the "
+                         "“What is coming to the family” section. The order in which they "
                          "appear is not settled. If you need one of them earlier than the "
-                         "rest, say which.",
+                         "rest, say which."),
         "dalej_otwarte_naglowek": "What is missing",
         "dalej_otwarte": "An open field for what I did not think of. A mistake in the content, "
                          "a missing feature, something that gets in the way every day – "
                          "anything.",
         "dalej_napisz": "Write",
-        "dalej_bez_licznika": "There is no counter here and no tracking of any kind – this "
-                              "site records nothing about its visitors. I count emails, and "
-                              "that is all.",
-        "autor_kontakt": "Email is fastest. Each app has its own address – you will find it "
-                         "on its page and in its documents.",
+        "dalej_bez_licznika": ("This site has no visitor counter, analytics, cookies or ads. The server "
+                              "it runs on (GitHub Pages) keeps its own technical logs. I count "
+                              "emails, and that is all."),
+        "autor_kontakt": ("Email is fastest: {adres}. For something about one app, its own address "
+                         "is best – you will find it on its page and in its documents."),
         # --- strony tematyczne ---------------------------------------------
         # --- dziedziny jeszcze bez aplikacji (poz. 112) --------------------
         "dojdzie_naglowek": "What is coming to the family",
-        "dojdzie_opis": "The series closes at sixteen apps. The six below already have "
-                        "a name, a character and a scope, but no code yet – which is why "
-                        "they carry no dates. When they exist, they will stand above, "
-                        "among the others.",
+        "dojdzie_opis": "The series closes at sixteen apps. These six are planned and have no dates yet.",
+        "dojdzie_obecne": "Apps available today",
         "w_przygotowaniu": "In the works",
         "nauka_tytul": "Learning Japanese – particles, counters, forms, keigo",
         "nauka_opis": "Material taken from the free part of the family's apps: particles, "
@@ -526,10 +529,10 @@ NAPISY = {
         "grupa_onomatope_l1.drzenie": "Shivering, trembling and dizziness",
         "grupa_onomatope_l1.zmeczenie": "Tiredness and sleep",
         "grupa_onomatope_l1": "Body and feeling",
-        "grupa_onomatope_l1.bol_opis": "How to say it hurts in Japanese: ずきずき, "
-                                       "きりきり, がんがん and four more words for "
-                                       "pain, each for a different kind of it.",
-        "grupa_onomatope_l1.drzenie_opis": "Eight words for shaking and for the room "
+        "grupa_onomatope_l1.bol_opis": "How to say it hurts in Japanese: seven "
+                                       "words, each for a different kind of pain – "
+                                       "from ずきずき through きりきり to がんがん.",
+        "grupa_onomatope_l1.drzenie_opis": "Nine words for shaking and for the room "
                                            "spinning: ぶるぶる, ぞくぞく, くらくら – "
                                            "and what makes each one tremble.",
         "grupa_onomatope_l1.zmeczenie_opis": "へとへと, くたくた, うとうと – six "
@@ -547,13 +550,13 @@ NAPISY = {
         "grupa_onomatope_l2.dzwiek_opis": "からから, かちかち, かりかり – pairs from the か row that are a noise and a state at once; 濁点 thickens the sound itself.",
         "grupa_onomatope_l2.dzwiek.b_opis": "ころころ and ごろごろ, とんとん and どんどん – pairs from こ to と where you hear what knocks, rolls or rustles.",
         "grupa_contraction_opis": "〜ている → 〜てる, 〜なければ → 〜なきゃ – fifteen contractions made by dropping a sound from the middle of a form.",
-        "grupa_fusion_opis": "では → じゃ, という → って, のです → んです – nine places where two syllables melt into one.",
-        "grupa_voicing_opis": "〜でいる → 〜でる and two more contractions after a voiced 〜で – the same mechanism as 〜ている, only past the 濁点.",
-        "grupa_layered_opis": "なければならない → なきゃ – four obligations cut twice over, until a whole clause is one word.",
+        "grupa_fusion_opis": "では → じゃ, という → って, のです → んです – twelve places where two syllables melt into one.",
+        "grupa_voicing_opis": "〜でいる → 〜でる, 〜ではいけない → 〜じゃいけない – four contractions after a voiced 〜で: the same mechanisms as after 〜て, only past the 濁点.",
+        "grupa_layered_opis": "なければならない → なきゃ, のではないか → んじゃないか – four constructions where two places shorten at once.",
         "grupa_omission_opis": "ないといけない → ないと – three forms where the second half of the sentence is simply never said, and the meaning stays.",
         "grupa_pattern_opis": "です/ます, お〜になる, 美化語 – eleven frames you lay over most words, each inside the sentence where it stands.",
         "grupa_lexeme_opis": "いらっしゃる, 召し上がる, 伺う – twenty honorific and humble words, each beside its plain verb and inside a sentence.",
-        "grupa_n5.g1.particles_opis": "は, が, を, に, で, と, も, の, か – fifteen particle roles that an ordinary Japanese sentence is built from.",
+        "grupa_n5.g1.particles_opis": "は, が, を, に, で, と, も, の, や, だけ – fourteen particle roles that an ordinary Japanese sentence is built from.",
         "grupa_n5.g2.time-place_opis": "に, から〜まで, ごろ, ぐらい, へ, あります and います – nine points about when, where, and whether something is there at all.",
         "grupa_n5.g3.verb-forms_opis": "〜ます, 〜て, 〜ています, 〜ない, 〜た – twelve N5 verb forms, with the difference between an action in progress and its result.",
         "grupa_n5.g4.requests_opis": "〜てください, 〜てもいいです, 〜てはいけません – seven ways to ask, to permit and to forbid, from the most polite down.",

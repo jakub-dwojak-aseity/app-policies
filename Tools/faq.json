@@ -1,0 +1,1109 @@
+{
+  "_": "FAQ stron produktowych: rekordy pisane per apka i język, jedno źródło dla HTML i FAQPage JSON-LD. Pola {nazwa} i {ios} wypełnia generator. Fakty: audyt 26.10.2026 (storekit, pbxproj, PremiumStore, /etc/japanese-be/env).",
+  "kaname": {
+    "pl": [
+      {
+        "temat": "cel",
+        "pytanie": "Czego uczy Kaname?",
+        "akapity": [
+          "Kaname uczy używania japońskiej gramatyki w zdaniach, od JLPT N5 do N1: wyboru właściwej konstrukcji, rozróżniania podobnych form i budowania własnych zdań bez podpowiedzi."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "Co jest darmowe i jak działa płatny dostęp?",
+        "akapity": [
+          "Cały poziom N5 jest bezpłatny, ze wszystkimi ćwiczeniami, bez limitów i reklam.",
+          "Poziomy N4–N1 odblokowujesz zakupem jednorazowym – pojedynczo, w zestawach albo wszystkie naraz, bez wygasania. Kto kupił Premium wcześniej, ma N2 i N1 bez dopłaty.",
+          "Analiza AI to osobny, opcjonalny abonament; zakup poziomów go nie obejmuje. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "Ile zapytań AI dostaję?",
+        "akapity": [
+          "AI analizuje Twoje zdanie albo wklejony tekst. Za darmo masz 10 zapytań w miesiącu kalendarzowym. Abonament „Analiza AI” daje do 30 zapytań dziennie i do 300 w każdym miesiącu abonamentu, liczonym od dnia zakupu (abonament roczny odnawia tę pulę co miesiąc).",
+          "Abonament jest osobny od zakupu materiału – jednorazowy zakup go nie obejmuje, a do ćwiczeń i poziomów nie jest potrzebny. AI wymaga internetu. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Czy {nazwa} działa bez internetu i bez konta?",
+        "akapity": [
+          "Ćwiczenia, powtórki i postęp działają bez internetu, a postęp zostaje na telefonie. Sieci potrzebują tylko: zakup i przywracanie zakupów, analiza AI (wysyła konstrukcję i Twoje zdanie, gdy o nią poprosisz), dobrowolna statystyka użycia (tylko po Twojej zgodzie, bez identyfikatora i treści) oraz zgłoszenie problemu po wybraniu „Wyślij”.",
+          "Aplikacja nie ma własnego konta ani logowania; zakupy obsługuje Twoje konto Apple."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "Co po zmianie telefonu?",
+        "akapity": [
+          "Zakup przywrócisz na nowym telefonie przyciskiem „Przywróć zakupy” w aplikacji, zalogowany na to samo konto Apple – dotyczy to także abonamentu AI.",
+          "Postęp nauki to osobna sprawa: zostaje na telefonie, więc przenosisz go plikiem kopii – eksport w Ustawieniach na starym telefonie, import na nowym."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "W jakich językach działa {nazwa}?",
+        "akapity": [
+          "Po polsku i po angielsku."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Na jakich urządzeniach działa {nazwa}?",
+        "akapity": [
+          "Na iPhonie z iOS {ios} lub nowszym. Aplikacja jest zaprojektowana na iPhone'a."
+        ]
+      }
+    ],
+    "en": [
+      {
+        "temat": "cel",
+        "pytanie": "What does Kaname teach?",
+        "akapity": [
+          "Kaname teaches you to use Japanese grammar in sentences, from JLPT N5 to N1: choosing the right pattern, telling similar constructions apart and building your own sentences without hints."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "What is free and how does paid access work?",
+        "akapity": [
+          "All of N5 is free, with every exercise type, no limits and no ads.",
+          "Levels N4–N1 are unlocked with a one-time purchase – one by one, in bundles or all at once, with no expiry. Earlier Premium buyers already have N2 and N1.",
+          "AI analysis is a separate, optional subscription; buying levels does not include it. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "How many AI requests do I get?",
+        "akapity": [
+          "AI analyses your sentence or a pasted text. You get 10 free requests per calendar month. The “AI Analysis” subscription gives up to 30 requests a day and up to 300 in each month of the subscription, counted from the purchase date (a yearly subscription refills that allowance every month).",
+          "The subscription is separate from buying the material – the one-time purchase does not include it, and you do not need it for practice or levels. AI needs a connection. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Does {nazwa} work offline and without an account?",
+        "akapity": [
+          "Exercises, reviews and progress work offline, and progress stays on your phone. Only these need a connection: purchases and restoring them, AI analysis (it sends the pattern and your sentence when you ask for it), optional usage statistics (only with your consent, without identifiers or content) and a problem report after you choose Send.",
+          "The app has no account or sign-in of its own; purchases go through your Apple Account."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "What happens when I change phones?",
+        "akapity": [
+          "Restore your purchase on the new phone with “Restore purchases” in the app, signed in with the same Apple Account – this covers the AI subscription too.",
+          "Your study progress is separate: it stays on the phone, so you move it with the backup file – export it in Settings on the old phone and import it on the new one."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "What languages does {nazwa} support?",
+        "akapity": [
+          "In Polish and in English."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Which devices does {nazwa} run on?",
+        "akapity": [
+          "iPhone with iOS {ios} or later. The app is designed for iPhone."
+        ]
+      }
+    ]
+  },
+  "bunmyaku": {
+    "pl": [
+      {
+        "temat": "cel",
+        "pytanie": "Czego uczy Bunmyaku?",
+        "akapity": [
+          "Bunmyaku uczy słownictwa JLPT od N5 do N1 w zdaniach, w których słowa naprawdę stoją – nie kanji osobno i nie fiszek. Znaczenie i czytanie słowa mierzy osobno."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "Co jest darmowe i jak działa płatny dostęp?",
+        "akapity": [
+          "Poziom N5 jest bezpłatny w całości: wszystkie słowa, pięć typów pytań, powtórki, postęp i kopia postępu.",
+          "Poziomy N4–N1 kupujesz jednorazowo – pojedynczo, w zestawach albo w całości, bez wygasania. Kto kupił Premium wcześniej, ma N2 i N1 bez dopłaty.",
+          "Analiza AI to osobny, opcjonalny abonament; zakup poziomów go nie obejmuje. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "Ile zapytań AI dostaję?",
+        "akapity": [
+          "AI analizuje wskazane zdanie albo hasło. Za darmo masz 5 zapytań w miesiącu kalendarzowym. Abonament „Analiza AI” daje do 30 zapytań dziennie i do 300 w każdym miesiącu abonamentu, liczonym od dnia zakupu (abonament roczny odnawia tę pulę co miesiąc).",
+          "Abonament jest osobny od zakupu materiału – jednorazowy zakup go nie obejmuje, a do ćwiczeń i poziomów nie jest potrzebny. AI wymaga internetu. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Czy {nazwa} działa bez internetu i bez konta?",
+        "akapity": [
+          "Nauka, powtórki i skanowanie działają bez internetu, a postęp zostaje na telefonie. Sieci potrzebują tylko: zakup i przywracanie zakupów, analiza AI (wysyła wskazane zdanie albo hasło, nigdy zdjęcia ani historii nauki) oraz dobrowolna anonimowa statystyka – wyłączona, dopóki się nie zgodzisz; zgodę wycofasz w Ustawieniach → Prywatność.",
+          "Aplikacja nie ma własnego konta ani logowania; zakupy obsługuje Twoje konto Apple."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "Co po zmianie telefonu?",
+        "akapity": [
+          "Zakup przywrócisz na nowym telefonie przyciskiem „Przywróć zakupy” w aplikacji, zalogowany na to samo konto Apple – dotyczy to także abonamentu AI.",
+          "Postęp nauki to osobna sprawa: zostaje na telefonie, więc przenosisz go plikiem kopii – eksport w Ustawieniach na starym telefonie, import na nowym."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "W jakich językach działa {nazwa}?",
+        "akapity": [
+          "Po polsku i po angielsku. Język interfejsu i język objaśnień wybierasz niezależnie."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Na jakich urządzeniach działa {nazwa}?",
+        "akapity": [
+          "Na iPhonie z iOS {ios} lub nowszym. Aplikacja jest zaprojektowana na iPhone'a."
+        ]
+      }
+    ],
+    "en": [
+      {
+        "temat": "cel",
+        "pytanie": "What does Bunmyaku teach?",
+        "akapity": [
+          "Bunmyaku teaches JLPT vocabulary from N5 to N1 inside the sentences where words actually occur – not isolated kanji and not flashcards. It measures a word's meaning and its reading separately."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "What is free and how does paid access work?",
+        "akapity": [
+          "N5 is free in full: every word, all five question types, reviews, progress and the backup file.",
+          "Levels N4–N1 are a one-time purchase – one at a time, in bundles or all at once, with no expiry. Earlier Premium buyers already have N2 and N1.",
+          "AI analysis is a separate, optional subscription; buying levels does not include it. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "How many AI requests do I get?",
+        "akapity": [
+          "AI analyses the sentence or word you choose. You get 5 free requests per calendar month. The “AI Analysis” subscription gives up to 30 requests a day and up to 300 in each month of the subscription, counted from the purchase date (a yearly subscription refills that allowance every month).",
+          "The subscription is separate from buying the material – the one-time purchase does not include it, and you do not need it for practice or levels. AI needs a connection. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Does {nazwa} work offline and without an account?",
+        "akapity": [
+          "Study, review and scanning work offline, and progress stays on your phone. Only these need a connection: purchases and restoring them, AI analysis (it sends the sentence or word you choose, never a photo or your study history) and optional anonymous statistics – off until you agree; withdraw consent in Settings → Privacy.",
+          "The app has no account or sign-in of its own; purchases go through your Apple Account."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "What happens when I change phones?",
+        "akapity": [
+          "Restore your purchase on the new phone with “Restore purchases” in the app, signed in with the same Apple Account – this covers the AI subscription too.",
+          "Your study progress is separate: it stays on the phone, so you move it with the backup file – export it in Settings on the old phone and import it on the new one."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "What languages does {nazwa} support?",
+        "akapity": [
+          "In Polish and in English. You choose the interface language and the explanation language independently."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Which devices does {nazwa} run on?",
+        "akapity": [
+          "iPhone with iOS {ios} or later. The app is designed for iPhone."
+        ]
+      }
+    ]
+  },
+  "katsuyokei": {
+    "pl": [
+      {
+        "temat": "cel",
+        "pytanie": "Czego uczy Katsuyokei?",
+        "akapity": [
+          "Katsuyokei ćwiczy japońską odmianę czasowników i przymiotników, tak żeby poprawne formy przychodziły coraz szybciej – od odpowiedzi po namyśle do swobodnego użycia."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "Co jest darmowe i jak działa płatny dostęp?",
+        "akapity": [
+          "Formy z poziomów 1 i 2, w tym formę te, ćwiczysz bezpłatnie na podstawowej puli słownictwa.",
+          "Premium to jednorazowy zakup, który otwiera poziomy 3–5 i pełną pulę słownictwa. Bez abonamentu i bez AI. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Czy {nazwa} działa bez internetu i bez konta?",
+        "akapity": [
+          "Ćwiczenia działają bez internetu, a postęp i historia zostają na telefonie. Sieci potrzebują tylko zakup i przywracanie zakupów oraz dobrowolne anonimowe statystyki – domyślnie wyłączone, bez treści Twoich odpowiedzi; zmienisz to w Ustawieniach.",
+          "Aplikacja nie ma własnego konta ani logowania; zakupy obsługuje Twoje konto Apple."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "Co po zmianie telefonu?",
+        "akapity": [
+          "Zakup przywrócisz na nowym telefonie przyciskiem „Przywróć zakupy” w aplikacji, zalogowany na to samo konto Apple.",
+          "Postęp nauki to osobna sprawa: zostaje na telefonie, więc przenosisz go plikiem kopii – eksport w Ustawieniach na starym telefonie, import na nowym."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "W jakich językach działa {nazwa}?",
+        "akapity": [
+          "Po polsku i po angielsku. Język interfejsu i język objaśnień wybierasz niezależnie."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Na jakich urządzeniach działa {nazwa}?",
+        "akapity": [
+          "Na iPhonie z iOS {ios} lub nowszym. Aplikacja jest zaprojektowana na iPhone'a."
+        ]
+      }
+    ],
+    "en": [
+      {
+        "temat": "cel",
+        "pytanie": "What does Katsuyokei teach?",
+        "akapity": [
+          "Katsuyokei drills Japanese conjugation of verbs and adjectives so that correct forms come more quickly – from working out an answer to using it fluently."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "What is free and how does paid access work?",
+        "akapity": [
+          "The forms from levels 1 and 2, including the te-form, are free to practise with the core vocabulary.",
+          "Premium is a one-time purchase that opens levels 3–5 and the full vocabulary pool. No subscription and no AI. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Does {nazwa} work offline and without an account?",
+        "akapity": [
+          "Practice works offline, and your progress and history stay on the phone. Only purchases and restoring them, plus optional anonymous statistics, need a connection – the statistics are off by default and never include your answers; change it in Settings.",
+          "The app has no account or sign-in of its own; purchases go through your Apple Account."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "What happens when I change phones?",
+        "akapity": [
+          "Restore your purchase on the new phone with “Restore purchases” in the app, signed in with the same Apple Account.",
+          "Your study progress is separate: it stays on the phone, so you move it with the backup file – export it in Settings on the old phone and import it on the new one."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "What languages does {nazwa} support?",
+        "akapity": [
+          "In Polish and in English. You choose the interface language and the explanation language independently."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Which devices does {nazwa} run on?",
+        "akapity": [
+          "iPhone with iOS {ios} or later. The app is designed for iPhone."
+        ]
+      }
+    ]
+  },
+  "joshi": {
+    "pl": [
+      {
+        "temat": "cel",
+        "pytanie": "Czego uczy Joshi?",
+        "akapity": [
+          "Joshi ćwiczy japońskie partykuły w naturalnych zdaniach: wybierasz brakującą partykułę i od razu widzisz, co robi w tym zdaniu – tak, żeby sięgać po nią bez namysłu."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "Co jest darmowe i jak działa płatny dostęp?",
+        "akapity": [
+          "Poziomy 1 i 2 są bezpłatne w całości: は, が, を, に, で i へ, czyli większość partykuł w zwykłym zdaniu.",
+          "Jednorazowy zakup otwiera poziomy 3–5, ćwiczenie słabych par i całą pulę zdań.",
+          "Pomoc AI w zakładce „Zdania” to osobny, opcjonalny abonament; zakup materiału go nie obejmuje. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "Ile zapytań AI dostaję?",
+        "akapity": [
+          "Zakładka „Zdania” wysyła Twój tekst do AI. Za darmo masz 5 zapytań w miesiącu kalendarzowym. Abonament „Pomoc AI” daje do 30 zapytań dziennie i do 300 w każdym miesiącu abonamentu, liczonym od dnia zakupu (abonament roczny odnawia tę pulę co miesiąc).",
+          "Abonament jest osobny od zakupu materiału – jednorazowy zakup go nie obejmuje, a do ćwiczeń i poziomów nie jest potrzebny. AI wymaga internetu. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Czy {nazwa} działa bez internetu i bez konta?",
+        "akapity": [
+          "Nauka i postęp działają bez internetu. Sieci potrzebują tylko: zakup i przywracanie zakupów, zakładka „Zdania” (wysyła tekst do naszego serwera, który go nie zapisuje) oraz dobrowolne anonimowe statystyki – domyślnie wyłączone, bez treści zdań i identyfikatora instalacji.",
+          "Aplikacja nie ma własnego konta ani logowania; zakupy obsługuje Twoje konto Apple."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "Co po zmianie telefonu?",
+        "akapity": [
+          "Zakup przywrócisz na nowym telefonie przyciskiem „Przywróć zakupy” w aplikacji, zalogowany na to samo konto Apple – dotyczy to także abonamentu AI.",
+          "Postęp nauki to osobna sprawa: zostaje na telefonie, więc przenosisz go plikiem kopii – eksport w Ustawieniach na starym telefonie, import na nowym."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "W jakich językach działa {nazwa}?",
+        "akapity": [
+          "Po polsku i po angielsku."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Na jakich urządzeniach działa {nazwa}?",
+        "akapity": [
+          "Na iPhonie z iOS {ios} lub nowszym. Aplikacja jest zaprojektowana na iPhone'a."
+        ]
+      }
+    ],
+    "en": [
+      {
+        "temat": "cel",
+        "pytanie": "What does Joshi teach?",
+        "akapity": [
+          "Joshi drills Japanese particles in natural sentences: you pick the missing particle and immediately see what it does there – so that you reach for it without thinking."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "What is free and how does paid access work?",
+        "akapity": [
+          "Levels 1 and 2 are free in full: は, が, を, に, で and へ, which is most of the particles in an ordinary sentence.",
+          "A one-time purchase opens levels 3–5, weak-pair practice and the whole question pool.",
+          "AI help in the Sentences tab is a separate, optional subscription; buying the material does not include it. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "How many AI requests do I get?",
+        "akapity": [
+          "The Sentences tab sends your text to AI. You get 5 free requests per calendar month. The “AI Help” subscription gives up to 30 requests a day and up to 300 in each month of the subscription, counted from the purchase date (a yearly subscription refills that allowance every month).",
+          "The subscription is separate from buying the material – the one-time purchase does not include it, and you do not need it for practice or levels. AI needs a connection. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Does {nazwa} work offline and without an account?",
+        "akapity": [
+          "Learning and progress work offline. Only these need a connection: purchases and restoring them, the Sentences tab (it sends your text to our server, which does not store it) and optional anonymous statistics – off by default, without sentence text or an installation ID.",
+          "The app has no account or sign-in of its own; purchases go through your Apple Account."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "What happens when I change phones?",
+        "akapity": [
+          "Restore your purchase on the new phone with “Restore purchases” in the app, signed in with the same Apple Account – this covers the AI subscription too.",
+          "Your study progress is separate: it stays on the phone, so you move it with the backup file – export it in Settings on the old phone and import it on the new one."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "What languages does {nazwa} support?",
+        "akapity": [
+          "In Polish and in English."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Which devices does {nazwa} run on?",
+        "akapity": [
+          "iPhone with iOS {ios} or later. The app is designed for iPhone."
+        ]
+      }
+    ]
+  },
+  "kazoekata": {
+    "pl": [
+      {
+        "temat": "cel",
+        "pytanie": "Czego uczy Kazoekata?",
+        "akapity": [
+          "Kazoekata uczy japońskich liczników: który pasuje do rzeczy i jak zmienia się jego czytanie przy liczbie – 三本 brzmi inaczej niż 六本."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "Co jest darmowe i jak działa płatny dostęp?",
+        "akapity": [
+          "Poziomy 1 i 2 są bezpłatne w całości: 22 z 38 liczników, szybkie ćwiczenie, powtórki i postęp.",
+          "Jednorazowy zakup otwiera poziomy 3–5, komplet 38 liczników, trening czytań nieregularnych i ćwiczenie najsłabszych miejsc. Bez abonamentu i bez AI. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Czy {nazwa} działa bez internetu i bez konta?",
+        "akapity": [
+          "Nauka działa bez internetu, a odpowiedzi, postęp i notatki zostają na telefonie. Sieci potrzebują tylko zakup i przywracanie zakupów oraz dobrowolne anonimowe statystyki – domyślnie wyłączone; zmienisz to w Ustawieniach.",
+          "Aplikacja nie ma własnego konta ani logowania; zakupy obsługuje Twoje konto Apple."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "Co po zmianie telefonu?",
+        "akapity": [
+          "Zakup przywrócisz na nowym telefonie przyciskiem „Przywróć zakupy” w aplikacji, zalogowany na to samo konto Apple.",
+          "Postęp nauki to osobna sprawa: zostaje na telefonie, więc przenosisz go plikiem kopii – eksport w Ustawieniach na starym telefonie, import na nowym."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "W jakich językach działa {nazwa}?",
+        "akapity": [
+          "Po polsku i po angielsku. Język interfejsu i język objaśnień wybierasz niezależnie."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Na jakich urządzeniach działa {nazwa}?",
+        "akapity": [
+          "Na iPhonie z iOS {ios} lub nowszym. Aplikacja jest zaprojektowana na iPhone'a."
+        ]
+      }
+    ],
+    "en": [
+      {
+        "temat": "cel",
+        "pytanie": "What does Kazoekata teach?",
+        "akapity": [
+          "Kazoekata teaches Japanese counters: which one fits a thing and how its reading changes with the number – 三本 does not sound like 六本."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "What is free and how does paid access work?",
+        "akapity": [
+          "Levels 1 and 2 are free in full: 22 of the 38 counters, quick practice, reviews and progress.",
+          "A one-time purchase opens levels 3–5, all 38 counters, irregular-reading training and weak-spot practice. No subscription and no AI. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Does {nazwa} work offline and without an account?",
+        "akapity": [
+          "Practice works offline, and your answers, progress and notes stay on the phone. Only purchases and restoring them, plus optional anonymous statistics, need a connection – the statistics are off by default; change it in Settings.",
+          "The app has no account or sign-in of its own; purchases go through your Apple Account."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "What happens when I change phones?",
+        "akapity": [
+          "Restore your purchase on the new phone with “Restore purchases” in the app, signed in with the same Apple Account.",
+          "Your study progress is separate: it stays on the phone, so you move it with the backup file – export it in Settings on the old phone and import it on the new one."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "What languages does {nazwa} support?",
+        "akapity": [
+          "In Polish and in English. You choose the interface language and the explanation language independently."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Which devices does {nazwa} run on?",
+        "akapity": [
+          "iPhone with iOS {ios} or later. The app is designed for iPhone."
+        ]
+      }
+    ]
+  },
+  "kuzushi": {
+    "pl": [
+      {
+        "temat": "cel",
+        "pytanie": "Czego uczy Kuzushi?",
+        "akapity": [
+          "Kuzushi uczy japońskiego mówionego: skrótów i zlań, w jakich gramatyka z podręcznika naprawdę dociera do ucha – 〜てる zamiast 〜ている, 〜ちゃった zamiast 〜てしまった. Zakłada, że te konstrukcje znasz już w pełnej formie."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "Co jest darmowe i jak działa płatny dostęp?",
+        "akapity": [
+          "Poziomy 1 i 2 są bezpłatne. Jednorazowy zakup otwiera poziomy 3–5, na stałe.",
+          "Pomoc AI w zakładce „Zdania” to osobny, opcjonalny abonament; zakup poziomów go nie obejmuje. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "Ile zapytań AI dostaję?",
+        "akapity": [
+          "Zakładka „Zdania” pokazuje pełną formę linijki z anime, doramy albo mangi. Za darmo masz 5 zapytań w miesiącu kalendarzowym. Abonament „Pomoc AI” daje do 30 zapytań dziennie i do 300 w każdym miesiącu abonamentu, liczonym od dnia zakupu (abonament roczny odnawia tę pulę co miesiąc).",
+          "Abonament jest osobny od zakupu materiału – jednorazowy zakup go nie obejmuje, a do ćwiczeń i poziomów nie jest potrzebny. AI wymaga internetu. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Czy {nazwa} działa bez internetu i bez konta?",
+        "akapity": [
+          "Materiał jest w aplikacji, a nauka działa bez internetu. Postęp i lista zdań zostają na telefonie. Sieci potrzebują tylko zakup i przywracanie zakupów oraz zakładka „Zdania”, która wysyła samo zdanie. Bez śledzenia i reklam.",
+          "Aplikacja nie ma własnego konta ani logowania; zakupy obsługuje Twoje konto Apple."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "Co po zmianie telefonu?",
+        "akapity": [
+          "Zakup przywrócisz na nowym telefonie przyciskiem „Przywróć zakupy” w aplikacji, zalogowany na to samo konto Apple – dotyczy to także abonamentu AI.",
+          "Postęp nauki to osobna sprawa: zostaje na telefonie, więc przenosisz go plikiem kopii – eksport w Ustawieniach na starym telefonie, import na nowym."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "W jakich językach działa {nazwa}?",
+        "akapity": [
+          "Po polsku i po angielsku."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Na jakich urządzeniach działa {nazwa}?",
+        "akapity": [
+          "Na iPhonie z iOS {ios} lub nowszym. Aplikacja jest zaprojektowana na iPhone'a."
+        ]
+      }
+    ],
+    "en": [
+      {
+        "temat": "cel",
+        "pytanie": "What does Kuzushi teach?",
+        "akapity": [
+          "Kuzushi teaches spoken Japanese: the contractions and fusions in which textbook grammar actually reaches your ear – 〜てる for 〜ている, 〜ちゃった for 〜てしまった. It assumes you already know these constructions in their full form."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "What is free and how does paid access work?",
+        "akapity": [
+          "Levels 1 and 2 are free. A one-time purchase opens levels 3–5 for good.",
+          "AI help in the Sentences tab is a separate, optional subscription; buying levels does not include it. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "How many AI requests do I get?",
+        "akapity": [
+          "The Sentences tab shows the full form of a line from anime, drama or manga. You get 5 free requests per calendar month. The “AI Help” subscription gives up to 30 requests a day and up to 300 in each month of the subscription, counted from the purchase date (a yearly subscription refills that allowance every month).",
+          "The subscription is separate from buying the material – the one-time purchase does not include it, and you do not need it for practice or levels. AI needs a connection. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Does {nazwa} work offline and without an account?",
+        "akapity": [
+          "The material ships inside the app and learning works offline. Your progress and list of sentences stay on the phone. Only purchases and restoring them, plus the Sentences tab, which sends just the sentence, need a connection. No tracking, no ads.",
+          "The app has no account or sign-in of its own; purchases go through your Apple Account."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "What happens when I change phones?",
+        "akapity": [
+          "Restore your purchase on the new phone with “Restore purchases” in the app, signed in with the same Apple Account – this covers the AI subscription too.",
+          "Your study progress is separate: it stays on the phone, so you move it with the backup file – export it in Settings on the old phone and import it on the new one."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "What languages does {nazwa} support?",
+        "akapity": [
+          "In Polish and in English."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Which devices does {nazwa} run on?",
+        "akapity": [
+          "iPhone with iOS {ios} or later. The app is designed for iPhone."
+        ]
+      }
+    ]
+  },
+  "keigo": {
+    "pl": [
+      {
+        "temat": "cel",
+        "pytanie": "Czego uczy Keigo?",
+        "akapity": [
+          "Keigo uczy japońskiego rejestru grzecznościowego jako decyzji: wobec kogo i o kim mówisz. Ćwiczy formy wyrażające szacunek, skromne i uprzejme w konkretnych sytuacjach."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "Co jest darmowe i jak działa płatny dostęp?",
+        "akapity": [
+          "Poziomy 1 i 2 są bezpłatne w całości: です/ます, dwadzieścia form nieregularnych i wzorce produktywne – 31 z 70 pozycji.",
+          "Jednorazowy zakup otwiera poziomy 3–5: przysługi i kierunek, przesadę oraz wszystkie 27 sytuacji.",
+          "Sprawdzanie AI to osobny, opcjonalny abonament; zakup poziomów go nie obejmuje. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "Ile zapytań AI dostaję?",
+        "akapity": [
+          "„Sprawdź” ocenia Twoje zdanie wobec wskazanego adresata. Za darmo masz 5 zapytań w miesiącu kalendarzowym. Abonament „Sprawdzanie AI” daje do 30 zapytań dziennie i do 300 w każdym miesiącu abonamentu, liczonym od dnia zakupu (abonament roczny odnawia tę pulę co miesiąc).",
+          "Abonament jest osobny od zakupu materiału – jednorazowy zakup go nie obejmuje, a do ćwiczeń i poziomów nie jest potrzebny. AI wymaga internetu. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Czy {nazwa} działa bez internetu i bez konta?",
+        "akapity": [
+          "Materiał jest w aplikacji, a nauka działa bez internetu. Postęp i lista zdań zostają na telefonie. Sieci potrzebują tylko zakup i przywracanie zakupów oraz „Sprawdź”, które wysyła samo zdanie i adresata. Bez śledzenia i reklam.",
+          "Aplikacja nie ma własnego konta ani logowania; zakupy obsługuje Twoje konto Apple."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "Co po zmianie telefonu?",
+        "akapity": [
+          "Zakup przywrócisz na nowym telefonie przyciskiem „Przywróć zakupy” w aplikacji, zalogowany na to samo konto Apple – dotyczy to także abonamentu AI.",
+          "Postęp nauki to osobna sprawa: zostaje na telefonie, więc przenosisz go plikiem kopii – eksport w Ustawieniach na starym telefonie, import na nowym."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "W jakich językach działa {nazwa}?",
+        "akapity": [
+          "Po polsku i po angielsku."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Na jakich urządzeniach działa {nazwa}?",
+        "akapity": [
+          "Na iPhonie z iOS {ios} lub nowszym. Aplikacja jest zaprojektowana na iPhone'a."
+        ]
+      }
+    ],
+    "en": [
+      {
+        "temat": "cel",
+        "pytanie": "What does Keigo teach?",
+        "akapity": [
+          "Keigo teaches the Japanese honorific register as a decision: who you are talking to and about whom. It drills respectful, humble and polite forms in concrete situations."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "What is free and how does paid access work?",
+        "akapity": [
+          "Levels 1 and 2 are free in full: です/ます, the twenty irregular forms and the productive patterns – 31 of the 70 entries.",
+          "A one-time purchase opens levels 3–5: favours and direction, overdone keigo and all 27 situations.",
+          "AI checking is a separate, optional subscription; buying levels does not include it. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "How many AI requests do I get?",
+        "akapity": [
+          "Check reviews your sentence for the listener you choose. You get 5 free requests per calendar month. The “AI Checking” subscription gives up to 30 requests a day and up to 300 in each month of the subscription, counted from the purchase date (a yearly subscription refills that allowance every month).",
+          "The subscription is separate from buying the material – the one-time purchase does not include it, and you do not need it for practice or levels. AI needs a connection. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Does {nazwa} work offline and without an account?",
+        "akapity": [
+          "The material ships inside the app and learning works offline. Your progress and list of sentences stay on the phone. Only purchases and restoring them, plus Check, which sends just the sentence and who it is for, need a connection. No tracking, no ads.",
+          "The app has no account or sign-in of its own; purchases go through your Apple Account."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "What happens when I change phones?",
+        "akapity": [
+          "Restore your purchase on the new phone with “Restore purchases” in the app, signed in with the same Apple Account – this covers the AI subscription too.",
+          "Your study progress is separate: it stays on the phone, so you move it with the backup file – export it in Settings on the old phone and import it on the new one."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "What languages does {nazwa} support?",
+        "akapity": [
+          "In Polish and in English."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Which devices does {nazwa} run on?",
+        "akapity": [
+          "iPhone with iOS {ios} or later. The app is designed for iPhone."
+        ]
+      }
+    ]
+  },
+  "kifuku": {
+    "pl": [
+      {
+        "temat": "cel",
+        "pytanie": "Czego uczy Kifuku?",
+        "akapity": [
+          "Kifuku uczy akcentu tonicznego japońskich słów w standardzie tokijskim: wzorców, reguł, zmian akcentu przy odmianie i rozpoznawania spadku tonu ze słuchu."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "Co jest darmowe i jak działa płatny dostęp?",
+        "akapity": [
+          "Poziomy 1 i 2 są bezpłatne w całości. Jednorazowy zakup otwiera poziomy 3–5. Bez abonamentu i bez AI. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Czy {nazwa} działa bez internetu i bez konta?",
+        "akapity": [
+          "Nauka działa bez internetu, a nagrania są zapisane w aplikacji. Sieci potrzebuje tylko zakup i przywracanie zakupów.",
+          "Aplikacja nie ma własnego konta ani logowania; zakupy obsługuje Twoje konto Apple."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "Co po zmianie telefonu?",
+        "akapity": [
+          "Zakup przywrócisz na nowym telefonie przyciskiem „Przywróć zakupy” w aplikacji, zalogowany na to samo konto Apple.",
+          "Postęp nauki to osobna sprawa: zostaje na telefonie, więc przenosisz go plikiem kopii – eksport w Ustawieniach na starym telefonie, import na nowym."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "W jakich językach działa {nazwa}?",
+        "akapity": [
+          "Po polsku i po angielsku."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Na jakich urządzeniach działa {nazwa}?",
+        "akapity": [
+          "Na iPhonie z iOS {ios} lub nowszym. Aplikacja jest zaprojektowana na iPhone'a."
+        ]
+      }
+    ],
+    "en": [
+      {
+        "temat": "cel",
+        "pytanie": "What does Kifuku teach?",
+        "akapity": [
+          "Kifuku teaches the pitch accent of Japanese words in the Tokyo standard: patterns, rules, accent changes during inflection and hearing where the pitch drops."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "What is free and how does paid access work?",
+        "akapity": [
+          "Levels 1 and 2 are free in full. A one-time purchase opens levels 3–5. No subscription and no AI. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Does {nazwa} work offline and without an account?",
+        "akapity": [
+          "Learning works offline and the recordings ship inside the app. Only purchases and restoring them need a connection.",
+          "The app has no account or sign-in of its own; purchases go through your Apple Account."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "What happens when I change phones?",
+        "akapity": [
+          "Restore your purchase on the new phone with “Restore purchases” in the app, signed in with the same Apple Account.",
+          "Your study progress is separate: it stays on the phone, so you move it with the backup file – export it in Settings on the old phone and import it on the new one."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "What languages does {nazwa} support?",
+        "akapity": [
+          "In Polish and in English."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Which devices does {nazwa} run on?",
+        "akapity": [
+          "iPhone with iOS {ios} or later. The app is designed for iPhone."
+        ]
+      }
+    ]
+  },
+  "onomatope": {
+    "pl": [
+      {
+        "temat": "cel",
+        "pytanie": "Czego uczy Onomatope?",
+        "akapity": [
+          "Onomatope uczy japońskich onomatopei i mimetyków w zdaniach: porównujesz podobne słowa, takie jak ころころ i ごろごろ, i uczysz się, po czym poznać właściwe użycie."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "Co jest darmowe i jak działa płatny dostęp?",
+        "akapity": [
+          "Dwa pierwsze z sześciu poziomów – ciało i samopoczucie oraz pary dźwięczne – są bezpłatne w całości. Pozostałe cztery odblokowujesz jednym zakupem bez odnawiania.",
+          "Pomoc AI w zakładce „Zdania” to osobny, opcjonalny abonament; zakup poziomów go nie obejmuje. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "Ile zapytań AI dostaję?",
+        "akapity": [
+          "Zakładka „Zdania” wyjaśnia onomatopeje we wklejonej linijce albo dobiera słowa do opisu. Za darmo masz 5 zapytań w miesiącu kalendarzowym. Abonament „Pomoc AI” daje do 30 zapytań dziennie i do 300 w każdym miesiącu abonamentu, liczonym od dnia zakupu (abonament roczny odnawia tę pulę co miesiąc).",
+          "Abonament jest osobny od zakupu materiału – jednorazowy zakup go nie obejmuje, a do ćwiczeń i poziomów nie jest potrzebny. AI wymaga internetu. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Czy {nazwa} działa bez internetu i bez konta?",
+        "akapity": [
+          "Nauka działa bez internetu, a postęp i pomyłki zostają na telefonie. Sieci potrzebują tylko: zakup i przywracanie zakupów, AI w zakładce „Zdania” oraz dobrowolne anonimowe statystyki – domyślnie wyłączone; zgodę wycofasz w Ustawieniach.",
+          "Aplikacja nie ma własnego konta ani logowania; zakupy obsługuje Twoje konto Apple."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "Co po zmianie telefonu?",
+        "akapity": [
+          "Zakup przywrócisz na nowym telefonie przyciskiem „Przywróć zakupy” w aplikacji, zalogowany na to samo konto Apple – dotyczy to także abonamentu AI.",
+          "Postęp nauki to osobna sprawa: zostaje na telefonie, więc przenosisz go plikiem kopii – eksport w Ustawieniach na starym telefonie, import na nowym."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "W jakich językach działa {nazwa}?",
+        "akapity": [
+          "Po polsku i po angielsku."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Na jakich urządzeniach działa {nazwa}?",
+        "akapity": [
+          "Na iPhonie z iOS {ios} lub nowszym. Aplikacja jest zaprojektowana na iPhone'a."
+        ]
+      }
+    ],
+    "en": [
+      {
+        "temat": "cel",
+        "pytanie": "What does Onomatope teach?",
+        "akapity": [
+          "Onomatope teaches Japanese onomatopoeia and mimetic words in sentences: you compare similar words such as ころころ and ごろごろ and learn which clues point to the right one."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "What is free and how does paid access work?",
+        "akapity": [
+          "The first two of six levels – body and feeling, and voicing pairs – are free in full. The other four are unlocked with one non-renewing purchase.",
+          "AI help in the Sentences tab is a separate, optional subscription; buying levels does not include it. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "How many AI requests do I get?",
+        "akapity": [
+          "The Sentences tab explains the mimetics in a pasted line or suggests words for a description. You get 5 free requests per calendar month. The “AI Help” subscription gives up to 30 requests a day and up to 300 in each month of the subscription, counted from the purchase date (a yearly subscription refills that allowance every month).",
+          "The subscription is separate from buying the material – the one-time purchase does not include it, and you do not need it for practice or levels. AI needs a connection. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Does {nazwa} work offline and without an account?",
+        "akapity": [
+          "Learning works offline, and your progress and mistakes stay on the phone. Only these need a connection: purchases and restoring them, AI in the Sentences tab and optional anonymous statistics – off by default; withdraw consent in Settings.",
+          "The app has no account or sign-in of its own; purchases go through your Apple Account."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "What happens when I change phones?",
+        "akapity": [
+          "Restore your purchase on the new phone with “Restore purchases” in the app, signed in with the same Apple Account – this covers the AI subscription too.",
+          "Your study progress is separate: it stays on the phone, so you move it with the backup file – export it in Settings on the old phone and import it on the new one."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "What languages does {nazwa} support?",
+        "akapity": [
+          "In Polish and in English."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Which devices does {nazwa} run on?",
+        "akapity": [
+          "iPhone with iOS {ios} or later. The app is designed for iPhone."
+        ]
+      }
+    ]
+  },
+  "shindan": {
+    "pl": [
+      {
+        "temat": "cel",
+        "pytanie": "Co mierzy Shindan?",
+        "akapity": [
+          "Shindan to diagnoza na czas: szacuje Twój poziom w skali JLPT na podstawie słownictwa, czytań kanji i konstrukcji gramatycznych, a osobno pokazuje słabe strony – partykuły, formy czasownika, rejestr grzecznościowy, mowę potoczną, onomatopeje, liczniki i akcent.",
+          "To szacunek badanego materiału, nie oficjalny wynik JLPT ani gwarancja zdania egzaminu."
+        ]
+      },
+      {
+        "temat": "ograniczenia",
+        "pytanie": "Czego Shindan nie mierzy?",
+        "akapity": [
+          "Nie mierzy czytania dłuższych tekstów ani słuchania ze zrozumieniem.",
+          "Wynik jest orientacyjny, a gdy pomiar jest za cienki – na przykład za dużo pytań przepadło na zegarze – Shindan nie poda poziomu i powie to wprost."
+        ]
+      },
+      {
+        "temat": "uzycie",
+        "pytanie": "Jak korzystać z Shindana?",
+        "akapity": [
+          "Arkusz rozwiązujesz raz, od początku do końca; odpowiedzi nie są oceniane w trakcie, a wynik przychodzi na końcu. Nie ma tu ćwiczeń ani powtórek – do nauki służą aplikacje, które Shindan wskaże przy słabych stronach. Kolejny arkusz ma sens po okresie nauki."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "Co jest darmowe i jak działa płatny dostęp?",
+        "akapity": [
+          "Pierwszy arkusz, z którego da się policzyć wynik, jest bezpłatny. Za darmo widzisz najnowszy wynik.",
+          "Pełna wersja to jednorazowy zakup: każdy kolejny arkusz, pełna historia wyników, wyjaśnienia odpowiedzi, przypomnienie o następnym sprawdzeniu i omówienie wyniku przez AI. Bez abonamentu. Aktualną cenę w Twojej walucie zobaczysz w aplikacji przed potwierdzeniem zakupu."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "Jak działa omówienie wyniku przez AI?",
+        "akapity": [
+          "Omówienie należy do pełnej wersji i powstaje raz po każdym nowym wyniku, najwyżej 5 razy dziennie i 20 razy w miesiącu kalendarzowym. Wysyła wyłącznie pomiar – poziom, wyniki obszarów i najczęściej mylone pary odpowiedzi, bez treści pytań. Wymaga internetu; historia czyta zapisane omówienie bez łączenia się z serwerem."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Czy {nazwa} działa bez internetu i bez konta?",
+        "akapity": [
+          "Arkusze działają bez internetu. Sieci potrzebują tylko zakup i przywracanie zakupów oraz omówienie wyniku przez AI.",
+          "Aplikacja nie ma własnego konta ani logowania; zakupy obsługuje Twoje konto Apple."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "Co po zmianie telefonu?",
+        "akapity": [
+          "Zakup przywrócisz na nowym telefonie przyciskiem „Przywróć zakupy”, zalogowany na to samo konto Apple. Historia wyników nie przenosi się – Shindan nie ma pliku kopii, więc zostaje na starym telefonie."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "W jakich językach działa {nazwa}?",
+        "akapity": [
+          "Po polsku i po angielsku."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Na jakich urządzeniach działa {nazwa}?",
+        "akapity": [
+          "Na iPhonie z iOS {ios} lub nowszym. Aplikacja jest zaprojektowana na iPhone'a."
+        ]
+      }
+    ],
+    "en": [
+      {
+        "temat": "cel",
+        "pytanie": "What does Shindan assess?",
+        "akapity": [
+          "Shindan is a timed diagnostic: it estimates your JLPT-based level from vocabulary, kanji readings and grammar patterns, and separately shows weak spots – particles, verb forms, the honorific register, casual speech, mimetic words, counters and pitch accent.",
+          "It is an estimate of the material tested, not an official JLPT score or a guarantee of passing the exam."
+        ]
+      },
+      {
+        "temat": "ograniczenia",
+        "pytanie": "What does Shindan not measure?",
+        "akapity": [
+          "It does not measure reading longer texts or listening comprehension.",
+          "The result is indicative, and when the measurement is too thin – for example when too many questions ran out on the clock – Shindan gives no level and says so."
+        ]
+      },
+      {
+        "temat": "uzycie",
+        "pytanie": "How do I use Shindan?",
+        "akapity": [
+          "You take a sheet once, from start to finish; answers are not marked as you go and the result comes at the end. There is no practice or review here – Shindan points you to the apps that train your weak spots. Another sheet makes sense after a period of study."
+        ]
+      },
+      {
+        "temat": "dostep",
+        "pytanie": "What is free and how does paid access work?",
+        "akapity": [
+          "Your first sheet that produces a result is free, and you can see your latest result.",
+          "The full version is a one-time purchase: every further sheet, your full result history, answer explanations, a reminder for the next check-up and an AI debrief of your result. No subscription. You will see the current price in your App Store currency in the app before you confirm the purchase."
+        ]
+      },
+      {
+        "temat": "ai",
+        "pytanie": "How does the AI debrief work?",
+        "akapity": [
+          "The debrief is part of the full version and is created once for each new result, at most 5 times a day and 20 times per calendar month. It sends only the measurement – your level, area scores and your most-confused answer pairs, no question content. It needs a connection; history shows the saved debrief without contacting the server."
+        ]
+      },
+      {
+        "temat": "offline",
+        "pytanie": "Does {nazwa} work offline and without an account?",
+        "akapity": [
+          "Sheets work offline. Only purchases and restoring them, plus the AI debrief, need a connection.",
+          "The app has no account or sign-in of its own; purchases go through your Apple Account."
+        ]
+      },
+      {
+        "temat": "telefon",
+        "pytanie": "What happens when I change phones?",
+        "akapity": [
+          "Restore your purchase on the new phone with “Restore purchases”, signed in with the same Apple Account. Your result history does not move – Shindan has no backup file, so it stays on the old phone."
+        ]
+      },
+      {
+        "temat": "jezyki",
+        "pytanie": "What languages does {nazwa} support?",
+        "akapity": [
+          "In Polish and in English."
+        ]
+      },
+      {
+        "temat": "urzadzenia",
+        "pytanie": "Which devices does {nazwa} run on?",
+        "akapity": [
+          "iPhone with iOS {ios} or later. The app is designed for iPhone."
+        ]
+      }
+    ]
+  }
+}

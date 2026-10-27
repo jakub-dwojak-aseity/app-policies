@@ -19,8 +19,7 @@ o nim pomyśleć.
 - [Keigo: Grzeczność japońska](https://jd-japanese.pl/apps/keigo/): Japoński formalny do pracy. Znać formę to nie to samo co wiedzieć, wobec kogo jej użyć. Za dużo keigo jest błędem
 dokładnie tak samo jak za mało – i to jest ta połowa, której nie uczy nikt.
 - [Kifuku: Akcent japoński](https://jd-japanese.pl/apps/kifuku/): Wymowa, intonacja, słuchanie. Poznaj akcent japońskich słów. Porównuj wzorce, ćwicz odmianę i sprawdzaj słuch na nagraniach. Pięć poziomów, nauka offline.
-- [Onomatope: Dźwięki i wyrażenia](https://jd-japanese.pl/apps/onomatope/): Słówka z mangi i anime. Onomatopeje nie są losowe. 濁点 robi rzecz większą, cięższą i mniej przyjemną – kto to
-rozumie, zgadnie słowo, którego nigdy nie widział. Reszta uczy się trzystu słówek.
+- [Onomatope: Dźwięki i wyrażenia](https://jd-japanese.pl/apps/onomatope/): Słówka z mangi i anime. Podobne brzmienie, inne znaczenie. Porównuj onomatopeje na przykładach, czytaj tłumaczenia i wybieraj słowo, które pasuje do zdania.
 
 ## Wersja angielska
 
@@ -35,8 +34,7 @@ have finished thinking about it.
 - [Keigo: Polite Japanese](https://jd-japanese.pl/en/apps/keigo/): Formal Japanese for work. Knowing the form is not the same as knowing who to use it on. Too much keigo is a mistake
 exactly as much as too little – and that half is what nobody teaches.
 - [Kifuku: Japanese Pitch Accent](https://jd-japanese.pl/en/apps/kifuku/): Pronunciation and listening. Learn Japanese pitch accent. Compare patterns, practice inflection, and train your ear with recordings. Five levels, offline learning.
-- [Onomatope: Japanese Mimetics](https://jd-japanese.pl/en/apps/onomatope/): Manga and anime vocabulary. Japanese onomatopoeia are not arbitrary. 濁点 makes a thing bigger, heavier and less
-pleasant – understand that and you can guess a word you have never seen.
+- [Onomatope: Japanese Mimetics](https://jd-japanese.pl/en/apps/onomatope/): Manga and anime vocabulary. Similar sounds, different meanings. Compare onomatopoeia through examples, read translations and choose the word that fits the sentence.
 
 ## Nauka japońskiego
 
@@ -59,7 +57,7 @@ pleasant – understand that and you can guess a word you have never seen.
 
 ## Co dojdzie do rodziny
 
-Seria domyka się na szesnastu aplikacjach. Sześć poniżej ma już nazwę, znak i zakres, ale nie ma jeszcze kodu – i dlatego nie mają dat. Kiedy powstaną, staną wyżej, wśród tamtych.
+Seria domyka się na szesnastu aplikacjach. Te sześć jest zaplanowanych i nie ma jeszcze terminów.
 
 - Kikitori: Japoński ze słuchu (聞き取り): Rozumienie ze słuchu — w przygotowaniu, bez daty
 - Danraku: Japoński w akapicie (段落): Czytanie dłuższego tekstu — w przygotowaniu, bez daty

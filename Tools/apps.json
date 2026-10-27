@@ -15,6 +15,12 @@
     "08.09.2026), a nie wyliczone z metadanych w repo: plik Bunmyaku niesie",
     "`bunmyaku/support.html`, a ASC ma `bunmyaku/1.2/`. Generator sprawdza, że pliki",
     "istnieją — link do dokumentu, którego nie ma, jest gorszy niż brak linku.",
+    "Odczytane ponownie z ASC 27.10.2026 (audyt witryny, DOC-01): sześć apek wskazywało",
+    "stare katalogi, Kazoekata katalog główny zamiast 1.4. Bramka 1b pilnuje, że katalog",
+    "to ten sam, który podaje adres polityki w opisie sklepowym.",
+    "",
+    "`ai` — czy wersja sklepowa ma funkcje AI (BackendAIService na znaczniku sklep/).",
+    "Od tego zależy, czy FAQ musi mieć temat `ai` (Tools/faq.json).",
     "",
     "`wSklepie` zmierzone publicznym `itunes.apple.com/lookup` 08.09.2026; sprawdza to",
     "ponownie `generuj-strony.py --sprawdz-sklep`, świadomie osobnym poleceniem, żeby",
@@ -161,9 +167,10 @@
       "wersja": "1.12.0",
       "repoZrzuty": "jp-grammar",
       "dokumenty": {
-        "pl": "kaname/1.2",
-        "en": "kaname/1.2/en"
+        "pl": "kaname/1.12",
+        "en": "kaname/1.12/en"
       },
+      "ai": true,
       "kontakt": "kaname@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
@@ -176,9 +183,10 @@
       "repo": "bunmyaku-n2",
       "zrodlo": "md",
       "dokumenty": {
-        "pl": "bunmyaku/1.2",
-        "en": "bunmyaku/1.2/en"
+        "pl": "bunmyaku/1.6",
+        "en": "bunmyaku/1.6/en"
       },
+      "ai": true,
       "kontakt": "bunmyaku@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
@@ -192,14 +200,15 @@
       "repo": "katsuyokei-ios",
       "zrodlo": "md",
       "dokumenty": {
-        "pl": "katsuyokei",
-        "en": "katsuyokei/en"
+        "pl": "katsuyokei/1.5.0",
+        "en": "katsuyokei/1.5.0/en"
       },
+      "ai": false,
       "kontakt": "katsuyokei@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 3,
-      "wersja": "1.4.1"
+      "wersja": "1.5.0"
     },
     {
       "slug": "joshi",
@@ -208,9 +217,10 @@
       "repo": "joshi-ios",
       "zrodlo": "md",
       "dokumenty": {
-        "pl": "joshi/1.5",
-        "en": "joshi/1.5/en"
+        "pl": "joshi/1.5.1",
+        "en": "joshi/1.5.1/en"
       },
+      "ai": true,
       "kontakt": "joshi@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
@@ -224,9 +234,10 @@
       "repo": "kazoekata-ios",
       "zrodlo": "md",
       "dokumenty": {
-        "pl": "kazoekata",
-        "en": "kazoekata/en"
+        "pl": "kazoekata/1.4",
+        "en": "kazoekata/1.4/en"
       },
+      "ai": false,
       "kontakt": "kazoekata@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
@@ -243,6 +254,7 @@
         "pl": "kuzushi/1.5",
         "en": "kuzushi/1.5/en"
       },
+      "ai": true,
       "kontakt": "kuzushi@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
       "wSklepie": true,
@@ -257,9 +269,10 @@
       "repo": "shindan-ios",
       "zrodlo": "md",
       "dokumenty": {
-        "pl": "shindan/1.0",
-        "en": "shindan/1.0/en"
+        "pl": "shindan/1.2",
+        "en": "shindan/1.2/en"
       },
+      "ai": true,
       "kontakt": "shindan@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
@@ -276,6 +289,7 @@
         "pl": "keigo/1.5",
         "en": "keigo/1.5/en"
       },
+      "ai": true,
       "kontakt": "keigo@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
@@ -292,6 +306,7 @@
         "pl": "kifuku/1.0",
         "en": "kifuku/1.0/en"
       },
+      "ai": false,
       "kontakt": "kifuku@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
@@ -305,14 +320,15 @@
       "repo": "onomatope-ios",
       "zrodlo": "md",
       "dokumenty": {
-        "pl": "onomatope/1.6",
-        "en": "onomatope/1.6/en"
+        "pl": "onomatope/1.8",
+        "en": "onomatope/1.8/en"
       },
+      "ai": true,
       "kontakt": "onomatope@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 10,
-      "wersja": "1.7.0"
+      "wersja": "1.8.0"
     }
   ],
   "profil": "https://github.com/jakub-dwojak-aseity"

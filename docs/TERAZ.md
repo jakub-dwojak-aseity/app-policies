@@ -7,6 +7,29 @@ rodziny dla tego toru: **82** (SEO/AEO jako robota stała), **84** (adres kontak
 **112** (zapowiadanie apek), **113** (wizytówka poza witryną), **189** (strony tematyczne),
 **330** (indeksowanie stron tematycznych).
 
+## Audyt witryny z 26.10.2026 — naprawa [810], siostry [811]–[819]
+
+48 ustaleń zewnętrznego audytu; mapa ID → źródło → dowód stoi w ciele [810] w backlogu rodziny.
+**Co się zmieniło w potoku (trwale, nie w wytworze):**
+- **Opis czyta się z `sklep-opis/<wersja>`**, gdy istnieje — zakłada go `jp-grammar/Tools/synchronizuj-sklep.py`
+  na commicie `origin/main`, którego metadane są RÓWNE opisowi z lookup (PL `pl/pl_pl`, EN `us/en_us`).
+  Opis po buildzie poprawiano w ASC (Bunmyaku 1.6.0, Joshi 1.5.1), więc `sklep/<wersja>` niósł stary tekst.
+  `--sprawdz-sklep` porównuje dziś opis strony z kartą; stopka opisu mówi „karta App Store dla wersji X”.
+- **FAQ z `Tools/faq.json`** (rekordy per apka i język), nie z wycinków opisu. Bramka 6: komplet tematów,
+  te same PL/EN, `ai` ⟺ `apps.json` `ai`, zero nazw sióstr w odpowiedziach, HTML == FAQPage JSON-LD (w wytworze).
+  Liczby AI z `/etc/japanese-be/env` (27.10): Kaname 10 darmowych/mies., pozostałe pięć apek z AI 5; abonament 30/dzień,
+  300/miesiąc abonamentu; Shindan omówienie 5/dzień, 20/mies. **Zmiana env = zmiana `faq.json`.**
+- **`dokumenty` w apps.json ponownie z ASC** (bramka 1b: katalog = adres polityki w opisie). `glowy_dokumentow.py`
+  zdejmuje nasz `noindex` z dokumentu, który stał się bieżący, i wstawia starszym wersjom baner archiwum
+  (`data-witryna="archiwum"`, wycinany przy porównaniu kopii). Przyszłe wersje (Kuzushi 1.6) banera nie dostają.
+- Minimalny iOS przy CTA liczony z pbxproj; karta na głównej klika się w całości; galeria ma nazwy linków;
+  biel na paśmie bez alfy (bramka 26 liczy WCAG z `wyglad.json`); adresy w opisie są linkami;
+  liczebnik we wstępie grupy nauki = liczba haseł (bramka 27); `--zrzuty --apka <slug>` (drzewa sióstr niosą
+  kadry NIEWYDANYCH wersji — import całej rodziny je wciąga).
+
+**Zostaje, poza tym repo:** treść /nauka/ z eksportów sióstr ([811]–[818]), Katsuyokei bez `sklep/1.5.0`
+(build z numerem nadpisanym przy archiwizacji — [819]), pytania do Jakuba w [819].
+
 ## Witryna 2.0 — wdrożona 26.10.2026 (`f82c768`, `035e49c`)
 
 Wygląd z makiet `jp-grammar/.planning/witryna/W01`+`W02` (Jakub: „jest ok, wrzucamy”).
@@ -440,8 +463,8 @@ cd ~/aseity/app-policies
 python3 Tools/generuj-strony.py --sprawdz        # dwadzieścia bramek, bez zapisu
 python3 Tools/generuj-strony.py                  # przelicz
 python3 Tools/generuj-strony.py --powtarzalnie   # dwa przebiegi, bit w bit
-python3 Tools/generuj-strony.py --sprawdz-sklep  # manifest kontra pięć witryn App Store (sieć)
-python3 Tools/generuj-strony.py --zrzuty         # import kadrów z repo apek
+python3 Tools/generuj-strony.py --sprawdz-sklep  # manifest i OPIS kontra App Store (sieć)
+python3 Tools/generuj-strony.py --zrzuty --apka <slug>  # import kadrów WYDANEJ apki
 python3 Tools/glowy_dokumentow.py --sprawdz      # canonical, hreflang i noindex w dokumentach
 python3 Tools/indeks-witryny.py                  # bramka indeksowania NA ŻYWEJ witrynie
 python3 Tools/indeks-witryny.py --tylko glebokosc # samo piętro; --baza dla atrapy lokalnej

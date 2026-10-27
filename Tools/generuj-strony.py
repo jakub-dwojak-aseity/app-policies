@@ -139,7 +139,7 @@ p { margin: .75rem 0; }
 .instagram svg { width: 20px; height: 20px; flex: none; }
 @media (max-width: 600px) { .gora .zbedne { display: none; } }
 .pas { background: var(--c); color: #fff; }
-.pas .gora a, .pas .gora .logo { color: rgb(255 255 255 / .88); }
+.pas .gora a, .pas .gora .logo { color: #fff; }
 .pas .gora .powrot { color: #fff; }
 .pas a { color: #fff; }
 .cienki { border-top: 6px solid var(--c); }
@@ -155,10 +155,13 @@ p { margin: .75rem 0; }
 .znacznik { display: inline-flex; align-items: center; font-size: .8rem; font-weight: 600;
             padding: .3rem .65rem; border-radius: 999px; color: var(--ca);
             background: color-mix(in srgb, var(--c) 12%, var(--surface)); }
-.pas .znacznik { color: #fff; background: rgb(255 255 255 / .18); }
+/* Tło znacznika na paśmie: pasmo przyciemnione, nie biel .18 — ta rozjaśniała tło pod białym
+   tekstem do 3,4–3,5:1 (audyt 26.10.2026, WEB-03). Pilnuje bramka 26. */
+.pas .znacznik { color: #fff; background: color-mix(in srgb, var(--c) 80%, #000); }
 .sklep { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 1.4rem 0 0; }
 .darmowe { flex-basis: 100%; color: var(--text-muted); font-size: .9rem; }
-.pas .darmowe { color: rgb(255 255 255 / .9); }
+.wymagania { font-size: .85rem; font-weight: 600; }
+.pas .darmowe { color: #fff; }
 .platformy { display: inline-flex; gap: .3em; vertical-align: .02em; color: var(--text-muted); }
 .pas .platformy { color: #fff; }
 .platforma { display: inline-flex; }
@@ -187,6 +190,7 @@ p { margin: .75rem 0; }
 .start ol li::before { content: counter(list-item) " · "; }
 .start ol li + li::before { content: "→ " counter(list-item) " · "; }
 .start .btn { padding: 10px 16px; font-size: .92rem; }
+.start-podstawy { margin: 4px 0 0; font-size: .85rem; color: var(--text-muted); }
 .siatka { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 0; margin: 0; list-style: none; }
 @media (max-width: 900px) { .siatka { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .siatka { grid-template-columns: 1fr; } }
@@ -194,17 +198,21 @@ p { margin: .75rem 0; }
         border: 1px solid var(--line); display: flex; flex-direction: column; transition: transform .15s; }
 .apka:hover { transform: translateY(-2px); }
 @media (prefers-reduced-motion: reduce) { .apka { transition: none; } .apka:hover { transform: none; } }
-.apka .gorna { background: var(--c); color: #fff; padding: 16px 16px 14px; position: relative; overflow: hidden;
+.apka .gorna { background: var(--c); color: #fff; padding: 16px 16px 14px; overflow: hidden;
                display: flex; gap: 12px; align-items: center; min-height: 86px; }
-.apka .znak-wodny { position: absolute; right: -6px; bottom: -22px; font: 700 92px/1 var(--font-jp); opacity: .14;
-                    pointer-events: none; }
+/* Znak wodny liczony od KARTY, nie od pasma: pasmo nie może być pozycjonowane, bo łapałoby
+   warstwę linku nazwy (niżej) — do 27.10.2026 klikał się tylko blok tytułu, ~221×66 px
+   z ~319×271 (audyt WEB-01). Wysokość z `overflow: hidden` przycina znak tak jak dawniej
+   pasmo: 16 + 70 = 86 px, czyli `min-height` pasma. */
+.apka .znak-wodny { position: absolute; right: -6px; top: 16px; height: 70px; overflow: hidden;
+                    font: 700 92px/92px var(--font-jp); opacity: .14; pointer-events: none; }
 .apka .gorna img { width: 52px; height: 52px; border-radius: 14px; flex: none; position: relative;
                    box-shadow: 0 0 0 2px rgb(255 255 255 / .35); }
-.apka .gorna > div { position: relative; min-width: 0; }
+.apka .gorna > div { min-width: 0; }
 .apka .nazwa { display: block; color: #fff; text-decoration: none; font: 700 1.15rem/1.15 var(--font-display); }
-.apka .co { display: block; opacity: .9; font-size: .85rem; margin-top: 2px; }
+.apka .co { display: block; font-size: .85rem; margin-top: 2px; }
 .apka .gorna .platformy, .apka .gorna .znacznik { color: #fff; }
-.apka .gorna .znacznik { background: rgb(255 255 255 / .18); margin-top: 6px; }
+.apka .gorna .znacznik { background: color-mix(in srgb, var(--c) 80%, #000); margin-top: 6px; }
 .apka .dol { padding: 14px 16px 16px; display: grid; gap: 10px; flex: 1; }
 .apka .dol .znacznik { justify-self: start; }
 .apka .dol p { margin: 0; font-size: .93rem; line-height: 1.5; color: var(--text-muted); }
@@ -215,6 +223,8 @@ p { margin: .75rem 0; }
    Tylko tam, gdzie nazwa jest linkiem (§15 konwencji: co wygląda na dotykalne,
    musi być dotykalne — i odwrotnie). */
 a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.apka:has(a.nazwa:focus-visible) { outline: 3px solid var(--ca); outline-offset: 2px; }
+.apka a.nazwa:focus-visible { outline: none; }
 .zapowiedz { border-style: dashed; border-width: 2px; }
 .zapowiedz:hover { transform: none; }
 .zapowiedz .gorna { background: repeating-linear-gradient(135deg, var(--c) 0 14px, color-mix(in srgb, var(--c) 86%, #000) 14px 28px); }
@@ -265,9 +275,9 @@ a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: inher
 @media (max-width: 700px) { .szyld-apki { grid-template-columns: 1fr; } .szyld-apki .mowi { justify-self: end; } }
 .szyld-apki .ikona { width: 84px; height: 84px; border-radius: 22px; display: block; margin-bottom: 16px;
                      box-shadow: 0 0 0 3px rgb(255 255 255 / .3); }
-.szyld-apki .jp { color: rgb(255 255 255 / .8); }
-.szyld-apki .podtytul { color: rgb(255 255 255 / .92); font-size: 1.1rem; margin: .5rem 0 0; }
-.pas .lead { color: rgb(255 255 255 / .92); }
+.szyld-apki .jp { color: #fff; }
+.szyld-apki .podtytul { color: #fff; font-size: 1.1rem; margin: .5rem 0 0; }
+.pas .lead { color: #fff; }
 .mowi { display: flex; gap: 10px; align-items: flex-end; }
 .dymek { background: var(--surface); color: var(--text); border: 1px solid var(--line);
          border-radius: 16px 16px 16px 4px; padding: 10px 12px; font-size: .9rem; line-height: 1.4;
@@ -346,8 +356,8 @@ ruby rt { font-size: .5em; color: var(--text-muted); }
 .cta h2 { margin: 0 0 4px; font-size: 1.2rem; }
 .cta p { margin: 0; }
 .cta .sklep { margin: 0; }
-.cta .znacznik { color: #fff; background: rgb(255 255 255 / .18); }
-.cta .darmowe { color: rgb(255 255 255 / .9); }
+.cta .znacznik { color: #fff; background: color-mix(in srgb, var(--c) 80%, #000); }
+.cta .darmowe { color: #fff; }
 
 /* strony pozostałe (W02) */
 .glowa { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; padding: 18px 0 8px; }
@@ -437,8 +447,12 @@ def stan_sklepowy(repo: Path, wpis: dict) -> str:
         raise SystemExit(f"{wpis['slug']}: manifest nie podaje wersji sklepowej "
                          f"(pole `wersja` w Tools/apps.json)")
     ref = f"sklep/{wersja}"
-    if subprocess.run(["git", "-C", str(repo), "rev-parse", "-q", "--verify",
-                       f"refs/tags/{ref}"], capture_output=True).returncode != 0:
+    if not znacznik_istnieje(repo, ref):
+        # Katsuyokei 1.5.0: build zbudowano z numerem nadpisanym przy archiwizacji, więc
+        # commitu buildu nie da się wskazać — ale opis karty jest dowiedziony równością
+        # tekstu (`sklep-opis/<wersja>`), i to on jest nazwanym stanem dla treści.
+        if znacznik_istnieje(repo, f"sklep-opis/{wersja}"):
+            return f"sklep-opis/{wersja}"
         raise SystemExit(
             f"{wpis['slug']}: brak znacznika {ref} w {repo.name}.\n"
             f"  Strona produktowa bierze treść ze stanu wersji stojącej w sklepie.\n"
@@ -446,6 +460,24 @@ def stan_sklepowy(repo: Path, wpis: dict) -> str:
             f"    git -C {repo} tag -a {ref} <commit> -m 'Wersja {wersja} w sklepie'\n"
             f"  Numer w manifeście sprawdzisz: python3 Tools/generuj-strony.py --sprawdz-sklep")
     return ref
+
+
+def znacznik_istnieje(repo: Path, ref: str) -> bool:
+    return subprocess.run(["git", "-C", str(repo), "rev-parse", "-q", "--verify",
+                           f"refs/tags/{ref}"], capture_output=True).returncode == 0
+
+
+def stan_opisu(repo: Path, wpis: dict) -> str:
+    """Znacznik, z którego czytamy TEKSTY karty: `sklep-opis/<wersja>`, a bez niego `sklep/<wersja>`.
+
+    Opis wydanej wersji poprawiano w ASC po commicie buildu (Bunmyaku 1.6.0, Joshi 1.5.1),
+    więc znacznik buildu niósł starszy tekst niż karta w App Store. `sklep-opis/<wersja>`
+    zakłada `jp-grammar/Tools/synchronizuj-sklep.py` na commicie, którego metadane są
+    RÓWNE opisowi z publicznego lookup — dowodem jest tekst, nie data (audyt 26.10, OFR-01).
+    Kadry i pbxproj zostają na stanie buildu.
+    """
+    ref = f"sklep-opis/{wpis['wersja']}"
+    return ref if znacznik_istnieje(repo, ref) else stan_sklepowy(repo, wpis)
 
 
 def zbierz(manifest):
@@ -456,16 +488,22 @@ def zbierz(manifest):
         if not repo.exists():
             raise SystemExit(f"{wpis['slug']}: brak drzewa {repo}")
         ref = stan_sklepowy(repo, wpis)
+        ref_opisu = stan_opisu(repo, wpis)
         teksty = {}
         for jezyk in JEZYKI:
-            teksty[jezyk] = metadane.teksty(repo, wpis, jezyk, ref)
+            teksty[jezyk] = metadane.teksty(repo, wpis, jezyk, ref_opisu)
             plik = (Path("docs/app-store/version-texts.json") if wpis["zrodlo"] == "kaname"
                     else Path(f"docs/app-store/APP_STORE_METADATA_{jezyk.upper()}.md"))
         repo_zrzutow = ZRODLA / wpis.get("repoZrzuty", wpis["repo"])
         ref_zrzutow = ref if repo_zrzutow == repo else stan_sklepowy(repo_zrzutow, wpis)
         podpisy = {j: podpisy_kadrow(repo_zrzutow, j, ref_zrzutow) for j in JEZYKI}
+        faq = faq_rekordy().get(wpis["slug"])
+        if faq is None:
+            raise SystemExit(f"{wpis['slug']}: brak rekordu FAQ w Tools/faq.json")
         apki.append({**wpis, "teksty": teksty, "repoSciezka": repo, "podpisy": podpisy,
-                     "stanSklepowy": ref, "data": data_zrodla(repo, plik, ref)})
+                     "faq": faq, "wymagania": wymagania_systemu(repo, ref),
+                     "stanSklepowy": ref, "stanOpisu": ref_opisu,
+                     "data": data_zrodla(repo, plik, ref_opisu)})
     return apki
 
 
@@ -535,7 +573,25 @@ def akapit_html(akapit: str) -> str:
         znacznik = "ol" if re.match(r"^\d+\.", linie[0]) else "ul"
         klasa = "" if znacznik == "ol" else ' class="zwykla"'
         return f"<{znacznik}{klasa}>{pozycje}</{znacznik}>"
-    return "<p>" + "<br>".join(e(l) for l in linie) + "</p>"
+    return "<p>" + "<br>".join(z_linkami(l) for l in linie) + "</p>"
+
+
+ADRES_W_TEKSCIE = re.compile(r"https?://[^\s<>\"]+[^\s<>\".,;:!?)]")
+
+
+def z_linkami(linia: str) -> str:
+    """Tekst z adresami zamienionymi na `<a>` (audyt WEB-05: EULA i polityka jako goły tekst).
+
+    Tylko pełne adresy `http(s)://` — opis sklepowy zawsze je tak pisze, a zgadywanie
+    adresu z samej domeny zamieniałoby w link przypadkowe słowa. Reszta jest escapowana.
+    """
+    wynik, ostatni = [], 0
+    for m in ADRES_W_TEKSCIE.finditer(linia):
+        wynik.append(e(linia[ostatni:m.start()]))
+        wynik.append(f'<a href="{e(m.group(0))}">{e(m.group(0))}</a>')
+        ostatni = m.end()
+    wynik.append(e(linia[ostatni:]))
+    return "".join(wynik)
 
 
 def kotwica(tekst: str, zajete: set) -> str:
@@ -1158,8 +1214,12 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
 
     shindan = next((a for a in apki if a["slug"] == "shindan"), None)
     cel_poziomu = wzgledny(glebokosc, sciezki("shindan", jezyk)[0]) if shindan else "#aplikacje"
-    fundament = ", ".join(a["teksty"][jezyk]["nazwa"].split(":")[0].strip()
-                          for a in apki if a["slug"] in FUNDAMENT)
+    # Cel → aplikacja, z linkiem (audyt WEB-07): po teście poziomu czytelnik szuka JEDNEJ
+    # aplikacji na to, co go blokuje, a nie czterech nazw bez adresu.
+    fundament = ", ".join(
+        f'<a href="{wzgledny(glebokosc, sciezki(a["slug"], jezyk)[0])}">'
+        f'{e(a["teksty"][jezyk]["nazwa"].split(":")[0].strip())}</a> – {e(n["start_cele"][a["slug"]])}'
+        for slug in FUNDAMENT for a in apki if a["slug"] == slug)
     kolor_poziomu = wyglad.kolor("shindan")
     tresc = (
         '<div class="in">'
@@ -1176,8 +1236,9 @@ def mapa_rodziny(apki, jezyk, manifest, zywe=(), zapowiedziane=()):
         + f'<div class="start">{wyglad.kinako("standard", 40)}<div>'
         f'<b>{e(n["start_naglowek"])}</b><ol>'
         f'<li>{e(n["start_krok_1"])}</li>'
-        f'<li>{e(n["start_krok_2"].format(apki=fundament))}</li>'
-        f'<li>{e(n["start_krok_3"])}</li></ol></div>'
+        f'<li>{e(n["start_krok_2"]).format(apki=fundament)}</li>'
+        f'<li>{e(n["start_krok_3"])}</li></ol>'
+        f'<p class="start-podstawy">{e(n["start_podstawy"])}</p></div>'
         f'<a class="btn"{kolor_poziomu} href="{cel_poziomu}">{e(n["start_przycisk"])}</a></div>'
         + f'<h2 id="aplikacje">{e(n["naglowek_wyboru"])}</h2>'
         + f'<p class="pod-naglowkiem">{e(n["wybor_opis"])}</p>'
@@ -1259,6 +1320,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
         # trafień w wytworze). Jedynym sygnałem był napis na przycisku.
         sklep = (f'<p class="sklep">{przyciski_sklepow(a, n, "web-app-%s" % a["slug"])}'
                  f'{znaczki_platform(a, jezyk)}'
+                 f'<span class="wymagania">{e(n["wymagania_ios"].format(**a["wymagania"]))}</span>'
                  f'<span class="znacznik">{e(n["darmowa"])}</span></p>')
     else:
         sklep = (f'<p class="sklep"><span class="znacznik">{e(n["wkrotce"])}</span></p>'
@@ -1310,7 +1372,7 @@ def podstrona(a, jezyk, manifest, apki, *, kanoniczny=None, sciezka=None,
         + f"<h2>{e(n['opis_naglowek'])}</h2>"
         + spis_sekcji
         + opis
-        + f'<p class="podtytul">{e(n["opis_stopka"])}</p>'
+        + f'<p class="podtytul">{e(n["opis_stopka"].format(wersja=a["wersja"]))}</p>'
         # Powtórzone wyjście do sklepu. Opis ma 2200–4100 znaków, więc czytelnik,
         # który doszedł tu do końca, miał dotąd jedyny przycisk App Store dziesięć
         # przewinięć wyżej — i musiał po niego wrócić na samą górę.
@@ -1442,7 +1504,10 @@ def galeria(a, jezyk, glebokosc, platforma="ios"):
         #
         # Kadr jest **linkiem do pełnego pliku**: na stronie ma 210 px, więc tekstu
         # na zrzucie telefonu nie da się przeczytać, a powiększenia nie było żadnego.
-        kadry.append(f'<figure><a href="{sciezka}">'
+        # Link ma własną nazwę: z pustym `alt` czytnik ekranu podawał adres pliku WebP
+        # (audyt WEB-02). Nazwa mówi, co link robi, i niesie nagłówek kadru.
+        kadry.append(f'<figure><a href="{sciezka}" '
+                     f'aria-label="{e(n["powieksz_zrzut"].format(podpis=naglowek))}">'
                      f'<img src="{sciezka}" alt="" width="420" height="912" loading="lazy">'
                      f"</a><figcaption>{podpis}</figcaption></figure>")
     # `tabindex` na karuzeli: bez niego pas z kadrami przewija się wyłącznie
@@ -2509,7 +2574,7 @@ def rozdroze_nauki(zywe, jezyk, manifest, apki=()):
             f'<section class="grupa-apki" id="n-{slug}"{wyglad.kolor(slug)}><header>'
             f'<img src="{ikona}" alt="" width="44" height="44" loading="lazy">'
             f'<h2>{e(t["podtytul"])}<small>{e(n["nauka_z_apki"].format(apka=krotka))}</small></h2>'
-            f'<a href="{wzgledny(glebokosc, sciezki(slug, jezyk)[0])}"">{e(krotka)} ›</a></header>'
+            f'<a href="{wzgledny(glebokosc, sciezki(slug, jezyk)[0])}">{e(krotka)} ›</a></header>'
             f'<ul class="huby">'
             + "".join(hub_tematu(temat, a, eksport, jezyk, glebokosc) for temat, eksport in tematy)
             + "</ul></section>")
@@ -2742,7 +2807,10 @@ def strona_autora(apki, jezyk, manifest):
              # zdaniem, a nie samym linkiem w stopce.
              + f"<h2>{e(n['autor_naglowek_wydawca'])}</h2><p>{e(n['autor_wydawca'])}</p>"
              + f'<p><a href="{w["url"][jezyk]}">{e(w["url"][jezyk].split("//")[1].rstrip("/").split("/")[0])} →</a></p>'
-             + f"<h2>{e(n['autor_naglowek_kontakt'])}</h2><p>{e(n['autor_kontakt'])}</p>"
+             + f"<h2>{e(n['autor_naglowek_kontakt'])}</h2><p>"
+             + e(n['autor_kontakt']).replace(
+                 "{adres}", f'<a href="mailto:{e(manifest["kontaktOgolny"])}">{e(manifest["kontaktOgolny"])}</a>')
+             + "</p>"
              + f'</div><aside class="fakty"><h2>{e(n["fakty_naglowek"])}</h2><ul>{fakty}</ul></aside></div>'
              + f"<h2>{e(n['naglowek_kart'])}</h2>"
              + f'<ul class="mini">{apki_lista}</ul>'
@@ -2812,7 +2880,9 @@ def strona_co_dalej(jezyk, manifest, zapowiedziane=()):
     szostka = ""
     if zapowiedziane:
         szostka = (f'<h2 id="zapowiedziane">{e(n["dojdzie_naglowek"])}</h2>'
-                   f'<p class="pod-naglowkiem">{e(n["dojdzie_opis"])}</p><ul class="siatka">'
+                   f'<p class="pod-naglowkiem">{e(n["dojdzie_opis"])} '
+                   f'<a href="{wzgledny(glebokosc, "index.html" if jezyk == "pl" else "en/index.html")}#aplikacje">'
+                   f'{e(n["dojdzie_obecne"])}</a></p><ul class="siatka">'
                    + "".join(karta_zapowiedzi(z, jezyk, glebokosc, z_prosba=True)
                              for z in zapowiedziane)
                    + "</ul>")
@@ -2967,68 +3037,62 @@ def ikony(apki, zapisuj):
 
 # **Pytania piszemy my, odpowiedzi nigdy.** To jest cała granica tej sekcji i jedyny
 # powód, dla którego wolno ją było dopisać obok reguły „treść pochodzi z metadanych".
-# Modele odpowiadające na pytania cytują tekst zbudowany jako pytanie i odpowiedź —
-# a my mamy odpowiedzi już napisane i przejrzane, tylko rozsypane po opisie sklepowym.
-# Pytanie **wskazuje** sekcję opisu; jeśli aplikacja takiej sekcji nie ma, pytanie się
-# nie pojawia. Nigdy nie powstaje odpowiedź, której nie ma w sklepie.
+# Modele odpowiadające na pytania cytują tekst zbudowany jako pytanie i odpowiedź.
+# Do 27.10.2026 odpowiedzi WYCINAŁO się z opisu sklepowego: pytanie wskazywało sekcję po
+# słowie z nagłówka, a odpowiedzią były jej dwa pierwsze akapity. Audyt witryny z 26.10
+# pokazał, ile to kosztuje: zdanie traciło sens bez nagłówka („Cały N5…” bez „ZA DARMO”),
+# do odpowiedzi o koszcie wpadały reklamy sióstr, PL i EN odpowiadały innym zakresem,
+# a pytanie „Czego uczy Shindan?” stało nad aplikacją, która nie uczy.
 #
-# Klucze to fragmenty NAGŁÓWKÓW sekcji, wielkimi literami, bo tak są pisane w opisach.
-PYTANIA = (
-    {
-        "pl": "Czego uczy {nazwa}?",
-        "en": "What does {nazwa} teach?",
-        "otwarcie": True,                     # zdania przed pierwszym nagłówkiem
-    },
-    {
-        "pl": "Ile kosztuje {nazwa}?",
-        "en": "What does {nazwa} cost?",
-        "klucze_pl": ("DARMOW", "ZA DARMO", "PREMIUM", "KUPIĆ", "PŁATNE", "ZAKUP"),
-        "klucze_en": ("FREE", "PAID", "PREMIUM", "BUY", "COSTS", "PURCHASE"),
-    },
-    {
-        "pl": "Czy działa bez internetu i bez konta?",
-        "en": "Does it work without an account or a network?",
-        "klucze_pl": ("BEZ KONTA", "BEZ SIECI", "PRYWAT"),
-        "klucze_en": ("NO ACCOUNT", "NO NETWORK", "PRIVAC", "PRIVATE", "OFFLINE"),
-    },
-    {
-        "pl": "W jakich językach działa?",
-        "en": "What languages does it support?",
-        "klucze_pl": ("POLSKI I ANGIELSKI",),
-        "klucze_en": ("POLISH AND ENGLISH", "ENGLISH AND POLISH"),
-    },
-    {
-        "pl": "Czego ta aplikacja nie robi?",
-        "en": "What does this app not do?",
-        "klucze_pl": ("CZEGO NIE", "NIE ZROBI", "BEZ ĆWICZEŃ", "CZEGO TU NIE MA"),
-        "klucze_en": ("WHAT IT DOES NOT", "DOES NOT DO", "NO PRACTICE", "WHAT IS NOT HERE",
-                      "WHAT IT WILL NOT"),
-    },
-)
+# Teraz odpowiedzi są PISANE, per apka i per język, w `Tools/faq.json` — i stamtąd idą
+# jednym rekordem do HTML i do FAQPage JSON-LD. Tematy wymagane od każdej apki stoją niżej;
+# brzmienie i liczba pytań mogą się różnić (Shindan pyta o diagnozę, nie o naukę).
+FAQ = KORZEN / "Tools" / "faq.json"
+FAQ_TEMATY = ("cel", "dostep", "offline", "telefon", "jezyki", "urzadzenia")
+FAQ_TEMATY_AI = ("ai",)
 
-# Odpowiedź to najwyżej tyle akapitów sekcji. Sekcje bywają długie, a odpowiedź
-# w wynikach wyszukiwania i tak jest przycinana — lepiej przyciąć świadomie.
-AKAPITOW_W_ODPOWIEDZI = 2
+
+def faq_rekordy():
+    return json.loads(FAQ.read_text(encoding="utf-8"))
+
+
+def wymagania_systemu(repo: Path, ref: str) -> dict:
+    """Minimalny iOS i rodzina urządzeń z `project.pbxproj` wydanego stanu — liczone, nie wpisane.
+
+    Cel docelowy siedzi na poziomie projektu (blok bez identyfikatora pakietu), a rodzina
+    urządzeń na poziomie celu aplikacji (blok z ikoną). Cel testów UI Kaname ma 26.5 —
+    dlatego nie bierzemy minimum ze wszystkich bloków na ślepo.
+    """
+    pliki = [x for x in subprocess.run(["git", "-C", str(repo), "ls-tree", "-r", "--name-only", ref],
+                                       capture_output=True, text=True).stdout.split()
+             if x.endswith("project.pbxproj") and "Pods" not in x]
+    if len(pliki) != 1:
+        raise SystemExit(f"{repo.name}: na {ref} nie ma jednego project.pbxproj ({pliki})")
+    tresc = subprocess.run(["git", "-C", str(repo), "show", f"{ref}:{pliki[0]}"],
+                           capture_output=True, text=True).stdout
+    apka, projekt, rodziny = [], [], set()
+    for blok in re.findall(r"buildSettings = \{(.*?)\n\t\t\t\};", tresc, re.S):
+        cele = re.findall(r"IPHONEOS_DEPLOYMENT_TARGET = ([\d.]+);", blok)
+        if "ASSETCATALOG_COMPILER_APPICON_NAME" in blok:
+            apka += cele
+            rodziny.update(re.findall(r'TARGETED_DEVICE_FAMILY = "?([\d,]+)"?;', blok))
+        elif "PRODUCT_BUNDLE_IDENTIFIER" not in blok:
+            projekt += cele
+    cele = apka or projekt
+    if not cele or not rodziny:
+        raise SystemExit(f"{repo.name}: nie odczytałem celu iOS ani rodziny urządzeń z {pliki[0]} na {ref}")
+    klucz = lambda w: tuple(int(x) for x in w.split("."))
+    ios = max(cele, key=klucz)
+    ios = ios[:-2] if ios.endswith(".0") else ios
+    return {"ios": ios, "ipad": any("2" in r.split(",") for r in rodziny)}
 
 
 def pytania_apki(a, jezyk):
-    """Pary pytanie–odpowiedź dla jednej aplikacji, wyłącznie z jej opisu."""
-    sekcje = metadane.sekcje(a["teksty"][jezyk]["opis"])
+    """Pary pytanie–odpowiedź jednej aplikacji, z jej rekordu w `Tools/faq.json`."""
     nazwa = a["teksty"][jezyk]["nazwa"].split(":")[0].split(" —")[0].strip()
-    pary = []
-    for wzorzec in PYTANIA:
-        if wzorzec.get("otwarcie"):
-            akapity = next((tresc for naglowek, tresc in sekcje if naglowek is None), [])
-        else:
-            klucze = wzorzec[f"klucze_{jezyk}"]
-            akapity = []
-            for naglowek, tresc in sekcje:
-                if naglowek and any(k in naglowek for k in klucze):
-                    akapity.extend(tresc)
-        if not akapity:
-            continue
-        pary.append((wzorzec[jezyk].format(nazwa=nazwa), akapity[:AKAPITOW_W_ODPOWIEDZI]))
-    return pary
+    pola = {"nazwa": nazwa, "ios": a["wymagania"]["ios"]}
+    return [(r["pytanie"].format(**pola), [ak.format(**pola) for ak in r["akapity"]])
+            for r in a["faq"][jezyk]]
 
 
 def faq_html(pary, jezyk):
@@ -3525,6 +3589,34 @@ def wyglad_swiezosc():
     return modul.swiezosc()
 
 
+_PL = ("jeden dwa trzy cztery pięć sześć siedem osiem dziewięć dziesięć jedenaście dwanaście "
+       "trzynaście czternaście piętnaście szesnaście siedemnaście osiemnaście dziewiętnaście "
+       "dwadzieścia").split()
+_EN = ("one two three four five six seven eight nine ten eleven twelve thirteen fourteen "
+       "fifteen sixteen seventeen eighteen nineteen twenty").split()
+#: Liczebniki do bramki 27: słowo → liczba, 1–29 (dwadzieścia jeden … dwadzieścia dziewięć).
+LICZEBNIKI = {
+    "pl": {**{w: i + 1 for i, w in enumerate(_PL)}, **{f"dwadzieścia {w}": 21 + i for i, w in enumerate(_PL[:9])}},
+    "en": {**{w: i + 1 for i, w in enumerate(_EN)}, **{f"twenty-{w}": 21 + i for i, w in enumerate(_EN[:9])}},
+}
+
+
+def _luminancja(kolor: str) -> float:
+    kanaly = [int(kolor.lstrip("#")[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+    kanaly = [c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4 for c in kanaly]
+    return 0.2126 * kanaly[0] + 0.7152 * kanaly[1] + 0.0722 * kanaly[2]
+
+
+def kontrast_wcag(a: str, b: str) -> float:
+    jasny, ciemny = sorted((_luminancja(a), _luminancja(b)), reverse=True)
+    return (jasny + 0.05) / (ciemny + 0.05)
+
+
+def przyciemnij(kolor: str, udzial: float) -> str:
+    """To samo, co `color-mix(in srgb, kolor udzial, #000)` w CSS."""
+    return "#%02x%02x%02x" % tuple(round(int(kolor.lstrip("#")[i:i + 2], 16) * udzial) for i in (0, 2, 4))
+
+
 def bramki(apki, pliki, manifest, zapowiedziane=()):
     """Wszystko, co musi być prawdą, zanim strony pojadą na serwer.
 
@@ -3552,6 +3644,18 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
                     continue
                 for skarga in landmark(sciezka.read_text(encoding="utf-8")):
                     bledy.append(f"{a['slug']} {jezyk} {plik}: {skarga}")
+
+    # 1b. Katalog dokumentów to ten, który podaje adres polityki w opisie sklepowym.
+    #     Do 27.10.2026 sześć apek linkowało z bloku „Dokumenty” wersje starsze niż te,
+    #     które wskazywała karta App Store (audyt DOC-01) — a opis na tej samej stronie
+    #     cytował nowszy adres. Rozjazd był widoczny tylko dla kogoś, kto czytał oba.
+    for a in apki:
+        for jezyk in JEZYKI:
+            adresy = re.findall(r"jd-japanese\.pl/([\w./-]+)/privacy\.html", a["teksty"][jezyk]["opis"])
+            if adresy and adresy[-1] != a["dokumenty"][jezyk]:
+                bledy.append(f"{a['slug']} {jezyk}: opis sklepowy wskazuje {adresy[-1]}/privacy.html, "
+                             f"a blok „Dokumenty” {a['dokumenty'][jezyk]}/ — popraw `dokumenty` w apps.json "
+                             "(odczyt z ASC: privacyPolicyUrl)")
 
     for inna in manifest.get("pozostale", []):
         for katalog in inna["dokumenty"].values():
@@ -3634,15 +3738,50 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
                              f"({nazwy[nazwa]}, {a['slug']})")
             nazwy[nazwa] = a["slug"]
 
-    # 6. Pytania dobierają się nagłówkami sekcji opisu, a te są pisane ręcznie
-    #    i osobno w każdym języku. Jeśli angielski nagłówek zmieni brzmienie, pytanie
-    #    **cicho zniknie z jednej wersji językowej** — strona dalej się zbuduje, tylko
-    #    będzie uboższa. Bramka porównuje liczby zamiast ufać, że nagłówki są zgodne.
+    # 6. FAQ: rekord pisany per apka i język (`Tools/faq.json`), a nie wycinek opisu.
+    #    Bramka pilnuje tego, czego wycinek nie gwarantował (audyt 26.10.2026): komplet
+    #    tematów, te same tematy w obu językach, temat AI tam i tylko tam, gdzie apka ma
+    #    AI, odpowiedź bez reklamy siostry, a HTML i FAQPage JSON-LD mówią to samo —
+    #    to drugie sprawdzane w WYTWORZE, nie w rekordzie.
+    nazwy_apek = {a["teksty"]["pl"]["nazwa"].split(":")[0].split(" —")[0].strip(): a["slug"]
+                  for a in apki}
     for a in apki:
-        ile = {j: len(pytania_apki(a, j)) for j in JEZYKI}
-        if ile["pl"] != ile["en"]:
-            bledy.append(f"{a['slug']}: pytań pl={ile['pl']}, en={ile['en']} — "
-                         "nagłówek sekcji w opisie rozjechał się między językami")
+        tematy = {j: [r["temat"] for r in a["faq"].get(j, [])] for j in JEZYKI}
+        if tematy["pl"] != tematy["en"]:
+            bledy.append(f"{a['slug']}: FAQ ma inne tematy w PL {tematy['pl']} i EN {tematy['en']}")
+        wymagane = set(FAQ_TEMATY) | (set(FAQ_TEMATY_AI) if a.get("ai") else set())
+        if brak := wymagane - set(tematy["pl"]):
+            bledy.append(f"{a['slug']}: FAQ bez tematów {sorted(brak)} (Tools/faq.json)")
+        if not a.get("ai") and "ai" in tematy["pl"]:
+            bledy.append(f"{a['slug']}: FAQ ma temat `ai`, a apka nie ma AI (apps.json `ai`)")
+        for jezyk in JEZYKI:
+            for pytanie, akapity in pytania_apki(a, jezyk):
+                obce = [n for n, slug in nazwy_apek.items()
+                        if slug != a["slug"] and re.search(rf"\b{re.escape(n)}\b", " ".join(akapity))]
+                if obce:
+                    bledy.append(f"{a['slug']} {jezyk}: odpowiedź na „{pytanie}” wymienia {obce} — "
+                                 "polecenia sióstr stoją w bloku „Pozostałe aplikacje”, nie w FAQ")
+            adres, _ = sciezki(a["slug"], jezyk)
+            blok_faq = re.search(r'<section class="pytania waska">(.*?)</section>',
+                                 pliki.get(adres, ""), re.S)
+            strona = blok_faq.group(1) if blok_faq else ""
+            widoczne = [(html.unescape(re.sub(r"<[^>]+>", "", q)),
+                         [html.unescape(re.sub(r"<[^>]+>", "", x))
+                          for x in re.findall(r"<p>(.*?)</p>", odp, re.S)])
+                        for q, odp in re.findall(r"<details><summary>(.*?)</summary>(.*?)</details>",
+                                                 strona, re.S)]
+            ld = []
+            for blok in re.findall(r'<script type="application/ld\+json">(.*?)</script>',
+                                   pliki.get(adres, ""), re.S):
+                dane = json.loads(blok)
+                for wezel in (dane.get("@graph", [dane]) if isinstance(dane, dict) else dane):
+                    if isinstance(wezel, dict) and wezel.get("@type") == "FAQPage":
+                        ld = [(q["name"], q["acceptedAnswer"]["text"].split("\n\n"))
+                              for q in wezel["mainEntity"]]
+            if [q for q, _ in widoczne] != [q for q, _ in ld] or \
+                    [" ".join(x).replace("\n", " ") for _, x in widoczne] != \
+                    [" ".join(x).replace("\n", " ") for _, x in ld]:
+                bledy.append(f"{adres}: FAQ w HTML i w FAQPage JSON-LD się różnią")
 
     # 7. Każdy kadr na stronie ma podpis w obu językach. Tekst alternatywny czyta
     #    czytnik ekranu i indeksuje wyszukiwarka, a zastępnik „zrzut ekranu" nie niesie
@@ -4155,6 +4294,47 @@ def bramki(apki, pliki, manifest, zapowiedziane=()):
             continue
         if not any(f'href="{u}"' in tresc for u in wydawca_url.values()):
             bledy.append(f"{adres_}: brak linku do wydawcy ({wydawca_url['pl']})")
+    # 26. Kontrast białego tekstu na paśmie apki (audyt 26.10.2026, WEB-03). Biel
+    #     z alfą .88–.92 i znacznik na tle bieli .18 schodziły do 3,4–4,3:1 w dziewięciu
+    #     paletach z dziesięciu. Liczymy WCAG z `wyglad.json` (jasny i ciemny motyw każdej
+    #     palety, także zapowiedzianych) i pilnujemy, żeby biel z alfą nie wróciła do CSS.
+    for slug, paleta in json.loads((KORZEN / "Tools" / "wyglad.json").read_text(encoding="utf-8"))["apki"].items():
+        for tryb, pasmo in paleta["band"].items():
+            for nazwa, tlo in (("pasmo", pasmo), ("znacznik na paśmie", przyciemnij(pasmo, .8))):
+                if (k := kontrast_wcag("#ffffff", tlo)) < 4.5:
+                    bledy.append(f"wygląd {slug} {tryb}: biel na tle „{nazwa}” {tlo} ma {k:.2f}:1 (< 4,5:1)")
+    if biel_z_alfa := re.findall(r"(?<!background: )(?<!shadow: )color: rgb\(255 255 255 / \.\d+\)", STYL):
+        bledy.append(f"CSS: tekst biały z przezroczystością ({len(biel_z_alfa)}×) — na paśmie daje < 4,5:1")
+
+    # 27. Liczebnik we wstępie grupy = liczba haseł, które ta grupa pokazuje (audyt
+    #     26.10.2026, JPN-14: „piętnaście ról” nad czternastoma, „osiem słów” nad
+    #     dziewięcioma). Liczebnik zostaje pisany ręcznie, bo niesie odmianę rzeczownika
+    #     („dwa skróty”, „pięć skrótów”); bramka porównuje go z eksportem. „pary/pairs”
+    #     liczą się podwójnie.
+    eksporty_ = wczytaj_eksporty(apki)
+    for temat in TEMATY:
+        eksport = eksporty_.get(temat.get("apka"))
+        if not eksport:
+            continue
+        for grupa in grupy_zywe(temat, eksport):
+            ile = len(jednostki_tematu(eksport, temat, grupa))
+            for jezyk in JEZYKI:
+                n_ = NAPISY[jezyk]
+                opis = (n_.get("grupa_%s_%s_opis" % (eksport.get("apka", ""), grupa["grupa"]))
+                        or n_.get("grupa_%s_opis" % grupa["grupa"]))
+                if not opis:
+                    continue
+                trafienie = re.search(r"(?<![\w-])(%s)\s+(\w+)" % "|".join(
+                    sorted(LICZEBNIKI[jezyk], key=len, reverse=True)), opis, re.I)
+                if not trafienie:
+                    continue
+                liczba = LICZEBNIKI[jezyk][trafienie.group(1).lower()]
+                if trafienie.group(2).lower() in ("pary", "par", "pairs", "pair"):
+                    liczba *= 2
+                if liczba != ile:
+                    bledy.append(f"{temat['klucz']}/{grupa['grupa']} {jezyk}: wstęp mówi "
+                                 f"„{trafienie.group(0)}”, a grupa ma {ile} haseł")
+
     stan_wygladu = wyglad_swiezosc()
     if stan_wygladu:
         uwagi.append(f"wygląd: kopia z japanese-ui nieaktualna ({stan_wygladu}) — "
@@ -4374,6 +4554,22 @@ def sprawdz_sklep(apki):
                         f"{a['slug']}: manifest mówi wersja={a['wersja']}, a w sklepie "
                         f"stoi {najnowsza} — strona reklamuje wydanie, którego już nie ma "
                         f"({gdzie})")
+            # **Opis — dołożone 27.10.2026 (audyt witryny, OFR-01).** Strona pisze pod
+            # opisem „tekst karty App Store dla wersji X”; do tego dnia pisała „ten sam
+            # plik”, a cztery karty mówiły już co innego. Porównanie po zdjęciu białych
+            # znaków, w sklepie właściwym dla języka.
+            for jezyk, (kraj, lang) in (("pl", ("pl", "pl_pl")), ("en", ("us", "en_us"))):
+                adres = f"https://itunes.apple.com/lookup?id={a['appId']}&country={kraj}&lang={lang}"
+                try:
+                    with urllib.request.urlopen(adres, timeout=20) as odpowiedz:
+                        wynik_ = json.loads(odpowiedz.read().decode())["results"]
+                except (urllib.error.URLError, json.JSONDecodeError, KeyError):
+                    rozjazdy.append(f"{a['slug']} {jezyk}: opisu NIE SPRAWDZIŁEM (lookup {kraj}/{lang})")
+                    continue
+                sklepowy = re.sub(r"\s+", "", (wynik_[0].get("description") if wynik_ else "") or "")
+                if sklepowy != re.sub(r"\s+", "", a["teksty"][jezyk]["opis"]):
+                    rozjazdy.append(f"{a['slug']} {jezyk}: opis na stronie ({a['stanOpisu']}) ≠ karta "
+                                    f"App Store — jp-grammar/Tools/synchronizuj-sklep.py zakłada sklep-opis/<wersja>")
                 elif moja > ich:
                     print(f"  uwaga  {a['slug']}: manifest {a['wersja']} wyprzedza sklep "
                           f"({gdzie}) — jeśli wydanie właśnie wychodzi, mija samo")
@@ -4479,6 +4675,9 @@ def main():
                         help="generuje dwa razy i porównuje wynik bajt w bajt")
     parser.add_argument("--zrzuty", action="store_true",
                         help="wciąga kadry sklepowe z repozytoriów aplikacji do assets/zrzuty/")
+    parser.add_argument("--apka", action="append", metavar="SLUG",
+                        help="z --zrzuty: tylko te apki (drzewa sióstr niosą kadry NIEWYDANYCH "
+                             "wersji, więc import całej rodziny wciągnąłby cudze przyszłe ekrany)")
     parser.add_argument("--sprawdz-sklep", action="store_true",
                         help="porównuje manifest z App Store (wymaga sieci)")
     args = parser.parse_args()
@@ -4497,7 +4696,10 @@ def main():
     if args.zrzuty:
         # `--zrzuty --sprawdz` to przebieg próbny: kasowanie plików jest
         # nieodwracalne, a §21.T mówi, że takie narzędzie ma mieć tryb próbny.
-        zrobione, brakujace, usuniete = importuj_zrzuty(apki, manifest,
+        wybrane = [x for x in apki if not args.apka or x["slug"] in args.apka]
+        if args.apka and len(wybrane) != len(set(args.apka)):
+            raise SystemExit(f"--apka: nie znam {sorted(set(args.apka) - {x['slug'] for x in apki})}")
+        zrobione, brakujace, usuniete = importuj_zrzuty(wybrane, manifest,
                                                         zapisuj=not args.sprawdz)
         czasownik = "do przeskalowania" if args.sprawdz else "przeskalowanych"
         print(f"zrzuty: {len(zrobione)} {czasownik}")

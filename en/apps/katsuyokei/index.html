@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Katsuyokei: Conjugation – Verbs, adjectives and drills</title>
-<meta name="description" content="Verbs, adjectives and drills. Japanese conjugation is not a table to memorise. Either the form comes out without thinking,
-or it does not come out at all.">
+<meta name="description" content="Verbs, adjectives and drills. Practice Japanese conjugation so that correct forms come more quickly – from working
+out an answer to using it fluently.">
 <link rel="canonical" href="https://jd-japanese.pl/en/apps/katsuyokei/">
 <link rel="alternate" hreflang="en" href="https://jd-japanese.pl/en/apps/katsuyokei/">
 <link rel="alternate" hreflang="pl" href="https://jd-japanese.pl/apps/katsuyokei/">
 <link rel="alternate" hreflang="x-default" href="https://jd-japanese.pl/en/apps/katsuyokei/">
 <meta property="og:title" content="Katsuyokei: Conjugation – Verbs, adjectives and drills">
-<meta property="og:description" content="Verbs, adjectives and drills. Japanese conjugation is not a table to memorise. Either the form comes out without thinking,
-or it does not come out at all.">
+<meta property="og:description" content="Verbs, adjectives and drills. Practice Japanese conjugation so that correct forms come more quickly – from working
+out an answer to using it fluently.">
 <meta property="og:url" content="https://jd-japanese.pl/en/apps/katsuyokei/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Japanese in separate apps">
@@ -80,7 +80,7 @@ p { margin: .75rem 0; }
 .instagram svg { width: 20px; height: 20px; flex: none; }
 @media (max-width: 600px) { .gora .zbedne { display: none; } }
 .pas { background: var(--c); color: #fff; }
-.pas .gora a, .pas .gora .logo { color: rgb(255 255 255 / .88); }
+.pas .gora a, .pas .gora .logo { color: #fff; }
 .pas .gora .powrot { color: #fff; }
 .pas a { color: #fff; }
 .cienki { border-top: 6px solid var(--c); }
@@ -96,10 +96,13 @@ p { margin: .75rem 0; }
 .znacznik { display: inline-flex; align-items: center; font-size: .8rem; font-weight: 600;
             padding: .3rem .65rem; border-radius: 999px; color: var(--ca);
             background: color-mix(in srgb, var(--c) 12%, var(--surface)); }
-.pas .znacznik { color: #fff; background: rgb(255 255 255 / .18); }
+/* Tło znacznika na paśmie: pasmo przyciemnione, nie biel .18 — ta rozjaśniała tło pod białym
+   tekstem do 3,4–3,5:1 (audyt 26.10.2026, WEB-03). Pilnuje bramka 26. */
+.pas .znacznik { color: #fff; background: color-mix(in srgb, var(--c) 80%, #000); }
 .sklep { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 1.4rem 0 0; }
 .darmowe { flex-basis: 100%; color: var(--text-muted); font-size: .9rem; }
-.pas .darmowe { color: rgb(255 255 255 / .9); }
+.wymagania { font-size: .85rem; font-weight: 600; }
+.pas .darmowe { color: #fff; }
 .platformy { display: inline-flex; gap: .3em; vertical-align: .02em; color: var(--text-muted); }
 .pas .platformy { color: #fff; }
 .platforma { display: inline-flex; }
@@ -128,6 +131,7 @@ p { margin: .75rem 0; }
 .start ol li::before { content: counter(list-item) " · "; }
 .start ol li + li::before { content: "→ " counter(list-item) " · "; }
 .start .btn { padding: 10px 16px; font-size: .92rem; }
+.start-podstawy { margin: 4px 0 0; font-size: .85rem; color: var(--text-muted); }
 .siatka { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 0; margin: 0; list-style: none; }
 @media (max-width: 900px) { .siatka { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .siatka { grid-template-columns: 1fr; } }
@@ -135,17 +139,21 @@ p { margin: .75rem 0; }
         border: 1px solid var(--line); display: flex; flex-direction: column; transition: transform .15s; }
 .apka:hover { transform: translateY(-2px); }
 @media (prefers-reduced-motion: reduce) { .apka { transition: none; } .apka:hover { transform: none; } }
-.apka .gorna { background: var(--c); color: #fff; padding: 16px 16px 14px; position: relative; overflow: hidden;
+.apka .gorna { background: var(--c); color: #fff; padding: 16px 16px 14px; overflow: hidden;
                display: flex; gap: 12px; align-items: center; min-height: 86px; }
-.apka .znak-wodny { position: absolute; right: -6px; bottom: -22px; font: 700 92px/1 var(--font-jp); opacity: .14;
-                    pointer-events: none; }
+/* Znak wodny liczony od KARTY, nie od pasma: pasmo nie może być pozycjonowane, bo łapałoby
+   warstwę linku nazwy (niżej) — do 27.10.2026 klikał się tylko blok tytułu, ~221×66 px
+   z ~319×271 (audyt WEB-01). Wysokość z `overflow: hidden` przycina znak tak jak dawniej
+   pasmo: 16 + 70 = 86 px, czyli `min-height` pasma. */
+.apka .znak-wodny { position: absolute; right: -6px; top: 16px; height: 70px; overflow: hidden;
+                    font: 700 92px/92px var(--font-jp); opacity: .14; pointer-events: none; }
 .apka .gorna img { width: 52px; height: 52px; border-radius: 14px; flex: none; position: relative;
                    box-shadow: 0 0 0 2px rgb(255 255 255 / .35); }
-.apka .gorna > div { position: relative; min-width: 0; }
+.apka .gorna > div { min-width: 0; }
 .apka .nazwa { display: block; color: #fff; text-decoration: none; font: 700 1.15rem/1.15 var(--font-display); }
-.apka .co { display: block; opacity: .9; font-size: .85rem; margin-top: 2px; }
+.apka .co { display: block; font-size: .85rem; margin-top: 2px; }
 .apka .gorna .platformy, .apka .gorna .znacznik { color: #fff; }
-.apka .gorna .znacznik { background: rgb(255 255 255 / .18); margin-top: 6px; }
+.apka .gorna .znacznik { background: color-mix(in srgb, var(--c) 80%, #000); margin-top: 6px; }
 .apka .dol { padding: 14px 16px 16px; display: grid; gap: 10px; flex: 1; }
 .apka .dol .znacznik { justify-self: start; }
 .apka .dol p { margin: 0; font-size: .93rem; line-height: 1.5; color: var(--text-muted); }
@@ -156,6 +164,8 @@ p { margin: .75rem 0; }
    Tylko tam, gdzie nazwa jest linkiem (§15 konwencji: co wygląda na dotykalne,
    musi być dotykalne — i odwrotnie). */
 a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.apka:has(a.nazwa:focus-visible) { outline: 3px solid var(--ca); outline-offset: 2px; }
+.apka a.nazwa:focus-visible { outline: none; }
 .zapowiedz { border-style: dashed; border-width: 2px; }
 .zapowiedz:hover { transform: none; }
 .zapowiedz .gorna { background: repeating-linear-gradient(135deg, var(--c) 0 14px, color-mix(in srgb, var(--c) 86%, #000) 14px 28px); }
@@ -206,9 +216,9 @@ a.nazwa::after { content: ""; position: absolute; inset: 0; border-radius: inher
 @media (max-width: 700px) { .szyld-apki { grid-template-columns: 1fr; } .szyld-apki .mowi { justify-self: end; } }
 .szyld-apki .ikona { width: 84px; height: 84px; border-radius: 22px; display: block; margin-bottom: 16px;
                      box-shadow: 0 0 0 3px rgb(255 255 255 / .3); }
-.szyld-apki .jp { color: rgb(255 255 255 / .8); }
-.szyld-apki .podtytul { color: rgb(255 255 255 / .92); font-size: 1.1rem; margin: .5rem 0 0; }
-.pas .lead { color: rgb(255 255 255 / .92); }
+.szyld-apki .jp { color: #fff; }
+.szyld-apki .podtytul { color: #fff; font-size: 1.1rem; margin: .5rem 0 0; }
+.pas .lead { color: #fff; }
 .mowi { display: flex; gap: 10px; align-items: flex-end; }
 .dymek { background: var(--surface); color: var(--text); border: 1px solid var(--line);
          border-radius: 16px 16px 16px 4px; padding: 10px 12px; font-size: .9rem; line-height: 1.4;
@@ -287,8 +297,8 @@ ruby rt { font-size: .5em; color: var(--text-muted); }
 .cta h2 { margin: 0 0 4px; font-size: 1.2rem; }
 .cta p { margin: 0; }
 .cta .sklep { margin: 0; }
-.cta .znacznik { color: #fff; background: rgb(255 255 255 / .18); }
-.cta .darmowe { color: rgb(255 255 255 / .9); }
+.cta .znacznik { color: #fff; background: color-mix(in srgb, var(--c) 80%, #000); }
+.cta .darmowe { color: #fff; }
 
 /* strony pozostałe (W02) */
 .glowa { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; padding: 18px 0 8px; }
@@ -344,7 +354,7 @@ code { font-size: .9em; }
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "iOS",
       "url": "https://jd-japanese.pl/en/apps/katsuyokei/",
-      "description": "Japanese conjugation is not a table to memorise.",
+      "description": "Practice Japanese conjugation so that correct forms come more quickly – from working\nout an answer to using it fluently.",
       "inLanguage": [
         "pl",
         "en"
@@ -372,7 +382,7 @@ code { font-size: .9em; }
         "https://jd-japanese.pl/assets/zrzuty/katsuyokei/en/04-material.webp",
         "https://jd-japanese.pl/assets/zrzuty/katsuyokei/en/05-slabe.webp"
       ],
-      "dateModified": "2026-09-09",
+      "dateModified": "2026-10-15",
       "image": "https://jd-japanese.pl/assets/karty/katsuyokei-en.png"
     },
     {
@@ -400,31 +410,47 @@ code { font-size: .9em; }
           "name": "What does Katsuyokei teach?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Japanese conjugation is not a table to memorise. Either the form comes out without thinking,\nor it does not come out at all.\n\nKnowing that the te-form exists is not the same as producing 書いて without stopping to\nthink. The first is understanding; the second is a reflex, and a reflex is built by\nrepetition and feedback, not by explanation."
+            "text": "Katsuyokei drills Japanese conjugation of verbs and adjectives so that correct forms come more quickly – from working out an answer to using it fluently."
           }
         },
         {
           "@type": "Question",
-          "name": "What does Katsuyokei cost?",
+          "name": "What is free and how does paid access work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Levels 1 and 2 are free in full – enough to reach the te-form, which is the point at\nwhich Japanese starts connecting into sentences. Premium is a single purchase that opens\nlevels 3 to 5, the full vocabulary pool and weak-form practice. No subscription.\n\nAlso from the same author: Kaname – Japanese Grammar, for when and why a construction is\nused, rather than how to build it."
+            "text": "The forms from levels 1 and 2, including the te-form, are free to practise with the core vocabulary.\n\nPremium is a one-time purchase that opens levels 3–5 and the full vocabulary pool. No subscription and no AI. You will see the current price in your App Store currency in the app before you confirm the purchase."
           }
         },
         {
           "@type": "Question",
-          "name": "Does it work without an account or a network?",
+          "name": "Does Katsuyokei work offline and without an account?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Everything stays on your device. No account, no sign-in, no analytics, no advertising, no\ntracking. The app makes no network requests at all apart from handling the purchase\nitself. It works in aeroplane mode."
+            "text": "Practice works offline, and your progress and history stay on the phone. Only purchases and restoring them, plus optional anonymous statistics, need a connection – the statistics are off by default and never include your answers; change it in Settings.\n\nThe app has no account or sign-in of its own; purchases go through your Apple Account."
           }
         },
         {
           "@type": "Question",
-          "name": "What languages does it support?",
+          "name": "What happens when I change phones?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Interface and content switch independently, so a Polish menu with English grammar terms\nis a normal combination rather than a compromise."
+            "text": "Restore your purchase on the new phone with “Restore purchases” in the app, signed in with the same Apple Account.\n\nYour study progress is separate: it stays on the phone, so you move it with the backup file – export it in Settings on the old phone and import it on the new one."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What languages does Katsuyokei support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In Polish and in English. You choose the interface language and the explanation language independently."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which devices does Katsuyokei run on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "iPhone with iOS 18 or later. The app is designed for iPhone."
           }
         }
       ]
@@ -438,15 +464,16 @@ code { font-size: .9em; }
 <a class="do-tresci" href="#tresc">Skip to content</a>
 <div class="pas"><div class="in"><nav class="gora" aria-label="Site"><a class="logo" href="../../../en/"><img src="../../../assets/znak-180.png" alt="" width="32" height="32"><span>jd-japanese</span></a><a class="zbedne" href="../../../en/">Apps</a><a class="zbedne" href="../../../en/learn/">Learning Japanese</a><a class="zbedne" href="../../../en/about/">About</a><a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://jd-japanese.pl/apps/katsuyokei/" lang="pl">Polski</a><a class="powrot" href="../../../en/">← All apps</a></nav></div></div>
 <main id="tresc"><div class="pas pas-apki"><span class="znak-wodny" aria-hidden="true" lang="ja">活</span><div class="in"><section class="szyld-apki"><div><img class="ikona" src="../../../assets/ikony/katsuyokei.webp" alt="" width="84" height="84"><h1>Katsuyokei: Conjugation<span class="jp" lang="ja">活用形</span></h1><p class="podtytul">Verbs, adjectives and drills</p><p class="lead">Verb forms come from rules, not from memory. Drill them until 書いて arrives before you
-have finished thinking about it.</p><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/apple-store/id6802813564?pt=129317804&amp;ct=web-app-katsuyokei&amp;mt=8">App Store →</a><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="znacznik">Free app with an in-app purchase</span></p></div><div class="mowi"><p class="dymek">I'm Kinako. I guide you through every app in the family.</p><svg class="kinako" width="110" height="110" aria-hidden="true" focusable="false"><use href="#kinako-standard"/></svg></div></section></div></div><div class="in"><h2>What it looks like</h2><div class="zrzuty" tabindex="0" role="group" aria-label="What it looks like"><figure><a href="../../../assets/zrzuty/katsuyokei/en/01-dzis.webp"><img src="../../../assets/zrzuty/katsuyokei/en/01-dzis.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Conjugate without hesitating</strong><br>Your goal, your level and three ways to start</figcaption></figure><figure><a href="../../../assets/zrzuty/katsuyokei/en/02-cwiczenie.webp"><img src="../../../assets/zrzuty/katsuyokei/en/02-cwiczenie.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Practice the form, not the rule</strong><br>One form asked, four ways to get it wrong</figcaption></figure><figure><a href="../../../assets/zrzuty/katsuyokei/en/03-wyjasnienie.webp"><img src="../../../assets/zrzuty/katsuyokei/en/03-wyjasnienie.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>See where the form comes from</strong><br>A mistake shows the derivation chain and the rule</figcaption></figure><figure><a href="../../../assets/zrzuty/katsuyokei/en/04-material.webp"><img src="../../../assets/zrzuty/katsuyokei/en/04-material.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>All the material in one place</strong><br>Twenty-five forms, laid out by level</figcaption></figure><figure><a href="../../../assets/zrzuty/katsuyokei/en/05-slabe.webp"><img src="../../../assets/zrzuty/katsuyokei/en/05-slabe.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>It knows which forms slip</strong><br>Weak spots come back before you forget them</figcaption></figure></div><section class="opis waska"><h2>Description from the store</h2><nav class="spis-sekcji" aria-label="Description from the store"><ul><li><a href="#what-you-practice">WHAT YOU PRACTICE</a></li><li><a href="#five-ways-to-be-asked">FIVE WAYS TO BE ASKED</a></li><li><a href="#when-you-get-it-wrong">WHEN YOU GET IT WRONG</a></li><li><a href="#wrong-answers-that-teach">WRONG ANSWERS THAT TEACH</a></li><li><a href="#mastery-you-can-trust">MASTERY YOU CAN TRUST</a></li><li><a href="#sessions-that-fit">SESSIONS THAT FIT</a></li><li><a href="#english-and-polish">ENGLISH AND POLISH</a></li><li><a href="#private-by-construction">PRIVATE BY CONSTRUCTION</a></li><li><a href="#free-and-premium">FREE AND PREMIUM</a></li></ul></nav><p>Japanese conjugation is not a table to memorise. Either the form comes out without thinking,<br>or it does not come out at all.</p>
+have finished thinking about it.</p><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/apple-store/id6802813564?pt=129317804&amp;ct=web-app-katsuyokei&amp;mt=8">App Store →</a><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="wymagania">iPhone · iOS 18+</span><span class="znacznik">Free app with an in-app purchase</span></p></div><div class="mowi"><p class="dymek">I'm Kinako. I'll show you around this site.</p><svg class="kinako" width="110" height="110" aria-hidden="true" focusable="false"><use href="#kinako-standard"/></svg></div></section></div></div><div class="in"><h2>What it looks like</h2><div class="zrzuty" tabindex="0" role="group" aria-label="What it looks like"><figure><a href="../../../assets/zrzuty/katsuyokei/en/01-dzis.webp" aria-label="Enlarge screenshot: Conjugate without hesitating"><img src="../../../assets/zrzuty/katsuyokei/en/01-dzis.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Conjugate without hesitating</strong><br>Your goal, your level and four ways to start</figcaption></figure><figure><a href="../../../assets/zrzuty/katsuyokei/en/02-cwiczenie.webp" aria-label="Enlarge screenshot: Build the form, piece by piece"><img src="../../../assets/zrzuty/katsuyokei/en/02-cwiczenie.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>Build the form, piece by piece</strong><br>A stem and endings before you type it yourself</figcaption></figure><figure><a href="../../../assets/zrzuty/katsuyokei/en/03-wyjasnienie.webp" aria-label="Enlarge screenshot: See where the form comes from"><img src="../../../assets/zrzuty/katsuyokei/en/03-wyjasnienie.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>See where the form comes from</strong><br>A mistake shows the derivation chain and the rule</figcaption></figure><figure><a href="../../../assets/zrzuty/katsuyokei/en/04-material.webp" aria-label="Enlarge screenshot: All the material in one place"><img src="../../../assets/zrzuty/katsuyokei/en/04-material.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>All the material in one place</strong><br>Twenty-five forms, laid out by level</figcaption></figure><figure><a href="../../../assets/zrzuty/katsuyokei/en/05-slabe.webp" aria-label="Enlarge screenshot: It knows which forms slip"><img src="../../../assets/zrzuty/katsuyokei/en/05-slabe.webp" alt="" width="420" height="912" loading="lazy"></a><figcaption><strong>It knows which forms slip</strong><br>Weak spots come back before you forget them</figcaption></figure></div><section class="opis waska"><h2>Description from the store</h2><nav class="spis-sekcji" aria-label="Description from the store"><ul><li><a href="#what-you-practice">WHAT YOU PRACTICE</a></li><li><a href="#different-ways-to-practice">DIFFERENT WAYS TO PRACTICE</a></li><li><a href="#when-you-get-it-wrong">WHEN YOU GET IT WRONG</a></li><li><a href="#wrong-answers-that-teach">WRONG ANSWERS THAT TEACH</a></li><li><a href="#mastery-you-can-trust">MASTERY YOU CAN TRUST</a></li><li><a href="#sessions-that-fit">SESSIONS THAT FIT</a></li><li><a href="#english-and-polish">ENGLISH AND POLISH</a></li><li><a href="#private-by-construction">PRIVATE BY CONSTRUCTION</a></li><li><a href="#free-and-premium">FREE AND PREMIUM</a></li></ul></nav><p>Practice Japanese conjugation so that correct forms come more quickly – from working<br>out an answer to using it fluently.</p>
 <p>Knowing that the te-form exists is not the same as producing 書いて without stopping to<br>think. The first is understanding; the second is a reflex, and a reflex is built by<br>repetition and feedback, not by explanation.</p>
 <h3 id="what-you-practice">WHAT YOU PRACTICE</h3>
 <p>Verb classes – godan, ichidan, and the irregulars. Including the verbs that look like<br>one class and behave like another: 帰る, 入る, 走る and 切る end in -る and are godan, and<br>that is exactly where most mistakes live.</p>
-<p>Every form you actually need: polite ます forms, the plain negative, the plain past, the<br>te-form and its sound changes, conditionals, potential, volitional, imperative,<br>prohibitive, passive, causative, and the causative-passive along with its spoken<br>contraction. Adjectives too – both kinds, including いい, which stops behaving like an<br>adjective the moment you negate it.</p>
-<h3 id="five-ways-to-be-asked">FIVE WAYS TO BE ASKED</h3>
-<p>Pick the right form from four options. Type the form yourself. Name a form you are shown.<br>Name the conjugation class. Take a conjugated word back to its dictionary form. The app<br>moves you along that ladder on its own: a form you have just met starts with multiple<br>choice, because typing something you have never seen is guessing, not practice.</p>
+<p>Every form you actually need: polite ます forms, the plain negative, the plain past, the<br>te-form and its sound changes, conditionals, potential, volitional, imperative,<br>prohibitive, passive, causative, and the causative-passive along with its spoken<br>contraction. Adjectives too – both kinds, including いい with its よ- stem.</p>
+<h3 id="different-ways-to-practice">DIFFERENT WAYS TO PRACTICE</h3>
+<p>Choose the right form. Assemble it from tiles, then practice typing it yourself. Name<br>a form you are shown, identify its conjugation class or return to the dictionary form.<br>In harder questions, transform one conjugated form into another. Further stages unlock<br>as you make progress.</p>
+<p>Did a phone fall, or did someone drop it? Situation questions ask you to choose the<br>right verb from a pair. Both choices use the same form – meaning makes the difference.</p>
 <h3 id="when-you-get-it-wrong">WHEN YOU GET IT WRONG</h3>
-<p>You see the transformation, not a red cross. 書く → 書か + ない → 書かない, with one line<br>explaining the rule underneath. No paragraphs in the middle of a session.</p>
+<p>You see the transformation, not a red cross. 書く → 書か + ない → 書かない, with one line<br>explaining the rule underneath. You can also expand a hint about how to build the form.</p>
 <h3 id="wrong-answers-that-teach">WRONG ANSWERS THAT TEACH</h3>
 <p>The distractors are the mistakes learners actually make. Practice the te-form of 帰る and<br>you will be offered 帰て – the answer you would give if you thought it were an ichidan<br>verb.</p>
 <h3 id="mastery-you-can-trust">MASTERY YOU CAN TRUST</h3>
@@ -456,10 +483,10 @@ have finished thinking about it.</p><p class="sklep"><a class="przycisk" href="h
 <h3 id="english-and-polish">ENGLISH AND POLISH</h3>
 <p>Interface and content switch independently, so a Polish menu with English grammar terms<br>is a normal combination rather than a compromise.</p>
 <h3 id="private-by-construction">PRIVATE BY CONSTRUCTION</h3>
-<p>Everything stays on your device. No account, no sign-in, no analytics, no advertising, no<br>tracking. The app makes no network requests at all apart from handling the purchase<br>itself. It works in aeroplane mode.</p>
+<p>Your progress and practice history stay on your device. No account, advertising or<br>tracking. Anonymous usage statistics are optional and off by default; you can change<br>your choice in Settings. We do not send the contents of your answers. Practice works<br>offline; purchases and sending enabled statistics require a network connection.</p>
 <h3 id="free-and-premium">FREE AND PREMIUM</h3>
-<p>Levels 1 and 2 are free in full – enough to reach the te-form, which is the point at<br>which Japanese starts connecting into sentences. Premium is a single purchase that opens<br>levels 3 to 5, the full vocabulary pool and weak-form practice. No subscription.</p>
-<p>Also from the same author: Kaname – Japanese Grammar, for when and why a construction is<br>used, rather than how to build it.</p><p class="podtytul">The description above is the same text that stands on the App Store product page – it comes from the same file.</p><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/apple-store/id6802813564?pt=129317804&amp;ct=web-app-katsuyokei&amp;mt=8">App Store →</a><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="znacznik">Free app with an in-app purchase</span></p></section><section class="pytania waska"><h2>Common questions</h2><details><summary>What does Katsuyokei teach?</summary><p>Japanese conjugation is not a table to memorise. Either the form comes out without thinking,<br>or it does not come out at all.</p><p>Knowing that the te-form exists is not the same as producing 書いて without stopping to<br>think. The first is understanding; the second is a reflex, and a reflex is built by<br>repetition and feedback, not by explanation.</p></details><details><summary>What does Katsuyokei cost?</summary><p>Levels 1 and 2 are free in full – enough to reach the te-form, which is the point at<br>which Japanese starts connecting into sentences. Premium is a single purchase that opens<br>levels 3 to 5, the full vocabulary pool and weak-form practice. No subscription.</p><p>Also from the same author: Kaname – Japanese Grammar, for when and why a construction is<br>used, rather than how to build it.</p></details><details><summary>Does it work without an account or a network?</summary><p>Everything stays on your device. No account, no sign-in, no analytics, no advertising, no<br>tracking. The app makes no network requests at all apart from handling the purchase<br>itself. It works in aeroplane mode.</p></details><details><summary>What languages does it support?</summary><p>Interface and content switch independently, so a Polish menu with English grammar terms<br>is a normal combination rather than a compromise.</p></details></section><h2>Learning Japanese</h2><ul class="huby"><li class="hub" style="--cl:#1D7F7B;--cal:#1A7471;--cd:#385398;--cad:#329D9C"><h3><a href="../../../en/learn/verb-forms/">Japanese Verb Conjugation Chart: Masu, Te, Ta &amp; Nai Forms</a></h3><p>Conjugation chart for 書く, 食べる, する and 来る, the godan and ichidan rules, every form with an example, and practice with answers.</p></li></ul><h2>Documents</h2><ul class="dokumenty-apki"><li><a href="../../../katsuyokei/en/privacy.html">Privacy Policy</a></li><li><a href="../../../katsuyokei/en/terms.html">Terms of Use</a></li><li><a href="../../../katsuyokei/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="mini"><li style="--cl:#BC4F56;--cal:#AC484F;--cd:#8E446D;--cad:#D36F73"><img src="../../../assets/ikony/kaname.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/kaname/">Kaname</a><span class="co">JLPT practice: N5 N4 N3 N2 N1</span></span></li><li style="--cl:#2F74B8;--cal:#2B6AA9;--cd:#265D8B;--cad:#4593CE"><img src="../../../assets/ikony/bunmyaku.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/bunmyaku/">Bunmyaku</a><span class="co">Vocabulary, kanji, furigana</span></span></li><li style="--cl:#7E5CC8;--cal:#7455B8;--cd:#4E3265;--cad:#9A80D6"><img src="../../../assets/ikony/joshi.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/joshi/">Joshi</a><span class="co">Grammar drills for the JLPT</span></span></li><li style="--cl:#318326;--cal:#2D7923;--cd:#2E5E38;--cad:#539F4B"><img src="../../../assets/ikony/kazoekata.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/kazoekata/">Kazoekata</a><span class="co">Counting, kanji and drills</span></span></li><li style="--cl:#B05E19;--cal:#A15617;--cd:#8E4C27;--cad:#C77B2A"><img src="../../../assets/ikony/kuzushi.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/kuzushi/">Kuzushi</a><span class="co">Anime, drama and slang</span></span></li><li style="--cl:#906A16;--cal:#886414;--cd:#8D6C16;--cad:#D3A327"><img src="../../../assets/ikony/shindan.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/shindan/">Shindan</a><span class="co">JLPT placement: N5 N4 N3 N2 N1</span></span></li><li style="--cl:#325370;--cal:#325370;--cd:#192E3E;--cad:#7692A6"><img src="../../../assets/ikony/keigo.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/keigo/">Keigo</a><span class="co">Formal Japanese for work</span></span></li><li style="--cl:#63781E;--cal:#5B6E1C;--cd:#3C4610;--cad:#869642"><img src="../../../assets/ikony/kifuku.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/kifuku/">Kifuku</a><span class="co">Pronunciation and listening</span></span></li><li style="--cl:#A95295;--cal:#9B4B88;--cd:#723C68;--cad:#C274AE"><img src="../../../assets/ikony/onomatope.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/onomatope/">Onomatope</a><span class="co">Manga and anime vocabulary</span></span></li></ul></div></main>
+<p>Practice the forms from levels 1 and 2 for free with the core vocabulary, including<br>the te-form for linking ideas. Premium is a single purchase that opens levels 3 to 5<br>and the full vocabulary pool. No subscription.</p>
+<p>Also from the same author: Kaname – Japanese Grammar, for when and why a construction is<br>used, rather than how to build it.</p><p class="podtytul">The description above is the App Store product page text for version 1.5.0.</p><p class="sklep"><a class="przycisk" href="https://apps.apple.com/app/apple-store/id6802813564?pt=129317804&amp;ct=web-app-katsuyokei&amp;mt=8">App Store →</a><span class="platformy"><span class="platforma" data-platforma="ios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.3 12.8c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.7-1.7-3.3-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9.8 1.1 2.1 1.6 2.3 2.6 2.3s1.3-.6 2.6-.6 1.6.6 2.7.6 1.8-1 2.5-2c.8-1.2 1.1-2.3 1.1-2.4 0 0-2.1-.8-2.1-3.2zM14.1 6.3c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.1 1.8-.5 2.5-1.2z"/></svg><span class="czytnik">iOS</span></span></span><span class="wymagania">iPhone · iOS 18+</span><span class="znacznik">Free app with an in-app purchase</span></p></section><section class="pytania waska"><h2>Common questions</h2><details><summary>What does Katsuyokei teach?</summary><p>Katsuyokei drills Japanese conjugation of verbs and adjectives so that correct forms come more quickly – from working out an answer to using it fluently.</p></details><details><summary>What is free and how does paid access work?</summary><p>The forms from levels 1 and 2, including the te-form, are free to practise with the core vocabulary.</p><p>Premium is a one-time purchase that opens levels 3–5 and the full vocabulary pool. No subscription and no AI. You will see the current price in your App Store currency in the app before you confirm the purchase.</p></details><details><summary>Does Katsuyokei work offline and without an account?</summary><p>Practice works offline, and your progress and history stay on the phone. Only purchases and restoring them, plus optional anonymous statistics, need a connection – the statistics are off by default and never include your answers; change it in Settings.</p><p>The app has no account or sign-in of its own; purchases go through your Apple Account.</p></details><details><summary>What happens when I change phones?</summary><p>Restore your purchase on the new phone with “Restore purchases” in the app, signed in with the same Apple Account.</p><p>Your study progress is separate: it stays on the phone, so you move it with the backup file – export it in Settings on the old phone and import it on the new one.</p></details><details><summary>What languages does Katsuyokei support?</summary><p>In Polish and in English. You choose the interface language and the explanation language independently.</p></details><details><summary>Which devices does Katsuyokei run on?</summary><p>iPhone with iOS 18 or later. The app is designed for iPhone.</p></details></section><h2>Learning Japanese</h2><ul class="huby"><li class="hub" style="--cl:#1D7F7B;--cal:#1A7471;--cd:#385398;--cad:#329D9C"><h3><a href="../../../en/learn/verb-forms/">Japanese Verb Conjugation Chart: Masu, Te, Ta &amp; Nai Forms</a></h3><p>Conjugation chart for 書く, 食べる, する and 来る, the godan and ichidan rules, every form with an example, and practice with answers.</p></li></ul><h2>Documents</h2><ul class="dokumenty-apki"><li><a href="../../../katsuyokei/1.5.0/en/privacy.html">Privacy Policy</a></li><li><a href="../../../katsuyokei/1.5.0/en/terms.html">Terms of Use</a></li><li><a href="../../../katsuyokei/1.5.0/en/support.html">Support</a></li></ul><h2>The other apps</h2><ul class="mini"><li style="--cl:#BC4F56;--cal:#AC484F;--cd:#8E446D;--cad:#D36F73"><img src="../../../assets/ikony/kaname.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/kaname/">Kaname</a><span class="co">JLPT practice: N5 N4 N3 N2 N1</span></span></li><li style="--cl:#2F74B8;--cal:#2B6AA9;--cd:#265D8B;--cad:#4593CE"><img src="../../../assets/ikony/bunmyaku.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/bunmyaku/">Bunmyaku</a><span class="co">Vocabulary, kanji, furigana</span></span></li><li style="--cl:#7E5CC8;--cal:#7455B8;--cd:#4E3265;--cad:#9A80D6"><img src="../../../assets/ikony/joshi.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/joshi/">Joshi</a><span class="co">Grammar drills for the JLPT</span></span></li><li style="--cl:#318326;--cal:#2D7923;--cd:#2E5E38;--cad:#539F4B"><img src="../../../assets/ikony/kazoekata.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/kazoekata/">Kazoekata</a><span class="co">Counting, kanji and drills</span></span></li><li style="--cl:#B05E19;--cal:#A15617;--cd:#8E4C27;--cad:#C77B2A"><img src="../../../assets/ikony/kuzushi.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/kuzushi/">Kuzushi</a><span class="co">Anime, drama and slang</span></span></li><li style="--cl:#906A16;--cal:#886414;--cd:#8D6C16;--cad:#D3A327"><img src="../../../assets/ikony/shindan.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/shindan/">Shindan</a><span class="co">JLPT placement: N5 N4 N3 N2 N1</span></span></li><li style="--cl:#325370;--cal:#325370;--cd:#192E3E;--cad:#7692A6"><img src="../../../assets/ikony/keigo.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/keigo/">Keigo</a><span class="co">Formal Japanese for work</span></span></li><li style="--cl:#63781E;--cal:#5B6E1C;--cd:#3C4610;--cad:#869642"><img src="../../../assets/ikony/kifuku.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/kifuku/">Kifuku</a><span class="co">Pronunciation and listening</span></span></li><li style="--cl:#A95295;--cal:#9B4B88;--cd:#723C68;--cad:#C274AE"><img src="../../../assets/ikony/onomatope.webp" alt="" width="44" height="44" loading="lazy"><span><a class="nazwa" href="../../../en/apps/onomatope/">Onomatope</a><span class="co">Manga and anime vocabulary</span></span></li></ul></div></main>
 <div class="in"><footer><span>Jakub Dwojak · jd-japanese.pl</span><a href="../../../en/about/">About</a><a href="../../../en/whats-next/">What is next</a><a href="../../../en/learn/">Learning Japanese</a><a href="../../../en/documents.html">Document index</a><a href="mailto:katsuyokei@jd-japanese.pl">katsuyokei@jd-japanese.pl</a><a class="instagram" href="https://www.instagram.com/jd_japanese/" aria-label="Instagram @jd_japanese"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>@jd_japanese</span></a><div class="wydawca"><p>Published by <a href="https://aseity.com.pl/en/">Aseity</a></p><svg class="kinako" width="28" height="28" aria-hidden="true" focusable="false"><use href="#kinako-spiacy"/></svg></div></footer></div>
 </body>
 </html>

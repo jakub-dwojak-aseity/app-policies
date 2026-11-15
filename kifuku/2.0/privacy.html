@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kifuku 起伏 — Polityka prywatności</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    max-width: 42rem; margin: 0 auto; padding: 2rem 1.25rem 4rem;
+    font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #1c1c1e; background: #fff;
+  }
+  h1 { font-size: 1.75rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2.25rem; }
+  .updated { color: #6b6b70; font-size: .9rem; margin-top: 0; }
+  ul { padding-left: 1.25rem; }
+  li { margin: .4rem 0; }
+  a { color: #4a5a18; }
+  .note { border-left: 3px solid #62771D; padding: .1rem 0 .1rem 1rem; margin: 1.5rem 0; color: #45454a; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e3e3e6; font-size: .9rem; color: #6b6b70; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #ececef; background: #131315; }
+    .updated, footer { color: #9a9aa0; }
+    .note { color: #c8c8ce; }
+    footer { border-top-color: #2c2c30; }
+    a { color: #a8bd5f; }
+  }
+</style>
+</head>
+<body>
+<main>
+<h1>Polityka prywatności</h1>
+<p class="updated">Aplikacja <strong>Kifuku 起伏</strong> · wersja 2.0 · ostatnia aktualizacja: 15 listopada 2026</p>
+
+<p>Kifuku 起伏 uczy japońskiego akcentu tonicznego — tego, gdzie w słowie spada ton.
+<strong>Cała nauka dzieje się na Twoim urządzeniu i działa bez internetu.</strong>
+Od wersji 2.0 możesz też świadomie wysłać zgłoszenie problemu z karty odpowiedzi, a pomysł
+albo opis błędu — formularzem w Ustawieniach. Adres e-mail podajesz tam tylko wtedy, gdy chcesz
+dostać odpowiedź. Ta polityka dotyczy Kifuku 2.0; wersje 1.x korzystają z wcześniejszej polityki.</p>
+
+<div class="note">Krótko: nie ma konta i nie ma reklam, a nauka działa offline. Anonimowy pomiar
+użycia jest dobrowolny i domyślnie wyłączony. Odpowiedzi i postęp zostają na urządzeniu.
+Nagrania są w aplikacji osadzone, a nie strumieniowane. Zgłoszenie z karty i wiadomość
+z formularza wychodzą wyłącznie po naciśnięciu „Wyślij”.</div>
+
+<h2>Twoje konto</h2>
+<p>Nie ma go. Kifuku nie prosi o rejestrację ani o logowanie i nie ma żadnego sposobu, żeby
+Cię rozpoznać. Jedyny wyjątek to adres e-mail, który możesz sam wpisać w formularzu opinii,
+jeśli chcesz dostać odpowiedź — opisuje to sekcja <a href="#formularz-opinii">Formularz opinii</a>.</p>
+
+<h2>Gdzie trafiają dane o Twojej nauce</h2>
+<p>Opanowanie każdej pozycji, historia odpowiedzi i harmonogram powtórek leżą
+na Twoim urządzeniu i nigdy go nie opuszczają. Jeżeli zgodzisz się na statystyki użycia
+(niżej), wychodzą wyłącznie zliczenia w przedziałach — nigdy same odpowiedzi. Wyjątkiem jest
+kopia jednego pytania i Twojej odpowiedzi, którą sam wyślesz w zgłoszeniu z karty odpowiedzi.</p>
+
+<h2>Połączenia sieciowe</h2>
+<p>Nauka, nagrania i postęp nie wymagają internetu. Aplikacja łączy się z naszym serwerem
+<code>api.jd-japanese.pl</code> tylko w trzech sytuacjach: statystyka użycia — po Twojej zgodzie;
+zgłoszenie z karty odpowiedzi — dopiero po naciśnięciu „Wyślij”; formularz opinii — dopiero po
+naciśnięciu „Wyślij”. Zakup i przywracanie zakupu obsługuje App Store.</p>
+
+<h2>Dobrowolne statystyki użycia</h2>
+<p>Przy pierwszym uruchomieniu albo po aktualizacji pytamy raz o zgodę. Przed zgodą nie zbieramy
+ani nie wysyłamy zdarzeń. W <em>Ustawienia → Twoje dane</em>, przełącznikiem <em>Udostępniaj
+anonimowe statystyki użycia</em>, możesz odmówić lub wycofać zgodę; wyłączenie zatrzymuje wysyłkę
+i usuwa oczekującą kolejkę. Nauka działa tak samo po odmowie i bez internetu.</p>
+<p>Po zgodzie aplikacja wysyła do <code>https://api.jd-japanese.pl/v1/events</code> zdarzenia
+o pierwszej zgodzie, zamknięciu wprowadzenia, pierwszej ukończonej sesji, ukończonej sesji
+w kolejnej dobie nauki, pierwszej ukończonej powtórce, aktywnych dobach nauki, zakończeniu sesji,
+otwarciu oferty pełnej wersji i dokonanym zakupie. Każde zdarzenie niesie nazwę i wersję schematu,
+nazwę aplikacji, wersję aplikacji i wariant funkcji, wersję i wariant przy pierwszej zgodzie,
+tydzień rozpoczęcia, numer doby nauki, język interfejsu i rodzaj wejścia (nowa instalacja,
+przywrócony postęp lub późniejsza zgoda). Losowy identyfikator zdarzenia służy tylko pomijaniu
+powtórnej wysyłki.</p>
+<p>Poniżej pełna lista pól, które Kifuku dokłada do poszczególnych zdarzeń, nazwami, pod którymi
+zapisuje je serwer:</p>
+<ul>
+  <li><strong>Aktywna doba nauki</strong> (<code>active_day</code>):
+    <code>sessions_bucket</code> — przedział liczby ukończonych sesji;
+    <code>level_stage</code> — etap nauki (<code>stage1</code>…<code>stage5</code>, czyli poziomy 1–5);
+    <code>used_ai</code> — użycie AI (w Kifuku zawsze „nie”, bo aplikacja nie ma AI);
+    <code>saw_paywall</code> — czy oferta pełnej wersji była już otwarta;
+    <code>premium</code> — rodzaj odblokowanego materiału (<code>none</code> albo <code>full</code>);
+    <code>ai_sub</code> — subskrypcja AI (w Kifuku zawsze „nie”);
+    <code>reminders_on</code> — czy przypomnienia są włączone i dozwolone w systemie.</li>
+  <li><strong>Zakończenie sesji</strong> (<code>session_ended</code>):
+    <code>kind</code> — rodzaj sesji (nowy materiał, powtórka, ćwiczenie, pojedyncza pozycja);
+    <code>outcome</code> — ukończona albo przerwana;
+    <code>answers_bucket</code> — przedział liczby odpowiedzi;
+    <code>ai_checks</code> — liczba użyć AI (w Kifuku zawsze 0);
+    <code>shown_by_type</code> — przedziały liczby pokazanych pytań dwóch rodzajów: rozpoznanie
+    (wzorzec, miejsce spadku, słuch) i przewidywanie z reguły.
+    Tylko przy sesji przerwanej: <code>last_question_type</code> — rodzaj ostatniego pytania,
+    <code>last_answer</code> — czy ostatnia odpowiedź była trafna, błędna albo jej nie było,
+    <code>wrong_streak_bucket</code> — przedział liczby błędów z rzędu na końcu.</li>
+  <li><strong>Pierwsza ukończona sesja</strong> (<code>first_session_completed</code>):
+    <code>minutes_bucket</code> — przedział czasu sesji w minutach.</li>
+  <li><strong>Pierwsza zgoda</strong> (<code>first_open</code>): <code>entry</code> — rodzaj wejścia.</li>
+  <li><strong>Zamknięcie wprowadzenia</strong> (<code>onboarding_done</code>): <code>action</code>.</li>
+  <li><strong>Otwarcie oferty</strong> (<code>paywall_viewed</code>): <code>trigger</code> — miejsce,
+    z którego oferta została otwarta (na przykład zablokowana lekcja na ścieżce albo Ustawienia).</li>
+  <li><strong>Zakup</strong> (<code>purchase_completed</code>): <code>product_kind</code> — rodzaj
+    produktu (pełna wersja).</li>
+  <li><strong>Druga sesja w innej dobie</strong> (<code>second_session_completed</code>) i
+    <strong>pierwsza powtórka</strong> (<code>first_review_completed</code>) nie niosą dodatkowych pól.</li>
+</ul>
+<p>Nie wysyłamy identyfikatora instalacji, użytkownika ani urządzenia, japońskich słów,
+odpowiedzi, notatek, adresu e-mail ani danych płatniczych. Trafność trafia do nas wyłącznie jako
+ostatnia odpowiedź i seria błędów w przerwanej sesji, opisane wyżej — bez wskazania, których pytań
+dotyczyły. Zdarzenia nie łączą aktywności między aplikacjami. Serwer nie zapisuje adresu IP
+w danych pomiarowych. Kolejka na urządzeniu przechowuje zdarzenia do 30 dni, najwyżej 500;
+serwer przechowuje zdarzenia i klucze deduplikacji do 400 dni, a następnie pozostają zbiorcze
+statystyki.</p>
+<p>Do ograniczania nadużyć serwer używa kluczowanego skrótu adresu IP. Wpis limitu jest usuwany
+po 24 godzinach; skrót nie trafia do zdarzeń ani statystyk zbiorczych. Standardowe logi
+techniczne obejmują metodę i ścieżkę żądania, jego losowy identyfikator oraz status odpowiedzi,
+bez adresu IP i bez odpowiedzi ucznia.</p>
+
+<h2>Zgłoszenia z karty odpowiedzi — od wersji 2.0</h2>
+<p>Zgłoszenie jest dobrowolne. Otwarcie arkusza <em>Zgłoś problem</em> niczego nie wysyła. Dopiero
+naciśnięcie <em>Wyślij</em> przesyła zgłoszenie do <code>https://api.jd-japanese.pl/v1/issue-reports</code>.
+Przed wysłaniem możesz podejrzeć pytanie, swoją odpowiedź i wyświetlone wyjaśnienie, wybierasz
+powód i możesz dodać komentarz. Nie potrzebujesz konta, zakupu ani zgody na statystykę użycia.
+Wysłanie, błąd wysyłki ani rezygnacja nie zmieniają oceny, postępu ani terminów powtórek.</p>
+<p>Zgłoszenie zawiera wybrany powód, opcjonalny komentarz (do 2000 znaków) oraz kopię jednego
+pytania: rodzaj ćwiczenia, identyfikatory pytania i hasła (z jego grupą), wersję treści, polecenie,
+słowo albo nazwę pliku nagrania z pytania, dostępne odpowiedzi, Twoją odpowiedź, oczekiwaną
+odpowiedź, wynik i wyświetlone wyjaśnienie. Wyjaśnienie obejmuje część „Więcej” z regułą grupy.
+Twoich mnemoników nie wysyłamy. Dołączamy też nazwę aplikacji, jej wersję, numer builda i język
+interfejsu. <strong>Komentarz może zawierać to, co sam wpiszesz</strong> — nie podawaj w nim danych
+osobowych ani poufnych.</p>
+<p>Nie dołączamy identyfikatora osoby, instalacji, urządzenia ani reklamy, adresu e-mail, historii
+odpowiedzi ani postępu nauki. Każde zgłoszenie dostaje losowy UUID, żeby ponowienie tej samej
+wysyłki nie zapisało go drugi raz. UUID identyfikuje zgłoszenie, nie Ciebie; serwer zapisuje też
+czas przyjęcia.</p>
+<p>Treść trafia do osobnego rejestru zgłoszeń, dostępnego upoważnionej obsłudze w zabezpieczonym
+panelu, i służy wyłącznie sprawdzeniu i poprawieniu materiału albo oceniania. Nie trafia do
+statystyki użycia. Kopię pytania, odpowiedź, komentarz oraz tekstowe notatki obsługi usuwamy po
+<strong>180 dniach od przyjęcia zgłoszenia</strong> w codziennym przebiegu porządkowym. Aby
+nierozwiązany problem nie zniknął z kolejki, pozostawiamy minimalną ewidencję bez tych treści:
+UUID i aplikację, daty, status, priorytet, numery powiązań z backlogiem lub innym zgłoszeniem,
+planowaną i rozwiązaną wersję oraz historię zmienianych pól. Ewidencja pozostaje do zamknięcia
+sprawy i przez 180 dni po zamknięciu. Usunięcie aplikacji ani wyłączenie statystyki nie kasuje
+już wysłanych zgłoszeń.</p>
+<p>Połączenie ujawnia serwerowi adres IP. Ochrona przed nadużyciami ogranicza liczbę wysyłek
+(20 w ciągu 10 minut) zabezpieczonym skrótem tego adresu w osobnym liczniku, bez łączenia go
+z treścią zgłoszenia; wpis limitu jest usuwany po 24 godzinach. Dzienniki techniczne zawierają
+metadane, takie jak trasa, status, czas obsługi i identyfikator żądania, a nie treść zgłoszenia.</p>
+
+<h2 id="formularz-opinii">Formularz opinii: „Zaproponuj funkcję” i „Zgłoś błąd” — od wersji 2.0</h2>
+<p>W <em>Ustawienia → Pomoc</em> znajdziesz <em>Zaproponuj funkcję</em> i <em>Zgłoś błąd</em>. Oba
+otwierają formularz w aplikacji. Otwarcie formularza niczego nie wysyła. Dopiero naciśnięcie
+<em>Wyślij</em> przekazuje wiadomość do <code>https://api.jd-japanese.pl/v1/feedback</code>.
+Formularz nie wymaga konta, zakupu ani zgody na statystykę użycia.</p>
+<p>Wiadomość zawiera rodzaj (pomysł albo błąd), temat, jeśli go wybierzesz, Twój tekst (do 2000
+znaków), a przy błędzie także opcjonalny opis tego, co działo się wcześniej. Pod polem tekstu,
+w bloku <em>Co idzie razem z wiadomością</em>, widzisz przed wysłaniem pozostałe dane: nazwę
+aplikacji, jej wersję i numer builda oraz język interfejsu. Przełącznik <em>Dołącz system i model</em>
+jest domyślnie włączony i dokłada wersję iOS i oznaczenie modelu telefonu (np. <code>iPhone14,3</code>),
+czyli nazwę serii wspólną dla wielu egzemplarzy, a nie identyfikator urządzenia. Możesz go wyłączyć.
+Każda wiadomość dostaje losowy UUID, aby ponowienie tej samej wysyłki nie zapisało jej drugi raz;
+serwer zapisuje też czas przyjęcia. Nie dołączamy identyfikatora osoby, instalacji, urządzenia,
+reklamy ani zakupu, historii nauki ani postępu. <strong>Twój tekst może zawierać to, co sam
+wpiszesz</strong> — nie podawaj w nim danych poufnych.</p>
+<p><strong>Adres e-mail — tylko gdy chcesz dostać odpowiedź.</strong> Adres podajesz wyłącznie po
+włączeniu przełącznika <em>Chcę dostać odpowiedź</em>. Włączenie oznacza zgodę na to, że odpiszemy
+na ten adres w sprawie tej jednej wiadomości. Adresu nie dopisujemy do żadnej listy mailowej i nie
+używamy go do niczego innego. Bez włączonego przełącznika aplikacja adresu nie wysyła, a serwer
+odrzuca adres przysłany bez tej zgody. Po wysłaniu adres nie zostaje w aplikacji: niewysłany tekst
+czeka na urządzeniu jako szkic, adres nie.</p>
+<p>Wiadomość trafia do osobnego rejestru, dostępnego upoważnionej obsłudze w zabezpieczonym panelu.
+Adres e-mail jest przechowywany oddzielnie od treści i panel pokazuje go tylko po otwarciu
+konkretnej wiadomości, nigdy na liście. Wiadomość nie trafia do statystyki użycia, a jej treść
+i adres nie są zapisywane w dziennikach serwera.</p>
+<p><strong>Jak długo.</strong> Adres przechowujemy 180 dni razem ze zgłoszeniem, potem usuwamy go
+automatycznie. W tym samym codziennym przebiegu porządkowym, 180 dni od przyjęcia, usuwamy treść
+wiadomości, opis tego, co działo się przed błędem, wersję aplikacji, numer builda, język, wersję
+iOS i model telefonu. Aby nierozwiązana sprawa nie zniknęła z kolejki, zostaje minimalna ewidencja
+bez tych danych: UUID i aplikacja, rodzaj i temat, daty, status, priorytet, numery powiązań
+z backlogiem lub inną wiadomością, planowana i rozwiązana wersja oraz historia zmienianych pól.
+Ewidencja pozostaje do zamknięcia sprawy i przez 180 dni po zamknięciu. Możesz poprosić
+o wcześniejsze usunięcie, pisząc na <a href="mailto:kifuku@jd-japanese.pl">kifuku@jd-japanese.pl</a>.
+Wystarczy podać adres e-mail użyty w formularzu albo opisać wiadomość tak, żebyśmy mogli ją
+znaleźć. Jeśli odpiszemy na Twój adres, ta korespondencja zostaje w naszej skrzynce pocztowej, tak
+jak każda zwykła wiadomość e-mail; o jej usunięcie też możesz poprosić.</p>
+<p>Połączenie ujawnia serwerowi adres IP. Ochrona przed nadużyciami ogranicza liczbę wysyłek
+(20 w ciągu 10 minut) zabezpieczonym skrótem tego adresu w osobnym liczniku, bez łączenia go
+z treścią wiadomości; samego adresu IP nie zapisujemy w rejestrze. Dzienniki techniczne opisane
+przy zgłoszeniach z karty odpowiedzi dotyczą także formularza.</p>
+
+<h2>Wiadomości przygotowane w aplikacji pocztowej</h2>
+<p>W dwóch miejscach Kifuku przygotowuje wiadomość e-mail w aplikacji pocztowej Twojego
+urządzenia: przy <em>Zgłoś japońszczyznę</em> w <em>Ustawienia → Pomoc</em> oraz na ekranie błędu
+uruchomienia (wiadomość zawiera opis błędu). <strong>Nic nie zostaje wysłane, dopóki sam nie
+naciśniesz „Wyślij” w aplikacji pocztowej.</strong> Obie wiadomości mają na końcu wersję aplikacji,
+numer builda, wersję systemu iOS i oznaczenie modelu urządzenia — cały tekst jest widoczny i możesz
+te wiersze usunąć przed wysłaniem. Jeżeli napiszesz w ten sposób albo bezpośrednio na adres
+aplikacji, zobaczę Twój adres e-mail i treść wiadomości, tak jak przy każdej zwykłej korespondencji.
+Służą wyłącznie odpowiedzi.</p>
+
+<h2>Wspólny postęp z innymi aplikacjami</h2>
+<p>Jeżeli masz na tym samym urządzeniu inne moje aplikacje do japońskiego, Kifuku zapisuje
+<strong>jeden mały plik z podsumowaniem postępu</strong> w obszarze współdzielonym przez te
+aplikacje, żeby móc pokazać Ci, jak idzie nauka w całej rodzinie. Plik zawiera liczby, a nie
+dane osobowe, i <strong>nie opuszcza urządzenia</strong>. Skasowanie aplikacji kasuje jej wpis.</p>
+
+<h2>Nagrania i dane o akcencie</h2>
+<p>Aplikacja niesie w sobie nagrania wymowy i dane akcentowe pochodzące z otwartych źródeł.
+Są osadzone w pliku aplikacji, więc <strong>nic się nie pobiera i nic nie jest strumieniowane</strong>,
+a odtworzenie nagrania nie wysyła nigdzie żadnej informacji. Autorzy i licencje są wymienieni
+w samej aplikacji, na ekranie „Źródła”.</p>
+
+<h2>Śledzenie i reklama</h2>
+<p>Nie ma. Aplikacja nie śledzi Cię w innych aplikacjach ani na stronach, nie używa
+identyfikatora reklamowego, nie ma biblioteki reklamowej ani zbierania raportów o awariach.
+Jedynym pomiarem są opisane wyżej dobrowolne statystyki użycia; zgłoszenie z karty odpowiedzi
+i wiadomość z formularza nie są pomiarem i wychodzą tylko po „Wyślij”.</p>
+
+<h2>Zakupy</h2>
+<p>Jednorazowy zakup obsługuje w całości Apple. Kifuku nigdy nie widzi Twoich danych
+płatniczych — pyta wyłącznie StoreKit, czy zakup istnieje.</p>
+
+<h2>Powiadomienia</h2>
+<p>Są opcjonalne i służą wyłącznie przypomnieniu o powtórkach. Aplikacja działa w pełni
+bez nich i nie prosi o zgodę przy pierwszym uruchomieniu.</p>
+
+<h2>Dzieci</h2>
+<p>Aplikacja ma klasyfikację 4+. Statystyki użycia są dobrowolne i domyślnie wyłączone.
+Dobrowolnie wysłany komentarz lub wiadomość z formularza mogą zawierać dane osobowe tylko wtedy,
+gdy sam je wpiszesz; prosimy ich nie podawać. Adres e-mail w formularzu jest opcjonalny i służy
+wyłącznie odpowiedzi.</p>
+
+<h2>Zmiany</h2>
+<p>Jeżeli ta polityka kiedykolwiek się zmieni, zmieni się razem z nią data u góry.
+Adres tej strony niesie numer wersji aplikacji, więc starsze wydania zawsze wskazują
+dokument, który naprawdę je opisywał.</p>
+</main>
+<footer>Kifuku 起伏 · Jakub Dwojak · <a href="mailto:kifuku@jd-japanese.pl">kifuku@jd-japanese.pl</a><br>
+<a href="en/privacy.html">English</a></footer>
+</body>
+</html>

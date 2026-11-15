@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kifuku 起伏 — Privacy Policy</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    max-width: 42rem; margin: 0 auto; padding: 2rem 1.25rem 4rem;
+    font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #1c1c1e; background: #fff;
+  }
+  h1 { font-size: 1.75rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2.25rem; }
+  .updated { color: #6b6b70; font-size: .9rem; margin-top: 0; }
+  ul { padding-left: 1.25rem; }
+  li { margin: .4rem 0; }
+  a { color: #4a5a18; }
+  .note { border-left: 3px solid #62771D; padding: .1rem 0 .1rem 1rem; margin: 1.5rem 0; color: #45454a; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e3e3e6; font-size: .9rem; color: #6b6b70; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #ececef; background: #131315; }
+    .updated, footer { color: #9a9aa0; }
+    .note { color: #c8c8ce; }
+    footer { border-top-color: #2c2c30; }
+    a { color: #a8bd5f; }
+  }
+</style>
+</head>
+<body>
+<main>
+<h1>Privacy Policy</h1>
+<p class="updated"><strong>Kifuku 起伏</strong> · version 2.0 · last updated: 15 November 2026</p>
+
+<p>Kifuku 起伏 teaches Japanese pitch accent — where the tone drops inside a word.
+<strong>All learning happens on your device and works without an internet connection.</strong>
+From version 2.0 you can also explicitly send a problem report from an answer card, and send an
+idea or a bug description through a form in Settings. You give an email address there only if
+you want a reply. This policy covers Kifuku 2.0; versions 1.x use the earlier policy.</p>
+
+<div class="note">In short: no account and no advertising, and learning works offline. Anonymous
+usage statistics are optional and off by default. Your answers and progress stay on your device.
+Recordings are embedded in the app, not streamed. An answer-card report and a feedback-form
+message leave your device only when you press “Send”.</div>
+
+<h2>Your account</h2>
+<p>There isn't one. Kifuku never asks you to register or sign in, and has no way of recognising
+you. The only exception is an email address you may type into the feedback form yourself if you
+want a reply — see <a href="#feedback-form">Feedback form</a>.</p>
+
+<h2>Where your learning data goes</h2>
+<p>Your mastery of each item, your answer history and your review schedule stay on your device
+and never leave it. If you agree to usage statistics (below), only counts in ranges are sent —
+never the answers themselves. The exception is a copy of one question and your answer that you
+send yourself in an answer-card report.</p>
+
+<h2>Network connections</h2>
+<p>Learning, recordings and progress need no internet connection. The app connects to our server
+<code>api.jd-japanese.pl</code> in three situations only: usage statistics — after your consent;
+an answer-card report — only after you press “Send”; the feedback form — only after you press
+“Send”. Purchases and restoring purchases are handled by the App Store.</p>
+
+<h2>Optional usage statistics</h2>
+<p>We ask once during first use or after an update. No events are collected or sent before
+consent. You can decline or withdraw consent in <em>Settings → Your data</em>, using <em>Share
+anonymous usage statistics</em>. Turning it off stops transmission and deletes pending events.
+Learning works the same after declining and without internet.</p>
+<p>After consent, the app sends events to <code>https://api.jd-japanese.pl/v1/events</code> about
+first consent, closing the introduction, the first completed session, a completed session on a
+later study day, the first completed review, active study days, session endings, viewing the
+full-version offer and a completed purchase. Every event carries the event name and schema
+version, the app name, app version and feature variant, the version and variant at first consent,
+the first-use week, the study-day number, the interface language and the entry kind (fresh
+installation, restored progress or later consent). A random event identifier only prevents
+duplicate delivery.</p>
+<p>Below is the full list of fields Kifuku adds to individual events, under the names the server
+stores them with:</p>
+<ul>
+  <li><strong>Active study day</strong> (<code>active_day</code>):
+    <code>sessions_bucket</code> — a range for the number of completed sessions;
+    <code>level_stage</code> — study stage (<code>stage1</code>…<code>stage5</code>, i.e. levels 1–5);
+    <code>used_ai</code> — AI use (always “no” in Kifuku, which has no AI);
+    <code>saw_paywall</code> — whether the full-version offer has been opened;
+    <code>premium</code> — kind of unlocked material (<code>none</code> or <code>full</code>);
+    <code>ai_sub</code> — AI subscription (always “no” in Kifuku);
+    <code>reminders_on</code> — whether reminders are on and allowed by the system.</li>
+  <li><strong>Session ended</strong> (<code>session_ended</code>):
+    <code>kind</code> — session kind (new material, review, practice, single item);
+    <code>outcome</code> — completed or abandoned;
+    <code>answers_bucket</code> — a range for the number of answers;
+    <code>ai_checks</code> — number of AI uses (always 0 in Kifuku);
+    <code>shown_by_type</code> — ranges for the number of questions shown of two kinds: recognition
+    (pattern, drop position, listening) and prediction from a rule.
+    Only for an abandoned session: <code>last_question_type</code> — kind of the last question,
+    <code>last_answer</code> — whether the last answer was correct, wrong or missing,
+    <code>wrong_streak_bucket</code> — a range for the number of wrong answers in a row at the end.</li>
+  <li><strong>First completed session</strong> (<code>first_session_completed</code>):
+    <code>minutes_bucket</code> — a range for session length in minutes.</li>
+  <li><strong>First consent</strong> (<code>first_open</code>): <code>entry</code> — entry kind.</li>
+  <li><strong>Introduction closed</strong> (<code>onboarding_done</code>): <code>action</code>.</li>
+  <li><strong>Offer viewed</strong> (<code>paywall_viewed</code>): <code>trigger</code> — where the
+    offer was opened from (for example a locked lesson on the path, or Settings).</li>
+  <li><strong>Purchase</strong> (<code>purchase_completed</code>): <code>product_kind</code> — product
+    kind (full version).</li>
+  <li><strong>Second session on another day</strong> (<code>second_session_completed</code>) and
+    <strong>first review</strong> (<code>first_review_completed</code>) carry no extra fields.</li>
+</ul>
+<p>Events contain no installation, user or device identifier, Japanese words, answers, notes,
+email address or payment details. Correctness reaches us only as the last answer and the wrong
+streak of an abandoned session, described above — without saying which questions they concerned.
+Events do not link activity across apps. The server does not store IP addresses in measurement
+data. Pending events remain on the device for up to 30 days, at most 500. The server retains events
+and deduplication keys for up to 400 days; aggregate statistics remain afterwards.</p>
+<p>To limit abuse, the server uses a keyed hash of the IP address. Rate-limit entries are deleted
+after 24 hours; the hash is not included in events or aggregate statistics. Standard technical logs
+contain the request method, path, random request identifier and response status, without the IP
+address or learner answers.</p>
+
+<h2>Answer-card reports — from version 2.0</h2>
+<p>Reporting is optional. Opening the <em>Report a problem</em> sheet sends nothing. Only pressing
+<em>Send</em> transmits the report to <code>https://api.jd-japanese.pl/v1/issue-reports</code>.
+Before sending, you can preview the question, your answer and the displayed explanation, choose a
+reason and optionally add a comment. No account, purchase or usage-statistics consent is required.
+Sending, a failed attempt or cancelling does not change your grade, progress or review schedule.</p>
+<p>A report contains the chosen reason, an optional comment (up to 2,000 characters) and a copy of
+one question: exercise type, question and word identifiers (with its group), content version,
+instructions, the word or recording file name from the question, available answers, your answer,
+the expected answer, the outcome and the displayed explanation. The explanation includes the
+“More” section with the group's rule. Your mnemonics are never sent. It also includes the app name,
+version, build number and interface language. <strong>A comment may contain whatever you type
+yourself</strong> — please do not include personal or confidential information.</p>
+<p>We attach no person, installation, device or advertising identifier, no email address, and none
+of your answer history or study progress. Each report receives a random UUID so that retrying the
+same submission does not store it twice. The UUID identifies the report, not you; the server also
+records when it was received.</p>
+<p>The content is stored in a separate reports register, available to authorised staff in a
+protected administration panel, and is used only to check and improve the material or grading. It
+is not sent to usage statistics. A daily cleanup removes the question copy, answer, comment and
+staff text notes <strong>180 days after receipt</strong>. To keep unresolved problems in the queue,
+we retain a minimal record without that content: report UUID and app, dates, status, priority,
+backlog or linked-report references, planned and resolved versions, and a history of changed field
+names. This record remains until the case is closed and for 180 days after closure. Deleting the
+app or turning statistics off does not delete reports already sent.</p>
+<p>The connection exposes your IP address to the server. Abuse protection limits submissions
+(20 per 10 minutes) using a secured digest of that address in a separate counter, without linking it
+to the report; rate-limit entries are deleted after 24 hours. Technical logs contain metadata such
+as route, status, processing time and request identifier, not report content.</p>
+
+<h2 id="feedback-form">Feedback form: “Suggest a feature” and “Report a bug” — from version 2.0</h2>
+<p>In <em>Settings → Help</em> you will find <em>Suggest a feature</em> and <em>Report a bug</em>.
+Both open a form inside the app. Opening the form sends nothing. Only pressing <em>Send</em> sends
+your message to <code>https://api.jd-japanese.pl/v1/feedback</code>. The form requires no account,
+no purchase and no usage-statistics consent.</p>
+<p>A message contains its kind (idea or bug), a topic if you choose one, your text (up to 2,000
+characters) and, for a bug, an optional description of what happened before it. Below the text
+field, under <em>Sent with your message</em>, you can see the remaining data before sending: the
+app name, its version and build number, and the interface language. The <em>Include system and
+model</em> switch is on by default and adds the iOS version and the phone model identifier (for
+example <code>iPhone14,3</code>) — a series name shared by many units, not a device identifier. You
+can turn it off. Each message receives a random UUID so retrying the same submission does not store
+it twice; the server also records when it was received. We attach no person, installation, device,
+advertising or purchase identifier, and no study history or progress. <strong>Your text may contain
+whatever you write yourself</strong> — please do not include confidential information.</p>
+<p><strong>Email address — only if you want a reply.</strong> You enter an address only after
+turning on <em>I’d like a reply</em>. Turning it on means you agree that we may reply to that
+address about this one message. We do not add the address to any mailing list or use it for
+anything else. Without the switch the app does not send an address, and the server rejects an
+address sent without that consent. After sending, the address does not stay in the app: unsent text
+waits on your device as a draft, the address does not.</p>
+<p>The message is stored in a separate register, available to authorised staff in a protected
+administration panel. The email address is stored apart from the text, and the panel shows it only
+when a single message is opened, never in the list. The message is not sent to usage statistics,
+and its text and address are not written to server logs.</p>
+<p><strong>How long.</strong> We keep the address for 180 days together with the report, then
+delete it automatically. In the same daily cleanup, 180 days after receipt, we delete the message
+text, the description of what happened before the bug, the app version, build number, language,
+iOS version and phone model. To keep unresolved cases in the queue, a minimal record without that
+data remains: UUID and app, kind and topic, dates, status, priority, backlog or linked-message
+references, planned and resolved versions, and a history of changed field names. This record
+remains until the case is closed and for 180 days after closure. You can ask for earlier deletion
+by writing to <a href="mailto:kifuku@jd-japanese.pl">kifuku@jd-japanese.pl</a>. It is enough to give
+the email address you used in the form, or to describe the message so we can find it. If we reply
+to your address, that correspondence stays in our mailbox like any ordinary email; you can ask us
+to delete it too.</p>
+<p>The connection exposes your IP address to the server. Abuse protection limits submissions
+(20 per 10 minutes) using a secured digest of that address in a separate counter, without linking it
+to the message; the IP address itself is not stored in the register. The technical logs described
+under answer-card reports apply to the form as well.</p>
+
+<h2>Messages prepared in your mail app</h2>
+<p>In two places Kifuku prepares an email in your device's mail app: <em>Report the Japanese</em>
+in <em>Settings → Help</em>, and the startup error screen (the message contains the error
+description). <strong>Nothing is sent until you press “Send” in your mail app yourself.</strong> Both
+messages end with the app version, build number, iOS version and device model identifier — the
+whole text is visible and you can delete those lines before sending. If you write this way, or
+directly to the app's address, I will see your email address and the message, as with any ordinary
+correspondence. Such messages are used only to reply.</p>
+
+<h2>Shared progress with other apps</h2>
+<p>If you have my other Japanese-learning apps on the same device, Kifuku writes
+<strong>one small progress summary file</strong> to an area shared between those apps, so it can
+show you how the whole family is going. The file holds numbers, not personal data, and
+<strong>never leaves the device</strong>. Deleting the app deletes its entry.</p>
+
+<h2>Recordings and accent data</h2>
+<p>The app carries pronunciation recordings and accent data from open sources. They are embedded
+in the app file, so <strong>nothing is downloaded and nothing is streamed</strong>, and playing a
+recording sends no information anywhere. Authors and licences are credited inside the app, on the
+"Sources" screen.</p>
+
+<h2>Tracking and advertising</h2>
+<p>None. The app does not track you across other apps or websites, does not use the advertising
+identifier, and contains no advertising library or crash reporting. The only measurement is the
+optional usage statistics described above; an answer-card report and a feedback-form message are
+not measurement and are sent only after you press “Send”.</p>
+
+<h2>Purchases</h2>
+<p>The one-time purchase is handled entirely by Apple. Kifuku never sees your payment details —
+it only asks StoreKit whether the purchase exists.</p>
+
+<h2>Notifications</h2>
+<p>They are optional and only remind you about reviews. The app works fully without them and does
+not ask for permission on first launch.</p>
+
+<h2>Children</h2>
+<p>The app is rated 4+. Usage statistics are optional and off by default. A voluntarily sent comment
+or feedback-form message can contain personal information only if you type it yourself; please
+don't. The email address in the feedback form is optional and is used only to reply.</p>
+
+<h2>Changes</h2>
+<p>If this policy ever changes, the date at the top changes with it. This page's address carries
+the app version, so older releases always point at the document that actually described them.</p>
+</main>
+<footer>Kifuku 起伏 · Jakub Dwojak · <a href="mailto:kifuku@jd-japanese.pl">kifuku@jd-japanese.pl</a><br>
+<a href="../privacy.html">Polski</a></footer>
+</body>
+</html>

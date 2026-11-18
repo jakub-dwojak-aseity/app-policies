@@ -3240,11 +3240,18 @@ def podpisy_kadrow(repo: Path, jezyk: str, ref: str | None = None) -> dict:
             return {}
         tresc = wynik.stdout
     lokalizacja = {"pl": "pl", "en": "en-US"}[jezyk]
+    manifest = json.loads(tresc)
+    # Kadr startowy panoramy 2.0 (`screen: null`, bez `copy`) składa `make-store-frame.swift`
+    # z klucza `panorama.start` — nazwa i podtytuł, które widać na obrazku, są jego podpisem.
+    start = (manifest.get("panorama") or {}).get("start") or {}
     podpisy = {}
-    for kadr in json.loads(tresc).get("shots", []):
+    for kadr in manifest.get("shots", []):
         tresc = (kadr.get("copy") or {}).get(lokalizacja) or {}
         naglowek = (tresc.get("headline") or "").strip()
         podtytul = (tresc.get("subtitle") or "").strip()
+        if not naglowek and kadr.get("screen") is None and not kadr.get("copy") and start:
+            naglowek = (start.get("title") or "").strip()
+            podtytul = " ".join(((start.get("subtitle") or {}).get(lokalizacja) or "").split())
         if naglowek:
             podpisy[kadr["id"]] = (naglowek, podtytul)
     return podpisy

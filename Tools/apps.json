@@ -164,11 +164,10 @@
       "appId": "6801993668",
       "repo": "jp-grammar-1.2.5",
       "zrodlo": "kaname",
-      "wersja": "1.12.0",
-      "repoZrzuty": "jp-grammar",
+      "wersja": "2.0.0",
       "dokumenty": {
-        "pl": "kaname/1.12",
-        "en": "kaname/1.12/en"
+        "pl": "kaname/2.0",
+        "en": "kaname/2.0/en"
       },
       "ai": true,
       "kontakt": "kaname@jd-japanese.pl",
@@ -303,15 +302,15 @@
       "repo": "kifuku",
       "zrodlo": "md",
       "dokumenty": {
-        "pl": "kifuku/1.6",
-        "en": "kifuku/1.6/en"
+        "pl": "kifuku/2.0",
+        "en": "kifuku/2.0/en"
       },
       "ai": false,
       "kontakt": "kifuku@jd-japanese.pl",
       "ikona": "App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png",
       "wSklepie": true,
       "kolejnosc": 9,
-      "wersja": "1.6.1"
+      "wersja": "2.0.0"
     },
     {
       "slug": "onomatope",

@@ -8,7 +8,7 @@ Autor współprowadzi firmę Aseity (https://aseity.com.pl/pl/).
 
 ## Aplikacje
 
-- [Kaname: Gramatyka japońska](https://jd-japanese.pl/apps/kaname/): Powtórki JLPT: N5 N4 N3 N2 N1. Od reguły do własnego zdania. Porównuj podobne konstrukcje, ćwicz użycie gramatyki i wracaj do powtórek. Cały N5 ze wszystkimi ćwiczeniami za darmo.
+- [Kaname: Gramatyka japońska](https://jd-japanese.pl/apps/kaname/): Powtórki JLPT: N5 N4 N3 N2 N1. Cześć, tu Kinako! Prowadzę Cię po ścieżce lekcji od N5 do N1, a po odpowiedzi widać krótkie „dlaczego”. Cały N5 ćwiczymy za darmo.
 - [Bunmyaku: Japoński w zdaniu](https://jd-japanese.pl/apps/bunmyaku/): Słówka, kanji i furigana. Znasz znak. Znasz słowo. Ale czy przeczytasz je, gdy wyskoczy w środku zdania? To osobna pamięć – i ta aplikacja ją ćwiczy.
 - [Katsuyokei: Odmiana japońska](https://jd-japanese.pl/apps/katsuyokei/): Czasowniki, formy, fiszki. Formy biorą się z reguł, nie z pamięci. Ćwicz je, aż 書いて pojawi się, zanim zdążysz
 o nim pomyśleć.
@@ -17,12 +17,12 @@ o nim pomyśleć.
 - [Kuzushi: Mowa potoczna](https://jd-japanese.pl/apps/kuzushi/): Anime, dorama i skróty. Podręcznik uczy 〜ている. Ludzie mówią 〜てる. Kuzushi ćwiczy tę lukę: rozpoznawanie skrótu i wytwarzanie go są liczone osobno, bo to dwie różne umiejętności.
 - [Shindan: Poziom japońskiego](https://jd-japanese.pl/apps/shindan/): Test JLPT: N5 N4 N3 N2 N1. Sprawdź, co ćwiczyć dalej w japońskim. Rozwiąż diagnozę na czas, poznaj słabe strony i szacowany poziom w skali JLPT. Pierwszy arkusz jest darmowy.
 - [Keigo: Grzeczność japońska](https://jd-japanese.pl/apps/keigo/): Japoński formalny do pracy. Dobieraj grzeczność do rozmówcy. Ćwicz japońskie formy czczące i skromne oraz typowe błędy keigo. Poziomy 1 i 2 są w całości darmowe.
-- [Kifuku: Akcent japoński](https://jd-japanese.pl/apps/kifuku/): Wymowa, intonacja, słuchanie. Poznaj akcent japońskich słów. Porównuj wzorce, ćwicz odmianę i sprawdzaj słuch na nagraniach. Pięć poziomów, nauka offline.
+- [Kifuku: Akcent japoński](https://jd-japanese.pl/apps/kifuku/): Wymowa, intonacja, słuchanie. Cześć, tu Kinako! Prowadzę Cię po ścieżce 26 lekcji japońskiego akcentu tonicznego, a po odpowiedzi widać krótkie „dlaczego”. Pierwsze 12 lekcji ćwiczymy za darmo.
 - [Onomatope: Dźwięki i wyrażenia](https://jd-japanese.pl/apps/onomatope/): Słówka z mangi i anime. Podobne brzmienie, inne znaczenie. Porównuj onomatopeje na przykładach, czytaj tłumaczenia i wybieraj słowo, które pasuje do zdania.
 
 ## Wersja angielska
 
-- [Kaname: Japanese Grammar](https://jd-japanese.pl/en/apps/kaname/): JLPT practice: N5 N4 N3 N2 N1. Turn Japanese grammar into sentences you can use. Practise similar patterns, build your own examples and review at your pace. All N5 exercises are free.
+- [Kaname: Japanese Grammar](https://jd-japanese.pl/en/apps/kaname/): JLPT practice: N5 N4 N3 N2 N1. Hi, it’s Kinako! I’ll guide you along a lesson path from N5 to N1, and after you answer, you see a short “why”. All of N5 is free to practice.
 - [Bunmyaku: Japanese Reading](https://jd-japanese.pl/en/apps/bunmyaku/): Vocabulary, kanji, furigana. You know the kanji. You know the word. But can you read it when it turns up inside a sentence? That is a different memory – and this trains it.
 - [Katsuyokei: Conjugation](https://jd-japanese.pl/en/apps/katsuyokei/): Verbs, adjectives and drills. Verb forms come from rules, not from memory. Drill them until 書いて arrives before you
 have finished thinking about it.
@@ -31,7 +31,7 @@ have finished thinking about it.
 - [Kuzushi: Casual Japanese](https://jd-japanese.pl/en/apps/kuzushi/): Anime, drama and slang. Textbooks teach 〜ている. People say 〜てる. Kuzushi drills that gap: recognising a contraction and producing one are scored apart, because they are two different skills.
 - [Shindan: Japanese Level Test](https://jd-japanese.pl/en/apps/shindan/): JLPT placement: N5 N4 N3 N2 N1. Find what to study next in Japanese. Take a timed diagnostic, see your weak spots and get a JLPT-based level estimate. Your first test sheet is free.
 - [Keigo: Polite Japanese](https://jd-japanese.pl/en/apps/keigo/): Formal Japanese for work. Choose the right politeness for the situation. Practise respectful and humble Japanese, including common keigo mistakes. Levels 1 and 2 are free.
-- [Kifuku: Japanese Pitch Accent](https://jd-japanese.pl/en/apps/kifuku/): Pronunciation and listening. Learn Japanese pitch accent. Compare patterns, practice inflection, and train your ear with recordings. Five levels, offline learning.
+- [Kifuku: Japanese Pitch Accent](https://jd-japanese.pl/en/apps/kifuku/): Pronunciation and listening. Hi, it’s Kinako! I’ll guide you along a path of 26 Japanese pitch-accent lessons, and after each answer you’ll see a short “why”. The first 12 lessons are free.
 - [Onomatope: Japanese Mimetics](https://jd-japanese.pl/en/apps/onomatope/): Manga and anime vocabulary. Similar sounds, different meanings. Compare onomatopoeia through examples, read translations and choose the word that fits the sentence.
 
 ## Nauka japońskiego
